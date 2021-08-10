@@ -7,11 +7,21 @@ app = Flask(__name__, template_folder="templates")
 app.debug = True
 
 
+homeButtons = [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","#","#","#"]]
+
+
 @app.route("/")
 def home():
     
     return render_template(
         "home.html",
         date=datetime.now(),
-        buttonValues=["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"]
-        )
+        buttonValues=homeButtons)
+
+
+@app.route("/arbeitsplatz")
+def arbeitsplatz():
+    
+    return render_template(
+        "arbeitsplatz.html",
+        date=datetime.now())

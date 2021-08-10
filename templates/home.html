@@ -6,17 +6,17 @@
         <input type="text" name="input" class="form-control">
     </div>
     <div class="d-flex flex-column">
-        <button type="button" class="btn btn-primary btn-lg">{{buttonValues[0]}}</button>
-        <button type="button" class="btn btn-primary btn-lg">{{buttonValues[1]}}</button>
-        <button type="button" class="btn btn-primary btn-lg">{{buttonValues[2]}}</button>
-        <button type="button" class="btn btn-primary btn-lg">{{buttonValues[3]}}</button>
+        {% for items in range(0,buttonValues[0]|length) %}
+        <button type="button" onclick="window.location.href='{{buttonValues[1][items]}}'" class="btn btn-primary btn-lg">{{buttonValues[0][items]}}</button>
+        {% endfor %}
+        
     </div>
     <div class="card">
         <div class="col-md-8">
             <div class="row">
                 <button type="button" value="" class="btn btn-secondary">⌫</button>
-                <button type="button" value="7" class="btn btn-secondary">/</button>  
-                <button type="button" value="8" class="btn btn-secondary">*</button>
+                <button type="button" value="/" class="btn btn-secondary">/</button>  
+                <button type="button" value="*" class="btn btn-secondary">*</button>
             </div>
             <div class="row">
                 <button type="button" value="9" class="btn btn-secondary">9</button>
@@ -35,14 +35,14 @@
                 <button type="button" value="1" class="btn btn-secondary">1</button>
             </div>
             <div class="row">
-                <button type="button" value="7" class="btnZ">0</button>
-                <button type="button" value="8" class="btn btn-secondary">,</button>
+                <button type="button" value="0" class="btnZ">0</button>
+                <button type="button" value="," class="btn btn-secondary">,</button>
             </div>
         </div>
         <div class="col-md-4">
-            <button type="button" value="9" class="btn btn-secondary">-</button>
-            <button type="button" value="9" class="btn btn-light">↵</button>
-            <button type="button" value="8" class="btn btn-light">+</button>
+            <button type="button" value="-" class="btn btn-secondary">-</button>
+            <button type="button" value="submit" class="btn btn-light">↵</button>
+            <button type="button" value="+" class="btn btn-light">+</button>
         </div> 
     </div>
   </div>
