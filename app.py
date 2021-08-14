@@ -8,6 +8,7 @@ app.debug = True
 
 
 homeButtons = [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","#","#","#"]]
+sidebarItems =[["Berichte drucken","Arbeitsplatz Buchung","Gruppen Buchung","FA erfasssen","Gk ändern"],["#","#","#","#","#","#"]]
 
 
 @app.route("/")
@@ -16,7 +17,8 @@ def home():
     return render_template(
         "home.html",
         date=datetime.now(),
-        buttonValues=homeButtons)
+        buttonValues=homeButtons,
+        sidebarItems=sidebarItems)
 
 
 @app.route("/arbeitsplatz")
