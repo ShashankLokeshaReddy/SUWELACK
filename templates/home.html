@@ -20,51 +20,54 @@
     </a>
 
 </div>
-<div class="container" id="mainContainer">
+<div class="container">
     <div class="textInput">
         <input type="text" name="input" class="form-control">
     </div>
-    <div class="d-flex flex-column">
-        <!-- Dynamic population of Buttons -->
-        {% for items in range(0,buttonValues[0]|length) %}
-        <button type="button" onclick="window.location.href='{{buttonValues[1][items]}}'" class="btn btn-primary btn-lg">{{buttonValues[0][items]}}</button>
-        {% endfor %}
-        
-    </div>
-    <div class="card">
-        <!-- Keypad -->
-        <div class="col-md-8">
-            <div class="row">
-                <button type="button" value="" class="btn btn-secondary">⌫</button>
-                <button type="button" value="/" class="btn btn-secondary">/</button>  
-                <button type="button" value="*" class="btn btn-secondary">*</button>
-            </div>
-            <div class="row">
-                <button type="button" value="9" class="btn btn-secondary">9</button>
-                <button type="button" value="8" class="btn btn-secondary">8</button>
-                <button type="button" value="7" class="btn btn-secondary">7</button>
-            </div>
-            <div class="row">
+
+    <div class="pad">
+        <div class="d-flex flex-column">
+            <!-- Dynamic population of Buttons -->
+            {% for items in range(0,buttonValues[0]|length) %}
+            <button type="button" onclick="window.location.href='{{buttonValues[1][items]}}'" class="btn btn-primary btn-lg">{{buttonValues[0][items]}}</button>
+            {% endfor %}
             
-                <button type="button" value="6" class="btn btn-secondary">6</button>
-                <button type="button" value="5" class="btn btn-secondary">5</button>    
-                <button type="button" value="4" class="btn btn-secondary">4</button>
-            </div>
-            <div class="row">
-                <button type="button" value="3" class="btn btn-secondary">3</button>    
-                <button type="button" value="2" class="btn btn-secondary">2</button>
-                <button type="button" value="1" class="btn btn-secondary">1</button>
-            </div>
-            <div class="row">
-                <button type="button" value="0" class="btnZ">0</button>
-                <button type="button" value="," class="btn btn-secondary">,</button>
-            </div>
         </div>
-        <div class="col-md-4">
-            <button type="button" value="-" class="btn btn-secondary">-</button>
-            <button type="button" value="submit" class="btn btn-light">↵</button>
-            <button type="button" value="+" class="btn btn-light">+</button>
-        </div> 
+        <div class="card">
+            <!-- Keypad -->
+            <div class="col-md-8">
+                <div class="row">
+                    <button type="button" value="" class="btn btn-secondary">⌫</button>
+                    <button type="button" value="/" class="btn btn-secondary">/</button>  
+                    <button type="button" value="*" class="btn btn-secondary">*</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="7" class="btn btn-secondary">7</button>
+                </div>
+                <div class="row">
+                
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>    
+                    <button type="button" value="4" class="btn btn-secondary">4</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="3" class="btn btn-secondary">3</button>    
+                    <button type="button" value="2" class="btn btn-secondary">2</button>
+                    <button type="button" value="1" class="btn btn-secondary">1</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="0" class="btnZ">0</button>
+                    <button type="button" value="," class="btn btn-secondary">,</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="button" value="-" class="btn btn-secondary">-</button>
+                <button type="button" value="submit" class="btn btn-light">↵</button>
+                <button type="button" value="+" class="btn btn-light">+</button>
+            </div> 
+        </div>
     </div>
   </div>
   
