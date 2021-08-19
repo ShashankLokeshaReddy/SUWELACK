@@ -3,18 +3,18 @@
 {% block content%}  
 <div class="d-flex flex-row">
     <h2>Arbeitplatz</h2> 
-    <button  type="button" class="p-2 bd-highlight" data-toggle="button" aria-pressed="false">Alle</button>
-    <button  type="button" class="p-2 bd-highlight" data-toggle="button" aria-pressed="false">Ausgewählte </button>
+    <button  type="button" class="btn btn-light top" data-toggle="button" aria-pressed="false">Alle</button>
+    <button  type="button" class="btn btn-light top" data-toggle="button" aria-pressed="false">Ausgewählte </button>
   </div> 
 
   
-<div class="d-flex align-content-center flex-wrap justify-content-evenly">
+<div class="d-flex align-content-center flex-wrap justify-content-center">
     <!-- Dynamic population of Buttons -->
     {% for items in range(0,buttonText|length) %}
     <button type="button" onclick="" class="btn btn-primary btn-ap">{{buttonText[items]}}</button>
     {% endfor %}
 </div>
-<div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between bestätigen">
     <button type="button" onclick="" class="btn btn-primary btn-lg">Abbrechen</button>
     <button type="button" onclick="" class="btn btn-primary btn-lg">Bestätigen</button>
 </div>

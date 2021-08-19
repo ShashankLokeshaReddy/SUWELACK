@@ -5,6 +5,7 @@ body, html {
     height: 100%;
     width: 100%;
     font-family: 'SF Pro', sans-serif;
+    color: #17375E;
   }
 
 .btn-primary, .btn-primary:hover  {
@@ -14,7 +15,7 @@ body, html {
     margin: 15px 5px 15px 5px;
     color: #17375E;
     outline: none;
-    font-style: italic;
+    font-style: oblique;
     font-size: 20px;
     font-family: 'SF Pro', !important;
 
@@ -30,7 +31,7 @@ body, html {
     box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 1px 2px 2px 2px;
     color: #17375E;
-    font-style: italic;
+    font-style: oblique;
     font-family: 'SF Pro', !important;
     font-size: 20px;
     height: 55px;
@@ -42,7 +43,6 @@ body, html {
     box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 2px 2px 2px 2px;
     color: #17375E;
-    font-style: italic;
     font-family: 'SF Pro', !important;
     font-size: 20px;
     height: 115px;
@@ -167,7 +167,7 @@ body, html {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
-   /* The Arbeitplatz Buttons */
+ /* The Arbeitplatz Buttons */
 
 .btn-ap  {
     background-color:#F8F8F8 !important;
@@ -184,4 +184,25 @@ body, html {
 }
 .p-2{
     margin-left: 15px;
+}
+
+.flex-row{
+    margin: 30px 0px 60px 30px
+}
+.bestätigen{
+    margin: 100px 30px 20px 30px
+}
+.top{
+    height: 30px;
+    width: 110px;
+    margin-left: 20px;
+    font-size: 15px;
+    text-align: center !important;
+
+}
+.top:focus{
+    background-color: #ffbf0a !important;
+    outline: none;
+    
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
 }
