@@ -1,18 +1,33 @@
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'SF Pro', sans-serif;
+  }
+
+.btn-primary, .btn-primary:hover  {
     background-color:#F8F8F8 !important;
     border: none;
-    box-shadow: 5px 5px 10px 0 rgba(66, 133, 244,.16),2px 2px 10px 0 rgba(66, 133, 244,.12);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 15px 5px 15px 5px;
     color: #17375E;
+    outline: none;
     font-style: italic;
     font-size: 20px;
     font-family: 'SF Pro', !important;
 
 }
+.btn-primary:active:focus, .btn-primary:visited, .btn-primary:focus{
+    background-color: #ffbf0a !important;
+    outline: none;
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+}
 .btn-secondary, .btn-secondary:hover{
     background-color:#F8F8F8 !important;
     border: none;
-    box-shadow: 5px 5px 10px 0 rgba(66, 133, 244,.16),2px 2px 10px 0 rgba(66, 133, 244,.12);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 1px 2px 2px 2px;
     color: #17375E;
     font-style: italic;
@@ -24,7 +39,7 @@
 .btn-light{
     background-color:#F8F8F8 !important;
     border: none;
-    box-shadow: 5px 5px 10px 0 rgba(66, 133, 244,.16),2px 2px 10px 0 rgba(66, 133, 244,.12);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 2px 2px 2px 2px;
     color: #17375E;
     font-style: italic;
@@ -36,7 +51,7 @@
 .btnZ{
     background-color:#F8F8F8 !important;
     border: none;
-    box-shadow: 5px 5px 10px 0 rgba(66, 133, 244,.16),2px 2px 10px 0 rgba(66, 133, 244,.12);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 3px 2px 2px 2px;
     color: #17375E;
     font-style: italic;
@@ -53,13 +68,16 @@
     justify-content: center;
     margin: 50px 5px 5px 5px;
     flex-flow:column wrap;
+    max-width: 1076px;
     
 }
 .flex-column{
     float: left;
     margin-right: 30px;
-    margin-top: 20px;
+    margin-top: 10px;
     row-gap: 10px;
+    justify-content: space-evenly;
+    justify-items:flex-start;
 }
 .card{
     float: right;
@@ -70,13 +88,21 @@
     flex-wrap: wrap;                     
     justify-items: right !important;
     border: none;
-    box-shadow: 5px 5px 10px 0 rgba(66, 133, 244,.16),2px 2px 10px 0 rgba(66, 133, 244,.12);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
 }
-.textInput{
+
+.form-control,.form-control:focus, input, select{
     width: 560px;
+    height: 45px;
+    box-sizing: inherit;
     display: flex;
     flex-direction: column !important;
     align-self: center;
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    color: darkblue !important;
+    border: none;
+    outline: none;
+    
 }
 
 .navbar fixed-bottom navbar-light bg-light{
@@ -97,13 +123,6 @@
     font-family: 'SF Pro', !important;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    font-family: 'SF Pro', sans-serif;
-  }
 
   /* The side navigation menu */
 .sidenav {
@@ -148,3 +167,21 @@ body, html {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+   /* The Arbeitplatz Buttons */
+
+.btn-ap  {
+    background-color:#F8F8F8 !important;
+    border: none;
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    margin: 15px 5px 15px 5px;
+    color: #17375E;
+    font-style: italic;
+    font-size: 15px;
+    font-family: 'SF Pro', !important;
+    height: 60px;
+    width: 230px;
+
+}
+.p-2{
+    margin-left: 15px;
+}

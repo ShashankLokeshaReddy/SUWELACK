@@ -8,7 +8,12 @@ app.debug = True
 
 
 homeButtons = [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","#","#","#"]]
+
 sidebarItems =[["Berichte drucken","Arbeitsplatz Buchung","Gruppen Buchung","FA erfasssen","Gk ändern"],["#","#","#","#","#","#"]]
+
+arbeitsplatzItems =["Gruppe 20","Azubi Abt.", "Prämien", "Formwangen / Hauben","Formwangen Lack / Furnier","Eckpassstücke","Blenderzuschnitt",
+"Muldenprofit","Blockstollen / Jalousieschränke","Passsttüke UT/OT/HS","Plaster / Schiebetüren","Regale","Blindteile / Eckpassblenden","Sonderbau",
+"Holzschubkästen","Kantenmachine"]
 
 
 @app.route("/")
@@ -26,4 +31,5 @@ def arbeitsplatz():
     
     return render_template(
         "arbeitsplatz.html",
-        date=datetime.now())
+        date=datetime.now(),
+        buttonText=arbeitsplatzItems)
