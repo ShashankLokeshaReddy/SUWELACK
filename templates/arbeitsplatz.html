@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %} Arbeitplatz {% endblock %}
-{% block content%}  
+{% block content%} 
+<div class="alert alert-success" role="alert">
+    <img  src="../static/images/Icons_Info.svg" width="100" height="50"  viewBox="0 0 16 16" role="img" aria-label="Warning:">
+    <strong>Success!</strong> You have been signed in successfully!
+  </div>
 <div class="d-flex flex-row">
     <h2>Arbeitplatz</h2> 
     <button  type="button" class="btn btn-light top" data-toggle="button" aria-pressed="false">Alle</button>
@@ -18,4 +22,10 @@
     <button type="button" onclick="" class="btn btn-primary btn-lg">Abbrechen</button>
     <button type="button" onclick="" class="btn btn-primary btn-lg">Bestätigen</button>
 </div>
+
+<script>
+    window.setTimeout(function() {
+        $(".alert").remove()
+    }, 2000);
+</script>
 {% endblock %}
