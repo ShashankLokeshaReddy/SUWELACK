@@ -1,21 +1,24 @@
 {% extends "base.html" %}
 {% block title %} Arbeitplatz {% endblock %}
 {% block content%} 
-<div class="alert alert-success" role="alert">
-    <img  src="../static/images/Icons_Info.svg" width="100" height="50"  viewBox="0 0 16 16" role="img" aria-label="Warning:">
-    <strong>Success!</strong> You have been signed in successfully!
-  </div>
+<div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
+    
+    <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+    <p><strong>{{username}} - </strong> Anmeldung  :{{ date.strftime( "%H:%M") }} Uhr</p>
+    <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+
+    </div>
 <div class="d-flex flex-row">
     <h2>Arbeitplatz</h2> 
-    <button  type="button" class="btn btn-light top" data-toggle="button" aria-pressed="false">Alle</button>
-    <button  type="button" class="btn btn-light top" data-toggle="button" aria-pressed="false">Ausgewählte </button>
+    <button  type="button" class="btn btn-light topButton" data-toggle="button" aria-pressed="false">Alle</button>
+    <button  type="button" class="btn btn-light topButton" data-toggle="button" aria-pressed="false">Ausgewählte </button>
   </div> 
 
   
 <div class="d-flex align-content-center flex-wrap justify-content-center">
     <!-- Dynamic population of Buttons -->
-    {% for items in range(0,buttonText|length) %}
-    <button type="button" onclick="" class="btn btn-primary btn-ap">{{buttonText[items]}}</button>
+    {% for items in range(0,buttonText[0]|length) %}
+    <button type="button" onclick="window.location.href='{{buttonText[1][items]}}'" class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
     {% endfor %}
 </div>
 <div class="d-flex justify-content-between bestätigen">
@@ -25,7 +28,7 @@
 
 <script>
     window.setTimeout(function() {
-        $(".alert").remove()
+        $(".alert").slideUp("normal", function() { $(this).remove(); } );
     }, 2000);
 </script>
 {% endblock %}

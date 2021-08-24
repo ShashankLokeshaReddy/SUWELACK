@@ -192,7 +192,7 @@ body, html {
 .bestätigen{
     margin: 100px 30px 20px 30px
 }
-.top{
+.topButton{
     height: 30px;
     width: 110px;
     margin-left: 20px;
@@ -200,11 +200,17 @@ body, html {
     text-align: center !important;
 
 }
-.top:focus{
+.topButton:focus{
     background-color: #ffbf0a !important;
     outline: none;
-    
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
 }
 
-
+.topNotification{
+    background-color: #ffbf0a;
+    box-shadow: 2px 2px 30px 0 rgba(205, 205, 205,0.5),2px 2px 30px 0 rgba(205, 205, 205,.5);
+    font-style: oblique;
+    color: #17375E;
+    font-family: 'SF Pro', !important;
+    font-size: 20px;
+}
