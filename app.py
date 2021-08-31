@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, session
+from flask import render_template, request
 #from flask_login import current_user, login_user, LoginManager
 from datetime import datetime
 
@@ -30,12 +30,14 @@ def home():
         sidebarItems=sidebarItems)
 
 
-@app.route("/arbeitsplatz")
+@app.route("/arbeitsplatz", methods=["POST", "GET"])
 def arbeitsplatz():
     #login_user(user)
-    session["user"]=user
+    arbeitsplatzAP = request.form.get('selectedbuttonAP')
+    print(arbeitsplatzAP)
     return render_template(
         "arbeitsplatz.html",
         date=datetime.now(),
         username=user,
-        buttonText=arbeitsplatzItems)
+        buttonText=arbeitsplatzItems,
+        sidebarItems=sidebarItems)
