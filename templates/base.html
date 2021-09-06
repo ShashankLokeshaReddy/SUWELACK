@@ -13,7 +13,7 @@
     </head>
 
     <body>
-        {% block navbar %}{% endblock %}
+        
         <div class= "navbar navbar-light bg-light">
             <div id="mySidenav" class="sidenav">
                     <!--Generation of Navbar items--> 
@@ -22,7 +22,7 @@
                         {% for items in range(0,sidebarItems[0]|length) %}
                         <a onclick="window.location.href='{{sidebarItems[1][items]}}'" class="list-group-item list-group-item-action bg-light">{{sidebarItems[0][items]}}</a>
                         {% endfor %}
-              </div>
+            </div>
             
               <!--open Navbar--> 
               <a class="navbar-brand" href="#"><img onclick="openNav()" src="../static/images/Icons_Menü.svg" width="50" height="50" alt="">
@@ -31,9 +31,15 @@
                 <img style="align-self: flex-end;" src="../static/images/Icons_Online.svg" width="50" height="50" alt="">
                 </a>
             
-            </div>
+          </div>
+            
+        {% block navbar %}{% endblock %}
         <script>
-        
+          /* Notifcation Script */
+        window.setTimeout(function() {
+        $(".alert").slideUp("normal", function() { $(this).remove(); } );
+        }, 3000);
+        /* Side Bar Script */
         function openNav() {
           document.getElementById("mySidenav").style.width = "250px";
         }

@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, flash, redirect, url_for
 #from flask_login import current_user, login_user, LoginManager
 from datetime import datetime
 
@@ -35,13 +35,17 @@ def arbeitsplatz():
     #login_user(user)
     arbeitsplatzAP = request.form.get('selectedbuttonAP')
     print(arbeitsplatzAP)
+    if request.method == 'POST':
+        flash(arbeitsplatzAP)
+        print("successful")
+        return redirect('/')
     return render_template(
-        "arbeitsplatz.html",
-        date=datetime.now(),
-        username=user,
-        buttonText=arbeitsplatzItems,
-        sidebarItems=sidebarItems
-        )
+            "arbeitsplatz.html",
+            date=datetime.now(),
+            username=user,
+            buttonText=arbeitsplatzItems,
+            sidebarItems=sidebarItems
+            )
 
 @app.route("/gemeinkosten", methods=["POST","GET"])
 def gemeinkosten():
