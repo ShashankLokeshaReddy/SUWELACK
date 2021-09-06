@@ -40,4 +40,14 @@ def arbeitsplatz():
         date=datetime.now(),
         username=user,
         buttonText=arbeitsplatzItems,
-        sidebarItems=sidebarItems)
+        sidebarItems=sidebarItems
+        )
+
+@app.route("/gemeinkosten", methods=["POST","GET"])
+def gemeinkosten():
+    return render_template(
+        "gemeinkosten.html",
+        date=datetime.now(),
+        buttonText=arbeitsplatzItems,
+        sidebarItems=sidebarItems
+        )

@@ -9,7 +9,7 @@
   </div> 
 
 <form action='#' methods="post">
-<div class="d-flex align-content-center flex-wrap justify-content-center">
+<div class="grp d-flex align-content-center flex-wrap justify-content-center">
     <!-- Dynamic population of Buttons -->
     {% for items in range(0,buttonText[0]|length) %}
     <button type="button" name="arbeitplatzbuttons" value='{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
@@ -24,56 +24,28 @@
     window.setTimeout(function() {
         $(".alert").slideUp("normal", function() { $(this).remove(); } );
     }, 5000);
+
+    $('.btn-ap').click(function () {    
+    $(this).addClass("selected");  
+    console.log('button is selected')
+    });
+
     $(document).ready(function(){
         $('#submit').click(function(){
-            var selectedbuttonAP = $("input[type='button'][name='arbeitplatzbuttons']:selected").val();
+          
+            //var object = $('.grp').find(".btn-ap");
+            //value = $('.btn-ap').find(".selected");
+            //var selectedbuttonAP = $("input[type='button'][name='arbeitplatzbuttons'].selected").val();
             /* document.getElementsByName("arbeitplatzbuttons:selected").value; */
+            var value = $('.btn-ap').filter('.selected').val();
+            //var value = document.getElementsByClassName('btn-ap').find('.selected');
+            console.log(value);
             $.post(
               "/arbeitsplatz",
-              { selectedbuttonAP: selectedbuttonAP })
+              { selectedbuttonAP: value })
         });
   });
 </script>
 </form>
 
-{% endblock %}
-
-
-{% block navbar %}
-<div class= "navbar navbar-light bg-light">
-    <div id="mySidenav" class="sidenav">
-            <!--Generation of Navbar items--> 
-            
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                {% for items in range(0,sidebarItems[0]|length) %}
-                <a onclick="window.location.href='{{sidebarItems[1][items]}}'" class="list-group-item list-group-item-action bg-light">{{sidebarItems[0][items]}}</a>
-                {% endfor %}
-      </div>
-    
-      <!--open Navbar--> 
-      <a class="navbar-brand" href="#"><img onclick="openNav()" src="../static/images/Icons_Menü.svg" width="100" height="50" alt="">
-        <img style="margin-left: 20px;" src="../static/images/Icons_Tastatur.svg" width="100" height="50"  alt=""></a>
-        <a class="navbar-brand" href="#">
-        <img style="align-self: flex-end;" src="../static/images/Icons_Online.svg" width="100" height="50" alt="">
-        </a>
-    
-    </div>
-
-<div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
-    
-    <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
-    <p><strong>{{username}} - </strong> Anmeldung  :{{ date.strftime( "%H:%M") }} Uhr</p>
-    <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
-
-    </div>
-<script>
-
-        function openNav() {
-          document.getElementById("mySidenav").style.width = "250px";
-        }
-        
-        function closeNav() {
-          document.getElementById("mySidenav").style.width = "0";
-        }
-</script>
 {% endblock %}
