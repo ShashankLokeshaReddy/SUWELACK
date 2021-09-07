@@ -229,3 +229,14 @@ body, html {
     font-size: 20px;
 
 }
+
+ /* The Identification Page */
+ .identification {
+    font-style: oblique;
+    font-size: 20px;
+    align-items: center !important;
+    width: min-content;
+    text-align: center;
+    margin-top: 20px !important;
+    row-gap: 0px;
+ }

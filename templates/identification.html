@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %} Identification {% endblock %}
+
+{% block content%} 
+<div class="container">
+    <div class="textInput">
+        <input type="text" name="input" class="form-control">
+    </div>
+
+    <div class="pad">
+        <div class="d-flex flex-column identification">
+            <!-- Identification -->
+            Zum Dashboard
+            <a class="navbar-brand" href="#"><img src="../static/images/Icons_Kartenscan.svg" width="300" height="200" alt=""></a>
+            <p>Bitte bestätigen Sie mit Ihrem Coin oder Ihrer Personalnummer</p>
+
+            
+            
+        </div>
+        <div class="card">
+            <!-- Keypad -->
+            <div class="col-md-8">
+                <div class="row">
+                    <button type="button" value="" class="btn btn-secondary">⌫</button>
+                    <button type="button" value="/" class="btn btn-secondary">/</button>  
+                    <button type="button" value="*" class="btn btn-secondary">*</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="7" class="btn btn-secondary">7</button>
+                </div>
+                <div class="row">
+                
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>    
+                    <button type="button" value="4" class="btn btn-secondary">4</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="3" class="btn btn-secondary">3</button>    
+                    <button type="button" value="2" class="btn btn-secondary">2</button>
+                    <button type="button" value="1" class="btn btn-secondary">1</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="0" class="btnZ">0</button>
+                    <button type="button" value="," class="btn btn-secondary">,</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="button" value="-" class="btn btn-secondary">-</button>
+                <button type="button" value="submit" class="btn btn-light">↵</button>
+                <button type="button" value="+" class="btn btn-light">+</button>
+            </div> 
+        </div>
+    </div>
+  </div>
+  
+{% endblock %}
