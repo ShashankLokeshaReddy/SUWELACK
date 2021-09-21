@@ -74,10 +74,15 @@ def gemeinkosten():
         )
 
 
-@app.route("/identification")
+@app.route("/identification", methods=["POST","GET"])
 def identification():
-    return render_template(
-        "identification.html",
-        date=datetime.now(),
-        sidebarItems=sidebarItems
+    if request.method == 'POST':
+        UserID = request.form["inputfield"]
+        print(UserID)
+        return redirect('/arbeitsplatz')
+    else:
+        return render_template(
+            "identification.html",
+            date=datetime.now(),
+            sidebarItems=sidebarItems
         )
