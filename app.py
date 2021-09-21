@@ -10,7 +10,7 @@ app.secret_key="suwelack"
 #login_manager = LoginManager()
 
 
-homeButtons = [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","gemeinkosten","#","#"]]
+homeButtons = [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","gemeinkosten","auftrage","dashboard"]]
 
 sidebarItems =[["Berichte drucken","Arbeitsplatz Buchung","Gruppen Buchung","FA erfasssen","Gk ändern"],["#","#","#","#","#","#"]]
 
@@ -23,16 +23,24 @@ gemeinkostenItems =["Warten auf Auftrag","Fertiggungslohn/Zeitlohn","Sonstige Ge
 "Reinigung","Rüsten","Instandhaltung"]
 
 user="Abdullah"
+userlist= [[],[],[]]
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def home():
-    return render_template(
-        "home.html",
-        date=datetime.now(),
-        username=user,
-        buttonValues=homeButtons,
-        sidebarItems=sidebarItems
-        )
+    if request.method == 'POST':
+
+        selectedButton = request.form["selectedButton"]
+        print(selectedButton)
+        return redirect(url_for("identification", page=selectedButton))
+
+    else:
+        return render_template(
+            "home.html",
+            date=datetime.now(),
+            username=user,
+            buttonValues=homeButtons,
+            sidebarItems=sidebarItems
+            )
 
 
 @app.route("/arbeitsplatz", methods=["POST", "GET"])
@@ -74,12 +82,17 @@ def gemeinkosten():
         )
 
 
-@app.route("/identification", methods=["POST","GET"])
-def identification():
+@app.route("/identification/<page>", methods=["POST","GET"])
+def identification(page):
     if request.method == 'POST':
         UserID = request.form["inputfield"]
         print(UserID)
-        return redirect('/arbeitsplatz')
+        print(page)
+        #userlist[0][0].append(user)
+        #userlist[1][0].append(UserID)
+        #userlist[2][0].append(page)
+        print(userlist)
+        return redirect(f'/{page}')
     else:
         return render_template(
             "identification.html",
