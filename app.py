@@ -23,7 +23,7 @@ gemeinkostenItems =["Warten auf Auftrag","Fertiggungslohn/Zeitlohn","Sonstige Ge
 "Reinigung","Rüsten","Instandhaltung"]
 
 user="Abdullah"
-userlist= [[],[],[]]
+userlist= [["arbeitsplatz","6985", "Abdullah","555544"]]
 
 @app.route("/", methods=["POST", "GET"])
 def home():
@@ -88,7 +88,9 @@ def identification(page):
         UserID = request.form["inputfield"]
         print(UserID)
         print(page)
-        #userlist[0][0].append(user)
+        date=datetime.now()
+        date= date.strftime("%d %B, %Y - %H:%M")
+        userlist.append([page,UserID,user,date])
         #userlist[1][0].append(UserID)
         #userlist[2][0].append(page)
         print(userlist)
