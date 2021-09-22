@@ -9,9 +9,9 @@ body, html {
   }
 
 .btn-primary, .btn-primary:hover  {
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 ;
     border: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 15px 5px 15px 5px;
     color: #17375E;
     outline: none;
@@ -25,12 +25,14 @@ body, html {
 .btn-primary:active:focus, .btn-primary:visited, .btn-primary:focus{
     background-color: #ffbf0a !important;
     outline: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    color: #f1f1f1 !important;
+
 }
 .btn-secondary, .btn-secondary:hover{
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 1px 2px 2px 2px;
     color: #17375E;
     font-style: oblique;
@@ -40,9 +42,9 @@ body, html {
     width: 55px;
 }
 .btn-light{
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 2px 2px 2px 2px;
     color: #17375E;
     font-family: 'SF Pro', !important;
@@ -51,9 +53,9 @@ body, html {
     width: 55px;
 }
 .btnZ{
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 3px 2px 2px 2px;
     color: #17375E;
     font-style: oblique;
@@ -61,6 +63,12 @@ body, html {
     font-size: 20px;
     height: 55px;
     width: 116.5px;
+}
+.btnZ:active:focus, .btnZ:visited, .btnZ:focus{
+
+    outline: none !important;
+    border: none !important;
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
 }
 
 .container{
@@ -90,7 +98,8 @@ body, html {
     flex-wrap: wrap;                     
     justify-items: right !important;
     border: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    background-color: #F4F4F4;
 }
 
 .form-control,.form-control:focus, input, select{
@@ -100,15 +109,16 @@ body, html {
     display: flex;
     flex-direction: column !important;
     align-self: center;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     color: darkblue !important;
     border: none;
     outline: none;
+    background-color: #F4F4F4;
     
 }
 
 .navbar fixed-bottom navbar-light bg-light{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-family: 'SF Pro', Tahoma, Geneva, Verdana, sans-serif !important;
 }
 .row {
     display: block;
@@ -147,7 +157,7 @@ body, html {
     text-decoration: none;
     font-size: 20px;
     font-family: 'SF Pro', sans-serif;
-    color: #818181;
+    color: #7A7A7A;
     display: block;
     transition: 0.3s;
   }
@@ -172,7 +182,7 @@ body, html {
  /* The Arbeitplatz Buttons */
 
 .btn-ap, .btn-ap:hover  {
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 15px 5px 15px 5px;
@@ -188,14 +198,28 @@ body, html {
     background-color: #ffbf0a !important;
     outline: none;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    color: #f1f1f1;
 }
-.submit {
+.abrechh , .abrechh:active ,.abrechh:focus, .abrechh:visited {
+    background-color: #7A7A7A; !important;
     height: 70px !important;
     width: 200px !important;
     font-style: normal !important;
     font-weight: bolder !important;
+    color: #f1f1f1; !important;
+
+
 }
 
+.submit2 {
+    height: 70px !important;
+    width: 200px !important;
+    font-style: normal !important;
+    font-weight: bolder !important;
+    color: #f1f1f1; !important;
+    background-color: #ffbf0a !important;
+
+}
 .p-2{
     margin-left: 15px;
 }
@@ -214,9 +238,10 @@ body, html {
     text-align: center !important;
 
 }
-.topButton:focus{
+.topButton:focus, .topButton:active:focus, .topButton:visited{
     background-color: #ffbf0a !important;
     outline: none;
+    color: #f1f1f1;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
 }
 
@@ -229,7 +254,6 @@ body, html {
     font-size: 20px;
 
 }
-
  /* The Identification Page */
  .identification {
     font-style: oblique;
