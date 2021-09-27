@@ -12,7 +12,7 @@ app.secret_key="suwelack"
 
 homeButtons = [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","gemeinkosten","auftrage","dashboard"]]
 
-sidebarItems =[["Berichte drucken","Arbeitsplatz Buchung","Gruppen Buchung","FA erfasssen","Gk ändern"],["#","#","#","#","#","#"]]
+sidebarItems =[["Status","Berichte drucken","Auftragsbuchung","Gruppenbuchung","Fertigungauftrag erfasssen","Gemeinkosten ändern"],["status","berichtdrucken","auftragsbuchung","gruppenbuchung","fertigungsauftrag","gemeinkostenandern"]]
 
 arbeitsplatzItems =[["Gruppe 20","Azubi Abt.", "Prämien", "Formwangen / Hauben","Formwangen Lack / Furnier","Eckpassstücke","Blenderzuschnitt",
 "Muldenprofit","Blockstollen / Jalousieschränke","Passsttüke UT/OT/HS","Plaster / Schiebetüren","Regale","Blindteile / Eckpassblenden","Sonderbau",
@@ -88,7 +88,9 @@ def identification(page):
         UserID = request.form["inputfield"]
         print(UserID)
         print(page)
+        # SQL read to retrieve username then we will add the entry into the DB wrt to the USERID, Name and timestamp.
         date=datetime.now()
+
         date= date.strftime("%d %B, %Y - %H:%M")
         userlist.append([page,UserID,user,date])
         #userlist[1][0].append(UserID)
@@ -101,3 +103,49 @@ def identification(page):
             date=datetime.now(),
             sidebarItems=sidebarItems
         )
+
+@app.route("/status", methods=["POST","GET"])
+def status():
+    return render_template(
+        "status.html",
+        date=datetime.now(),
+        sidebarItems=sidebarItems
+    )
+
+@app.route("/berichtdrucken", methods=["POST","GET"])
+def berichtdrucken():
+    return render_template(
+        "berichtdrucken.html",
+        date=datetime.now(),
+        sidebarItems=sidebarItems
+    )
+
+@app.route("/auftragsbuchung", methods=["POST","GET"])
+def auftragsbuchung():
+    return render_template(
+        "auftragsbuchung.html",
+        date=datetime.now(),
+        sidebarItems=sidebarItems
+    )
+
+@app.route("/gruppenbuchung", methods=["POST","GET"])
+def gruppenbuchung():
+    return render_template(
+        "gruppenbuchung.html",
+        date=datetime.now(),
+        sidebarItems=sidebarItems
+    )
+@app.route("/fertigungsauftrag", methods=["POST","GET"])
+def fertigungsauftrag():
+    return render_template(
+        "fertigungsauftrag.html",
+        date=datetime.now(),
+        sidebarItems=sidebarItems
+    )
+@app.route("/gemeinkostenandern", methods=["POST","GET"])
+def gemeinkostenandern():
+    return render_template(
+        "gemeinkostenandern.html",
+        date=datetime.now(),
+        sidebarItems=sidebarItems
+    )
