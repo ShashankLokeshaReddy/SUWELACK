@@ -5,7 +5,7 @@ body, html {
     height: 100%;
     width: 100%;
     font-family: 'SF Pro', sans-serif;
-    color: #17375E;
+    color: #232323;
   }
 
 .btn-primary, .btn-primary:hover  {
@@ -13,7 +13,7 @@ body, html {
     border: none;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 15px 5px 15px 5px;
-    color: #17375E;
+    color: #232323;
     outline: none;
     font-style: oblique;
     font-size: 20px;
@@ -34,7 +34,7 @@ body, html {
     border: none;
     box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 1px 2px 2px 2px;
-    color: #17375E;
+    color: #232323;
     font-style: oblique;
     font-family: 'SF Pro', !important;
     font-size: 20px;
@@ -46,7 +46,7 @@ body, html {
     border: none;
     box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 2px 2px 2px 2px;
-    color: #17375E;
+    color: #232323;
     font-family: 'SF Pro', !important;
     font-size: 20px;
     height: 115px;
@@ -57,7 +57,7 @@ body, html {
     border: none;
     box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 3px 2px 2px 2px;
-    color: #17375E;
+    color: #232323;
     font-style: oblique;
     font-family: 'SF Pro', !important;
     font-size: 20px;
@@ -186,7 +186,7 @@ body, html {
     border: none;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
     margin: 15px 5px 15px 5px;
-    color: #17375E;
+    color: #232323;
     font-style: oblique;
     font-size: 15px;
     font-family: 'SF Pro', !important;
@@ -225,10 +225,11 @@ body, html {
 }
 
 .flex-row{
-    margin: 10px 0px 40px 30px
+    margin: 10px 0px 40px 30px;
+    align-items:baseline;
 }
 .bestätigen{
-    margin: 50px 30px 20px 30px;
+    margin: 40px 30px 20px 30px;
 }
 .topButton{
     height: 30px;
@@ -249,7 +250,7 @@ body, html {
     background-color: #ffbf0a;
     box-shadow: 2px 2px 30px 0 rgba(205, 205, 205,0.5),2px 2px 30px 0 rgba(205, 205, 205,.5);
     font-style: oblique;
-    color: #17375E;
+    color: #232323;
     font-family: 'SF Pro', !important;
     font-size: 20px;
 
@@ -263,4 +264,10 @@ body, html {
     text-align: center;
     margin-top: 20px !important;
     row-gap: 0px;
+ }
+ .bericht{
+     float: inherit !important;
+ }
+ .statustable{
+     margin:20px;
  }

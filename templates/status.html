@@ -1,2 +1,63 @@
 {% extends "base.html" %}
 {% block title %} Status {% endblock %}
+
+{% block content%}
+ <div class="statustable">
+    <h3>Status</h3>
+<table class="table table-striped">
+   <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Aktion</th>
+      <th scope="col">Arbeitplatz</th>
+      <th scope="col">Bezeihung</th>
+        <th scope="col">Von</th>
+        <th scope="col">Bis</th>
+        <th scope="col">Dauer</th>
+        <th scope="col">Menge</th>
+        <th scope="col">Auftragsstatus</th>
+        <th scope="col">Pers.Nr</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Gekommen</th>
+      <td>G020</td>
+      <td>Gruppe 20</td>
+      <td>09:45 Uhr</td>
+      <td>09:53 Uhr</td>
+      <td>19 Min</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">Wechselbuchung</th>
+      <td>F102</td>
+      <td>Blockstollen</td>
+      <td>09:53 Uhr</td>
+      <td></td>
+      <td>10 Min</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <tr>
+      <th scope="row">Gekommen</th>
+      <td>J102</td>
+      <td>Jalousieschränke</td>
+      <td>09:53 Uhr</td>
+      <td>10:00 Uhr</td>
+      <td>10 Min</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+  </tbody>
+</table>
+ </div>
+{% endblock %}
