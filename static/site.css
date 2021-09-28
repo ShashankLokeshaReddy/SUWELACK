@@ -229,7 +229,10 @@ body, html {
     align-items:baseline;
 }
 .bestätigen{
-    margin: 40px 30px 20px 30px;
+    margin: 70px 30px 20px 30px;
+}
+.bestätigen2{
+    margin: 10px 30px 20px 30px;
 }
 .topButton{
     height: 30px;
@@ -270,4 +273,31 @@ body, html {
  }
  .statustable{
      margin:20px;
+ }
+ .inputbutton{
+     width: 330px !important;
+     height: 45px !important;
+ }
+
+ .kurztext{
+     width: 330px !important;
+     height: 150px !important;
+ }
+ .inputtextcolumn{
+    row-gap: 22px;
+    align-items: end;
+ }
+ .containerr{
+     align-self: center;
+     display: flex;
+     justify-content: center;
+     flex-flow:column wrap;
+     max-width: 1076px;
+ }
+ .inputbuttontable{
+     width: 250px !important;
+     height: 45px !important;
+ }
+ .label{
+     align-self: end;
  }
