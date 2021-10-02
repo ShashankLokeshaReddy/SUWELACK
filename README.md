@@ -15,6 +15,6 @@ In order to run the SUWELACK interface on local machine follow the steps below:
     - It can be either done by opening the directory as a project in the IDE or entering the following command in terminal:
     - code .
 
-6. Once the project is open and all the distributions are install; You can run the project by entering the following command in the terminal:
+6. Once the project is open and all the distributions are installed; You can run the project by entering the following command in the terminal:
     - python -m flask run
 
