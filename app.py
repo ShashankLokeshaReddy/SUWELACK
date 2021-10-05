@@ -116,6 +116,7 @@ def status():
 def berichtdrucken():
     return render_template(
         "berichtdrucken.html",
+        arbeitsplatzgruppe=get_list("arbeitsplatzgruppe"),
         date=datetime.now(),
         sidebarItems=sidebarItems
     )
@@ -149,3 +150,6 @@ def gemeinkostenandern():
         date=datetime.now(),
         sidebarItems=sidebarItems
     )
+def get_list(listname):
+    if listname == "arbeitsplatzgruppe":
+        return ["Frontenlager","Verschiedenes(bundes)","Lehrwerkstatt","AV(Bunde)"]

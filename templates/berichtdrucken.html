@@ -15,7 +15,16 @@
   </div>
   <div class="d-flex flex-row">
       <p class="textclass">Arbeitsplatzgruppe:      </p>
-      <button type="button" class="btn btn-primary dropdown-toggle radiobuttonsself">Lehrwerksatatt   </button>
+      <div class="dropdown">
+      <button type="button"  data-toggle="dropdown" class="btn btn-primary dropdown-toggle radiobuttonsself">Lehrwerksatatt   </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for items in range(0,arbeitsplatzgruppe|length) %}
+    <a class="dropdown-item" href="#" >{{arbeitsplatzgruppe[items]}}</a>
+    {% endfor %}
+
+  </div>
+
+      </div>
   </div>
   <div class="d-flex flex-row btn-group btn-group-toggle" data-toggle="buttons">
       <p class="textclass">Zeitraum:      </p>
@@ -35,5 +44,18 @@
     <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
     <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">Vorschau</button>
 </div>
+<script>
+     $(function(){
+
+    $(".dropdown-menu a").click(function(){
+
+      $(".radiobuttonsself:first-child").text($(this).text());
+      $(".radiobuttonsself:first-child").val($(this).text());
+
+   });
+
+});
+    </script>
     </div>
+
 {% endblock %}
