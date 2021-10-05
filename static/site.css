@@ -22,7 +22,7 @@ body, html {
 
 }
 
-.btn-primary:active:focus, .btn-primary:visited, .btn-primary:focus{
+.btn-primary:active:focus, .btn-primary:active,.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:visited, .btn-primary:focus{
     background-color: #ffbf0a !important;
     outline: none;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
@@ -78,7 +78,7 @@ body, html {
     justify-content: center;
     margin: 50px 5px 5px 5px;
     flex-flow:column wrap;
-    max-width: 1076px;
+    width: 100%;
     
 }
 .flex-column{
@@ -230,9 +230,13 @@ body, html {
 }
 .bestätigen{
     margin: 70px 30px 20px 30px;
+
 }
 .bestätigen2{
     margin: 10px 30px 20px 30px;
+    align-self: flex-end;
+    margin-top: auto;
+    width: -webkit-fill-available;
 }
 .topButton{
     height: 30px;
@@ -270,9 +274,18 @@ body, html {
  }
  .bericht{
      float: inherit !important;
+     row-gap: 0px;
  }
  .statustable{
      margin:20px;
+     height:80%;
+ }
+  .statustableflex{
+     margin:20px;
+     height:80%;
+      width: 95%;
+      display: flex;
+    flex-direction: column;
  }
  .inputbutton{
      width: 330px !important;
@@ -290,9 +303,8 @@ body, html {
  .containerr{
      align-self: center;
      display: flex;
-     justify-content: center;
      flex-flow:column wrap;
-     max-width: 1076px;
+     width: 100%;
  }
  .inputbuttontable{
      width: 250px !important;
@@ -301,3 +313,42 @@ body, html {
  .label{
      align-self: end;
  }
+ .radiobuttonsself{
+     width: 290px !important;
+    height: 65px !important;
+    margin-left: 20px !important;
+    font-style: normal;
+    padding-top: 15px;
+ }
+
+ .textclass{
+     align-self: end;
+    font-size: x-large;
+    font-style: oblique;
+ }
+ table {
+    display: flex;
+    flex-flow: column;
+    height: 80%;
+    width: 100%;
+}
+table thead {
+    /* head takes the height it requires,
+    and it's not scaled when table is resized */
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
+}
+table tbody {
+    /* body takes all the remaining available space */
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+table tbody tr {
+    width: 100%;
+}
+table thead,
+table tbody tr {
+    display: table;
+    table-layout: fixed;
+}

@@ -1,22 +1,33 @@
 {% extends "base.html" %}
 {% block title %} Berichte drucken {% endblock %}
 {% block content%}
-    <div class="statustable">
+    <div class="statustableflex">
 <h3>Bericht drucken</h3>
 <div class="d-flex flex-column bericht">
-  <div class="d-flex flex-row"><p>Reports:      </p>
-      <button type="button" class="btn btn-primary btn-ap">Kennzahlen Gruppe</button>
-      <button type="button" class="btn btn-primary btn-ap">Zeitnachweise</button>
+  <div class="d-flex flex-row btn-group btn-group-toggle" data-toggle="buttons">
+      <p class="textclass">Reports:</p>
+      <label class="btn btn-primary radiobuttonsself">
+          <input type="radio" name="reportstype">Kennzahlen Gruppe
+          </label>
+      <label class="btn btn-primary radiobuttonsself">
+          <input type="radio" name="reportstype">Zeitnachweise
+          </label>
   </div>
   <div class="d-flex flex-row">
-      <p>Arbeitsplatzgruppe:      </p>
-      <button type="button" class="btn btn-primary dropdown-toggle btn-ap">Lehrwerksatatt   </button>
+      <p class="textclass">Arbeitsplatzgruppe:      </p>
+      <button type="button" class="btn btn-primary dropdown-toggle radiobuttonsself">Lehrwerksatatt   </button>
   </div>
-  <div class="d-flex flex-row">
-      <p>Zeitraum:      </p>
-      <button type="button" class="btn btn-primary btn-ap">Aktueller Monat</button>
-      <button type="button" class="btn btn-primary btn-ap">Vormonat</button>
-      <button type="button" class="btn btn-primary btn-ap">Tag</button>
+  <div class="d-flex flex-row btn-group btn-group-toggle" data-toggle="buttons">
+      <p class="textclass">Zeitraum:      </p>
+      <label class="btn btn-primary radiobuttonsself">
+      <input type="radio" name="reportstype">Aktueller Monat
+          </label>
+      <label class="btn btn-primary radiobuttonsself">
+          <input type="radio" name="reportstype">Vormonat
+          </label>
+      <label class="btn btn-primary radiobuttonsself">
+          <input type="radio" name="reportstype">Tag
+          </label>
   </div>
 
 </div>
