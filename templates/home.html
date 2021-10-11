@@ -17,7 +17,7 @@
 <div class="container">
 <form action="#" method="post">
     <div class="textInput">
-        <input type="text" name="input" class="form-control">
+        <input type="text" name="inputbar" id="screen" class="form-control">
     </div>
 
     <div class="pad">
@@ -31,7 +31,7 @@
         </div>
         <div class="card">
             <!-- Keypad -->
-            <div class="col-md-8">
+            <div class="col-md-8" id="keypad">
                 <div class="row">
                     <button type="button" value="" class="btn btn-secondary">⌫</button>
                     <button type="button" value="/" class="btn btn-secondary">/</button>  
@@ -60,12 +60,31 @@
             </div>
             <div class="col-md-4">
                 <button type="button" value="-" class="btn btn-secondary">-</button>
-                <button type="button" value="submit" class="btn btn-light">↵</button>
                 <button type="button" value="+" class="btn btn-light">+</button>
+                <button type="button" id="enter" onclick="window.location.href='{{"/anmelden"}}'" value="submit" class="btn btn-light">↵</button>
             </div> 
         </div>
     </div>
 </form>
 </div>
+    <script>
+    document.querySelector("#enter").addEventListener("keyup", event => {
+    if(event.key !== "Enter") return; // Use `.key` instead.
+    document.querySelector("#enter").click(); // Things you want to do.
+    event.preventDefault(); // No need to `return false;`.
+});
+    window.onload = function () {
+        var screen  = document.getElementById('screen'),
+            keypad  = document.getElementById('keypad'),
+            buttons = keypad.getElementsByTagName('button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].onclick = function () {
+                screen.value = screen.value + this.innerHTML;
+                return false;
+            };
+        }
+    };
+    </script>
+    </script>
   
 {% endblock %}

@@ -18,7 +18,9 @@ userlist= [["arbeitsplatz","6985", "Abdullah","555544"]]
 def home():
     if request.method == 'POST':
         selectedButton = request.form["selectedButton"]
+        inputBarValue = request.form["inputbar"]
         print(selectedButton)
+        print(inputBarValue)
         return redirect(url_for("identification", page=selectedButton))
 
     else:
@@ -46,7 +48,7 @@ def arbeitsplatz():
             "arbeitsplatz.html",
             date=datetime.now(),
             username=user,
-            buttonText=get_list("arbeitsplatzItems"),
+            buttonText=get_list("arbeitsplatz"),
             sidebarItems=get_list("sidebarItems")
             )
 
@@ -140,6 +142,24 @@ def gemeinkostenandern():
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
+@app.route("/anmelden", methods=["POST","GET"])
+def anmelden():
+    selectedArbeitsplatz = request.form.get('selectedbuttonAP')
+    print(selectedArbeitsplatz)
+
+    if request.method == 'POST':
+        flash(selectedArbeitsplatz)
+        print("successful")
+        return redirect('/')
+
+    return render_template(
+        "anmelden.html",
+        date=datetime.now(),
+        username=user,
+        buttonText=get_list("arbeitsplatz"),
+        sidebarItems=get_list("sidebarItems")
+    )
+
 def get_list(listname):
     if listname == "arbeitsplatzgruppe":
         #Implement database calls here.
