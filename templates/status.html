@@ -231,15 +231,12 @@
       <td></td>
     </tr>
   <tr>
-      <th scope="row">Gekommen</th>
-      <td>G020</td>
-      <td>Gruppe 20</td>
-      <td>09:45 Uhr</td>
-      <td>09:53 Uhr</td>
-      <td>19 Min</td>
-      <td></td>
-      <td></td>
-      <td></td>
+    <th scope="row">{{tableItems[0]}}</th>
+      {% for items in range(1,tableItems|length) %}
+           <td>{{tableItems[items]}}</td>
+            {% endfor %}
+  <!-- empty entries result in distorted table -->
+
     </tr>
 
 

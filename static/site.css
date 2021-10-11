@@ -110,7 +110,7 @@ body, html {
     flex-direction: column !important;
     align-self: center;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
-    color: darkblue !important;
+    color: #232323;
     border: none;
     outline: none;
     background-color: #F4F4F4;
@@ -207,6 +207,8 @@ body, html {
     font-style: normal !important;
     font-weight: bolder !important;
     color: #f1f1f1; !important;
+    align-self: flex-end;
+    margin-top: auto;
 
 
 }
@@ -352,3 +354,10 @@ table tbody tr {
     display: table;
     table-layout: fixed;
 }
+.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus{
+    width: 330px !important;
+     height: 45px !important;
+    flex-direction: unset !important;
+}
+
+

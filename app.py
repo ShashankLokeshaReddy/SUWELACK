@@ -22,6 +22,8 @@ gemeinkostenItems =["Warten auf Auftrag","Fertiggungslohn/Zeitlohn","Sonstige Ge
 "Maschineninstellung","Reparatur","Muldenprofit","Entwicklung","Transport/Bestückung","Gemeinkosten","Raucherpause","Plantafel",
 "Reinigung","Rüsten","Instandhaltung"]
 
+statusTableEntry = ["Gekommen","G020","Gruppe","09:34 Uhr","09:53", "19 Min"]
+
 user="Abdullah"
 userlist= [["arbeitsplatz","6985", "Abdullah","555544"]]
 
@@ -108,6 +110,7 @@ def identification(page):
 def status():
     return render_template(
         "status.html",
+        tableItems=get_list("statusTableItems"),
         date=datetime.now(),
         sidebarItems=sidebarItems
     )
@@ -125,6 +128,7 @@ def berichtdrucken():
 def auftragsbuchung():
     return render_template(
         "auftragsbuchung.html",
+        arbeitplatzIst=get_list("arbeitsplatz"),
         date=datetime.now(),
         sidebarItems=sidebarItems
     )
@@ -152,4 +156,10 @@ def gemeinkostenandern():
     )
 def get_list(listname):
     if listname == "arbeitsplatzgruppe":
+        #Implement database calls here.
         return ["Frontenlager","Verschiedenes(bundes)","Lehrwerkstatt","AV(Bunde)"]
+    if listname == "arbeitsplatz":
+        #Move the strings here.
+        return arbeitsplatzItems
+    if listname == "statusTableItems":
+        return  statusTableEntry
