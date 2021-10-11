@@ -1,36 +1,22 @@
 from flask import Flask
 from flask import render_template, request, flash, redirect, url_for
-#from flask_login import current_user, login_user, LoginManager
 from datetime import datetime
 
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
 app.secret_key="suwelack"
-#login_manager = LoginManager()
 
 
-homeButtons = [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","gemeinkosten","auftrage","dashboard"]]
 
-sidebarItems =[["Status","Berichte drucken","Auftragsbuchung","Gruppenbuchung","Fertigungauftrag erfasssen","Gemeinkosten ändern"],["status","berichtdrucken","auftragsbuchung","gruppenbuchung","fertigungsauftrag","gemeinkostenandern"]]
-
-arbeitsplatzItems =[["Gruppe 20","Azubi Abt.", "Prämien", "Formwangen / Hauben","Formwangen Lack / Furnier","Eckpassstücke","Blenderzuschnitt",
-"Muldenprofit","Blockstollen / Jalousieschränke","Passsttüke UT/OT/HS","Plaster / Schiebetüren","Regale","Blindteile / Eckpassblenden","Sonderbau",
-"Holzschubkästen","Kantenmachine"],["#","#","#","#","#","#","/","#","#","#","#","#","#","#","#","#","#","#","#"]]
-
-gemeinkostenItems =["Warten auf Auftrag","Fertiggungslohn/Zeitlohn","Sonstige Gemeinkosten","Gruppensprechrunde","Teamgespräch",
-"Maschineninstellung","Reparatur","Muldenprofit","Entwicklung","Transport/Bestückung","Gemeinkosten","Raucherpause","Plantafel",
-"Reinigung","Rüsten","Instandhaltung"]
 
 statusTableEntry = ["Gekommen","G020","Gruppe","09:34 Uhr","09:53", "19 Min"]
-
 user="Abdullah"
 userlist= [["arbeitsplatz","6985", "Abdullah","555544"]]
 
 @app.route("/", methods=["POST", "GET"])
 def home():
     if request.method == 'POST':
-
         selectedButton = request.form["selectedButton"]
         print(selectedButton)
         return redirect(url_for("identification", page=selectedButton))
@@ -40,8 +26,8 @@ def home():
             "home.html",
             date=datetime.now(),
             username=user,
-            buttonValues=homeButtons,
-            sidebarItems=sidebarItems
+            buttonValues=get_list("homeButtons"),
+            sidebarItems=get_list("sidebarItems")
             )
 
 
@@ -60,8 +46,8 @@ def arbeitsplatz():
             "arbeitsplatz.html",
             date=datetime.now(),
             username=user,
-            buttonText=arbeitsplatzItems,
-            sidebarItems=sidebarItems
+            buttonText=get_list("arbeitsplatzItems"),
+            sidebarItems=get_list("sidebarItems")
             )
 
 
@@ -79,8 +65,8 @@ def gemeinkosten():
     return render_template(
         "gemeinkosten.html",
         date=datetime.now(),
-        buttonText=gemeinkostenItems,
-        sidebarItems=sidebarItems
+        buttonText=get_list("gemeinkostenItems"),
+        sidebarItems=get_list("sidebarItems")
         )
 
 
@@ -103,7 +89,7 @@ def identification(page):
         return render_template(
             "identification.html",
             date=datetime.now(),
-            sidebarItems=sidebarItems
+            sidebarItems=get_list("sidebarItems")
         )
 
 @app.route("/status", methods=["POST","GET"])
@@ -112,7 +98,7 @@ def status():
         "status.html",
         tableItems=get_list("statusTableItems"),
         date=datetime.now(),
-        sidebarItems=sidebarItems
+        sidebarItems=get_list("sidebarItems")
     )
 
 @app.route("/berichtdrucken", methods=["POST","GET"])
@@ -121,7 +107,7 @@ def berichtdrucken():
         "berichtdrucken.html",
         arbeitsplatzgruppe=get_list("arbeitsplatzgruppe"),
         date=datetime.now(),
-        sidebarItems=sidebarItems
+        sidebarItems=get_list("sidebarItems")
     )
 
 @app.route("/auftragsbuchung", methods=["POST","GET"])
@@ -130,7 +116,7 @@ def auftragsbuchung():
         "auftragsbuchung.html",
         arbeitplatzIst=get_list("arbeitsplatz"),
         date=datetime.now(),
-        sidebarItems=sidebarItems
+        sidebarItems=get_list("sidebarItems")
     )
 
 @app.route("/gruppenbuchung", methods=["POST","GET"])
@@ -138,21 +124,21 @@ def gruppenbuchung():
     return render_template(
         "gruppenbuchung.html",
         date=datetime.now(),
-        sidebarItems=sidebarItems
+        sidebarItems=get_list("sidebarItems")
     )
 @app.route("/fertigungsauftrag", methods=["POST","GET"])
 def fertigungsauftrag():
     return render_template(
         "fertigungsauftrag.html",
         date=datetime.now(),
-        sidebarItems=sidebarItems
+        sidebarItems=get_list("sidebarItems")
     )
 @app.route("/gemeinkostenandern", methods=["POST","GET"])
 def gemeinkostenandern():
     return render_template(
         "gemeinkostenandern.html",
         date=datetime.now(),
-        sidebarItems=sidebarItems
+        sidebarItems=get_list("sidebarItems")
     )
 def get_list(listname):
     if listname == "arbeitsplatzgruppe":
@@ -160,6 +146,20 @@ def get_list(listname):
         return ["Frontenlager","Verschiedenes(bundes)","Lehrwerkstatt","AV(Bunde)"]
     if listname == "arbeitsplatz":
         #Move the strings here.
-        return arbeitsplatzItems
+        return [["Gruppe 20", "Azubi Abt.", "Prämien", "Formwangen / Hauben", "Formwangen Lack / Furnier", "Eckpassstücke",
+             "Blenderzuschnitt",
+             "Muldenprofit", "Blockstollen / Jalousieschränke", "Passsttüke UT/OT/HS", "Plaster / Schiebetüren",
+             "Regale", "Blindteile / Eckpassblenden", "Sonderbau",
+             "Holzschubkästen", "Kantenmachine"],
+            ["#", "#", "#", "#", "#", "#", "/", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"]]
     if listname == "statusTableItems":
         return  statusTableEntry
+    if listname == "homeButtons":
+        return [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","gemeinkosten","auftrage","dashboard"]]
+    if listname == "gemeinkostenItems":
+        return ["Warten auf Auftrag","Fertiggungslohn/Zeitlohn","Sonstige Gemeinkosten","Gruppensprechrunde","Teamgespräch",
+                "Maschineninstellung","Reparatur","Muldenprofit","Entwicklung","Transport/Bestückung","Gemeinkosten","Raucherpause","Plantafel",
+                "Reinigung","Rüsten","Instandhaltung"]
+    if listname == "sidebarItems":
+        return [["Status","Berichte drucken","Auftragsbuchung","Gruppenbuchung","Fertigungauftrag erfasssen","Gemeinkosten ändern"],["status","berichtdrucken","auftragsbuchung","gruppenbuchung","fertigungsauftrag","gemeinkostenandern"]]
+
