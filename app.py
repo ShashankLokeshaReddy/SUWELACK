@@ -19,10 +19,10 @@ def home():
     if request.method == 'POST':
         selectedButton = request.form["selectedButton"]
         inputBarValue = request.form["inputbar"]
-        selectedNavbarItem =request.form["selectedNavbarItem"]
+
         print(selectedButton)
         print(inputBarValue)
-        print(selectedNavbarItem)
+
         return redirect(url_for("identification", page=selectedButton))
 
     else:
