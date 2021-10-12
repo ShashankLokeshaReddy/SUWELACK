@@ -90,6 +90,7 @@ def identification(page):
     else:
         return render_template(
             "identification.html",
+            page=page,
             date=datetime.now(),
             sidebarItems=get_list("sidebarItems")
         )
@@ -128,6 +129,7 @@ def gruppenbuchung():
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
+
 @app.route("/fertigungsauftrag", methods=["POST","GET"])
 def fertigungsauftrag():
     return render_template(
@@ -135,6 +137,15 @@ def fertigungsauftrag():
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
+
+@app.route("/fertigungauftragerstellen", methods=["POST","GET"])
+def fertigungauftragerstellen():
+    return render_template(
+        "fertigungauftragerstellen.html",
+        date=datetime.now(),
+        sidebarItems=get_list("sidebarItems")
+    )
+
 @app.route("/gemeinkostenandern", methods=["POST","GET"])
 def gemeinkostenandern():
     return render_template(
@@ -142,6 +153,7 @@ def gemeinkostenandern():
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
+
 @app.route("/anmelden", methods=["POST","GET"])
 def anmelden():
     selectedArbeitsplatz = request.form.get('selectedbuttonAP')

@@ -207,8 +207,8 @@ body, html {
     font-style: normal !important;
     font-weight: bolder !important;
     color: #f1f1f1; !important;
-    align-self: flex-end;
-    margin-top: auto;
+    align-self: flex-end !important;
+    margin-top: auto !important;
 
 
 }
@@ -273,6 +273,7 @@ body, html {
     text-align: center;
     margin-top: 20px !important;
     row-gap: 0px;
+     text-transform: capitalize;
  }
  .bericht{
      float: inherit !important;
