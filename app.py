@@ -10,7 +10,7 @@ app.secret_key="suwelack"
 
 
 
-statusTableEntry = ["Gekommen","G020","Gruppe","09:34 Uhr","09:53", "19 Min"]
+
 user="Abdullah"
 userlist= [["arbeitsplatz","6985", "Abdullah","555544"]]
 
@@ -19,8 +19,10 @@ def home():
     if request.method == 'POST':
         selectedButton = request.form["selectedButton"]
         inputBarValue = request.form["inputbar"]
+        selectedNavbarItem =request.form["selectedNavbarItem"]
         print(selectedButton)
         print(inputBarValue)
+        print(selectedNavbarItem)
         return redirect(url_for("identification", page=selectedButton))
 
     else:
@@ -185,7 +187,7 @@ def get_list(listname):
              "Holzschubkästen", "Kantenmachine"],
             ["#", "#", "#", "#", "#", "#", "/", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"]]
     if listname == "statusTableItems":
-        return  statusTableEntry
+        return  ["Gekommen","G020","Gruppe 20","09:34 Uhr","09:53", "19 Min"]
     if listname == "homeButtons":
         return [["Arbeitplatz wechseln","Gemeinkosten","Auftrage","Dashboard"],["arbeitsplatz","gemeinkosten","auftrage","dashboard"]]
     if listname == "gemeinkostenItems":

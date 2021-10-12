@@ -227,7 +227,7 @@ body, html {
 }
 
 .flex-row{
-    margin: 10px 0px 40px 30px;
+    margin: 10px 5px 40px 30px;
     align-items:baseline;
 }
 .bestätigen{
@@ -280,11 +280,11 @@ body, html {
      row-gap: 0px;
  }
  .statustable{
-     margin:20px;
+     margin:10px;
      height:80%;
  }
   .statustableflex{
-     margin:20px;
+     margin:10px;
      height:80%;
       width: 95%;
       display: flex;
@@ -333,13 +333,13 @@ body, html {
     display: flex;
     flex-flow: column;
     height: 80%;
-    width: 100%;
+    width: 99%;
 }
 table thead {
     /* head takes the height it requires,
     and it's not scaled when table is resized */
     flex: 0 0 auto;
-    width: calc(100% - 0.9em);
+    width: calc(99% - 0.9em);
 }
 table tbody {
     /* body takes all the remaining available space */
@@ -347,18 +347,21 @@ table tbody {
     display: block;
     overflow-y: scroll;
 }
-table tbody tr {
-    width: 100%;
-}
+
 table thead,
 table tbody tr {
     display: table;
     table-layout: fixed;
+    width: 99%;
 }
 .datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus{
     width: 330px !important;
      height: 45px !important;
     flex-direction: unset !important;
+}
+.flexrowGemeinkosten{
+    margin: 10px 5px 10px 30px;
+
 }
 
 
