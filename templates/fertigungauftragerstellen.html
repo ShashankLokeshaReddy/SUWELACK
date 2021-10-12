@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %} Gemeinkosten Ändern {% endblock %}
+{% block content%}
+    <div class="statustable">
+    <h3>F010400 - Teile ohne Barcode</h3>
+<div class="container">
+            <div class="d-flex flex-row">
+
+              <div class="d-flex flex-column">
+      <label for="gesamt" class="label">Gesamt ist</label>
+      <label for="mengeist" class="label">Menge ist</label>
+      <label for="mengeaus" class="label">Menge aus</label>
+              </div>
+      <div class="d-flex flex-column">
+      <input type="number" id="gesamt"  class="form-control inputbutton">
+      <input type="text" id="mengeist" class="form-control inputbutton">
+      <input type="text" id="mengeaus" class="form-control inputbutton">
+      </div>
+
+<div class="d-flex flex-column">
+        <div class="card">
+            <!-- Keypad -->
+            <div class="col-md-8">
+                <div class="row">
+                    <button type="button" value="" class="btn btn-secondary">⌫</button>
+                    <button type="button" value="/" class="btn btn-secondary">/</button>
+                    <button type="button" value="*" class="btn btn-secondary">*</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="7" class="btn btn-secondary">7</button>
+                </div>
+                <div class="row">
+
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>
+                    <button type="button" value="4" class="btn btn-secondary">4</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="3" class="btn btn-secondary">3</button>
+                    <button type="button" value="2" class="btn btn-secondary">2</button>
+                    <button type="button" value="1" class="btn btn-secondary">1</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="0" class="btnZ">0</button>
+                    <button type="button" value="," class="btn btn-secondary">,</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="button" value="-" class="btn btn-secondary">-</button>
+                <button type="button" value="submit" class="btn btn-light">↵</button>
+                <button type="button" value="+" class="btn btn-light">+</button>
+            </div>
+        </div>
+</div>
+            </div>
+
+</div>
+      <div class="d-flex justify-content-between bestätigen2">
+    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
+    <button type="button" onclick="" class="btn btn-primary btn-lg submit2">Teilrückmeldung</button>
+    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">Endmeldung</button>
+</div>
+
+
+    </div>
+{% endblock %}
