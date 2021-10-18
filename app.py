@@ -1,11 +1,13 @@
 from flask import Flask
 from flask import render_template, request, flash, redirect, url_for
 from datetime import datetime
+from Employee import Employee
 
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
 app.secret_key="suwelack"
+user1 = Employee("Abdullah","Akber",6985)
 
 
 
@@ -49,7 +51,7 @@ def arbeitsplatz():
     return render_template(
             "arbeitsplatz.html",
             date=datetime.now(),
-            username=user,
+            username=user1.name,
             buttonText=get_list("arbeitsplatz"),
             sidebarItems=get_list("sidebarItems")
             )
@@ -137,6 +139,7 @@ def fertigungsauftrag():
     return render_template(
         "fertigungsauftrag.html",
         date=datetime.now(),
+        user=user1,
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -153,6 +156,7 @@ def gemeinkostenandern():
     return render_template(
         "gemeinkostenandern.html",
         date=datetime.now(),
+        user=user1,
         sidebarItems=get_list("sidebarItems")
     )
 
