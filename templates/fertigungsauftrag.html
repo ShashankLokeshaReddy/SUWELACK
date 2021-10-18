@@ -11,10 +11,24 @@
          <label class="textclass"> &emsp;{{ user.userid }}</label>
         </div>
     <div class="d-flex flex-row flexrowGemeinkosten justify-content-between">
-        <label for="Gruppe" class="label">Gruppe</label>
-        <input type="text" id="Gruppe" class="form-control inputbuttontable">
-       <label for="FAN" class="label">FA Nr.</label>
-      <input type="text"  id="FAN" class="form-control inputbuttontable">
+        <p>Gruppe: </p>
+        <div class="dropdown inputbutton">
+        <button type="button"  data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.arbeitsplatz }}</button>
+         <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for items in range(0,arbeitsplatz[0]|length) %}
+            <a class="dropdown-item"  href="#" >{{arbeitsplatz[0][items]}}</a>
+            {% endfor %}
+            </div>
+        </div>
+        <p>FrNo:</p>
+       <div class="dropdown inputbutton">
+        <button type="button"  data-toggle="dropdown" id="FAnumber" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.faNr }}</button>
+         <div class="DWFR dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for items in range(0,frNr|length) %}
+            <a class="dropdown-item"  href="#" >{{frNr[items]}}</a>
+            {% endfor %}
+            </div>
+        </div>
         <label for="datum" class="label">Datum</label>
     <input type="date" id="datum" class="form-control datetime">
   </div>
@@ -52,4 +66,18 @@
     <button type="submit" id="submit" value="submit" onclick="window.location.href='{{"/fertigungauftragerstellen"}}'" class="btn btn-primary btn-lg submit2">Erstellen</button>
 </div>
          </div>
+    <script>
+    $(function(){
+    $(".ARBT a").click(function(){
+        $("#arbeitsplatz").text($(this).text());
+      $("#arbeitsplatz").val($(this).text());
+     });
+});
+     $(function(){
+    $(".DWFR a").click(function(){
+      $("#FAnumber").text($(this).text());
+      $("#FAnumber").val($(this).text());
+   });
+});
+    </script>
 {% endblock %}

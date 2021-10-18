@@ -14,16 +14,29 @@
         <input type="date" class="form-control datetime">
 
         <div class="dropdown inputbutton">
-        <button type="button"  data-toggle="dropdown" class="btn btn-secondary dropdown-toggle inputbutton drop">  </button>
-         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button type="button"  data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">  </button>
+         <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for items in range(0,arbeitplatzIst[0]|length) %}
             <a class="dropdown-item" href="#" >{{arbeitplatzIst[0][items]}}</a>
             {% endfor %}
             </div>
         </div>
-
-        <input type="text" class="form-control inputbutton">
-        <input type="text" class="form-control inputbutton">
+        <div class="dropdown inputbutton">
+        <button type="button"  data-toggle="dropdown" id="personalNummer" class="btn btn-secondary dropdown-toggle inputbutton">  </button>
+         <div class="DWPR dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for items in range(0,paNr|length) %}
+            <a class="dropdown-item" href="#" >{{paNr[items]}}</a>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="dropdown inputbutton">
+        <button type="button"  data-toggle="dropdown" id="FAnummber" class="btn btn-secondary dropdown-toggle inputbutton">  </button>
+         <div class="DWFR dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for items in range(0,faNr|length) %}
+            <a class="dropdown-item" href="#" >{{faNr[items]}}</a>
+            {% endfor %}
+            </div>
+        </div>
 
 
 
@@ -38,7 +51,7 @@
     </div>
     </div>
  <div class="flex-row ">
-<div class="d-flex justify-content-between bestätigen">
+<div class="d-flex justify-content-between bestätigen2">
     <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
     <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">Bestätigen</button>
 </div>
@@ -48,17 +61,26 @@
          $(function () {
              $('#datepicker').datepicker();
          });
-
+//Functions to set Dropdown values
      $(function(){
-
-    $(".dropdown-menu a").click(function(){
-
-      $(".drop:first-child").text($(this).text());
-      $(".drop:first-child").val($(this).text());
-
-   });
-
+    $(".ARBT a").click(function(){
+        $("#arbeitsplatz").text($(this).text());
+      $("#arbeitsplatz").val($(this).text());
+     });
 });
+     $(function(){
+    $(".DWPR a").click(function(){
+      $("#personalNummer").text($(this).text());
+      $("#personalNummer").val($(this).text());
+   });
+});
+     $(function(){
+    $(".DWFR a").click(function(){
+        $("#FAnummber").text($(this).text());
+        $("#FAnummber").val($(this).text());
+   });
+});
+
 
       </script>
 {% endblock %}

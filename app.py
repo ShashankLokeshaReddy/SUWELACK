@@ -7,7 +7,7 @@ from Employee import Employee
 app = Flask(__name__, template_folder="templates")
 app.debug = True
 app.secret_key="suwelack"
-user1 = Employee("Abdullah","Akber",6985)
+user1 = Employee("Abdullah","Akber",6985,6610,5586,"Eckpassstücke")
 
 
 
@@ -86,7 +86,7 @@ def identification(page):
         date=datetime.now()
 
         date= date.strftime("%d %B, %Y - %H:%M")
-        userlist.append([page,UserID,user,date])
+        userlist.append([page,UserID,user1.name,date])
         #userlist[1][0].append(UserID)
         #userlist[2][0].append(page)
         print(userlist)
@@ -123,6 +123,8 @@ def auftragsbuchung():
         "auftragsbuchung.html",
         arbeitplatzIst=get_list("arbeitsplatz"),
         date=datetime.now(),
+        faNr=get_list("frNr"),
+        paNr=get_list("paNr"),
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -131,6 +133,7 @@ def gruppenbuchung():
     return render_template(
         "gruppenbuchung.html",
         date=datetime.now(),
+        frNr=get_list("frNr"),
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -139,6 +142,8 @@ def fertigungsauftrag():
     return render_template(
         "fertigungsauftrag.html",
         date=datetime.now(),
+        arbeitsplatz=get_list("arbeitsplatz"),
+        frNr =get_list("frNr"),
         user=user1,
         sidebarItems=get_list("sidebarItems")
     )
@@ -200,4 +205,7 @@ def get_list(listname):
                 "Reinigung","Rüsten","Instandhaltung"]
     if listname == "sidebarItems":
         return [["Status","Berichte drucken","Auftragsbuchung","Gruppenbuchung","Fertigungauftrag erfasssen","Gemeinkosten ändern"],["status","berichtdrucken","auftragsbuchung","gruppenbuchung","fertigungsauftrag","gemeinkostenandern"]]
-
+    if listname == "frNr":
+        return [1067,2098,7654,2376,8976]
+    if listname == "paNr":
+        return [1067,2098,7654,2376,8976]
