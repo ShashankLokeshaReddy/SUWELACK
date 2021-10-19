@@ -162,6 +162,8 @@ def gemeinkostenandern():
         "gemeinkostenandern.html",
         date=datetime.now(),
         user=user1,
+        arbeitsplatz=get_list("arbeitsplatz"),
+        frNr=get_list("frNr"),
         sidebarItems=get_list("sidebarItems")
     )
 
