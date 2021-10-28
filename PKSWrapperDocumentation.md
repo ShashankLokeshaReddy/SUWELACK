@@ -22,6 +22,8 @@ var:gruppe
 ### **No_button_selected**
 **def identify_number("number")**
 
+"When a number is entered into the text field of the home screen, we need to identify whether it is a personalnumber or FA-number, and if the person is alredy signed in for the current day and has open bookings (fa or gk). Therefore we need the feedback of the function in order to present the next page. In case of kommt we need to move to the arbeitsplatz selection page. In case of geht we need an optional dialog box checking if the person really wants to log out. In case of wechselbuchung we do not have any open booking and can move to the arbeitsplatz selection page. ..."
+
 **input:**
 var: number
 
