@@ -26,7 +26,9 @@ var:gruppe
 var: number
 
 **output:**
-feedback:kommt/geht/auftragsbuchung
+feedback:
+
+kommt / geht / wechselbuchung / wechselbuchung_GKDialog / wechselbuchung_MengeDialog / auftragsbuchung / auftragsbuchung_GKdialog / auftragsbuchung_MengeDialog
 
 **Source:** [DLL]
 
