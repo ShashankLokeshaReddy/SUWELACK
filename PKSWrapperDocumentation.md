@@ -19,6 +19,17 @@ var:gruppe
 
 **Source:** [DLL,DB,XML]
 
+### **No_button_selected**
+**def identify_number("number")**
+
+**input:**
+var: number
+
+**output:**
+feedback:kommt/geht/auftragsbuchung
+
+**Source:** [DLL]
+
 ### **Arbeitsplatz**
 
 **def get_list("arbeitsplatz")**
