@@ -19,6 +19,8 @@ var:gruppe
 
 **Source:** [DLL,DB,XML]
 
+###### **Arbeitsplatz**
+
 **def get_list("arbeitsplatz")**
 
 **input:**
@@ -57,7 +59,8 @@ successful/unsuccessful
 
 **Source:** [DLL,DB,XML]
 
-**Gemeinkosten**
+###### **Gemeinkosten**
+
 **def get_list("gemeinkosten")**
 
 **input:**
@@ -71,7 +74,8 @@ list: gemeinkosten items e.g:
 
 **Source:** [DLL,DB,XML]
 
-**Bereicht Drucken**
+###### **Bereicht Drucken**
+
 **def get_list("arbeitsplatzgruppe")**
 
 **input:**
@@ -87,7 +91,7 @@ list: Arbeitsplatz Gruppe e.g:
 
 **Source:** [DLL,DB,XML]
 
-**Auftragsbuchung**
+###### **Auftragsbuchung**
 
 **def get_list("PrNr")**
 
@@ -117,6 +121,8 @@ list: FR Number list
 
 **Source:** [DLL,DB,XML]
 
+###### **Auftragsbuchung**
+
 **def auftragsbuchung("")**
 
 **input:**
@@ -139,6 +145,8 @@ operation status: successful/unsuccessful
 
 **Source:** [DLL,DB,XML]
 
+###### **Gruppenbuchung**
+
 **def gruppenbuchung("")**
 
 
@@ -158,8 +166,7 @@ operation status: successful/unsuccessful
 
 **Source:** [DLL,DB,XML]
 
-
-**Fertigungsauftrag Erfassen**
+###### **Fertigungsauftrag Erfassen**
 
 **def get_fertigungsauftrags()**
 
@@ -187,7 +194,7 @@ operation status: successful/unsuccessful
 
 **Source:** [DLL,DB,XML]
 
-**Gemeinkosten Äandern**
+###### **Gemeinkosten Äandern**
 
 **def get_gemeinkosten()**
 
@@ -213,7 +220,7 @@ operation status: successful/unsuccessful
 
 **Source:** [DLL,DB,XML]
 
-**Status Table**
+###### **Status Table**
 
 **def get_status()**
 
