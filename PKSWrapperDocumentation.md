@@ -28,7 +28,7 @@ var: number
 **output:**
 feedback:
 
-kommt / geht / wechselbuchung / wechselbuchung_GKDialog / wechselbuchung_MengeDialog / auftragsbuchung / auftragsbuchung_GKdialog / auftragsbuchung_MengeDialog
+kommt / geht / wechselbuchung / wechselbuchung_GKDialog / wechselbuchung_MengeDialog / auftragsbuchung / auftragsbuchung_GKDialog / auftragsbuchung_MengeDialog
 
 **Source:** [DLL]
 
@@ -46,7 +46,7 @@ list: arbeitplatz items e.g:
 "Eckpassstücke","Blenderzuschnitt",
 "Muldenprofit"
 
-**Source:** [DLL,DB,XML]
+**Source:** [XML]
 
 
 **def set_arbeitsplatz("arbeitsplatz,userID,
