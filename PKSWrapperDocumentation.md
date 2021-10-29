@@ -1,4 +1,4 @@
-**def authenticate()**
+**def authenticate(userID)**
 
 "In order to authenticate user, user passes a userID and
 the system fetches the details of the user respective to that userID"
@@ -20,7 +20,7 @@ var:gruppe
 **Source:** [DLL,DB,XML]
 
 ### **No_button_selected**
-**def identify_number("number")**
+**def identify_number(number)**
 
 "When a number is entered into the text field of the home screen, we need to identify whether it is a personalnumber or FA-number, and if the person is alredy signed in for the current day and has open bookings (fa or gk). Therefore we need the feedback of the function in order to present the next page. In case of kommt we need to move to the arbeitsplatz selection page. In case of geht we need an optional dialog box checking if the person really wants to log out. In case of wechselbuchung we do not have any open booking and can move to the arbeitsplatz selection page. ..."
 
@@ -36,7 +36,7 @@ kommt / geht / wechselbuchung / wechselbuchung_GKDialog / wechselbuchung_MengeDi
 
 ### **Arbeitsplatz**
 
-**def get_list("arbeitsplatz")**
+**def get_list_arbeitsplatz()**
 
 **input:**
 
@@ -51,8 +51,8 @@ list: arbeitplatz items e.g:
 **Source:** [XML]
 
 
-**def set_arbeitsplatz("arbeitsplatz,userID,
-username,timestamp")**
+**def set_arbeitsplatz(arbeitsplatz,userID,
+username,timestamp)**
 
 **input:** 
 
