@@ -39,11 +39,12 @@ def home():
 
 @app.route("/arbeitsplatz", methods=["POST", "GET"])
 def arbeitsplatz():
-    #login_user(user)
-    selectedArbeitsplatz = request.form.get('selectedbuttonAP')
-    print(selectedArbeitsplatz)
 
     if request.method == 'POST':
+        #Retreive the value of selected button from frontend.
+        selectedArbeitsplatz = request.form.get('selectedbuttonAP')
+        print(selectedArbeitsplatz)
+        #Flash feedback wrt the selected button on home page.
         flash(selectedArbeitsplatz)
         print("successful")
         return redirect('/')
@@ -60,10 +61,11 @@ def arbeitsplatz():
 
 @app.route("/gemeinkosten", methods=["POST","GET"])
 def gemeinkosten():
-    selectedGemeinkosten = request.form.get('selectedbuttonGK')
-    print(selectedGemeinkosten)
+
 
     if request.method == 'POST':
+        selectedGemeinkosten = request.form.get('selectedbuttonGK')
+        print(selectedGemeinkosten)
         flash(selectedGemeinkosten)
         print("successful")
         return redirect('/')
