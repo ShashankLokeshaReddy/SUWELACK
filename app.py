@@ -64,8 +64,10 @@ def gemeinkosten():
 
 
     if request.method == 'POST':
+        # Retreive the value of selected button from frontend.
         selectedGemeinkosten = request.form.get('selectedbuttonGK')
         print(selectedGemeinkosten)
+        # Flash feedback wrt the selected button on home page.
         flash(selectedGemeinkosten)
         print("successful")
         return redirect('/')
