@@ -9,6 +9,8 @@ app.debug = True
 app.secret_key="suwelack"
 user1 = Employee("Abdullah","Akber",6985,6610,5586,"Eckpassstücke")
 
+#Call a function that reads the data from XMLs
+
 
 
 

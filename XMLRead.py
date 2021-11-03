@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-mytree = ET.parse('static/XML/T904.xml')
+mytree = ET.parse('data/T904.xml')
 DataRoot = mytree.getroot()
 #for x in DataRoot[0]:
 #     print(x.tag, x.attrib)
