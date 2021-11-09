@@ -12,7 +12,7 @@
 <div class="grp d-flex align-content-center flex-wrap justify-content-center">
     <!-- Dynamic population of Buttons -->
     {% for items in range(0,buttonText[0]|length) %}
-    <button type="button" name="arbeitplatzbuttons" value='{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
+    <button type="button" name="arbeitplatzbuttons" value='{{buttonText[0][items]}}' href="{{ buttonText[1][items] }}" class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
     {% endfor %}
 </div>
 <div class="d-flex justify-content-between bestätigen">

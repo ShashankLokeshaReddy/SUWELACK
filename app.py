@@ -2,13 +2,14 @@ from flask import Flask
 from flask import render_template, request, flash, redirect, url_for
 from datetime import datetime
 from Employee import Employee
+import XMLRead
 
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
 app.secret_key="suwelack"
 user1 = Employee("Abdullah","Akber",6985,6610,5586,"Eckpassstücke")
-
+#exec(open("./XMLRead.py").read())
 #Call a function that reads the data from XMLs
 
 
@@ -197,12 +198,7 @@ def get_list(listname):
         return ["Frontenlager","Verschiedenes(bundes)","Lehrwerkstatt","AV(Bunde)"]
     if listname == "arbeitsplatz":
         #Move the strings here.
-        return [["Gruppe 20", "Azubi Abt.", "Prämien", "Formwangen / Hauben", "Formwangen Lack / Furnier", "Eckpassstücke",
-             "Blenderzuschnitt",
-             "Muldenprofit", "Blockstollen / Jalousieschränke", "Passsttüke UT/OT/HS", "Plaster / Schiebetüren",
-             "Regale", "Blindteile / Eckpassblenden", "Sonderbau",
-             "Holzschubkästen", "Kantenmachine"],
-            ["#", "#", "#", "#", "#", "#", "/", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#"]]
+        return [XMLRead.arbeitsplatzlist,XMLRead.dataframeT904['number']]
     if listname == "statusTableItems":
         return  ["Gekommen","G020","Gruppe 20","09:34 Uhr","09:53", "19 Min"]
     if listname == "homeButtons":
@@ -216,4 +212,4 @@ def get_list(listname):
     if listname == "frNr":
         return [1067,2098,7654,2376,8976]
     if listname == "paNr":
-        return [1067,2098,7654,2376,8976]
+        return XMLRead.dataframeT912['T912_PersNr']
