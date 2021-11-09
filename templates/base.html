@@ -18,7 +18,7 @@
 
     <body>
         
-        <div class= "navbar navbar-light bg-light">
+        <div class= "navbar navbar-light bg-light topnav">
             <div id="mySidenav" class="sidenav">
                     <!--Generation of Navbar items--> 
                     
@@ -32,12 +32,12 @@
               <a class="navbar-brand" href="#">
                   <img onclick="openNav()" src="../static/images/Icons_Menü.svg" width="50" height="50" alt=""></a>
                   <a class="navbar-brand use-keyboard-input" style="margin-left: 20px; align-self: flex-start !important;" href="#">
-                <img style="margin-left: 20px; align-self: flex-start !important;" src="../static/images/Icons_Tastatur.svg" width="100" height="50"  alt=""></a>
-                <a class="navbar-brand" href="#">
+                <img  src="../static/images/Icons_Tastatur.svg" width="100" height="50"  alt=""></a>
+                <a class="navbar-brand onlineicon" href="#">
 
-                <img style="align-self: flex-end;" src="../static/images/Icons_Online.svg" width="50" height="50" alt="">
+                <img  src="../static/images/Icons_Online.svg" width="50" height="50" alt="">
                 </a>
-            
+
           </div>
             
         {% block navbar %}{% endblock %}

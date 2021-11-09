@@ -63,9 +63,9 @@ def arbeitsplatz():
 
 
 @app.route("/gemeinkosten", methods=["POST","GET"])
-def gemeinkosten():
+def gemeinkosten(name):
 
-
+    print(name)
     if request.method == 'POST':
         # Retreive the value of selected button from frontend.
         selectedGemeinkosten = request.form.get('selectedbuttonGK')

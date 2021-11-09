@@ -114,12 +114,14 @@ body, html {
     border: none;
     outline: none;
     background-color: #F4F4F4;
-    
+}
+.topnav{
+    justify-content: flex-start;
+}
+.onlineicon{
+    margin-left: auto;
 }
 
-.navbar fixed-bottom navbar-light bg-light{
-    font-family: 'SF Pro', Tahoma, Geneva, Verdana, sans-serif !important;
-}
 .row {
     display: block;
 }
@@ -131,9 +133,7 @@ body, html {
     margin-left: 0px !important;
     margin-top: 8px;
 }
-.navbar {
-    font-family: 'SF Pro', !important;
-}
+
 
 
   /* The side navigation menu */
