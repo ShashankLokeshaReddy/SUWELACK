@@ -45,7 +45,7 @@ for tags in DataRoot.findall('T904_Kostenstellen'):
                  "groupnumber": GroupNumber})
 dataframeT904= pd.DataFrame(rows, columns = T904columns)
 
-#print(dataframeT904)
+
 print("dataframeT904 read successful")
 
 """
@@ -67,6 +67,7 @@ XML T912  --> username, personalnumber and bez
 dataframeT912= parse_XML("data/T912.xml", ["T912_FirmaNR", "T912_Nr", "T912_PersNr", "T912_Aenderung", "T912_Anlage", "T912_User"])
 print("dataframeT912 read successful")
 
+
 """
 XML T905  --> username, personalnumber and bez
 """
@@ -81,7 +82,13 @@ for tags in DataRoot.findall('T905_ArbMasch'):
 
 #print(arbeitsplatzlist)
 print("dataframeT905 read successful")
-
+"""
+To print and display the Dataframes, uncomment the code below:
+"""
+#print(arbeitsplatzlist)
+#print(dataframeT912)
+#print(dataframeT910)
+#print(dataframeT904)
 
 
 
