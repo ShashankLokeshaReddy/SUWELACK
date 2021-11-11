@@ -3,44 +3,48 @@
 
 
 {% block content%}
-     <div class="containerr statustable">
+<div class="containerr statustable">
 
-    <h3>Gemeinkosten Ändern</h3>
+<h3>Gemeinkosten Ändern</h3>
 
-         <div class="d-flex flex-row flexrowGemeinkosten">
+<div class="d-flex flex-row flexrowGemeinkosten">
+
          <label class="textclass" > {{ user.name }} &emsp;</label>
          <label class="textclass"> &emsp;{{ user.userid }}</label>
-        </div>
+</div>
 
-    <div class="d-flex flex-row flexrowGemeinkosten justify-content-between">
-        <p>Gruppe: </p>
-        <div class="dropdown inputbutton">
-        <button type="button"  data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.arbeitsplatz }}</button>
-         <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
+<div class="d-flex flex-row flexrowGemeinkosten justify-content-between">
+
+<p>Gruppe: </p>
+    <div class="dropdown inputbutton">
+    <button type="button"  data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.arbeitsplatz }}</button>
+    <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for items in range(0,arbeitsplatz[0]|length) %}
             <a class="dropdown-item"  href="#" >{{arbeitsplatz[0][items]}}</a>
-            {% endfor %}
-            </div>
-        </div>
+          {% endfor %}
+    </div>
+    </div>
 
-        <p>FrNo:</p>
-       <div class="dropdown inputbutton">
-        <button type="button"  data-toggle="dropdown" id="FAnumber" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.faNr }}</button>
-         <div class="DWFR dropdown-menu" aria-labelledby="dropdownMenuButton">
+<p>FrNo:</p>
+    <div class="dropdown inputbutton">
+    <button type="button"  data-toggle="dropdown" id="FAnumber" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.faNr }}</button>
+    <div class="DWFR dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for items in range(0,frNr|length) %}
             <a class="dropdown-item"  href="#" >{{frNr[items]}}</a>
-            {% endfor %}
-            </div>
-        </div>
+          {% endfor %}
+    </div>
+    </div>
 
-        <label for="datum" class="label">Datum</label>
-    <input type="date" id="datum" class="form-control datetime">
+<label for="datum" class="label">Datum</label>
+<input type="date" id="datum" class="form-control datetime">
 
-  </div>
-         <div class="d-flex flexrowGemeinkosten flex-row">
+ </div>
+
+     <div class="d-flex flexrowGemeinkosten flex-row">
+
              <label for="GKA" class="label">Buchung: </label>
              <input type="text"  id="GKA" class="form-control">
-         </div>
+    </div>
 
 <div class="d-flex flexrowGemeinkosten flex-row">
 <table class="table table-striped">
@@ -50,10 +54,10 @@
       <th scope="col">Arbeitsplatz</th>
       <th scope="col">Beleg Nr.</th>
       <th scope="col">Anfang TS</th>
-        <th scope="col">Ende TS</th>
-        <th scope="col">Dauer TS</th>
-        <th scope="col">Menge Gut</th>
-        <th scope="col">Auf_stat</th>
+      <th scope="col">Ende TS</th>
+      <th scope="col">Dauer TS</th>
+      <th scope="col">Menge Gut</th>
+      <th scope="col">Auf_stat</th>
 
     </tr>
   </thead>
@@ -71,23 +75,26 @@
   </tbody>
 </table>
  </div>
+
 <div class="d-flex justify-content-between bestätigen2">
+
     <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
     <button type="submit" id="submit" value="submit" onclick="window.location.href='{{"/fertigungauftragerstellen"}}'" class="btn btn-primary btn-lg submit2">Erstellen</button>
 </div>
 </div>
 
 <script>
-    $(function(){
+
+$(function(){
     $(".ARBT a").click(function(){
-        $("#arbeitsplatz").text($(this).text());
+      $("#arbeitsplatz").text($(this).text());
       $("#arbeitsplatz").val($(this).text());
-     });
+    });
 });
-     $(function(){
+$(function(){
     $(".DWFR a").click(function(){
-      $("#FAnumber").text($(this).text());
-      $("#FAnumber").val($(this).text());
+    $("#FAnumber").text($(this).text());
+    $("#FAnumber").val($(this).text());
    });
 });
 

@@ -34,12 +34,17 @@ const Keyboard = {
     document.body.appendChild(this.elements.main);
 
     // Automatically use keyboard for elements with .use-keyboard-input
-    document.querySelectorAll(".use-keyboard-input").forEach((element) => {
+    //document.querySelectorAll(".use-input").forEach((element) => {
+     // element.addEventListener("focus", () => {
+      //  });
+    //});
+
+    document.querySelectorAll(".use-focus").forEach((element) => {
       element.addEventListener("focus", () => {
         this.open(element.value, (currentValue) => {
           element.value = currentValue;
         });
-      });
+        });
     });
   },
 

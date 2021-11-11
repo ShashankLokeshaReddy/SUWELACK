@@ -1,22 +1,24 @@
 {% extends "base.html" %}
 {% block title %} Identification {% endblock %}
 
-{% block content%} 
+{% block content%}
+
 <div class="container">
+
     <form action='#' method="post">
+
     <div class="textInput">
         <input type="text" name="inputfield" id="screen" class="form-control">
     </div>
 
     <div class="pad">
+
         <div class="d-flex flex-column identification">
-            <!-- Identification -->
+            <!-- Identification "page" is the value that we are getting form the last clicked button on the home screen. -->
             Zum {{  page  }}
             <a class="navbar-brand" href="#"><img src="../static/images/Icons_Kartenscan.svg" width="300" height="200" alt=""></a>
             <p>Bitte bestätigen Sie mit Ihrem Coin oder Ihrer Personalnummer</p>
 
-            
-            
         </div>
         <div class="card">
             <!-- Keypad -->
@@ -56,7 +58,9 @@
     </div>
     </form>
   </div>
-    <script>
+
+ <script>
+    <!-- JS to insert input into the inputbar from the onscreen keypad -->
     window.onload = function () {
         var screen  = document.getElementById('screen'),
             keypad  = document.getElementById('keypad'),
@@ -68,6 +72,6 @@
             };
         }
     };
-    </script>
+ </script>
   
 {% endblock %}
