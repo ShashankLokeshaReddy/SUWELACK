@@ -38,8 +38,15 @@ const Keyboard = {
      // element.addEventListener("focus", () => {
       //  });
     //});
-
     document.querySelectorAll(".use-focus").forEach((element) => {
+      element.addEventListener("focus", () => {
+        this.focuswithoutopen(element.value, (currentValue) => {
+          element.value = currentValue;
+        });
+        });
+    });
+
+    document.querySelectorAll(".open-keyboard").forEach((element) => {
       element.addEventListener("focus", () => {
         this.open(element.value, (currentValue) => {
           element.value = currentValue;
@@ -232,6 +239,11 @@ const Keyboard = {
     this.eventHandlers.oninput = oninput;
     this.eventHandlers.onclose = onclose;
     this.elements.main.classList.remove("keyboard--hidden");
+  },
+  focuswithoutopen(initialValue, oninput, onclose) {
+    this.properties.value = initialValue || "";
+    this.eventHandlers.oninput = oninput;
+    this.eventHandlers.onclose = onclose;
   },
 
   close() {
