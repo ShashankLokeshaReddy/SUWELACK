@@ -33,11 +33,8 @@ const Keyboard = {
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
 
-    // Automatically use keyboard for elements with .use-keyboard-input
-    //document.querySelectorAll(".use-input").forEach((element) => {
-     // element.addEventListener("focus", () => {
-      //  });
-    //});
+    // The keyboard can be used to write into elements that .use-focus class
+
     document.querySelectorAll(".use-focus").forEach((element) => {
       element.addEventListener("focus", () => {
         this.focuswithoutopen(element.value, (currentValue) => {
@@ -45,7 +42,7 @@ const Keyboard = {
         });
         });
     });
-
+    //The elements that have .open-keyboard in their classes can be used to open the keyboard on click
     document.querySelectorAll(".open-keyboard").forEach((element) => {
       element.addEventListener("focus", () => {
         this.open(element.value, (currentValue) => {
@@ -257,3 +254,7 @@ const Keyboard = {
 window.addEventListener("DOMContentLoaded", function () {
   Keyboard.init();
 });
+focusMethod = function getFocus()
+            {
+              document.getElementById("screen").focus();
+            }
