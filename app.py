@@ -2,21 +2,29 @@ from flask import Flask
 from flask import render_template, request, flash, redirect, url_for
 from datetime import datetime
 from Employee import Employee
+from flask_babel import Babel,format_datetime,gettext
 import XMLRead
 
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
 app.secret_key="suwelack"
+app.config['BABEL_DEFAULT_LOCALE'] = 'de'
+babel = Babel(app)
 user1 = Employee("Abdullah","Akber",6985,6610,5586,"Eckpassstücke")
 #exec(open("./XMLRead.py").read())
 #Call a function that reads the data from XMLs
 
 
+@babel.localeselector
+def get_locale():
+    return 'en'
+    #return request.accept_languages.best_match(['de', 'en'])
 
 
-user="Abdullah"
-userlist= [["arbeitsplatz","6985", "Abdullah","555544"]]
+user = gettext("Abdullah")
+userlist = [["arbeitsplatz","6985", "Abdullah","555544"]]
+
 
 @app.route("/", methods=["POST", "GET"])
 def home():

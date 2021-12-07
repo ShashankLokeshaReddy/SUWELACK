@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% block title %} Gemeinkosten Ändern {% endblock %}
+{% block title %} {{ _('Gemeinkosten Ändern') }} {% endblock %}
 {% block content%}
     <div class="statustable">
-    <h3>F010400 - Teile ohne Barcode</h3>
+    <h3>F010400 - {{ _('Teile ohne Barcode') }}</h3>
 <div class="container">
 <div class="d-flex flex-row">
 <div class="d-flex flex-column">
-      <label for="gesamt" class="label">Gesamt ist</label>
-      <label for="mengeist" class="label">Menge ist</label>
-      <label for="mengeaus" class="label">Menge aus</label>
+      <label for="gesamt" class="label">{{ _('Gesamt ist') }}</label>
+      <label for="mengeist" class="label">{{ _('Menge ist') }}</label>
+      <label for="mengeaus" class="label">{{ _('Menge aus') }}</label>
 </div>
       <div class="d-flex flex-column">
       <input type="number" id="gesamt"  class="form-control inputbutton">
@@ -58,9 +58,9 @@
 </div>
       <div class="d-flex justify-content-between bestätigen2">
 
-    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
-    <button type="button" onclick="" class="btn btn-primary btn-lg submit2">Teilrückmeldung</button>
-    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">Endmeldung</button>
+    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+    <button type="button" onclick="" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
+    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Endmeldung') }}</button>
 
 </div>
 </div>
