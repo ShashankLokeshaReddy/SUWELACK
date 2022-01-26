@@ -5,62 +5,67 @@ body, html {
     height: 100%;
     width: 100%;
     font-family: 'SF Pro', sans-serif;
-    color: #17375E;
+    color: #232323;
   }
 
 .btn-primary, .btn-primary:hover  {
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 ;
     border: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 15px 5px 15px 5px;
-    color: #17375E;
+    color: #232323;
     outline: none;
     font-style: oblique;
     font-size: 20px;
-    font-family: 'SF Pro', !important;
     width: 370px;
 
 }
 
-.btn-primary:active:focus, .btn-primary:visited, .btn-primary:focus{
+.btn-primary:active:focus, .btn-primary:active,.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:visited, .btn-primary:focus{
     background-color: #ffbf0a !important;
     outline: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    color: #f1f1f1 !important;
+
 }
 .btn-secondary, .btn-secondary:hover{
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 1px 2px 2px 2px;
-    color: #17375E;
+    color: #232323;
     font-style: oblique;
-    font-family: 'SF Pro', !important;
+
     font-size: 20px;
     height: 55px;
     width: 55px;
 }
 .btn-light{
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 2px 2px 2px 2px;
-    color: #17375E;
-    font-family: 'SF Pro', !important;
+    color: #232323;
     font-size: 20px;
     height: 115px;
     width: 55px;
 }
 .btnZ{
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
     margin: 3px 2px 2px 2px;
-    color: #17375E;
+    color: #232323;
     font-style: oblique;
-    font-family: 'SF Pro', !important;
     font-size: 20px;
     height: 55px;
     width: 116.5px;
+}
+.btnZ:active:focus, .btnZ:visited, .btnZ:focus{
+
+    outline: none !important;
+    border: none !important;
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
 }
 
 .container{
@@ -70,7 +75,7 @@ body, html {
     justify-content: center;
     margin: 50px 5px 5px 5px;
     flex-flow:column wrap;
-    max-width: 1076px;
+    width: 100%;
     
 }
 .flex-column{
@@ -90,7 +95,8 @@ body, html {
     flex-wrap: wrap;                     
     justify-items: right !important;
     border: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    background-color: #F4F4F4;
 }
 
 .form-control,.form-control:focus, input, select{
@@ -100,16 +106,19 @@ body, html {
     display: flex;
     flex-direction: column !important;
     align-self: center;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
-    color: darkblue !important;
+    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    color: #232323;
     border: none;
     outline: none;
-    
+    background-color: #F4F4F4;
+}
+.topnav{
+    justify-content: flex-start;
+}
+.onlineicon{
+    margin-left: auto;
 }
 
-.navbar fixed-bottom navbar-light bg-light{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-}
 .row {
     display: block;
 }
@@ -121,9 +130,7 @@ body, html {
     margin-left: 0px !important;
     margin-top: 8px;
 }
-.navbar {
-    font-family: 'SF Pro', !important;
-}
+
 
 
   /* The side navigation menu */
@@ -147,7 +154,7 @@ body, html {
     text-decoration: none;
     font-size: 20px;
     font-family: 'SF Pro', sans-serif;
-    color: #818181;
+    color: #7A7A7A;
     display: block;
     transition: 0.3s;
   }
@@ -172,39 +179,63 @@ body, html {
  /* The Arbeitplatz Buttons */
 
 .btn-ap, .btn-ap:hover  {
-    background-color:#F8F8F8 !important;
+    background-color:#F4F4F4 !important;
     border: none;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
-    margin: 15px 5px 15px 5px;
-    color: #17375E;
+    margin: 2px 10px 10px 2px;
+    color: #232323;
     font-style: oblique;
-    font-size: 15px;
-    font-family: 'SF Pro', !important;
-    height: 60px;
-    width: 230px;
+    font-size: 14px;
+    height: 50px;
+    width: 180px;
 
 }
 .btn-ap:active:focus, .btn-ap:visited, .btn-ap:focus{
     background-color: #ffbf0a !important;
     outline: none;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    color: #f1f1f1;
 }
-.submit {
+.abrechh , .abrechh:active ,.abrechh:focus, .abrechh:visited {
+    background-color: #7A7A7A; !important;
     height: 70px !important;
     width: 200px !important;
     font-style: normal !important;
     font-weight: bolder !important;
+    color: #f1f1f1; !important;
+    align-self: flex-end !important;
+    margin-top: auto !important;
+
+
 }
 
+.submit2 {
+    height: 70px !important;
+    width: 200px !important;
+    font-style: normal !important;
+    font-weight: bolder !important;
+    color: #f1f1f1; !important;
+    background-color: #ffbf0a !important;
+
+}
 .p-2{
     margin-left: 15px;
 }
 
 .flex-row{
-    margin: 10px 0px 40px 30px
+    margin: 10px 5px 20px 30px;
+    align-items:baseline;
 }
 .bestätigen{
-    margin: 50px 30px 20px 30px;
+    margin: 5px 20px 20px 20px;
+    padding-bottom: 80px;
+
+}
+.bestätigen2{
+    margin: 10px 30px 20px 30px;
+    align-self: flex-end;
+    margin-top: auto;
+    width: -webkit-fill-available;
 }
 .topButton{
     height: 30px;
@@ -214,9 +245,10 @@ body, html {
     text-align: center !important;
 
 }
-.topButton:focus{
+.topButton:focus, .topButton:active:focus, .topButton:visited{
     background-color: #ffbf0a !important;
     outline: none;
+    color: #f1f1f1;
     box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
 }
 
@@ -224,12 +256,10 @@ body, html {
     background-color: #ffbf0a;
     box-shadow: 2px 2px 30px 0 rgba(205, 205, 205,0.5),2px 2px 30px 0 rgba(205, 205, 205,.5);
     font-style: oblique;
-    color: #17375E;
-    font-family: 'SF Pro', !important;
+    color: #232323;
     font-size: 20px;
 
 }
-
  /* The Identification Page */
  .identification {
     font-style: oblique;
@@ -239,4 +269,94 @@ body, html {
     text-align: center;
     margin-top: 20px !important;
     row-gap: 0px;
+     text-transform: capitalize;
  }
+
+ .statustable{
+     margin:10px;
+     height:80%;
+ }
+  .statustableflex{
+     margin:10px;
+     height:80%;
+      width: 95%;
+      display: flex;
+    flex-direction: column;
+ }
+ .inputbutton{
+     width: 330px !important;
+     height: 45px !important;
+ }
+
+ .kurztext{
+     width: 330px !important;
+     height: 150px !important;
+ }
+ .inputtextcolumn{
+    row-gap: 22px;
+    align-items: end;
+ }
+ .containerr{
+     align-self: center;
+     display: flex;
+     flex-flow:column wrap;
+     width: 100%;
+ }
+ .inputbuttontable{
+     width: 250px !important;
+     height: 45px !important;
+ }
+ .label:hover,.label{
+     align-self: end;
+ }
+ .radiobuttonsself, .radiobuttonsself:hover, .radiobuttonsself:focus{
+     width: 290px !important;
+    height: 65px !important;
+
+    font-style: normal !important;
+     margin: 1px 2px 2px 20px;
+     font-size: 20px;
+    padding-top: 15px !important;
+ }
+
+ .textclass, .textclass:hover{
+     align-self: end !important;
+    font-size: x-large;
+    font-style: oblique;
+ }
+ table {
+    display: flex;
+    flex-flow: column;
+    height: 80%;
+    width: 99%;
+}
+table thead {
+    /* head takes the height it requires,
+    and it's not scaled when table is resized */
+    flex: 0 0 auto;
+    width: calc(99% - 0.9em);
+}
+table tbody {
+    /* body takes all the remaining available space */
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+
+table thead,
+table tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 99%;
+}
+.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus{
+    width: 330px !important;
+     height: 45px !important;
+    flex-direction: unset !important;
+}
+.flexrowGemeinkosten{
+    margin: 10px 5px 10px 30px;
+
+}
+
+
