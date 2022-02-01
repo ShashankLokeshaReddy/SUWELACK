@@ -1,5 +1,7 @@
 from sqlalchemy import create_engine
 import pandas as pd
+import os
+import subprocess
 
 
 
@@ -84,8 +86,11 @@ sp =[]
 pt =[]
 
 #messageFile = open("translation.csv","w")
-ptfile = open("translations/pt/LC_MESSAGES/messages.po","w")
-enfile = open("translations/en/LC_MESSAGES/messages.po","w")
+ptfile = open("translations/pt/LC_MESSAGES/messages.po","w", encoding="utf8", errors='ignore')
+enfile = open("translations/en/LC_MESSAGES/messages.po","w", encoding="utf8", errors='ignore')
+langid = ["ENG","PT", "sp1"]
+for lang in langid:
+    
 for items in range(len(sprachetable)-1):
     if sprachetable.iloc[items]["S903_ID"] == sprachetable.iloc[items+1]["S903_ID"]:
         #messageFile.write(sprachetable.iloc[items]["S903_ID"]+",")
@@ -95,17 +100,24 @@ for items in range(len(sprachetable)-1):
             ptfile.write('msgid "%s"' % sprachetable.iloc[items]["S903_Text"] + '\n')
             enfile.write('msgid "%s"' % sprachetable.iloc[items]["S903_Text"] + '\n')
             #messageFile.write(sprachetable.iloc[items]["S903_Text"]+",")
+
         elif sprachetable.iloc[items]["S903_Sprachkn"] =="ENG":
+
             eng.append(sprachetable.iloc[items]["S903_Text"])
             #messageFile.write(sprachetable.iloc[items]["S903_Text"] + ",")
             enfile.write('msgstr "%s"' % sprachetable.iloc[items]["S903_Text"] + '\n')
+
         elif sprachetable.iloc[items]["S903_Sprachkn"] == "sp1":
+
             sp.append(sprachetable.iloc[items]["S903_Text"])
             #messageFile.write(sprachetable.iloc[items]["S903_Text"] + ",")
         elif sprachetable.iloc[items]["S903_Sprachkn"] =="PT":
             pt.append(sprachetable.iloc[items]["S903_Text"])
             #messageFile.write(sprachetable.iloc[items]["S903_Text"] + ",")
             ptfile.write('msgstr "%s"' % sprachetable.iloc[items]["S903_Text"] + '\n')
+        else:
+                ptfile.write('msgstr """' + '\n')
+                enfile.write('msgstr """' + '\n')
     #messageFile.write('\n')
 #messageFile.close()
 enfile.close()
@@ -120,14 +132,20 @@ ptfile.close()
 #print(len(eng),len(deu),len(pt))
 #print(len(sp))
 #cols = ['DE', 'ENG', 'PT', 'SP1']
-df1 = pd.DataFrame(
-    {'DEU': pd.Series(deu),
-    'EN': pd.Series(eng),
-     'PT': pd.Series(pt)
-   })
+#df1 = pd.DataFrame(
+ #   {'DEU': pd.Series(deu),
+#    'EN': pd.Series(eng),
+ #    'PT': pd.Series(pt)
+ #  })
 
-print(df1.head(n=100))
+#print(df1.head(n=100))
 
+
+
+
+#cmd = 'pybabel compile -d translations'
+#os.system(cmd)
+#subprocess.run(cmd)
 
 
 
