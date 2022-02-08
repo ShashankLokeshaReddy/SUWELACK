@@ -1,9 +1,12 @@
 from flask import Flask
 from flask import render_template, request, flash, redirect, url_for
 from datetime import datetime
+
+import dbconnection
 from Employee import Employee
 from flask_babel import Babel,format_datetime,gettext
 import XMLRead
+
 
 
 app = Flask(__name__, template_folder="templates")
@@ -205,7 +208,7 @@ def get_list(listname):
         return ["Frontenlager","Verschiedenes(bundes)","Lehrwerkstatt","AV(Bunde)"]
     if listname == "arbeitsplatz":
         #Move the strings here.
-        return [XMLRead.arbeitsplatzlist,XMLRead.dataframeT904['number']]
+        return [dbconnection.Arbeitplatzlist['T905_Bez'],dbconnection.Arbeitplatzlist['T905_NR']]
     if listname == "statusTableItems":
         return  ["Gekommen","G020","Gruppe 20","09:34 Uhr","09:53", "19 Min"]
     if listname == "homeButtons":
