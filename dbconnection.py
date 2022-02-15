@@ -25,16 +25,16 @@ config.read("ksmain.ini")
 FirmaNumber = config.get("TerminalName")
 """
 
-Arbeitplatzlist = pd.read_sql_query("Select * from  rtp.dbo.T905_ArbMasch WHERE T905_FirmaNr = 'TE' and T905_Inaktiv <> 1 order by T905_Sort,T905_Nr",connection)
+#Arbeitplatzlist = pd.read_sql_query("Select * from  rtp.dbo.T905_ArbMasch WHERE T905_FirmaNr = 'TE' and T905_Inaktiv <> 1 order by T905_Sort,T905_Nr",connection)
 #pd.options.display.max_columns = 6
-print(len(Arbeitplatzlist['T905_Bez']))
+#print(len(Arbeitplatzlist['T905_Bez']))
 
-Arbeitplatzlist2= pd.read_sql_query("SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr,T905_Art,T905_Typ,T905_Akkord,T905_Leist,T905_Freigabe,T905_ArbGrNr,T905_Img,T905_StartScreen,T905_Schleuse "
+Arbeitplatzlist= pd.read_sql_query("SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr,T905_Art,T905_Typ,T905_Akkord,T905_Leist,T905_Freigabe,T905_ArbGrNr,T905_Img,T905_StartScreen,T905_Schleuse "
                                    "FROM rtp.dbo.G905_TermPlatz INNER JOIN rtp.dbo.T905_ArbMasch ON G905_Platz = T905_nr AND G905_FirmaNr = T905_FirmaNr "
-                                   "WHERE G905_FirmaNr = 'TE' AND G905_Nr ='01' AND T905_Inaktiv <>1 "
+                                   "WHERE G905_FirmaNr = 'TE' AND G905_Nr ='20' AND T905_Inaktiv <>1 "
                                    "ORDER BY G905_Lfdnr",connection)
 
-#print(Arbeitplatzlist2)
+#print(Arbeitplatzlist)
 
 
 

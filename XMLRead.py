@@ -80,7 +80,7 @@ for tags in DataRoot.findall('T905_ArbMasch'):
     arbeitsplatz = tags.find('T905_Bez').text
     arbeitsplatzlist.append(arbeitsplatz)
 
-#print(arbeitsplatzlist)
+print(len(arbeitsplatzlist))
 print("dataframeT905 read successful")
 """
 To print and display the Dataframes, uncomment the code below:

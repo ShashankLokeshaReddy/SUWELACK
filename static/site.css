@@ -227,9 +227,11 @@ body, html {
     align-items:baseline;
 }
 .bestätigen{
-    margin: 5px 20px 20px 20px;
+    margin: 80px 20px 20px 20px;
     padding-bottom: 80px;
-
+    align-self: flex-end;
+    margin-top: auto !important;
+    width: -webkit-fill-available;
 }
 .bestätigen2{
     margin: 10px 30px 20px 30px;
