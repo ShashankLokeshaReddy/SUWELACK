@@ -16,7 +16,7 @@
 
     <!-- Dynamic population of Buttons -->
     {% for items in range(0,buttonText[0]|length) %}
-    <button type="button" name="arbeitplatzbuttons" value='{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{_(buttonText[0][items])}}</button>
+    <button type="button" name="arbeitplatzbuttons" value='{{buttonText[1][items]}}' class="btn btn-primary btn-ap">{{_(buttonText[0][items])}}</button>
     {% endfor %}
 
 </div>
@@ -42,10 +42,14 @@
     $(document).ready(function(){
         $('#submit').click(function(){
             var value = $('.btn-ap').filter('.selected').val();
+            var name = $('.btn-ap').filter('.selected').text();
             console.log(value);
             $.post(
-              "/arbeitsplatz",
-              { selectedbuttonAP: value })
+              "/anmelden/{{user}}",
+              {
+                  selectedbuttonAP: value,
+                  selectedbuttonname: name
+              })
         });
   });
 </script>

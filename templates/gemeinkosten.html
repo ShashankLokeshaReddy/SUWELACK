@@ -40,7 +40,7 @@
             var value = $('.btn-ap').filter('.selected').val();
             console.log(value);
             $.post(
-              "/gemeinkosten",
+              "/gemeinkosten{{user}}",
               { selectedbuttonGK: value })
         });
   });

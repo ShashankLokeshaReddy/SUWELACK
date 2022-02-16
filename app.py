@@ -3,11 +3,13 @@ from flask import render_template, request, flash, redirect, url_for
 from datetime import datetime
 
 import dbconnection
+import pandas as pd
 import os
 from Employee import Employee
 from flask_babel import Babel, format_datetime, gettext
 import XMLRead
 import dll.bin.dllTest as DLL
+from importlib import reload
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
@@ -65,10 +67,23 @@ def home():
         elif "anmelden_submit" in request.form:
             inputBarValue = request.form["inputbar"]
 
+            nr, satzart, bufunc = DLL.get_kommen_gehen(scan_value=inputBarValue)
+            print(f"[DLL] nr, satzart, bufunc: {nr, satzart, bufunc}")
+            if satzart == "G":
+                print("Already Logged In")
+                flash("User is Already Logged In")
+                workstation = DLL.buchen_kommen_gehen(nr, "G", kstk=1)
+                return render_template(
+                    "home.html",
+                    date=datetime.now(),
+                    username=user,
+                    buttonValues=get_list("homeButtons"),
+                    sidebarItems=get_list("sidebarItems")
+                )
+            else:
             # print(selectedButton)
-            print(inputBarValue)
-            return redirect(url_for("anmelden", userid=inputBarValue))
-
+                print(inputBarValue)
+                return redirect(url_for("anmelden", userid=inputBarValue))
         #selectedButton = request.form["selectedButton"]
 
     else:
@@ -81,24 +96,30 @@ def home():
         )
 
 
-@app.route("/arbeitsplatz", methods=["POST", "GET"])
-def arbeitsplatz():
+@app.route("/arbeitsplatz/<userid>", methods=["POST", "GET"])
+def arbeitsplatz(userid):
+    user=dbconnection.Personalliste.loc[dbconnection.Personalliste['T910_Nr'] == userid]
+    print(user)
     if request.method == 'POST':
         # Retreive the value of selected button from frontend.
         selectedArbeitsplatz = request.form.get('selectedbuttonAP')
-        print(os.getcwd())
-        nr, satzart, bufunc = DLL.get_kommen_gehen(scan_value="1030")
+        arbeitsplatzName     = request.form.get('selectedbuttonname')
+
+
+        nr, satzart, bufunc = DLL.get_kommen_gehen(scan_value=userid)
         print(f"[DLL] nr, satzart, bufunc: {nr, satzart, bufunc}")
         booked_arbeitsplatz = DLL.change_workstation(nr=nr, t905nr=selectedArbeitsplatz)
         print(f"[DLL] booked Arbeitsplatz: {booked_arbeitsplatz}")
         print(selectedArbeitsplatz)
-        # Flash feedback wrt the selected button on home pag
-        flash(selectedArbeitsplatz)
+        print(arbeitsplatzName)
+        # Flash feedback wrt the selected button on home page
+        flash(arbeitsplatzName)
         print("successful")
         return redirect('/')
 
     return render_template(
         "arbeitsplatz.html",
+        user=userid,
         date=datetime.now(),
         username=user1.name,
         buttonText=get_list("arbeitsplatz"),
@@ -106,8 +127,8 @@ def arbeitsplatz():
     )
 
 
-@app.route("/gemeinkosten", methods=["POST", "GET"])
-def gemeinkosten():
+@app.route("/gemeinkosten/<userid>", methods=["POST", "GET"])
+def gemeinkosten(userid):
     if request.method == 'POST':
         # Retreive the value of selected button from frontend.
         selectedGemeinkosten = request.form.get('selectedbuttonGK')
@@ -119,6 +140,7 @@ def gemeinkosten():
 
     return render_template(
         "gemeinkosten.html",
+        user=userid,
         date=datetime.now(),
         buttonText=get_list("gemeinkostenItems"),
         sidebarItems=get_list("sidebarItems")
@@ -129,17 +151,21 @@ def gemeinkosten():
 def identification(page):
     if request.method == 'POST':
         UserID = request.form["inputfield"]
-        print(UserID)
+        #print(UserID)
         print(page)
         # SQL read to retrieve username then we will add the entry into the DB wrt to the USERID, Name and timestamp.
         date = datetime.now()
-
-        date = date.strftime("%d %B, %Y - %H:%M")
-        userlist.append([page, UserID, user1.name, date])
+        #Get the USER details repective to the ID provided.
+        #user = dbconnection.Personalliste.loc[dbconnection.Personalliste['T910_Nr'] == UserID]
+        #print(user['T910_Name'].values[0])
+        #date = date.strftime("%d %B, %Y - %H:%M")
+        #userlist.append([page, UserID, user['T910_Name'].values[0], date])
         # userlist[1][0].append(UserID)
         # userlist[2][0].append(page)
+
         print(userlist)
-        return redirect(f'/{page}')
+        return redirect(url_for(page, userid=UserID))
+        #return redirect(f'/{page}')
     else:
         return render_template(
             "identification.html",
@@ -149,8 +175,8 @@ def identification(page):
         )
 
 
-@app.route("/status", methods=["POST", "GET"])
-def status():
+@app.route("/status/<userid>", methods=["POST", "GET"])
+def status(userid):
     return render_template(
         "status.html",
         tableItems=get_list("statusTableItems"),
@@ -231,15 +257,19 @@ def anmelden(userid):
     print(userid)
 
     if request.method == 'POST':
-        #
         selectedArbeitsplatz = request.form.get('selectedbuttonAP')
-        flash(selectedArbeitsplatz)
+        arbeitsplatzName = request.form.get('selectedbuttonname')
+        print(arbeitsplatzName)
+        flash(arbeitsplatzName)
+
+        DLL.buchen_kommen_gehen(userid, "K", t905nr=selectedArbeitsplatz)
         print("successful")
         return redirect('/')
 
     return render_template(
         "anmelden.html",
         date=datetime.now(),
+        user=userid,
         username=user,
         buttonText=get_list("arbeitsplatz"),
         sidebarItems=get_list("sidebarItems")

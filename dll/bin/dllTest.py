@@ -29,17 +29,17 @@ def get_kommen_gehen(scan_value, check_fa=False):
     """
 
     show_nr = kt002.ShowNumber(scan_value, '', 0, 1, 1, '', check_fa, '', 6)
-    # print(f"show_nr: {show_nr}")
+    print(f"[DLL] show_nr: {show_nr}")
     nr, check_fa, satzart, bufunc = show_nr
     check_pnr = kt002.Pruef_PNr(check_fa, nr, satzart, bufunc)
-    # print(f"check_pnr: {check_pnr}")
+    print(f"[DLL] pruef_pnr: {check_pnr}")
     nr_valid, satzart, bufunc = check_pnr
 
     if not nr_valid:
         raise ValueError("[DLL] Eingescannter Wert ist keine gültige T912 Nummer.")
 
     check_pnrfunc = kt002.Pruef_PNrFkt(bufunc, 0, satzart, 0, 1, 1, "", "")
-    # print(f"check_pnrfunc: {check_pnrfunc}")
+    print(f"[DLL] pruef_pnrfkt: {check_pnrfunc}")
     bufunc_valid, satzart, buaction, activefkt, msg = check_pnrfunc
 
     if not bufunc_valid:
@@ -49,7 +49,7 @@ def get_kommen_gehen(scan_value, check_fa=False):
 
 
 
-def buchen_kommen_gehen(nr, satzart, t905nr='', kst='1001', kstk=0):
+def buchen_kommen_gehen(nr, satzart, t905nr='', kst='', kstk=0):
     """
     Checks in/out user given from nr according to satzart onto given workstation.
 
@@ -70,6 +70,7 @@ def buchen_kommen_gehen(nr, satzart, t905nr='', kst='1001', kstk=0):
     # checks whether FA was scanned
     verify_booking = kt002.BuAkt_Buchung(satzart, t905nr, 1, '', 1, 0, 0, 0)
     dialogue, satzart, t905nr, buaction, t22duration, booking_type = verify_booking
+    print(f"[DLL] BuAkt_Buchung: {verify_booking}")
 
     if dialogue:
         # action was canceled by user
@@ -77,8 +78,9 @@ def buchen_kommen_gehen(nr, satzart, t905nr='', kst='1001', kstk=0):
 
     # start of booking process?
     check_in_out_booking = kt002.PNR_Buch(satzart, kst, t905nr, '', '', '', kstk)
-    dialogue, _, kst, workstation, day, kstk = check_in_out_booking
-    print(f"[DLL] check_in_out_booking: {check_in_out_booking}")
+    # TODO: maybe ignore kstk from this call, since it returns 2 even when we want to check out on last station (kstk=1)
+    dialogue, satzart, kst, workstation, day, kstk = check_in_out_booking
+    print(f"[DLL] PNR_Buch: {check_in_out_booking}")
 
     if dialogue:
         # action was canceled by user
@@ -101,14 +103,16 @@ def buchen_kommen_gehen(nr, satzart, t905nr='', kst='1001', kstk=0):
     else:
         # insert check in/out booking to database
         final_booking = kt002.PNR_Buch3(day, satzart, kst, workstation, '', '', 0)
+        print(f"[DLL] PNR_Buch3: {final_booking}")
 
     # clear booking for next booking
     clear_booking = kt002.PNR_Buch4Clear(1, nr, satzart, workstation, buaction, True, '', '', '', '', '')
+    print(f"[DLL] PNR_Buch4Clear: {clear_booking}")
 
     return workstation  # Example: 'G012'
 
 
-def change_workstation(nr, t905nr, kst='1001', kstk=2):
+def change_workstation(nr, t905nr, kst='', kstk=2):
     """
     Changes workstation for user given from nr .
 
@@ -127,9 +131,10 @@ def change_workstation(nr, t905nr, kst='1001', kstk=2):
 
     verify_booking = kt002.BuAkt_Buchung('A', t905nr, 1, '', 1, 0, 0, 0)
     dialogue, satzart, t905nr, buaction, t22duration, booking_type = verify_booking
+    print(f"[DLL] verify_booking: {verify_booking}")
 
     # start of booking process
-    change_ws_booking = kt002.PNR_Buch('A', kst, t905nr, '', '', '', kstk) # add documentation for input values)
+    change_ws_booking = kt002.PNR_Buch('A', kst, t905nr, '', '', '', kstk)
     dialogue, satzart, kst, workstation, day, kstk = change_ws_booking
     print(f"[DLL] change_ws_booking: {change_ws_booking}")
 
@@ -150,20 +155,41 @@ def change_workstation(nr, t905nr, kst='1001', kstk=2):
 
 
 # Test
-
-# nr, satzart, bufunc = get_kommen_gehen(scan_value="1024")
+# Fehler passiert, wenn die Person gerade abwesend ist und dann das Skript ausgeführt wird
+# dann wird sie reingebucht und nächste Rückgabe von Pruef_PnrFkt wird 'A' sein, obwohl es 'G' sein müsste
+# Wenn die Person gerade anwesend ist, bevor das Skript läuft, wird korrekterweise ein 'G' von Pruef_PNrFkt zurückgegeben
+# anschließend wird für die Person 'Gehen' gebucht und beim nächsten Aufruf von Pruef_PnrFkt korrekterweise ein 'K' zurückgegeben
+"""nr = "1035"
+nr, satzart, bufunc = get_kommen_gehen(scan_value=nr)
 # print(nr, satzart, bufunc)
 
-# if satzart == "K":
+if satzart == "K":
     # If person should come, specify workstation (t905nr)
-    # workstation = buchen_kommen_gehen(nr, satzart, t905nr="F101")
-# elif satzart == "G":
+    t905nr = "G012"
+    workstation = buchen_kommen_gehen(nr, satzart, t905nr=t905nr)
+elif satzart == "G":
     # If person should go, don't specify workstation (checks out from the one the person has used)
-    # workstation = buchen_kommen_gehen(nr, satzart)
+    workstation = buchen_kommen_gehen(nr, satzart, kstk=1)
+print("")
 
-# print(workstation)
+import time
+# wait a few seconds seconds so that bookings don't override each other
+time.sleep(5)
+
+nr, satzart, bufunc = get_kommen_gehen(scan_value=nr)
+# print(nr, satzart, bufunc)
+
+if satzart == "K":
+    # If person should come, specify workstation (t905nr)
+    t905nr = "G012"
+    workstation = buchen_kommen_gehen(nr, satzart, t905nr=t905nr)
+elif satzart == "G":
+    # If person should go, don't specify workstation
+    workstation = buchen_kommen_gehen(nr, satzart, kstk=1)
+elif satzart == "A":
+    print("Zurückgegebene Satzart war \'A\'")"""
 
 # method to change workstation (only run if person is currently checked in), specify workstation with t905nr
 # print("Dialog: Arbeitsplatz wechseln")
-# new_workstation = change_workstation(nr, t905nr="G012")
+# new_workstation = change_workstation(nr, t905nr="F105")
 
