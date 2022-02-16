@@ -48,6 +48,13 @@ dataframeT904= pd.DataFrame(rows, columns = T904columns)
 
 print("dataframeT904 read successful")
 
+#Access terminal number from config
+XMLtree = ET.parse('data/X998.xml')
+DataRoot =XMLtree.getroot()
+for tags in DataRoot.findall('X998_ConfigTerm'):
+    terminalNumber= tags.find('X998_GrpPlatz').text
+
+#print(terminalNumber)
 """
 XML T910  --> Vorname, name and passcode
 
@@ -80,7 +87,7 @@ for tags in DataRoot.findall('T905_ArbMasch'):
     arbeitsplatz = tags.find('T905_Bez').text
     arbeitsplatzlist.append(arbeitsplatz)
 
-print(len(arbeitsplatzlist))
+#print(len(arbeitsplatzlist))
 print("dataframeT905 read successful")
 """
 To print and display the Dataframes, uncomment the code below:

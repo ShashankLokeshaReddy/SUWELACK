@@ -56,16 +56,22 @@ def home():
     # print(new_workstation)
 
     if request.method == 'POST':
+        inputBarValue = request.form["inputbar"]
+        username = dbconnection.personallCard.loc[dbconnection.personallCard['T912_Nr'] == 1519]
+        print(username['T912_Bez'].values[0])
+        # username = dbconnection.personallCard.loc[dbconnection.personallCard['T912_Nr'] == inputBarValue]
+        # print(username)
+        # print(username['T912_Bez'])
+
         if "selectedButton" in request.form:
             selectedButton = request.form["selectedButton"]
-            inputBarValue = request.form["inputbar"]
 
             print(selectedButton)
             print(inputBarValue)
 
             return redirect(url_for("identification", page=selectedButton))
         elif "anmelden_submit" in request.form:
-            inputBarValue = request.form["inputbar"]
+            print(inputBarValue)
 
             nr, satzart, bufunc = DLL.get_kommen_gehen(scan_value=inputBarValue)
             print(f"[DLL] nr, satzart, bufunc: {nr, satzart, bufunc}")
@@ -98,8 +104,9 @@ def home():
 
 @app.route("/arbeitsplatz/<userid>", methods=["POST", "GET"])
 def arbeitsplatz(userid):
-    user=dbconnection.Personalliste.loc[dbconnection.Personalliste['T910_Nr'] == userid]
-    print(user)
+
+    username=dbconnection.personallCard.loc[dbconnection.personallCard['T912_Nr'] == userid]
+    print(username['T912_Bez'].values[0])
     if request.method == 'POST':
         # Retreive the value of selected button from frontend.
         selectedArbeitsplatz = request.form.get('selectedbuttonAP')
@@ -121,7 +128,7 @@ def arbeitsplatz(userid):
         "arbeitsplatz.html",
         user=userid,
         date=datetime.now(),
-        username=user1.name,
+        username=username,
         buttonText=get_list("arbeitsplatz"),
         sidebarItems=get_list("sidebarItems")
     )

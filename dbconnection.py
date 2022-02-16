@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 import pandas as pd
+from XMLRead import terminalNumber
 import configparser
 
 
@@ -31,16 +32,16 @@ FirmaNumber = config.get("TerminalName")
 
 Arbeitplatzlist= pd.read_sql_query("SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr,T905_Art,T905_Typ,T905_Akkord,T905_Leist,T905_Freigabe,T905_ArbGrNr,T905_Img,T905_StartScreen,T905_Schleuse "
                                    "FROM rtp.dbo.G905_TermPlatz INNER JOIN rtp.dbo.T905_ArbMasch ON G905_Platz = T905_nr AND G905_FirmaNr = T905_FirmaNr "
-                                   "WHERE G905_FirmaNr = 'TE' AND G905_Nr ='20' AND T905_Inaktiv <>1 "
-                                   "ORDER BY G905_Lfdnr",connection)
+                                   "WHERE G905_FirmaNr = 'TE' AND G905_Nr =? AND T905_Inaktiv <>1 "
+                                   "ORDER BY G905_Lfdnr",connection,params=[terminalNumber])
 
 #print(Arbeitplatzlist)
-Personalliste = pd.read_sql_query("SELECT T910_Nr,T910_Name,T910_Vorname FROM rtp.dbo.T910_Personalliste",connection, coerce_float = False)
-#print(Personalliste)
+personallListe = pd.read_sql_query("SELECT T910_Nr,T910_Name,T910_Vorname FROM rtp.dbo.T910_Personalliste",connection, coerce_float = False)
+personallCard = pd.read_sql_query("SELECT T912_Nr,T912_Bez,T912_PersNr FROM rtp.dbo.T912_PersCard",connection, coerce_float = False)
+#print(personallCard)
 #user['T910_Name']
-user = Personalliste.loc[Personalliste['T910_Nr'] == 63]
-#print(user[])
-#print(user['T910_Name'].values[0])
+username = personallCard.loc[personallCard['T912_Nr'] == 1519]
+print(username['T912_Bez'].values[0])
 #user['T910_Name']
 #GKdata = pd.read_sql_query("select top 10000 TA05_FA_Nr, TA05_ArtikelBez,TA06_BelegNr from KSAlias.dbo.TA05_FAK1 "
 #                         "inner join KSAlias.dbo.TA06_FAD1 on TA06_FirmaNr = TA05_FirmaNr and TA06_FA_Nr = TA05_FA_Nr and TA06_Platz_Soll =Platz "
