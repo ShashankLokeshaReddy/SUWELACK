@@ -154,7 +154,7 @@ def identification(page):
         #print(UserID)
         print(page)
         # SQL read to retrieve username then we will add the entry into the DB wrt to the USERID, Name and timestamp.
-        date = datetime.now()
+        #date = datetime.now()
         #Get the USER details repective to the ID provided.
         #user = dbconnection.Personalliste.loc[dbconnection.Personalliste['T910_Nr'] == UserID]
         #print(user['T910_Name'].values[0])
@@ -185,8 +185,8 @@ def status(userid):
     )
 
 
-@app.route("/berichtdrucken", methods=["POST", "GET"])
-def berichtdrucken():
+@app.route("/berichtdrucken/<userid>", methods=["POST", "GET"])
+def berichtdrucken(userid):
     return render_template(
         "berichtdrucken.html",
         arbeitsplatzgruppe=get_list("arbeitsplatzgruppe"),
@@ -195,8 +195,8 @@ def berichtdrucken():
     )
 
 
-@app.route("/auftragsbuchung", methods=["POST", "GET"])
-def auftragsbuchung():
+@app.route("/auftragsbuchung/<userid>", methods=["POST", "GET"])
+def auftragsbuchung(userid):
     return render_template(
         "auftragsbuchung.html",
         arbeitplatzIst=get_list("arbeitsplatz"),
@@ -207,8 +207,8 @@ def auftragsbuchung():
     )
 
 
-@app.route("/gruppenbuchung", methods=["POST", "GET"])
-def gruppenbuchung():
+@app.route("/gruppenbuchung/<userid>", methods=["POST", "GET"])
+def gruppenbuchung(userid):
     return render_template(
         "gruppenbuchung.html",
         date=datetime.now(),
@@ -217,8 +217,8 @@ def gruppenbuchung():
     )
 
 
-@app.route("/fertigungsauftrag", methods=["POST", "GET"])
-def fertigungsauftrag():
+@app.route("/fertigungsauftrag/<userid>", methods=["POST", "GET"])
+def fertigungsauftrag(userid):
     return render_template(
         "fertigungsauftrag.html",
         date=datetime.now(),
@@ -229,8 +229,8 @@ def fertigungsauftrag():
     )
 
 
-@app.route("/fertigungauftragerstellen", methods=["POST", "GET"])
-def fertigungauftragerstellen():
+@app.route("/fertigungauftragerstellen/<userid>", methods=["POST", "GET"])
+def fertigungauftragerstellen(userid):
     return render_template(
         "fertigungauftragerstellen.html",
         date=datetime.now(),
@@ -238,8 +238,8 @@ def fertigungauftragerstellen():
     )
 
 
-@app.route("/gemeinkostenandern", methods=["POST", "GET"])
-def gemeinkostenandern():
+@app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
+def gemeinkostenandern(userid):
     return render_template(
         "gemeinkostenandern.html",
         date=datetime.now(),
