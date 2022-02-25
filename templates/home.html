@@ -8,7 +8,7 @@
             <!-- Flash messages -->
             <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
             <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
-            <p><strong>{{username}}</strong> - {{  _('Anmeldung')}} - {{ date.strftime("%d %B, %Y - %H:%M") }} Uhr - {{msg}}</p>
+            <p><strong>{{username}}</strong> - {{ date.strftime("%H:%M") }} Uhr - {{msg}}</p>
             <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
             </div>
         {% endfor %}
@@ -43,15 +43,18 @@
                     <button type="button" value="*" class="btn btn-secondary">*</button>
                 </div>
                 <div class="row">
-                    <button type="button" value="9" class="btn btn-secondary">9</button>
-                    <button type="button" value="8" class="btn btn-secondary">8</button>
                     <button type="button" value="7" class="btn btn-secondary">7</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
+
+
                 </div>
                 <div class="row">
-                
-                    <button type="button" value="6" class="btn btn-secondary">6</button>
-                    <button type="button" value="5" class="btn btn-secondary">5</button>    
                     <button type="button" value="4" class="btn btn-secondary">4</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
+
+
                 </div>
                 <div class="row">
                     <button type="button" value="3" class="btn btn-secondary">3</button>    
