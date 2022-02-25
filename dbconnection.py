@@ -38,10 +38,15 @@ Arbeitplatzlist= pd.read_sql_query("SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr
 #print(Arbeitplatzlist)
 personallListe = pd.read_sql_query("SELECT T910_Nr,T910_Name,T910_Vorname FROM rtp.dbo.T910_Personalliste",connection, coerce_float = False)
 personallCard = pd.read_sql_query("SELECT T912_Nr,T912_Bez,T912_PersNr FROM rtp.dbo.T912_PersCard",connection, coerce_float = False)
+personalname =pd.read_sql_query("SELECT T912_Nr,T910_Name,T910_Vorname FROM rtp.dbo.T910_Personalliste INNER JOIN rtp.dbo.T912_PersCard ON T910_Nr = T912_PersNr", connection,coerce_float = False)
+#print(personalname)
+personalname['T912_Nr']=personalname['T912_Nr'].astype("string")
+personalname['VorNameName']=personalname["T910_Vorname"] + ", " + personalname["T910_Name"]
+print(personalname)
 #print(personallCard)
 #user['T910_Name']
-username = personallCard.loc[personallCard['T912_Nr'] == 1519]
-print(username['T912_Bez'].values[0])
+#username = personallCard.loc[personallCard['T912_Nr'] == 1519]
+#print(username['T912_Bez'].values[0])
 #user['T910_Name']
 #GKdata = pd.read_sql_query("select top 10000 TA05_FA_Nr, TA05_ArtikelBez,TA06_BelegNr from KSAlias.dbo.TA05_FAK1 "
 #                         "inner join KSAlias.dbo.TA06_FAD1 on TA06_FirmaNr = TA05_FirmaNr and TA06_FA_Nr = TA05_FA_Nr and TA06_Platz_Soll =Platz "

@@ -32,7 +32,7 @@ def get_kommen_gehen(scan_value, check_fa=False):
     print(f"[DLL] show_nr: {show_nr}")
     nr, check_fa, satzart, bufunc = show_nr
     check_pnr = kt002.Pruef_PNr(check_fa, nr, satzart, bufunc)
-    print(f"[DLL] pruef_pnr: {check_pnr}")
+    print(f"[DLL] PruefPNr: {check_pnr}")
     nr_valid, satzart, bufunc = check_pnr
 
     if not nr_valid:
@@ -129,14 +129,18 @@ def change_workstation(nr, t905nr, kst='', kstk=2):
         None if action was canceled.
     """
 
+    # initiate Wechselbuchung
+    kt002.T905Read(t905nr)
+    nr, satzart, bufunc = get_kommen_gehen(scan_value=nr)
+
     verify_booking = kt002.BuAkt_Buchung('A', t905nr, 1, '', 1, 0, 0, 0)
     dialogue, satzart, t905nr, buaction, t22duration, booking_type = verify_booking
-    print(f"[DLL] verify_booking: {verify_booking}")
+    print(f"[DLL] BuAktBuchung: {verify_booking}")
 
     # start of booking process
     change_ws_booking = kt002.PNR_Buch('A', kst, t905nr, '', '', '', kstk)
     dialogue, satzart, kst, workstation, day, kstk = change_ws_booking
-    print(f"[DLL] change_ws_booking: {change_ws_booking}")
+    print(f"[DLL] PNR_Buch: {change_ws_booking}")
 
     if dialogue:
         # action was canceled by user
@@ -187,9 +191,9 @@ elif satzart == "G":
     # If person should go, don't specify workstation
     workstation = buchen_kommen_gehen(nr, satzart, kstk=1)
 elif satzart == "A":
-    print("Zurückgegebene Satzart war \'A\'")"""
+    print("Zurückgegebene Satzart war \'A\'")
 
 # method to change workstation (only run if person is currently checked in), specify workstation with t905nr
-# print("Dialog: Arbeitsplatz wechseln")
-# new_workstation = change_workstation(nr, t905nr="F105")
+print("Dialog: Arbeitsplatz wechseln")
+new_workstation = change_workstation(nr, t905nr="F105")"""
 
