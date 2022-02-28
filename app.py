@@ -4,7 +4,7 @@ from datetime import datetime
 
 import dbconnection
 import pandas as pd
-import os
+
 from Employee import Employee
 from flask_babel import Babel, format_datetime, gettext
 import XMLRead
@@ -122,25 +122,22 @@ def arbeitsplatz(userid):
         usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
         username = usernamepd['VorNameName'].values[0]
     finally:
-
         if request.method == 'POST':
+            selectedArbeitsplatz = request.form["arbeitplatzbuttons"]
             # Retreive the value of selected button from frontend.
-            selectedArbeitsplatz = request.form.get('selectedbuttonAP')
-            arbeitsplatzName     = request.form.get('selectedbuttonname')
+            selectedArbeitsplatz, arbeitsplatzName= selectedArbeitsplatz.split(",")
 
-            # flash(arbeitsplatzName)
             booked_arbeitsplatz = DLL.change_workstation(nr=userid, t905nr=selectedArbeitsplatz)
             print(f"[DLL] booked Arbeitsplatz: {booked_arbeitsplatz}")
-            print(selectedArbeitsplatz)
-            print(arbeitsplatzName)
+            print(username + " successfully registered at "+ selectedArbeitsplatz +" "+arbeitsplatzName)
             # Flash feedback wrt the selected button on home page
             flash(arbeitsplatzName)
-            print("successful")
+
             return render_template(
                 "home.html",
                 date=datetime.now(),
-                username=username,
                 buttonValues=get_list("homeButtons"),
+                username=username,
                 sidebarItems=get_list("sidebarItems")
             )
 
@@ -280,25 +277,38 @@ def gemeinkostenandern(userid):
 
 @app.route("/anmelden/<userid>", methods=["POST", "GET"])
 def anmelden(userid):
-    selectedArbeitsplatz = request.form.get('selectedbuttonAP')
-    print(selectedArbeitsplatz)
-    print(userid)
-    try:
-        usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
-        #print(usernamepd['VorNameName'].values[0])
-        username = usernamepd['VorNameName'].values[0]
-    finally:
-        if request.method == 'POST':
-            selectedArbeitsplatz = request.form.get('selectedbuttonAP')
-            arbeitsplatzName = request.form.get('selectedbuttonname')
+    #selectedArbeitsplatz = request.form.get('selectedbuttonAP')
+    #selectedArbeitplatzz = request.form["arbeitplatzbuttons"]
+    #selectedArbeitplatz = request.form.get("arbeitplatzbuttons")
+    #print(selectedArbeitplatz)
+    #print(userid)
+
+    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
+    # print(usernamepd['VorNameName'].values[0])
+    username = usernamepd['VorNameName'].values[0]
+    #print(username)
+    if request.method == 'POST':
+            selectedArbeitplatzz = request.form["arbeitplatzbuttons"]
+            data= request.form
+            print(data)
+
+            print(selectedArbeitplatzz)
+            #selectedArbeitsplatz = request.form.get('selectedbuttonAP')
+            arbeitsplatzName = request.form["arbeitsplatzname"]
             print(arbeitsplatzName)
             flash(arbeitsplatzName)
 
-            DLL.buchen_kommen_gehen(userid, "K", t905nr=selectedArbeitsplatz)
+            DLL.buchen_kommen_gehen(userid, "K", t905nr=selectedArbeitplatzz)
             print("successful")
-            return redirect('/')
+            return render_template(
+                "home.html",
+                date=datetime.now(),
+                buttonValues=get_list("homeButtons"),
+                username=username,
+                sidebarItems=get_list("sidebarItems")
+            )
 
-        return render_template(
+    return render_template(
             "anmelden.html",
             date=datetime.now(),
             user=userid,

@@ -42,7 +42,7 @@ personalname =pd.read_sql_query("SELECT T912_Nr,T910_Name,T910_Vorname FROM rtp.
 #print(personalname)
 personalname['T912_Nr']=personalname['T912_Nr'].astype("string")
 personalname['VorNameName']=personalname["T910_Vorname"] + ", " + personalname["T910_Name"]
-print(personalname)
+#print(personalname)
 #print(personallCard)
 #user['T910_Name']
 #username = personallCard.loc[personallCard['T912_Nr'] == 1519]
