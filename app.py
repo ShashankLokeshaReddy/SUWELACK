@@ -272,6 +272,31 @@ def anmelden(userid):
             buttonText=get_list("arbeitsplatz"),
             sidebarItems=get_list("sidebarItems")
         )
+@app.route("/gemeinkostenbeenden/<userid>", methods=["GET"])
+def gemeinkostenbeenden(userid):
+    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
+    username = usernamepd['VorNameName'].values[0]
+    nr, satzart, bufunc = DLL.get_kommen_gehen(scan_value=userid)
+    logging.debug(f"[DLL] nr, satzart, bufunc: {nr, satzart, bufunc}")
+    if satzart == "G":
+        logging.info("Already Logged In")
+        # flash("User is Already Logged In")
+        flash("User wurde abgemeldet.")
+        workstation = DLL.buchen_kommen_gehen(nr, "G", kstk=1)
+        logging.debug("%s wurde abgemeldet." % (username))
+    else:
+        flash("User is not logged in")
+    return render_template(
+        "home.html",
+        date=datetime.now(),
+        username=username,
+        buttonValues=get_list("homeButtons"),
+        sidebarItems=get_list("sidebarItems")
+    )
+
+
+
+
 
 
 def get_list(listname):
@@ -284,8 +309,8 @@ def get_list(listname):
     if listname == "statusTableItems":
         return ["Gekommen", "G020", "Gruppe 20", "09:34 Uhr", "09:53", "19 Min"]
     if listname == "homeButtons":
-        return [["Arbeitplatz wechseln", "Gemeinkosten", "Aufträge", "Dashboard"],
-                ["arbeitsplatz", "gemeinkosten", "auftrage", "dashboard"]]
+        return [["Arbeitplatz wechseln", "Gemeinkosten", "Aufträge", "Dashboard", "Gemeinkosten Beenden"],
+                ["arbeitsplatz", "gemeinkosten", "auftrage", "dashboard","gemeinkostenbeenden"]]
     if listname == "gemeinkostenItems":
         return ["Warten auf Auftrag", "Fertiggungslohn/Zeitlohn", "Sonstige Gemeinkosten", "Gruppensprechrunde",
                 "Teamgespräch",

@@ -13,7 +13,7 @@ driver ='SQL Server Native Client 11.0'
 DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)
 connection = engine.connect()
-print(engine)
+#print(engine)
 
 
 Platz=""
