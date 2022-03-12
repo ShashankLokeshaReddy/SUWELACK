@@ -217,8 +217,8 @@ def fertigungsauftrag(userid):
     )
 
 
-@app.route("/fertigungauftragerstellen/<userid>", methods=["POST", "GET"])
-def fertigungauftragerstellen(userid):
+@app.route("/fertigungauftragerstellen/", methods=["POST", "GET"])
+def fertigungauftragerstellen():
     return render_template(
         "fertigungauftragerstellen.html",
         date=datetime.now(),

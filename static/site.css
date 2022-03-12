@@ -309,8 +309,11 @@ body, html {
      height: 45px !important;
  }
  .label:hover,.label{
-     align-self: end;
- }
+    display: inline-block;
+    margin-bottom: 30px;
+    width: max-content;
+}
+
  .radiobuttonsself, .radiobuttonsself:hover, .radiobuttonsself:focus{
      width: 290px !important;
     height: 65px !important;
@@ -351,6 +354,11 @@ table tbody tr {
     table-layout: fixed;
     width: 99%;
 }
+.table td, .table th {
+    padding: 0.2rem !important;
+    vertical-align: baseline;
+    border-top: 0px solid #dee2e6;
+}
 .datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus{
     width: 330px !important;
      height: 45px !important;
@@ -359,6 +367,36 @@ table tbody tr {
 .flexrowGemeinkosten{
     margin: 10px 5px 10px 30px;
 
+}
+
+.fertigungauftrag {
+    width: 100px !important;
+    height: 45px !important;
+    margin: 5px;
+}
+.fertigungauftragcolumn {
+    width: 100px !important;
+    height: 45px !important;
+    margin: 5px;
+}
+.fertigungauftragrow {
+    margin: 5px 5px 5px 0px;
+    align-items:baseline;
+
+}
+.bestätigen3 {
+    margin: 0px 30px 100px 30px;
+    align-self: flex-end;
+    margin-top: auto;
+}
+.fertigungauftragcontainer{
+    align-items: center !important;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    margin: 5px 5px 5px 5px;
+    flex-flow:column wrap;
+    width: 100%;
 }
 
 
