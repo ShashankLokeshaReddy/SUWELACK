@@ -21,15 +21,17 @@
 <div class="container">
 
 <form action="#" method="post">
+
 <div class="textInput">
         <input type="text" name="inputbar"  id="screen" class="form-control use-focus">
 </div>
+
 
 <div class="pad">
         <div class="d-flex flex-column">
         <!-- Dynamic population of Buttons -->
         {% for items in range(0,buttonValues[0]|length) %}
-        <button type="submit" name=selectedButton value="{{buttonValues[1][items]}}" class="btn btn-primary btn-lg">{{buttonValues[0][items]}}</button>
+        <button type="submit" name=selectedButton value="{{buttonValues[1][items]}}" class="btn btn-primary btn-lg">{{_(buttonValues[0][items])}}</button>
         {% endfor %}
         </div>
         <div class="card">
@@ -40,21 +42,28 @@
                     <button type="button" value="/" class="btn btn-secondary">/</button>  
                     <button type="button" value="*" class="btn btn-secondary">*</button>
                 </div>
+
+
                 <div class="row">
-                    <button type="button" value="9" class="btn btn-secondary">9</button>
-                    <button type="button" value="8" class="btn btn-secondary">8</button>
                     <button type="button" value="7" class="btn btn-secondary">7</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
+
+
                 </div>
                 <div class="row">
-                
-                    <button type="button" value="6" class="btn btn-secondary">6</button>
-                    <button type="button" value="5" class="btn btn-secondary">5</button>    
                     <button type="button" value="4" class="btn btn-secondary">4</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
+
+
                 </div>
                 <div class="row">
-                    <button type="button" value="3" class="btn btn-secondary">3</button>    
-                    <button type="button" value="2" class="btn btn-secondary">2</button>
                     <button type="button" value="1" class="btn btn-secondary">1</button>
+                    <button type="button" value="2" class="btn btn-secondary">2</button>
+                    <button type="button" value="3" class="btn btn-secondary">3</button>    
+
+
                 </div>
                 <div class="row">
                     <button type="button" value="0" class="btnZ">0</button>
@@ -64,7 +73,7 @@
                 <div class="col-md-4">
                     <button type="button" value="-" class="btn btn-secondary">-</button>
                     <button type="button" value="+" class="btn btn-light">+</button>
-                    <button type="button" id="enter" onclick="window.location.href='{{"/anmelden"}}'" value="submit" class="btn btn-light">↵</button>
+                    <button type="submit" id="enter"  name="anmelden_submit" class="btn btn-light">↵</button>
             </div> 
         </div>
 </div>
@@ -89,9 +98,7 @@
             };
         }
     };
-    focusMethod = function getFocus() {
-        document.getElementById("screen").focus();
-            }
-    </script>
+
+</script>
   
 {% endblock %}

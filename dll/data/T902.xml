@@ -1,0 +1,63 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>BvB</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>"nicht Bucher" - Bünde</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2021-03-25T13:38:12+01:00</T902_Anlage>
+    <T902_Aenderung>2021-03-25T14:03:02.163+01:00</T902_Aenderung>
+    <T902_User>gt013</T902_User>
+    <T902_Werk />
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>VER</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Verwaltung Bünde</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2019-03-06T16:01:19.93+01:00</T902_Anlage>
+    <T902_Aenderung>2019-03-06T16:01:19.93+01:00</T902_Aenderung>
+    <T902_User>gt013</T902_User>
+    <T902_Werk />
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>AUS</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Inaktiv</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2019-03-06T13:33:06.773+01:00</T902_Anlage>
+    <T902_Aenderung>2019-03-06T13:33:06.773+01:00</T902_Aenderung>
+    <T902_User>gt013</T902_User>
+    <T902_Werk />
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>GT</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Getmold</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2017-03-22T15:37:25.103+01:00</T902_Anlage>
+    <T902_Aenderung>2017-03-22T15:37:25.103+01:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>02</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>BUE</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Bünde</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2017-03-22T15:37:16.547+01:00</T902_Anlage>
+    <T902_Aenderung>2017-03-22T15:37:16.547+01:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>01</T902_Werk>
+  </T902_Abteilungstabelle>
+</NewDataSet>

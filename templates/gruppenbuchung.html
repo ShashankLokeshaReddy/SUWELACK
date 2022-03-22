@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %} Gruppenbuchung {% endblock %}
+{% block title %} {{ _('Gruppenbuchung') }} {% endblock %}
 
 {% block content%}
 
 <div class="containerr statustable">
-<h3>Gruppenbuchung</h3>
+<h3>{{ _('Gruppenbuchung') }}</h3>
 <div class="flex-row">
 
 <div class="d-flex flex-column inputtextcolumn">
-      <p>Buchungstag:      </p>
-      <p>FA Nr.            </p>
+      <p>{{ _('Buchungstag') }}:      </p>
+      <p>{{ _('FA Nr.') }}            </p>
  </div>
 
  <div class="d-flex flex-column">
@@ -28,8 +28,8 @@
     </div>
     <div class="d-flex flex-column inputtextcolumn">
 
-        <p>Dauer:      </p>
-        <p>Kurztext    </p>
+        <p>{{ _('Dauer') }}:      </p>
+        <p>{{ _('Kurztext') }}    </p>
     </div>
 
     <div class="d-flex flex-column">
@@ -42,8 +42,8 @@
 
 <div class="d-flex justify-content-between bestätigen2">
 
-    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
-    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">Bestätigen</button>
+    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Bestätigen') }}</button>
  </div>
 </div>
 

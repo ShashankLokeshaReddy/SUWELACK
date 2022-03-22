@@ -1,3 +1,4 @@
+import logging
 import xml.etree.ElementTree as ET
 import pandas as pd
 
@@ -46,8 +47,15 @@ for tags in DataRoot.findall('T904_Kostenstellen'):
 dataframeT904= pd.DataFrame(rows, columns = T904columns)
 
 
-print("dataframeT904 read successful")
+logging.info("dataframeT904 read successful")
 
+#Access terminal number from config
+XMLtree = ET.parse('data/X998.xml')
+DataRoot =XMLtree.getroot()
+for tags in DataRoot.findall('X998_ConfigTerm'):
+    terminalNumber= tags.find('X998_GrpPlatz').text
+
+logging.info("Arbeitsplätze respectice of %s" %(terminalNumber))
 """
 XML T910  --> Vorname, name and passcode
 
@@ -55,8 +63,7 @@ XML T910  --> Vorname, name and passcode
 dataframeT910= parse_XML("data/T910.xml ", ["T910_Nr", "T910_Name", "T910_Vorname", "T910_Aktiv",
                                       "T910_Kst", "T910_Platz", "T910_KstK", "T910_Zuordnung", "T910_Entlohnung",
                                             "T910_TermRecht", "T910_Zeitmodell", "T910_Aenderung"])
-print("dataframeT910 read successful")
-
+logging.info("dataframeT910 read successful")
 
 
 
@@ -65,7 +72,7 @@ print("dataframeT910 read successful")
 XML T912  --> username, personalnumber and bez
 """
 dataframeT912= parse_XML("data/T912.xml", ["T912_FirmaNR", "T912_Nr", "T912_PersNr", "T912_Aenderung", "T912_Anlage", "T912_User"])
-print("dataframeT912 read successful")
+logging.info("dataframeT912 read successful")
 
 
 """
@@ -80,8 +87,8 @@ for tags in DataRoot.findall('T905_ArbMasch'):
     arbeitsplatz = tags.find('T905_Bez').text
     arbeitsplatzlist.append(arbeitsplatz)
 
-#print(arbeitsplatzlist)
-print("dataframeT905 read successful")
+#print(len(arbeitsplatzlist))
+logging.info("dataframeT905 read successful")
 """
 To print and display the Dataframes, uncomment the code below:
 """

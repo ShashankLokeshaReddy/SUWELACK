@@ -46,7 +46,7 @@
           /* Notifcation Script */
         window.setTimeout(function() {
         $(".alert").slideUp("normal", function() { $(this).remove(); } );
-        }, 3000);
+        }, 6000);
         /* Side Bar Script */
         function openNav() {
           document.getElementById("mySidenav").style.width = "250px";
@@ -68,7 +68,7 @@
     <footer>
         <nav class="navbar fixed-bottom navbar-light bg-light">
         <a class="navbar-brand" href="#"><img src="../static/images/Icons_Kartenscan.svg" width="64" height="64" alt="">
-            An-/Abmelden
+            {{  _('An-/Abmelden')}}
         </a>
         <strong>{{ date.strftime("%d %B, %Y - %H:%M") }} Uhr</strong>
       </nav>

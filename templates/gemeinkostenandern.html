@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Buchungen ändern {% endblock %}
+{% block title %} {{ _('Gemeinkosten Ändern') }} {% endblock %}
 
 
 {% block content%}
 <div class="containerr statustable">
 
-<h3>Gemeinkosten Ändern</h3>
+<h3>{{ _('Gemeinkosten Ändern') }}</h3>
 
 <div class="d-flex flex-row flexrowGemeinkosten">
 
@@ -15,7 +15,7 @@
 
 <div class="d-flex flex-row flexrowGemeinkosten justify-content-between">
 
-<p>Gruppe: </p>
+<p>{{ _('Buchungstag') }}Gruppe: </p>
     <div class="dropdown inputbutton">
     <button type="button"  data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.arbeitsplatz }}</button>
     <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -35,14 +35,14 @@
     </div>
     </div>
 
-<label for="datum" class="label">Datum</label>
+<label for="datum" class="label">{{ _('Datum') }}</label>
 <input type="date" id="datum" class="form-control datetime">
 
  </div>
 
      <div class="d-flex flexrowGemeinkosten flex-row">
 
-             <label for="GKA" class="label">Buchung: </label>
+             <label for="GKA" class="label">{{ _('Buchungstag') }}: </label>
              <input type="text"  id="GKA" class="form-control">
     </div>
 
@@ -50,14 +50,14 @@
 <table class="table table-striped">
    <thead class="thead-light">
     <tr>
-      <th scope="col">Buchungstag</th>
-      <th scope="col">Arbeitsplatz</th>
-      <th scope="col">Beleg Nr.</th>
-      <th scope="col">Anfang TS</th>
-      <th scope="col">Ende TS</th>
-      <th scope="col">Dauer TS</th>
-      <th scope="col">Menge Gut</th>
-      <th scope="col">Auf_stat</th>
+      <th scope="col">{{ _('Buchungstag') }}</th>
+      <th scope="col">{{ _('Arbeitsplatz') }}</th>
+      <th scope="col">{{ _('Beleg Nr.') }}</th>
+      <th scope="col">{{ _('Anfang TS') }}</th>
+      <th scope="col">{{ _('Ende TS') }}</th>
+      <th scope="col">{{ _('Dauer TS') }}</th>
+      <th scope="col">{{ _('Menge Gut') }}</th>
+      <th scope="col">{{ _('Auf_stat') }}</th>
 
     </tr>
   </thead>
@@ -78,8 +78,8 @@
 
 <div class="d-flex justify-content-between bestätigen2">
 
-    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
-    <button type="submit" id="submit" value="submit" onclick="window.location.href='{{"/fertigungauftragerstellen"}}'" class="btn btn-primary btn-lg submit2">Erstellen</button>
+    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+    <button type="submit" id="submit" value="submit" onclick="window.location.href='{{"/fertigungauftragerstellen"}}'" class="btn btn-primary btn-lg submit2">{{ _('Erstellen') }}</button>
 </div>
 </div>
 

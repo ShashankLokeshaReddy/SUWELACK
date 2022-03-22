@@ -1,20 +1,76 @@
 {% extends "base.html" %}
-{% block title %} Gemeinkosten Ändern {% endblock %}
+{% block title %} {{ _('Gemeinkosten Ändern') }} {% endblock %}
 {% block content%}
     <div class="statustable">
-    <h3>F010400 - Teile ohne Barcode</h3>
-<div class="container">
-<div class="d-flex flex-row">
+    <h3>F010400 - {{ _('Teile ohne Barcode') }}</h3>
+<div class="fertigungauftragcontainer">
+    <div class="d-flex flex-row fertigungauftragrow">
+ <div class="d-flex flex-column">
+<div class="d-flex flex-row fertigungauftragrow">
 <div class="d-flex flex-column">
-      <label for="gesamt" class="label">Gesamt ist</label>
-      <label for="mengeist" class="label">Menge ist</label>
-      <label for="mengeaus" class="label">Menge aus</label>
+      <label for="gesamt" class="label">{{ _('Gesamt ist') }}</label>
+      <label for="mengeist" class="label">{{ _('Menge ist') }}</label>
+      <label for="mengeaus" class="label">{{ _('Menge aus') }}</label>
 </div>
       <div class="d-flex flex-column">
-      <input type="number" id="gesamt"  class="form-control inputbutton">
-      <input type="text" id="mengeist" class="form-control inputbutton">
-      <input type="text" id="mengeaus" class="form-control inputbutton">
+          <input type="number" id="gesamt"  class="form-control fertigungauftrag">
+      <input type="text" id="mengeist" class="form-control fertigungauftrag">
+      <input type="text" id="mengeaus" class="form-control fertigungauftrag">
+
 </div>
+
+<div class="d-flex flex-column">
+      <label for="grundrustzeit" class="label">{{ _('Grundrustzeit') }}</label>
+      <label for="charge" class="label">{{ _('Charge') }}</label>
+      <label for="lagerplatz" class="label">{{ _('Lagerplatz') }}</label>
+</div>
+      <div class="d-flex flex-column">
+      <input type="text" id="grundrustzeit"  class="form-control fertigungauftrag">
+      <input type="text" id="charge" class="form-control fertigungauftrag">
+      <input type="text" id="lagerplatz" class="form-control fertigungauftrag">
+</div>
+    </div>
+<div class="d-flex flex-row fertigungauftragrow">
+
+    <table class="table table-striped">
+   <thead class="thead-light">
+    <tr>
+      <th scope="col">{{ _('Divisionmenge Aus') }}</th>
+      <th scope="col">{{ _('Menge Aus') }}</th>
+      <th scope="col">{{ _('Ausschußgrund') }}</th>
+
+    </tr>
+</thead>
+<tbody>
+    <tr>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <th scope="row">Fehler</th>
+
+    </tr>
+    <tr>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <th scope="row">Defekte Oberfläsche</th>
+
+    </tr>
+    <tr>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <th scope="row">Stapelfehler</th>
+
+    </tr>
+    <tr>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <th scope="row">Kantenanleiner</th>
+
+    </tr>
+</tbody>
+</table>
+    </div>
+     </div>
+
 
 <div class="d-flex flex-column">
         <div class="card">
@@ -53,15 +109,17 @@
 </div>
 </div>
 </div>
-</div>
 
 </div>
-      <div class="d-flex justify-content-between bestätigen2">
+<div class="d-flex flex-row fertigungauftragrow">
+    <div class="d-flex justify-content-between bestätigen3">
 
-    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
-    <button type="button" onclick="" class="btn btn-primary btn-lg submit2">Teilrückmeldung</button>
-    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">Endmeldung</button>
+    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+    <button type="button" onclick="" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
+    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Endmeldung') }}</button>
 
+</div>
+</div>
 </div>
 </div>
 {% endblock %}

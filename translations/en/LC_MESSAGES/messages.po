@@ -1,0 +1,257 @@
+# English translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-12-07 16:15+0100\n"
+"PO-Revision-Date: 2021-12-07 16:28+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: app.py:25
+msgid "Abdullah"
+msgstr ""
+
+#: templates/anmelden.html:2 templates/anmelden.html:7
+msgid "Anmelden"
+msgstr "Register"
+
+#: templates/anmelden.html:9 templates/arbeitsplatz.html:9
+#: templates/gemeinkosten.html:8
+msgid "Alle"
+msgstr "All"
+
+#: templates/anmelden.html:10 templates/arbeitsplatz.html:10
+#: templates/gemeinkosten.html:9
+msgid "Ausgewählte"
+msgstr "Selected"
+
+#: templates/anmelden.html:25 templates/arbeitsplatz.html:24
+#: templates/auftragsbuchung.html:61 templates/berichtdrucken.html:50
+#: templates/fertigungauftragerstellen.html:61
+#: templates/fertigungsauftrag.html:71 templates/gemeinkosten.html:23
+#: templates/gemeinkostenandern.html:81 templates/gruppenbuchung.html:45
+#: templates/status.html:205
+msgid "Abbrechen"
+msgstr "Abort"
+
+#: templates/anmelden.html:26 templates/arbeitsplatz.html:25
+#: templates/auftragsbuchung.html:62 templates/gemeinkosten.html:24
+#: templates/gruppenbuchung.html:46
+msgid "Bestätigen"
+msgstr "Confirm"
+
+#: templates/arbeitsplatz.html:2 templates/arbeitsplatz.html:7
+#: templates/status.html:11
+msgid "Arbeitplatz"
+msgstr "Workstation"
+
+#: templates/arbeitsplatz.html:18
+msgid "buttonText[0][items]"
+msgstr ""
+
+#: templates/auftragsbuchung.html:2 templates/auftragsbuchung.html:6
+msgid "Auftragsbuchung"
+msgstr ""
+
+#: templates/auftragsbuchung.html:11
+msgid "Buchungstag:"
+msgstr "Booking Day"
+
+#: templates/auftragsbuchung.html:12
+msgid "Arbeitsplatz ist"
+msgstr "Workstation is"
+
+#: templates/auftragsbuchung.html:13
+msgid "Personal Nr."
+msgstr "Personal Nr."
+
+#: templates/auftragsbuchung.html:14 templates/gruppenbuchung.html:12
+msgid "FA Nr."
+msgstr ""
+
+#: templates/auftragsbuchung.html:49 templates/gruppenbuchung.html:31
+#: templates/status.html:15
+msgid "Dauer"
+msgstr ""
+
+#: templates/auftragsbuchung.html:50 templates/gruppenbuchung.html:32
+msgid "Kurztext"
+msgstr ""
+
+#: templates/base.html:71
+msgid "An-/Abmelden"
+msgstr "De-/ Register"
+
+#: templates/berichtdrucken.html:2 templates/berichtdrucken.html:6
+msgid "Bericht drucken"
+msgstr "Print Report"
+
+#: templates/berichtdrucken.html:11
+msgid "Reports"
+msgstr ""
+
+#: templates/berichtdrucken.html:13
+msgid "Kennzahlen Gruppe"
+msgstr ""
+
+#: templates/berichtdrucken.html:16
+msgid "Zeitnachweise"
+msgstr ""
+
+#: templates/berichtdrucken.html:35
+msgid "Zeitraum"
+msgstr ""
+
+#: templates/berichtdrucken.html:37
+msgid "Aktueller Monat"
+msgstr "Current Month"
+
+#: templates/berichtdrucken.html:40
+msgid "Vormonat"
+msgstr "Previous Month"
+
+#: templates/berichtdrucken.html:43
+msgid "Tag"
+msgstr "Day"
+
+#: templates/fertigungauftragerstellen.html:2
+#: templates/gemeinkostenandern.html:2 templates/gemeinkostenandern.html:8
+msgid "Gemeinkosten Ändern"
+msgstr ""
+
+#: templates/fertigungauftragerstellen.html:5
+msgid "Teile ohne Barcode"
+msgstr ""
+
+#: templates/fertigungauftragerstellen.html:9
+msgid "Gesamt ist"
+msgstr ""
+
+#: templates/fertigungauftragerstellen.html:10
+msgid "Menge ist"
+msgstr ""
+
+#: templates/fertigungauftragerstellen.html:11
+msgid "Menge aus"
+msgstr ""
+
+#: templates/fertigungauftragerstellen.html:62
+msgid "Teilrückmeldung"
+msgstr ""
+
+#: templates/fertigungauftragerstellen.html:63
+msgid "Endmeldung"
+msgstr ""
+
+#: templates/fertigungsauftrag.html:2 templates/fertigungsauftrag.html:7
+msgid "Fertigungsauftrag erfassen"
+msgstr ""
+
+#: templates/fertigungsauftrag.html:16
+msgid "Gruppe"
+msgstr "Group"
+
+#: templates/fertigungsauftrag.html:43 templates/gemeinkostenandern.html:18
+#: templates/gemeinkostenandern.html:45 templates/gemeinkostenandern.html:53
+#: templates/gruppenbuchung.html:11
+msgid "Buchungstag"
+msgstr "Booking Day"
+
+#: templates/fertigungsauftrag.html:44 templates/gemeinkostenandern.html:54
+msgid "Arbeitsplatz"
+msgstr "Workstation"
+
+#: templates/fertigungsauftrag.html:45 templates/gemeinkostenandern.html:55
+msgid "Beleg Nr."
+msgstr ""
+
+#: templates/fertigungsauftrag.html:46 templates/gemeinkostenandern.html:56
+msgid "Anfang TS"
+msgstr ""
+
+#: templates/fertigungsauftrag.html:47 templates/gemeinkostenandern.html:57
+msgid "Ende TS"
+msgstr ""
+
+#: templates/fertigungsauftrag.html:48 templates/gemeinkostenandern.html:58
+msgid "Dauer TS"
+msgstr ""
+
+#: templates/fertigungsauftrag.html:49 templates/gemeinkostenandern.html:59
+msgid "Menge Gut"
+msgstr ""
+
+#: templates/fertigungsauftrag.html:50 templates/gemeinkostenandern.html:60
+msgid "Auf_stat"
+msgstr ""
+
+#: templates/fertigungsauftrag.html:72 templates/gemeinkostenandern.html:82
+msgid "Erstellen"
+msgstr "Generate"
+
+#: templates/gemeinkosten.html:2 templates/gemeinkosten.html:6
+msgid "Gemeinkosten"
+msgstr ""
+
+#: templates/gemeinkostenandern.html:38
+msgid "Datum"
+msgstr "Date"
+
+#: templates/gruppenbuchung.html:2 templates/gruppenbuchung.html:7
+msgid "Gruppenbuchung"
+msgstr "Group Booking"
+
+#: templates/home.html:11
+msgid "Anmeldung"
+msgstr "Registeration"
+
+#: templates/identification.html:20
+msgid "Bitte bestätigen Sie mit Ihrem Coin oder Ihrer Personalnummer"
+msgstr "Please Confirm with your Coin or your Personal Number"
+
+#: templates/identification.html:20
+msgid "Zum"
+msgstr "To"
+
+#: templates/status.html:2 templates/status.html:6
+msgid "Status"
+msgstr ""
+
+#: templates/status.html:10
+msgid "Aktion"
+msgstr ""
+
+#: templates/status.html:12
+msgid "Bezeihung"
+msgstr ""
+
+#: templates/status.html:13
+msgid "Von"
+msgstr ""
+
+#: templates/status.html:14
+msgid "Bis"
+msgstr ""
+
+#: templates/status.html:16
+msgid "Menge"
+msgstr ""
+
+#: templates/status.html:17
+msgid "Auftragsstatus"
+msgstr ""
+
+#: templates/status.html:18
+msgid "Pers.Nr"
+msgstr ""

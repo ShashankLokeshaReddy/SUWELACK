@@ -1,29 +1,29 @@
 {% extends "base.html" %}
-{% block title %} Arbeitplatz {% endblock %}
+{% block title %} {{_('Anmelden')}} {% endblock %}
 {% block content%}
 
 <div class="d-flex flex-row">
 
-    <h2>Arbeitplatz</h2>
+    <h2>{{_('Anmelden')}}</h2>
 
-    <button  type="button" class="btn btn-light topButton" data-toggle="button" aria-pressed="false">Alle</button>
-    <button  type="button" autofocus class="btn btn-light topButton" data-toggle="button" aria-pressed="false">Ausgewählte </button>
+    <button  type="button" class="btn btn-light topButton" data-toggle="button" aria-pressed="false">{{_('Alle')}}</button>
+    <button  type="button" autofocus class="btn btn-light topButton" data-toggle="button" aria-pressed="false">{{  _('Ausgewählte')}} </button>
   </div>
 
-<form action='/' methods="post">
+<form method="post">
 
 <div class="grp d-flex align-content-center flex-wrap justify-content-center">
 
     <!-- Dynamic population of Buttons -->
     {% for items in range(0,buttonText[0]|length) %}
-    <button type="button" name="arbeitplatzbuttons" value='{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
+        <button type="submit" name="arbeitplatzbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{_(buttonText[0][items])}}</button>
     {% endfor %}
 
 </div>
 <div class="d-flex justify-content-between bestätigen">
     <!-- Bestatigen and Abbrechen Buttons -->
-    <button type="button" onclick="" class="btn btn-primary btn-lg abrechh">Abbrechen</button>
-    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">Bestätigen</button>
+    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{  _('Abbrechen')}}</button>
+    <button type="button" class="btn btn-primary btn-lg submit2">{{  _('Abmelden')}}</button>
 </div>
 
 <script>
@@ -32,22 +32,6 @@
     { <!-- JS for the notification animation -->
         $(".alert").slideUp("normal", function() { $(this).remove(); } );
     }, 5000);
-
-    <!-- JS to send the name of the selected button to the next screen -->
-    $('.btn-ap').click(function () {
-    $(this).addClass("selected");
-    console.log('button is selected')
-    });
-
-    $(document).ready(function(){
-        $('#submit').click(function(){
-            var value = $('.btn-ap').filter('.selected').val();
-            console.log(value);
-            $.post(
-              "/arbeitsplatz",
-              { selectedbuttonAP: value })
-        });
-  });
 </script>
 </form>
 
