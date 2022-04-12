@@ -4,6 +4,7 @@ from datetime import datetime
 
 import dbconnection
 import logging
+logging.basicConfig(level=logging.INFO)
 
 from flask_babel import Babel, format_datetime, gettext
 import XMLRead
@@ -42,7 +43,6 @@ def home():
     # method to change workstation (only run if person is currently checked in), specify workstation with t905nr
     # new_workstation = DLL.change_workstation(nr, t905nr="G012")
     # print(new_workstation)
-
 
     if request.method == 'POST':
         inputBarValue = request.form["inputbar"]
@@ -104,12 +104,17 @@ def arbeitsplatz(userid):
             selectedArbeitsplatz = request.form["arbeitplatzbuttons"]
             # Retreive the value of selected button from frontend.
             selectedArbeitsplatz, arbeitsplatzName = selectedArbeitsplatz.split(",")
+            print(f"selectedArbeitsplatz: {selectedArbeitsplatz}")
+            print(f"arbeitsplatzName: {arbeitsplatzName}")
 
-            booked_arbeitsplatz = DLL.change_workstation(nr=userid, t905nr=selectedArbeitsplatz)
+            # booked_arbeitsplatz = DLL.change_workstation(nr=userid, t905nr=selectedArbeitsplatz)
+            booked_arbeitsplatz = "TEST"
             logging.debug(f"[DLL] booked Arbeitsplatz: {booked_arbeitsplatz}")
             logging.info("%s successfully registered at %s %s" % (username, selectedArbeitsplatz, arbeitsplatzName))
             # Flash feedback wrt the selected button on home page
             flash(arbeitsplatzName)
+            url = url_for('home', username=username)
+            print(f"URL: {url}")
             return redirect(url_for(
                 'home',
                 username=username,
@@ -126,15 +131,26 @@ def arbeitsplatz(userid):
 
 @app.route("/gemeinkosten/<userid>", methods=["POST", "GET"])
 def gemeinkosten(userid):
+
+    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
+    username = usernamepd['VorNameName'].values[0]
+    print("username found")
+
     if request.method == 'POST':
+        print("posting")
         # Retreive the value of selected button from frontend.
-        selectedGemeinkosten = request.form.get('selectedbuttonGK')
+        selectedGemeinkosten = request.form['gemeinkostenbuttons']
+        print(f"Gememeinkosten: {selectedGemeinkosten}")
         logging.debug(selectedGemeinkosten)
 
         # Flash feedback wrt the selected button on home page.
         flash(selectedGemeinkosten)
         logging.info("successful")
-        return redirect('/')
+        print(f"URL: {url_for('home', username=username)}")
+        return redirect(url_for(
+            'home',
+            username=username,
+        ))
 
     return render_template(
         "gemeinkosten.html",
@@ -252,8 +268,10 @@ def anmelden(userid):
         selectedArbeitplatz, arbeitsplatzName = selectedArbeitplatz.split(",")
         flash(arbeitsplatzName)
         logging.debug("%s at %s %s" % (username, selectedArbeitplatz, arbeitsplatzName))
-        DLL.buchen_kommen_gehen(userid, "K", t905nr=selectedArbeitplatz)
+        # DLL.buchen_kommen_gehen(userid, "K", t905nr=selectedArbeitplatz)
         logging.debug("successful")
+        url = url_for('home', username=username)
+        print(f"URL: {url}")
         return redirect(url_for(
             'home',
             username=username,
@@ -319,3 +337,11 @@ def get_list(listname):
         return [1067, 2098, 7654, 2376, 8976]
     if listname == "paNr":
         return XMLRead.dataframeT912['T912_PersNr']
+
+def test():
+    print("hello")
+    return redirect(url_for(
+            'anmelden',
+            userid=1234,
+            username="hallo",
+        ))
