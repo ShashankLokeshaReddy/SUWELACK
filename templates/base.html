@@ -31,12 +31,12 @@
 
               <!--open Navbar https://www.cssscript.com/virtual-keyboard-desktop/-->
               <a class="navbar-brand" href="#">
-                  <img onclick="openNav()" src="../static/images/Icons_Menü.svg" width="50" height="50" alt=""></a>
+                  <img onclick="openNav()" src="/static/images/Icons_Menü.svg" width="50" height="50" alt=""></a>
                   <a class="navbar-brand open-keyboard"  onclick="focusMethod()" style="margin-left: 20px; align-self: flex-start !important;" href="#">
-                <img  src="../static/images/Icons_Tastatur.svg" width="100" height="50"  alt=""></a>
+                <img  src="/static/images/Icons_Tastatur.svg" width="100" height="50"  alt=""></a>
                 <a class="navbar-brand onlineicon" href="#">
 
-                <img  src="../static/images/Icons_Online.svg" width="50" height="50" alt="">
+                <img  src="/static/images/Icons_Online.svg" width="50" height="50" alt="">
                 </a>
 
           </div>
@@ -67,7 +67,7 @@
 
     <footer>
         <nav class="navbar fixed-bottom navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="../static/images/Icons_Kartenscan.svg" width="64" height="64" alt="">
+        <a class="navbar-brand" href="{{ url_for('home', username=username) }}"><img src="/static/images/Icons_Kartenscan.svg" width="64" height="64" alt="">
             {{  _('An-/Abmelden')}}
         </a>
         <strong>{{ date.strftime("%d %B, %Y - %H:%M") }} Uhr</strong>
