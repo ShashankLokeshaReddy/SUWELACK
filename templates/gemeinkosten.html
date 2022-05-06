@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %} {{ _('Gemeinkosten') }} {% endblock %}
+
+{% block navbar %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <!-- Flash messages -->
+            <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
+            <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+            <p>{{ date.strftime("%H:%M") }} Uhr - {{msg}}</p>
+            <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content%}
+
+<div class="container">
+
+    <form action='#' method="post">
+
+    <div class="textInput">
+        <input type="text" name="inputfield" id="screen" class="form-control">
+    </div>
+
+    <div class="pad">
+
+        <div class="d-flex flex-column identification">
+            <!-- Identification "page" is the value that we are getting form the last clicked button on the home screen. -->
+
+            <a class="navbar-brand" href="#"><img src="../static/images/Icons_Kartenscan.svg" width="300" height="200" alt=""></a>
+            <p>{{  'Bitte geben Sie die Belegnummer des Gemeinkostenauftrages ein.'}}</p>
+
+        </div>
+        <div class="card">
+            <!-- Keypad -->
+            <div class="col-md-8" id="keypad">
+                <div class="row">
+                    <button type="button" value="" class="btn btn-secondary">⌫</button>
+                    <button type="button" value="/" class="btn btn-secondary">/</button>
+                    <button type="button" value="*" class="btn btn-secondary">*</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="7" class="btn btn-secondary">7</button>
+                </div>
+                <div class="row">
+
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>
+                    <button type="button" value="4" class="btn btn-secondary">4</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="3" class="btn btn-secondary">3</button>
+                    <button type="button" value="2" class="btn btn-secondary">2</button>
+                    <button type="button" value="1" class="btn btn-secondary">1</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="0" class="btnZ">0</button>
+                    <button type="button" value="," class="btn btn-secondary">,</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="button" value="-" class="btn btn-secondary">-</button>
+                <button type="button" value="+" class="btn btn-light">+</button>
+                <button type="submit" value="submit" id="submit" class="btn btn-light">↵</button>
+            </div>
+        </div>
+    </div>
+    </form>
+  </div>
+
+ <script>
+    <!-- JS to insert input into the inputbar from the onscreen keypad -->
+    window.onload = function () {
+        var screen  = document.getElementById('screen'),
+            keypad  = document.getElementById('keypad'),
+            buttons = keypad.getElementsByTagName('button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].onclick = function () {
+                screen.value = screen.value + this.innerHTML;
+                return false;
+            };
+        }
+    };
+ </script>
+
+{% endblock %}
