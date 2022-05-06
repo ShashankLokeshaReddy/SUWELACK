@@ -204,9 +204,6 @@ def home():
 
                         if len(xret) == 0:
                             if ASA == "G":
-                                if SHOWMSGGEHT == 1:
-                                    print('Wollen Sie wirklich gehen msg0133')
-
                                 if GKENDCHECK is True:  # Param aus X998 prüfen laufende Aufträge
                                     xret = kt002.PNR_Buch2Geht()
 
@@ -244,17 +241,21 @@ def home():
         )
 
 
-@app.route("/arbeitsplatz/<userid>", methods=["POST", "GET"])
-def arbeitsplatz(userid):
+@app.route("/arbeitsplatzwechsel/<userid>", methods=["POST", "GET"])
+def arbeitsplatzwechsel(userid):
     """
     Route for choosing an Arbeitsplatz for Wechselbuchung. Shows all Arbeitsplätze from SQL Query as buttons.
-    Uses 'arbeitsplatz.html'.
+    Uses 'arbeitsplatzwechsel.html'.
 
     Args:
         userid: Kartennummer that was input into the inputbar on the identification screen.
 
     Routes to:
         "home": After booking is complete, routes back to home screen for next action.
+        "fabuchta55": if global Auftrag is open for the Person related to Kartennumer from inputbar and
+            Mengendialog is needed.
+        "fabuchta51": if non global Auftrag or Gemeinkeisten is open for the Person related to Kartennumer from inputbar
+            and Mengendialog is needed.
     """
 
     try:
@@ -307,7 +308,6 @@ def arbeitsplatz(userid):
                         buttonValues=get_list("homeButtons"),
                         sidebarItems=get_list("sidebarItems")
                     )
-            xret = ''
             xpersnr = kt002.T910NrGet()
 
             xret = endta51cancelt905(xpersnr)
@@ -335,7 +335,6 @@ def arbeitsplatz(userid):
                                     xFehler = "MSG0137"  # Auftrag wurde nicht erfaßt!
                         else:
                             # 'abweichender Platz, umbuchen nicht erlaubt
-                            # '23.06.2016
                             if SHOWMSGGEHT == True:
                                 SBSTools.to020.G_MsgSuppress = MsgSuppress.NoSuppress
                                 xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr",
@@ -399,7 +398,7 @@ def arbeitsplatz(userid):
             ))
 
         return render_template(
-            "arbeitsplatz.html",
+            "arbeitsplatzwechsel.html",
             user=userid,
             date=datetime.now(),
             buttonText=get_list("arbeitsplatz"),
@@ -417,31 +416,27 @@ def gemeinkosten_buttons(userid):
         userid: Kartennummer that was input into the inputbar on the identification screen.
 
     Routes to:
-        "fabuchta55": if global Auftrag is open for the Person related to Kartennumer from inputbar and Mengendialog is needed.
-        "fabuchta51": if non global Auftrag or Gemeinkeisten is open for the Person related to Kartennumer from inputbar and Mengendialog is needed.
-        "home": if an error occured.
+        "home": After booking is complete, routes back to home screen for next action.
+        "fabuchta55": if global Auftrag is open for the Person related to Kartennumer from inputbar and
+            Mengendialog is needed.
+        "fabuchta51": if non global Auftrag or Gemeinkeisten is open for the Person related to Kartennumer from inputbar
+            and Mengendialog is needed.
     """
 
     usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
     username = usernamepd['VorNameName'].values[0]
-    print("username found")
 
     if request.method == 'POST':
         # Retreive the value of selected button from frontend.
         selectedGemeinkosten = request.form['gemeinkostenbuttons']
         print(f"Gememeinkosten: {selectedGemeinkosten}")
         logging.debug(selectedGemeinkosten)
-        # Flash feedback wrt the selected button on home page.
 
         activefkt = ""
         nr = userid
         belegnr = 'GK0022400'  # = ABelegNr
-        buaction = 1  # = AktAction
         xKst = ''  # = AKst
         xsa = ''  # = ASA
-        xfa = ''  # = AFA
-        xret = ''
-        xsalast = ''
         xT905Last = ''
         xTA29Last = ''
         xBelegNr = ''
@@ -464,9 +459,6 @@ def gemeinkosten_buttons(userid):
 
         if len(xret) == 0:
             if len(belegnr) == 0:
-                # HIER DIALOG AUFBAUEN
-                # xBelegNr = DIALOG RÜCKGABE kt001_ShowTA06GK(xT905Last)
-                print('Dialog Auswahl Gemeinkosten')
                 xBelegNr = 'GK0022400'
             else:
                 xBelegNr = belegnr
@@ -523,33 +515,24 @@ def gemeinkosten(userid):
         userid: Kartennummer that was input into the inputbar on the identification screen.
 
     Routes to:
-        "home": if correct Belegnummer was given and booking was successfull.
+        "home": if correct Belegnummer was given and booking was successful.
     """
 
     usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
     username = usernamepd['VorNameName'].values[0]
-    print("username found")
 
     if request.method == 'POST':
-        # Retreive the value of inputted Gemeinkostenauftrag.
+        # Retrieve the value of inputted Gemeinkostenauftrag.
         belegnr = "GK" + request.form["inputfield"]
-        print(f"Gememeinkosten: {belegnr}")
         logging.debug(belegnr)
-        # Flash feedback wrt the selected button on home page.
 
         activefkt = ""
         nr = userid
-        buaction = 1  # = AktAction
         xKst = ''  # = AKst
         xsa = ''  # = ASA
-        xfa = ''  # = AFA
-        xret = ''
-        xsalast = ''
         xT905Last = ''
         xTA29Last = ''
         xBelegNr = ''
-        xKstLast = ''
-        xTSLast = ''
         xsalast = ''
         xkstlast = ''
         xtslast = ''
@@ -567,15 +550,11 @@ def gemeinkosten(userid):
 
         if len(xret) == 0:
             if len(belegnr) == 0:
-                # HIER DIALOG AUFBAUEN
-                # xBelegNr = DIALOG RÜCKGABE kt001_ShowTA06GK(xT905Last)
-                print('Dialog Auswahl Gemeinkosten')
                 xBelegNr = 'GK0022400'
             else:
                 xBelegNr = belegnr
 
         if len(xBelegNr) > 0:
-            # flash(selectedGemeinkosten)
             if kt002.TA06Read(xBelegNr) is True:
                 if kt002.CheckObject(kt002.dr_T905) is False:
                     kt002.T905Read(xT905Last)
@@ -588,7 +567,6 @@ def gemeinkosten(userid):
                 elif xret == 'FA':
                     flash('Laufende FA-Aufträge wurden beendet!')
 
-                # if len(xret) == 0:
                 xret, ata22dauer = bufa(xBelegNr, "", xfarueckend, "0")
                 print(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
 
@@ -596,7 +574,6 @@ def gemeinkosten(userid):
                     flash(xret)
 
                 xStatusMenge = ""
-                xTSLast = datetime.now()
                 xEndeTS = datetime.now()
                 xAnfangTS = xEndeTS
                 xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  # Stringtransporter Datum
@@ -613,16 +590,11 @@ def gemeinkosten(userid):
                 xVal5 = 0.0
                 xbCancel = False
 
-                print(f"ata22dauer given: {ata22dauer}")
                 xTA22Dauer = kt002.gtv("TA22_Dauer")  # aus TA06 gelesen
-                print(f"ata22dauer read: {xTA22Dauer}")
-
-                print('TS' + xAnfangTS.strftime("%d.%m.%Y %H:%M:%S"))
                 print(f"[DLL] PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
                 result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
                 xret, xTS, xStatusMenge = result
                 xAnfangTS = datetime.strptime(xTS, DTFORMAT)
-                print("xTS:" + xTS + " Datum:" + xAnfangTS.strftime("%d.%m.%Y %H:%M:%S"))
                 print(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
                 if len(xret) > 0:
                     flash("Laufende Aufträge beendet.")
@@ -634,22 +606,17 @@ def gemeinkosten(userid):
                 # 14.06.2013 - auf Ende buchen und Mengenabfrage
                 if xbCancel == False:
                     xta22typ = kt002.gtv("TA22_Typ")
-                    print("xta22typ:" + xta22typ)
                     # vorangegangenen Auftrag unterbrechen
-                    # Public Shared Sub BuchTA51_4_Cancel(ByVal ADate As Date, ByVal APersNr As Long)
-                    print("BUCHENFA")
                     print("[DLL] in TA22_Typ != 7")
                     xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
                     t901_nr_print = kt002.gtv("T910_Nr")
                     print(f"[DLL] PRE BuchTa51_4_Cancel xTS: {xTS}, T910_Nr: {t901_nr_print}")
                     kt002.BuchTA51_4_Cancel(xTS, kt002.gtv("T910_Nr"))
-                    # 23.11.2010
                     if kt002.gtv("TA22_Dauer") != 1:
                         print("[DLL] in TA22_Dauer != 1")
                         xAnfangTS = xAnfangTS + timedelta(seconds=1)  # xAnfangTS.AddSeconds(1)
                         xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
 
-                        xcl = Generic.Dictionary[String, Object]()  # leere liste
                         xdmegut = kt002.gtv("TA06_Soll_Me")
                         xsmegut = str(xdmegut)
                         xmegut = float(xsmegut.replace(",", "."))
@@ -661,9 +628,6 @@ def gemeinkosten(userid):
                                                 0.0, xmegut, 0.0, xTRMan, xTA11Nr,
                                                 xCharge, xVal1, xVal2, xVal3,
                                                 xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
-
-                    xret = "FA Buchen;MSG0166" + ";" + kt002.dr_TA06.get_Item(
-                        "TA06_BelegNr") + ";" + kt002.dr_TA06.get_Item("TA06_AgBez")
 
                 flash("GK erfolgreich gebucht.")
                 logging.info("successful")
@@ -695,6 +659,20 @@ def gemeinkosten(userid):
 
 @app.route("/identification/<page>", methods=["POST", "GET"])
 def identification(page):
+    """
+    General pass through route for all routes which need the user id as input.
+    Uses 'identification.html'.
+
+    Args:
+        page: ID of the button that was pressed on home, must correlate to name of a route.
+
+    Routes to:
+        "gemeinkosten": If user was routed here by pressing the Gemeinkosten button on home screen.
+        "arbeitsplatzwechsel": If user was routed here by pressing the Gemeinkosten button on home screen.
+        "auftrage": If user was routed here by pressing the Aufträge button on home screen.
+        "dashboard": If user was routed here by pressing the Dashboard button on home screen.
+    """
+
     if request.method == 'POST':
         userid = request.form["inputfield"]
         logging.info(page)
@@ -702,7 +680,7 @@ def identification(page):
         if page == "gemeinkosten":
             if GEMEINKOSTEN_BUTTONS is True:
                 return redirect(url_for("gemeinkosten_buttons", userid=userid))
-            elif GEMEINKOSTEN_BUTTONS is False:
+            elif GEMEINKOSTEN_BUTTONS is False:  # display GK page as just an input field for BelegNr
                 return redirect(url_for("gemeinkosten", userid=userid))
 
         return redirect(url_for(page, userid=userid))
@@ -793,6 +771,17 @@ def gemeinkostenandern(userid):
 
 @app.route("/anmelden/<userid>/<sa>", methods=["POST", "GET"])
 def anmelden(userid, sa):
+    """
+    Route for letting the user chose an Arbeitsplatz for a "Kommen Buchung".
+    Uses 'anmelden.html'.
+
+    Args:
+        userid: Kartennummer that was input into the inputbar on the identification screen.
+        sa: Satzart given by DLL in previous step.
+
+    Routes to:
+        "home": After user has chosen an Arbeitsplatz and booking is complete.
+    """
 
     usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
     username = usernamepd['VorNameName'].values[0]
@@ -802,7 +791,6 @@ def anmelden(userid, sa):
         selectedArbeitplatz, arbeitsplatzName = selectedArbeitplatz.split(",")
         flash(arbeitsplatzName)
         logging.debug("%s at %s %s" % (username, selectedArbeitplatz, arbeitsplatzName))
-        # DLL.buchen_kommen_gehen(userid, "K", t905nr=selectedArbeitplatz)
 
         result = kt002.PNR_Buch(sa, '', '', '', '', '', 0)
         xret, ASA, AKst, APlatz, xtagid, xkstk = result
@@ -810,12 +798,8 @@ def anmelden(userid, sa):
         if len(xret) == 0:
             if ASA == "K":
                 if xkstk == 2:
-                    print('Auswahl Platz')
                     xplatz = selectedArbeitplatz
             if ASA == "G":
-                if SHOWMSGGEHT == 1:
-                    print('Wollen Sie wirklich gehen msg0133')
-
                 if GKENDCHECK == True:  # Param aus X998 prüfen laufende Aufträge
                     xret = kt002.PNR_Buch2Geht()
 
@@ -857,6 +841,19 @@ def gemeinkostenbeenden(userid):
 
 @app.route("/fabuchta55/<userid>/<sa>/<actbuchung>", methods=["POST", "GET"])
 def fabuchta55(userid, sa, actbuchung):
+    """
+    Route for Mengendialog for GK/FA where fabuchta55 is appropriate.
+    Uses 'mengendialog.html'.
+
+    Args:
+        userid: Kartennummer that was input into the inputbar on the identification screen.
+        sa: Satzart given by DLL in previous step. If FA/GK Buchung then given as "-", but not used.
+        actbuchung: Boolean whether this route is part of a K/G/A booking. Given as String (!), so "False" or "True".
+
+    Routes to:
+        "home": After user has has submitted Mengen and booking is complete.
+        "anmelden": When this route is part of a K/G/A booking process.
+    """
 
     usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
     username = usernamepd['VorNameName'].values[0]
@@ -883,13 +880,10 @@ def fabuchta55(userid, sa, actbuchung):
         try:
             if menge_aus == "":  # menge_aus not defined, given split up into reasons
                 menge_aus = sum([float(aus_fehler), float(aus_oberflaeche), float(aus_stapel), float(aus_kanten)])
-                print("(sum)", end="")
         except ValueError:
             menge_aus = 0.0
-        print(f"menge_aus: {menge_aus}")
         if menge_gut == "":
             menge_gut = 0.0
-        print(f"menge_gut: {menge_gut}")
 
         tl51use = False
         xScanFA = 0
@@ -903,7 +897,6 @@ def fabuchta55(userid, sa, actbuchung):
         xVal5 = 0.0
         xbuchen = True
 
-        # xret = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
         xret = kt002.BuchTA55_0(menge_soll, menge_gut, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         if menge_soll == 1:
             print("Dialog")
@@ -916,7 +909,6 @@ def fabuchta55(userid, sa, actbuchung):
                              float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
             # Störung setzen
-            # MDEGK_Ruest FA-Nr für Rüsten muß in Global Param definiert sein
             if tl51use == True:
                 kt002.BuchTA55_3_TL(xFAEndeTS, T905_NrSelected)
 
@@ -936,7 +928,7 @@ def fabuchta55(userid, sa, actbuchung):
             ))
 
     return render_template(
-        "fertigungauftragerstellen.html",
+        "mengendialog.html",
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
@@ -944,11 +936,23 @@ def fabuchta55(userid, sa, actbuchung):
 
 @app.route("/fabuchta51/<userid>/<sa>/<actbuchung>/<ata22dauer>", methods=["POST", "GET"])
 def fabuchta51(userid, sa, actbuchung, ata22dauer):
+    """
+    Route for Mengendialog for GK/FA where fabuchta51 is appropriate.
+    Uses 'mengendialog.html'.
 
-    print(f"given userid: {userid}")
+    Args:
+        userid: Kartennummer that was input into the inputbar on the identification screen.
+        sa: Satzart given by DLL in previous step. If FA/GK Buchung then given as "-", but not used.
+        actbuchung: Boolean whether this route is part of a K/G/A booking. Given as String (!), so "False" or "True".
+        ata22dauer: Type of booking, 0="auf Ende buchen", 2="auf Anfang und Ende buchen"
+
+    Routes to:
+        "home": After user has has submitted Mengen and booking is complete.
+        "anmelden": When this route is part of a K/G/A booking process.
+    """
+
     usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
     username = usernamepd['VorNameName'].values[0]
-    print(f"username found: {username}")
 
     if request.method == 'POST':
         menge_soll = request.form["menge_soll"]
@@ -983,13 +987,11 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
             ruestzeit = 0.0
 
         xStatusMenge = ""
-        xTSLast = datetime.now()
         xEndeTS = datetime.now()
         xAnfangTS = xEndeTS
         xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  # Stringtransporter Datum
         xTSEnd = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
 
-        # Dim xbFound As Boolean = True
         xDauer = 0
         xVal1 = 0.0
         xVal2 = 0.0
@@ -998,18 +1000,11 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
         xVal5 = 0.0
         xbCancel = False
 
-        print(f"ata22dauer given: {ata22dauer}")
         xTA22Dauer = kt002.gtv("TA22_Dauer")  # aus TA06 gelesen
-        print(f"ata22dauer read: {xTA22Dauer}")
-        # if ata22dauer.isnumeric() is True:
-        #     xTA22Dauer = int(ata22dauer)
-
-        print('TS' + xAnfangTS.strftime("%d.%m.%Y %H:%M:%S"))
         print(f"[DLL] PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
         result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
         xret, xTS, xStatusMenge = result
         xAnfangTS = datetime.strptime(xTS, DTFORMAT)
-        print("xTS:" + xTS + " Datum:" + xAnfangTS.strftime("%d.%m.%Y %H:%M:%S"))
         print(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
         if len(xret) > 0:
             flash("Laufende Aufträge beendet.")
@@ -1018,9 +1013,7 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
                 username=username,
             ))
 
-        print("xTA22Dauer:" + str(xTA22Dauer))
         if xTA22Dauer == 3:
-            # HIER DIALOG dgt11 Gemeinkosten Buchungsdaten ändern
             # xDauer = PNR_TA51GKEndDauer(xTSLast, kt002.dr_TA06("TA06_FA_Nr"), kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"))
             if xDauer > 0:
                 xAnfangTS = xEndeTS.AddMinutes(xDauer * -1)
@@ -1029,13 +1022,11 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
                 xbCancel = True
                 xret = "MSG0133"
 
-        # 14.06.2013 - auf Ende buchen und Mengenabfrage
         if xbCancel == False:
             xta22typ = kt002.gtv("TA22_Typ")
             print("xta22typ:" + xta22typ)
             if kt002.gtv("TA22_Typ") == "7":
                 print("[DLL] in TA22_Typ == 7")
-                # HIER DIALOG PYTHON
                 xDialog = True
                 if xDialog == True:
                     xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
@@ -1045,18 +1036,14 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
                                      kt002.gtv("TA06_TR"), 0, float(menge_gut), float(menge_aus), float(ruestzeit), lagerplatz, charge,
                                      xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
 
-                    # msg0166=Auftrag "_Msg1" wurde gebucht!
                     xret = "FA Buchen;MSG0166" + ";" + kt002.gtv("TA06_BelegNr") + ";" + kt002.gtv("TA06_AgBez")
                 else:
-                    # 'EvtMsgDisplay("FA Buchen", "MSG0133", "", "")
                     # MSG0133=Vorgang wurde abgebrochen
                     xret = "FA Buchen;MSG0133;;"
 
 
             else:
                 # vorangegangenen Auftrag unterbrechen
-                # Public Shared Sub BuchTA51_4_Cancel(ByVal ADate As Date, ByVal APersNr As Long)
-                print("BUCHENFA")
                 print("[DLL] in TA22_Typ != 7")
                 xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
                 t901_nr_print = kt002.gtv("T910_Nr")
@@ -1068,10 +1055,8 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
                     xAnfangTS = xAnfangTS + timedelta(seconds=1)  # xAnfangTS.AddSeconds(1)
                     xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
 
-                    xcl = Generic.Dictionary[String, Object]()  # leere liste
                     xdmegut = kt002.gtv("TA06_Soll_Me")
                     xsmegut = str(xdmegut)
-                    xmegut = float(xsmegut.replace(",", "."))
 
                     xret = kt002.BuchTA51_3(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"),
                                             kt002.gtv("TA06_BelegNr"), xStatusMenge, kt002.gtv("T910_Entlohnung"),
@@ -1097,18 +1082,19 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
             ))
 
     return render_template(
-        "fertigungauftragerstellen.html",
+        "mengendialog.html",
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
 
 
 def endta51cancelt905(apersnr):
+    """Terminates all running GK for user with 'apersnr' """
+
     xret = ''
     msgr = ''
     xfa = ''
     xgk = ''
-    xbcancel = 0
 
     xmsg = kt002.EndTA51GKCheck()
     print('result EndTA51GKCheck: ' + xmsg)
@@ -1126,7 +1112,7 @@ def endta51cancelt905(apersnr):
 
     # Prüfen ob Fertigungsaufträge und GK-Aufträge laufen
     result = kt002.EndTA51FACheck(xfa, xgk)
-    xret, xfa, xgk = result  # ist prozedur, weiß nicht ob rückgabewert dabei ist
+    xret, xfa, xgk = result
 
     if xret is None:
         xret = ''
@@ -1142,18 +1128,15 @@ def endta51cancelt905(apersnr):
         result = kt002.EndTA51GKSave()
         xret = "GK"
 
-    return xret  # endta51cancelt905(apersnr):
+    return xret
 
 
 def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
+    """Checks whether current GK/FA active in DLL is ok to be booked and decides which fabuchta is appropriate."""
+
     xFehler = ''
     xbBuchZiel = 1
-    xScanFA = 0
-    xfanr = ''
-    xt905nr = ''
 
-    #Prüfen, ob WB gemacht werden muß
-    #nur dann, wenn Arbeitsplatz gelesen worden ist!
     if kt002.CheckObject(kt002.dr_T905) == True:
         kt002.BuFAWB(ATA29Nr)
 
@@ -1175,17 +1158,14 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
 
     if len(xFehler) == 0:
         #Prüfen, ob FA bebucht werden darf
-        #setzen Zieltabelle
         result = kt002.BuFANr0Status(xbBuchZiel)
         xret, xbBuchZiel = result
         print ('Bufanrstatus ' + xret + ', Buchzeile ' + str(xbBuchZiel))
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
-                # xFehler = fabuchta55()
                 xFehler = ("fabuchta55", ata22dauer)
             else:
-                # xFehler = fabuchta51(ata22dauer)
                 xFehler = ("fabuchta51", ata22dauer)
 
     else:
@@ -1197,6 +1177,8 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
 
 
 def get_list(listname):
+    """Getter function for various lists needed for display in the app."""
+
     if listname == "arbeitsplatzgruppe":
         # Implement database calls here.
         return ["Frontenlager", "Verschiedenes(bundes)", "Lehrwerkstatt", "AV(Bunde)"]
@@ -1207,7 +1189,7 @@ def get_list(listname):
         return ["Gekommen", "G020", "Gruppe 20", "09:34 Uhr", "09:53", "19 Min"]
     if listname == "homeButtons":
         return [["Arbeitplatz wechseln", "Gemeinkosten", "Aufträge", "Dashboard", "Gemeinkosten Beenden"],
-                ["arbeitsplatz", "gemeinkosten", "auftrage", "dashboard", "gemeinkostenbeenden"]]
+                ["arbeitsplatzwechsel", "gemeinkosten", "auftrage", "dashboard", "gemeinkostenbeenden"]]
     if listname == "gemeinkostenItems":
         return ["Warten auf Auftrag", "Fertiggungslohn/Zeitlohn", "Sonstige Gemeinkosten", "Gruppensprechrunde",
                 "Teamgespräch",
