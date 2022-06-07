@@ -90,9 +90,16 @@ def home():
                 return redirect(url_for("identification", page=selectedButton))
 
             elif "anmelden_submit" in request.form:
+                # something was put into the inputbar and enter was pressed
                 nr = inputBarValue
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                return actbuchung(nr, username, sa)
+                if "GK" in nr:
+                    # "GK" is a substring in inputted nr, so book GK
+                    kt002.PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                    print(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                    return redirect(url_for("gemeinkosten"))
+                else:
+                    return actbuchung(nr, username, sa)
 
     elif request.method == "GET":
         username = request.args.get('username')
@@ -162,6 +169,7 @@ def gemeinkosten_buttons(userid):
     """
     Route for choosing Gemeinkosten as Buttons. Currently not used because DLL does not consider this case yet.
     Uses 'gemeinkostenbuttons.html'.
+    --CURRENTLY NOT SUPPORTED--
 
     Args:
         userid: Kartennummer that was input into the inputbar on the identification screen.
@@ -255,150 +263,27 @@ def gemeinkosten_buttons(userid):
     )
 
 
-@app.route("/gemeinkosten/<userid>", methods=["POST", "GET"])
-def gemeinkosten(userid):
+@app.route("/gemeinkosten/", methods=["POST", "GET"])
+def gemeinkosten():
     """
     Route for choosing Gemeinkosten with a text input field.
     Uses 'gemeinkosten.html'.
 
     Args:
-        userid: Kartennummer that was input into the inputbar on the identification screen.
 
     Routes to:
         "home": if correct Belegnummer was given and booking was successful.
     """
 
-    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
-    username = usernamepd['VorNameName'].values[0]
-
     if request.method == 'POST':
         # Retrieve the value of inputted Gemeinkostenauftrag.
-        belegnr = "GK" + request.form["inputfield"]
-        logging.debug(belegnr)
+        nr = request.form["inputfield"]
+        logging.debug(nr)
+        usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == nr]
+        username = usernamepd['VorNameName'].values[0]
 
-        activefkt = ""
-        nr = userid
-        xKst = ''  # = AKst
-        xsa = ''  # = ASA
-        xT905Last = ''
-        xTA29Last = ''
-        xBelegNr = ''
-        xsalast = ''
-        xkstlast = ''
-        xtslast = ''
-        xfarueckend = ''
-
-        result = kt002.ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "", 6)
-        ret, checkfa, sa, bufunktion = result
-        logging.info(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}, bufunktion: {bufunktion}")
-        result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
-        ret, sa, bufunktion = result
-        logging.info(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
-        result = kt002.CheckKommt(xsa, xKst, xsalast, xkstlast, xtslast, xT905Last, xTA29Last)
-        xret, xsalast, xkstlast, ATSLast, xT905Last, xTA29Last = result
-        logging.info(f"[DLL] CheckKommt ret: {ret}, ASALast: {xsalast}, AKstLast: {xkstlast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
-
-        if len(xret) == 0:
-            if len(belegnr) == 0:
-                xBelegNr = 'GK0022400'
-            else:
-                xBelegNr = belegnr
-
-        if len(xBelegNr) > 0:
-            if kt002.TA06Read(xBelegNr) is True:
-                if kt002.CheckObject(kt002.dr_T905) is False:
-                    kt002.T905Read(xT905Last)
-
-                xpersnr = kt002.T910NrGet()
-                # Laufende Aufträge am anderen Arbeitsplatz beenden
-                xret = endta51cancelt905(xpersnr)
-                if xret == 'GK':
-                    flash('Laufende GK-Aufträge wurden beendet!')
-                elif xret == 'FA':
-                    flash('Laufende FA-Aufträge wurden beendet!')
-
-                xret, ata22dauer = bufa(xBelegNr, "", xfarueckend, "0")
-                logging.info(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
-
-                if xret != "fabuchta51" and xret != "fabuchta55":
-                    flash(xret)
-
-                xStatusMenge = ""
-                xEndeTS = datetime.now()
-                xAnfangTS = xEndeTS
-                xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  # Stringtransporter Datum
-                xTSEnd = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-
-                # Dim xbFound As Boolean = True
-                xTRMan = 0.0
-                xTA11Nr = ""
-                xCharge = ""
-                xVal1 = 0.0
-                xVal2 = 0.0
-                xVal3 = 0.0
-                xVal4 = 0.0
-                xVal5 = 0.0
-                xbCancel = False
-
-                xTA22Dauer = kt002.gtv("TA22_Dauer")  # aus TA06 gelesen
-                logging.info(f"[DLL] PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
-                result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
-                xret, xTS, xStatusMenge = result
-                xAnfangTS = datetime.strptime(xTS, DTFORMAT)
-                logging.info(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
-                if len(xret) > 0:
-                    flash("Laufende Aufträge beendet.")
-                    return redirect(url_for(
-                        'home',
-                        username=username,
-                    ))
-
-                # 14.06.2013 - auf Ende buchen und Mengenabfrage
-                if xbCancel == False:
-                    xta22typ = kt002.gtv("TA22_Typ")
-                    # vorangegangenen Auftrag unterbrechen
-                    logging.info("[DLL] in TA22_Typ != 7")
-                    xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-                    t901_nr_print = kt002.gtv("T910_Nr")
-                    logging.info(f"[DLL] PRE BuchTa51_4_Cancel xTS: {xTS}, T910_Nr: {t901_nr_print}")
-                    kt002.BuchTA51_4_Cancel(xTS, kt002.gtv("T910_Nr"))
-                    if kt002.gtv("TA22_Dauer") != 1:
-                        logging.info("[DLL] in TA22_Dauer != 1")
-                        xAnfangTS = xAnfangTS + timedelta(seconds=1)  # xAnfangTS.AddSeconds(1)
-                        xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-
-                        xdmegut = kt002.gtv("TA06_Soll_Me")
-                        xsmegut = str(xdmegut)
-                        xmegut = float(xsmegut.replace(",", "."))
-
-                        xret = kt002.BuchTA51_3(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"),
-                                                kt002.gtv("TA06_BelegNr"), xStatusMenge,
-                                                kt002.gtv("T910_Entlohnung"),
-                                                kt002.gtv("T905_Nr"), kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"),
-                                                0.0, xmegut, 0.0, xTRMan, xTA11Nr,
-                                                xCharge, xVal1, xVal2, xVal3,
-                                                xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
-
-                flash("GK erfolgreich gebucht.")
-                logging.info("successful")
-
-                return redirect(url_for(
-                    'home',
-                    username=username,
-                ))
-
-        else:
-            flash("Keine Auftragsbuchung ohne Kommt!")
-            return redirect(url_for(
-                'home',
-                username=username,
-            ))
-
-        flash("Belegnummer nicht gefunden.")
-        return redirect(url_for(
-            'gemeinkosten',
-            userid=userid,
-        ))
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
+        return actbuchung(nr, username, sa)
 
     return render_template(
         "gemeinkosten.html",
@@ -406,6 +291,7 @@ def gemeinkosten(userid):
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
+
 
 @app.route("/identification/<page>", methods=["POST", "GET"])
 def identification(page):
@@ -542,21 +428,13 @@ def anmelden(userid, sa):
         flash(arbeitsplatzName)
         logging.debug("%s at %s %s" % (username, selectedArbeitplatz, arbeitsplatzName))
 
-        result = kt002.PNR_Buch(sa, '', '', '', '', '', 0)
+        result = kt002.PNR_Buch(sa, '', selectedArbeitplatz, '', '', '', 0)
         xret, ASA, AKst, APlatz, xtagid, xkstk = result
 
         if len(xret) == 0:
-            if ASA == "K":
-                if xkstk == 2:
-                    xplatz = selectedArbeitplatz
-            if ASA == "G":
-                if GKENDCHECK == True:  # Param aus X998 prüfen laufende Aufträge
-                    xret = kt002.PNR_Buch2Geht()
-
-            if len(xret) == 0:
-                kt002.PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
-
+            kt002.PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
             result = kt002.PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
+
         logging.debug("successful")
         return redirect(url_for(
             'home',
@@ -575,6 +453,7 @@ def anmelden(userid, sa):
 
 @app.route("/gemeinkostenbeenden/<userid>", methods=["POST", "GET"])
 def gemeinkostenbeenden(userid):
+    """--CURRENTLY NOT SUPPORTED--"""
     usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
     username = usernamepd['VorNameName'].values[0]
 
@@ -589,16 +468,15 @@ def gemeinkostenbeenden(userid):
     )
 
 
-@app.route("/fabuchta55/<userid>/<sa>/<actbuchung>", methods=["POST", "GET"])
-def fabuchta55(userid, sa, actbuchung):
+@app.route("/fabuchta55_dialog/<userid>/", methods=["POST", "GET"])
+def fabuchta55_dialog(userid):
     """
     Route for Mengendialog for GK/FA where fabuchta55 is appropriate.
     Uses 'mengendialog.html'.
+    --CURRENTLY NOT SUPPORTED--
 
     Args:
         userid: Kartennummer that was input into the inputbar on the identification screen.
-        sa: Satzart given by DLL in previous step. If FA/GK Buchung then given as "-", but not used.
-        actbuchung: Boolean whether this route is part of a K/G/A booking. Given as String (!), so "False" or "True".
 
     Routes to:
         "home": After user has has submitted Mengen and booking is complete.
@@ -662,20 +540,12 @@ def fabuchta55(userid, sa, actbuchung):
             if tl51use == True:
                 kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
 
+        kt002.PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+
         flash("FA oder GK erfolgreich gebucht.")
         logging.info("successful")
 
-        if bool(actbuchung) is True:  # also need to specify arbeitsplatz
-            return redirect(url_for(
-                'anmelden',
-                userid=userid,
-                sa=sa
-            ))
-        else:  # if booking GK or FA, Platz has already been chosen, done
-            return redirect(url_for(
-                'home',
-                username=username,
-            ))
+        return redirect(url_for('home', username=username))
 
     return render_template(
         "mengendialog.html",
@@ -684,17 +554,15 @@ def fabuchta55(userid, sa, actbuchung):
     )
 
 
-@app.route("/fabuchta51/<userid>/<sa>/<actbuchung>/<ata22dauer>", methods=["POST", "GET"])
-def fabuchta51(userid, sa, actbuchung, ata22dauer):
+@app.route("/fabuchta51_dialog/<userid>/", methods=["POST", "GET"])
+def fabuchta51_dialog(userid):
     """
     Route for Mengendialog for GK/FA where fabuchta51 is appropriate.
     Uses 'mengendialog.html'.
+    --CURRENTLY NOT SUPPORTED--
 
     Args:
         userid: Kartennummer that was input into the inputbar on the identification screen.
-        sa: Satzart given by DLL in previous step. If FA/GK Buchung then given as "-", but not used.
-        actbuchung: Boolean whether this route is part of a K/G/A booking. Given as String (!), so "False" or "True".
-        ata22dauer: Type of booking, 0="auf Ende buchen", 2="auf Anfang und Ende buchen"
 
     Routes to:
         "home": After user has has submitted Mengen and booking is complete.
@@ -750,86 +618,17 @@ def fabuchta51(userid, sa, actbuchung, ata22dauer):
         xVal5 = 0.0
         xbCancel = False
 
-        xTA22Dauer = kt002.gtv("TA22_Dauer")  # aus TA06 gelesen
-        logging.info(f"[DLL] PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
-        result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
-        xret, xTS, xStatusMenge = result
-        xAnfangTS = datetime.strptime(xTS, DTFORMAT)
-        logging.info(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
-        if len(xret) > 0:
-            flash("Laufende Aufträge beendet.")
-            return redirect(url_for(
-                'home',
-                username=username,
-            ))
+        xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
+        xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
+        kt002.BuchTA51_3(xTSEnd, kt002.gtv("T910_Nr"), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"),
+                         xStatusMenge, kt002.gtv("T910_Entlohnung"), kt002.gtv("T905_Nr"),
+                         kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0, float(menge_gut), float(menge_aus),
+                         float(ruestzeit), lagerplatz, charge,
+                         xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
 
-        if xTA22Dauer == 3:
-            # xDauer = PNR_TA51GKEndDauer(xTSLast, kt002.dr_TA06("TA06_FA_Nr"), kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"))
-            if xDauer > 0:
-                xAnfangTS = xEndeTS.AddMinutes(xDauer * -1)
-                xAnfangTS = xAnfangTS.AddSeconds(-1)  # 1 sekunde wird wieder draufgerechnet!
-            else:
-                xbCancel = True
-                xret = "MSG0133"
-
-        if xbCancel is False:
-            xta22typ = kt002.gtv("TA22_Typ")
-            logging.info("xta22typ:" + xta22typ)
-            if kt002.gtv("TA22_Typ") == "7":
-                logging.info("[DLL] in TA22_Typ == 7")
-                xDialog = True
-                if xDialog is True:
-                    xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
-                    xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-                    kt002.BuchTA51_3(xTSEnd, kt002.gtv("T910_Nr"), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"),
-                                     xStatusMenge, kt002.gtv("T910_Entlohnung"), kt002.gtv("T905_Nr"),
-                                     kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0, float(menge_gut), float(menge_aus),
-                                     float(ruestzeit), lagerplatz, charge,
-                                     xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
-
-                    xret = "FA Buchen;MSG0166" + ";" + kt002.gtv("TA06_BelegNr") + ";" + kt002.gtv("TA06_AgBez")
-                else:
-                    # MSG0133=Vorgang wurde abgebrochen
-                    xret = "FA Buchen;MSG0133;;"
-
-            else:
-                # vorangegangenen Auftrag unterbrechen
-                logging.info("[DLL] in TA22_Typ != 7")
-                xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-                t901_nr_print = kt002.gtv("T910_Nr")
-                logging.info(f"[DLL] PRE BuchTa51_4_Cancel xTS: {xTS}, T910_Nr: {t901_nr_print}")
-                kt002.BuchTA51_4_Cancel(xTS, kt002.gtv("T910_Nr"))
-                # 23.11.2010
-                if kt002.gtv("TA22_Dauer") != 1:
-                    logging.info("[DLL] in TA22_Dauer != 1")
-                    xAnfangTS = xAnfangTS + timedelta(seconds=1)  # xAnfangTS.AddSeconds(1)
-                    xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-
-                    xdmegut = kt002.gtv("TA06_Soll_Me")
-                    xsmegut = str(xdmegut)
-
-                    xret = kt002.BuchTA51_3(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"),
-                                            kt002.gtv("TA06_BelegNr"), xStatusMenge, kt002.gtv("T910_Entlohnung"),
-                                            kt002.gtv("T905_Nr"), kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0.0,
-                                            float(menge_gut), float(menge_aus), float(ruestzeit), lagerplatz, charge,
-                                            xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
-
-                xret = "FA Buchen;MSG0166" + ";" + kt002.dr_TA06.get_Item("TA06_BelegNr") + ";" + kt002.dr_TA06.get_Item("TA06_AgBez")
-
-        flash("FA oder GK erfolgreich gebucht.")
-        logging.info("successful")
-
-        if actbuchung == "True":
-            return redirect(url_for(
-                'anmelden',
-                userid=userid,
-                sa=sa
-            ))
-        else:
-            return redirect(url_for(
-                'home',
-                username=username,
-            ))
+        xret = "FA Buchen;MSG0166" + ";" + kt002.gtv("TA06_BelegNr") + ";" + kt002.gtv("TA06_AgBez")
+        kt002.PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+        return redirect(url_for(home, username=username))
 
     return render_template(
         "mengendialog.html",
@@ -892,7 +691,7 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
 
     # Auftrag finden
     if kt002.CheckObject(kt002.dr_TA06) is True:
-        logging.info('bufa CO drta06 exist')
+        print('bufa CO drta06 exist')
     else:
         # FANr wird gescannt und über T905ArbGRNr oder T909 und Platz Soll wird Beleg gefunden
         # Buchung auf FA_Nr
@@ -900,7 +699,7 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
             xt905nr = kt002.gtv("T905_Nr")
             xfanr = kt002.gtv("TA05_FA_Nr")
             result = kt002.TA06ReadArbGrNr(xfanr, xt905nr)
-            logging.info ('TA06Read' + result)
+            print('TA06Read' + result)
             if result == 1:
                 xScanFA = 1
             else:
@@ -910,7 +709,7 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
         # Prüfen, ob FA bebucht werden darf
         result = kt002.BuFANr0Status(xbBuchZiel)
         xret, xbBuchZiel = result
-        logging.info('Bufanrstatus ' + xret + ', Buchzeile ' + str(xbBuchZiel))
+        print('Bufanrstatus ' + xret + ', Buchzeile ' + str(xbBuchZiel))
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
@@ -927,24 +726,109 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
 
 
 def start_booking(nr):
+    """Starts the booking process for given card nr."""
+
     activefkt = ""
     buaction = 7
 
     result = kt002.ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "", 6)
     ret, checkfa, sa, bufunktion = result
-    logging.info(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}, bufunktion: {bufunktion}")
+    print(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}, bufunktion: {bufunktion}")
     result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
     ret, sa, bufunktion = result
-    logging.info(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
+    print(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
     result = kt002.Pruef_PNrFkt(nr, bufunktion, SCANTYPE, sa, buaction, APPMSCREEN2, SERIAL, activefkt, "",
                                 "", "")
     ret, sa, buaction, activefkt, msg, msgfkt, msgdlg = result
-    logging.info(f"[DLL] Pruef_PNrFkt ret: {ret}, sa: {sa}, buaction: {buaction}, activefkt: {activefkt}, msg: {msg}")
+    print(f"[DLL] Pruef_PNrFkt ret: {ret}, sa: {sa}, buaction: {buaction}, activefkt: {activefkt}, msg: {msg}")
 
     return ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg
 
 
+def fabuchta51(nr, username):
+    xStatusMenge = ""
+    xEndeTS = datetime.now()
+    xAnfangTS = xEndeTS
+    xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  # Stringtransporter Datum
+    xTSEnd = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
+
+    xDauer = 0
+    xVal1 = 0.0
+    xVal2 = 0.0
+    xVal3 = 0.0
+    xVal4 = 0.0
+    xVal5 = 0.0
+    xbCancel = False
+
+    xTA22Dauer = kt002.gtv("TA22_Dauer")  # aus TA06 gelesen
+    print(f"[DLL] PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
+    result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
+    xret, xTS, xStatusMenge = result
+    xAnfangTS = datetime.strptime(xTS, DTFORMAT)
+    print(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
+    if len(xret) > 0:
+        flash("Laufende Aufträge beendet.")
+        kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
+        print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
+        return redirect(url_for(
+            'home',
+            username=username,
+        ))
+
+    if xTA22Dauer == 3:
+        if xDauer > 0:
+            xAnfangTS = xEndeTS.AddMinutes(xDauer * -1)
+            xAnfangTS = xAnfangTS.AddSeconds(-1)  # 1 sekunde wird wieder draufgerechnet!
+        else:
+            xbCancel = True
+            xret = "MSG0133"
+
+    if xbCancel is False:
+        xta22typ = kt002.gtv("TA22_Typ")
+        print("xta22typ:" + xta22typ)
+        if kt002.gtv("TA22_Typ") == "7":
+            # dialogue is needed so reroute to route for Mengendialog
+            print("[DLL] in TA22_Typ == 7")
+            return redirect(url_for("fabuchta51_dialog", userid=nr))
+        else:
+            # vorangegangenen Auftrag unterbrechen
+            print("[DLL] in TA22_Typ != 7")
+            xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
+            t901_nr_print = kt002.gtv("T910_Nr")
+            print(f"[DLL] PRE BuchTa51_4_Cancel xTS: {xTS}, T910_Nr: {t901_nr_print}")
+            kt002.BuchTA51_4_Cancel(xTS, kt002.gtv("T910_Nr"))
+
+            if kt002.gtv("TA22_Dauer") != 1:
+                print("[DLL] in TA22_Dauer != 1")
+                xAnfangTS = xAnfangTS + timedelta(seconds=1)  # xAnfangTS.AddSeconds(1)
+                xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
+
+                xdmegut = kt002.gtv("TA06_Soll_Me")
+                xsmegut = str(xdmegut)
+
+                xret = kt002.BuchTA51_3(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"),
+                                        kt002.gtv("TA06_BelegNr"), xStatusMenge, kt002.gtv("T910_Entlohnung"),
+                                        kt002.gtv("T905_Nr"), kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0.0,
+                                        float(0.0), float(0.0), float(0.0), "", "",
+                                        xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
+
+            xret = "FA Buchen;MSG0166" + ";" + kt002.dr_TA06.get_Item("TA06_BelegNr") + ";" + kt002.dr_TA06.get_Item(
+                "TA06_AgBez")
+    kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
+    print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
+
+    flash("FA oder GK erfolgreich gebucht.")
+    logging.info("successful")
+
+    return redirect(url_for(
+        'home',
+        username=username,
+    ))
+
+
 def actbuchung(nr, username, sa):
+    """K/G/A booking according to sa for user with given card nr and username."""
+
     kst = ""
     salast = ""
     kstlast = ""
@@ -955,7 +839,7 @@ def actbuchung(nr, username, sa):
 
     result = kt002.CheckKommt(sa, kst, salast, kstlast, atslast, xT905Last, xTA29Last)
     xret, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last = result
-    logging.info(
+    print(
         f"[DLL] CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
     if len(xret) > 0:
         # 'keine Auftragsbuchung ohne Kommt!
@@ -964,20 +848,24 @@ def actbuchung(nr, username, sa):
             return redirect(url_for("home", username=username))
 
     xpersnr = kt002.T910NrGet()
+    xret = ""
 
-    xret = endta51cancelt905(xpersnr)
-    logging.info(f"[DLL] endta51cancelt905: {xret}")
-    if xret == 'GK':
+    cancel_xret = endta51cancelt905(xpersnr)
+    print(f"[DLL] endta51cancelt905: {cancel_xret}")
+    if cancel_xret == 'GK':
         flash('Laufende GK-Aufträge wurden beendet!')
-    elif xret == 'FA':
+    elif cancel_xret == 'FA':
         flash('Laufende FA-Aufträge wurden beendet!')
 
     if kt002.CheckObject(kt002.dr_T905) is True:
         t905nr = kt002.gtv("T905_Nr")
 
     if kt002.CheckObject(kt002.dr_TA06) is True or kt002.CheckObject(kt002.dr_TA05) is True:
+        print("[DLL] TA06 or TA05 True")
         if kt002.CheckObject(kt002.dr_TA06) is True:
+            print("[DLL] TA06 True")
             if kt002.gtv("T951_Arbist") != kt002.gtv("TA06_Platz_Soll"):
+                print("[DLL] Abweichender Platz")
                 # Abweichender Arbeitsplatz! Umbuchen?
                 if T905ALLOWROUTE is True:
                     # abweichender Platz, umbuchen (umrouten)
@@ -985,44 +873,48 @@ def actbuchung(nr, username, sa):
                         # SHOW MODAL: Abweichender Platz, Umbuchen?
                         modal_result = True
                         if modal_result is False:
-                            flash("Buchung abgebrochen!")
+                            flash("[DLL] Buchung abgebrochen!")
                             return redirect(url_for("home", username=username))
                 else:
                     # 'abweichender Platz, umbuchen nicht erlaubt
+                    print("[DLL] abweichender Platz, umbuchen nicht erlaubt")
                     flash("Abweichender Platz, Umbuchen nicht erlaubt!")
                     return redirect(url_for("home", username=username))
 
         if len(xret) == 0:
+            print("[DLL] 884 xret==0")
             if kt002.CheckObject(kt002.dr_T905) is False:
                 if kt002.CheckObject(kt002.dr_T951) is True:
                     kt002.T905Read(kt002.gtv("T951_Arbist"))
 
             xret, ata22dauer = bufa(kt002.gtv("TA06_BelegNr"), "", "", "")
-            logging.info(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
+            print(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
             if xret == "fabuchta51":
-                return redirect(url_for("fabuchta51", userid=nr, actbuchung=True,
-                                        sa=sa, ata22dauer=ata22dauer))
+                return fabuchta51(nr, username)
             if xret == "fabuchta55":
-                return redirect(url_for("fabuchta55", userid=nr, actbuchung=True, sa=sa))
+                raise NotImplementedError
             else:
                 flash("Auftrag nicht gefunden!")
                 return redirect(url_for("home", username=username))
 
-    result = kt002.PNR_Buch(sa, '', t905nr, '', '', '', 0)
-    xret, ASA, AKst, APlatz, xtagid, xkstk = result
     if len(xret) == 0:
-        if ASA == 'K':
+        print("[DLL] 900 xret==0")
+        if sa == 'K':
             return redirect(url_for(
                 'anmelden',
                 userid=nr,
                 sa=sa
             ))
-
-        elif ASA == 'G':
+        elif sa == 'G':
+            result = kt002.PNR_Buch(sa, '', t905nr, '', '', '', 0)
+            xret, ASA, AKst, APlatz, xtagid, xkstk = result
             if GKENDCHECK is True:  # Param aus X998 prüfen laufende Aufträge
                 xret = kt002.PNR_Buch2Geht()
             logging.info("Already Logged In")
             flash("User wurde abgemeldet.")
+        elif sa == 'A':
+            result = kt002.PNR_Buch(sa, '', t905nr, '', '', '', 0)
+            xret, ASA, AKst, APlatz, xtagid, xkstk = result
 
         if len(xret) == 0:
             kt002.PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
