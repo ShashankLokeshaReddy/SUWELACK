@@ -87,7 +87,11 @@ def home():
         finally:
             if "selectedButton" in request.form:
                 selectedButton = request.form["selectedButton"]
-                return redirect(url_for("identification", page=selectedButton))
+
+                if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
+                    return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
+                else:
+                    return redirect(url_for("identification", page=selectedButton))
 
             elif "anmelden_submit" in request.form:
                 # something was put into the inputbar and enter was pressed
