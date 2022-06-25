@@ -154,10 +154,7 @@ def arbeitsplatzwechsel(userid):
             nr = userid
             kt002.T905Read(selectedArbeitsplatz)
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-            act_return = actbuchung(nr, username, sa)
-            flash(arbeitsplatzName)
-            logging.debug(f"[DLL] booked Arbeitsplatz: {selectedArbeitsplatz}")
-            return act_return
+            return actbuchung(nr, username, sa, arbeitsplatz=arbeitsplatzName)
 
         return render_template(
             "arbeitsplatzwechsel.html",
@@ -830,7 +827,7 @@ def fabuchta51(nr, username):
     ))
 
 
-def actbuchung(nr, username, sa):
+def actbuchung(nr, username, sa, arbeitsplatz=None):
     """K/G/A booking according to sa for user with given card nr and username."""
 
     kst = ""
@@ -846,9 +843,15 @@ def actbuchung(nr, username, sa):
     print(
         f"[DLL] CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
     if len(xret) > 0:
-        # 'keine Auftragsbuchung ohne Kommt!
+        # Last booking was G, for everything other than K, last booking needs to be K
+        if sa == "A":
+            flash("Fehler: Kein Arbeitsplatzwechsel ohne Kommt!")
+            return redirect(url_for("home", username=username))
+        if sa == "G":  # should technically not happen
+            flash("Fehler: Keine Gehen Buchung ohne Kommt!")
+            return redirect(url_for("home", username=username))
         if kt002.CheckObject(kt002.dr_TA06) is True or kt002.CheckObject(kt002.dr_TA05) is True:
-            flash("Keine Auftragsbuchung ohne Kommt!")
+            flash("Fehler: Keine Auftragsbuchung ohne Kommt!")
             return redirect(url_for("home", username=username))
 
     xpersnr = kt002.T910NrGet()
@@ -902,7 +905,6 @@ def actbuchung(nr, username, sa):
                 return redirect(url_for("home", username=username))
 
     if len(xret) == 0:
-        print("[DLL] 900 xret==0")
         if sa == 'K':
             return redirect(url_for(
                 'anmelden',
@@ -919,6 +921,8 @@ def actbuchung(nr, username, sa):
         elif sa == 'A':
             result = kt002.PNR_Buch(sa, '', t905nr, '', '', '', 0)
             xret, ASA, AKst, APlatz, xtagid, xkstk = result
+            flash(arbeitsplatz)
+            logging.debug(f"[DLL] booked Arbeitsplatz: {arbeitsplatz}")
 
         if len(xret) == 0:
             kt002.PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
