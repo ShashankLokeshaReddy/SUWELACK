@@ -99,7 +99,7 @@ def home():
                 if "GK" in nr:
                     # "GK" is a substring in inputted nr, so book GK
                     kt002.PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
-                    print(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                    print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
                     return redirect(url_for("gemeinkosten"))
                 else:
                     return actbuchung(nr, username, sa)
@@ -320,15 +320,6 @@ def fertigungsauftrag(userid):
         arbeitsplatz=get_list("arbeitsplatz"),
         frNr=get_list("frNr"),
         user="John",
-        sidebarItems=get_list("sidebarItems")
-    )
-
-
-@app.route("/fertigungauftragerstellen/", methods=["POST", "GET"])
-def fertigungauftragerstellen():
-    return render_template(
-        "fertigungauftragerstellen.html",
-        date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -882,8 +873,8 @@ def get_list(listname):
     if listname == "statusTableItems":
         return ["Gekommen", "G020", "Gruppe 20", "09:34 Uhr", "09:53", "19 Min"]
     if listname == "homeButtons":
-        return [["Arbeitplatz wechseln", "Gemeinkosten", "Aufträge", "Dashboard", "Gemeinkosten Beenden"],
-                ["arbeitsplatzwechsel", "gemeinkosten", "auftrage", "dashboard", "gemeinkostenbeenden"]]
+        return [["Arbeitplatz wechseln", "Gemeinkosten", "Aufträge", "Status", "Gemeinkosten Beenden", "gemeinkostenandern", "berichtdrucken", "auftragsbuchung", "gruppenbuchung", "fertigungsauftrag", "fertigungauftragerstellen", "gemeinkostenandern"],
+                ["arbeitsplatzwechsel", "gemeinkosten", "auftrage", "status", "gemeinkostenbeenden", "gemeinkostenandern", "berichtdrucken", "auftragsbuchung", "gruppenbuchung", "fertigungsauftrag", "fertigungauftragerstellen", "gemeinkostenandern"]]
     if listname == "gemeinkostenItems":
         return ["Warten auf Auftrag", "Fertiggungslohn/Zeitlohn", "Sonstige Gemeinkosten", "Gruppensprechrunde",
                 "Teamgespräch",
