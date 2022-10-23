@@ -102,15 +102,7 @@
         const button = document.querySelector('#clear');
         button.addEventListener('click', () => {
             document.querySelector('#screen').value = "";
-        });
-
-        document.addEventListener("keyup", function(event) {
-          if (event.keyCode === 13) {
-
-        document.querySelector('#screen').value = screen.value;
-        event.preventDefault();
-             }
-        });
+        })
     };
 
 
