@@ -48,7 +48,6 @@ SCANTYPE = 0  # root.findall('X998_SCANNER')[0].text # X998_SCANNER TS,CS,TP
 SCANON = 1  # Scansimulation an
 KEYCODECOMPENDE = ""  # Endzeichen Scanwert
 SHOWHOST = 1  # Anzeige Hostinformation im Terminal
-GEMEINKOSTEN_BUTTONS = False  # whether to show buttons or text input field for Belegnummer for chosing Gemeinkosten
 SERIAL = True
 SCANCARDNO = True
 T905ALLOWROUTE = True
@@ -170,7 +169,6 @@ def gemeinkosten_buttons(userid):
     """
     Route for choosing Gemeinkosten as Buttons. Currently not used because DLL does not consider this case yet.
     Uses 'gemeinkostenbuttons.html'.
-    --CURRENTLY NOT SUPPORTED--
 
     Args:
         userid: Kartennummer that was input into the inputbar on the identification screen.
@@ -192,69 +190,13 @@ def gemeinkosten_buttons(userid):
         logging.info(f"Gememeinkosten: {selectedGemeinkosten}")
         logging.debug(selectedGemeinkosten)
 
-        activefkt = ""
-        nr = userid
-        belegnr = 'GK0022400'  # = ABelegNr
-        xKst = ''  # = AKst
-        xsa = ''  # = ASA
-        xT905Last = ''
-        xTA29Last = ''
-        xBelegNr = ''
-        xKstLast = ''
-        xTSLast = ''
-        xsalast = ''
-        xkstlast = ''
-        xtslast = ''
-        xfarueckend = ''
+        nr = "GK0022400"  # TODO: replace dummy value
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)  # start with GK nr
+        kt002.PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+        print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
 
-        result = kt002.ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "", 6)
-        ret, checkfa, sa, bufunktion = result
-        logging.info(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}, bufunktion: {bufunktion}")
-        result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
-        ret, sa, bufunktion = result
-        logging.info(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
-        result = kt002.CheckKommt(xsa, xKst, xsalast, xkstlast, xtslast, xT905Last, xTA29Last)
-        xret, xsalast, xkstlast, ATSLast, xT905Last, xTA29Last = result
-        logging.info(f"[DLL] CheckKommt ret: {ret}, ASALast: {xsalast}, AKstLast: {xkstlast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
-
-        if len(xret) == 0:
-            if len(belegnr) == 0:
-                xBelegNr = 'GK0022400'
-            else:
-                xBelegNr = belegnr
-
-        if len(xBelegNr) > 0:
-            if kt002.TA06Read(xBelegNr) is True:
-                if kt002.CheckObject(kt002.dr_T905) is False:
-                    kt002.T905Read(xT905Last)
-
-                xpersnr = kt002.T910NrGet()
-                # Laufende Aufträge am anderen Arbeitsplatz beenden
-                xret = endta51cancelt905(xpersnr)
-                if xret == 'GK':
-                    flash('Laufende GK-Aufträge wurden beendet!')
-                elif xret == 'FA':
-                    flash('Laufende FA-Aufträge wurden beendet!')
-
-                # if len(xret) == 0:
-                xret, ata22dauer = bufa(xBelegNr, "", xfarueckend, "0")
-                logging.info(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
-                if xret == "fabuchta51":
-                    url_tried = url_for("fabuchta51", userid=userid, sa="-", actbuchung="False", ata22dauer=ata22dauer)
-                    logging.info(f"[DLL] url: {url_tried}")
-                    return redirect(url_for("fabuchta51", userid=userid, sa="-", actbuchung="False", ata22dauer=ata22dauer))
-                if xret == "fabuchta55":
-                    url_tried = url_for("fabuchta55", userid=userid, sa="-", actbuchung="False")
-                    logging.info(f"[DLL] url: {url_tried}")
-                    return redirect(url_for("fabuchta55", userid=userid, sa="-", actbuchung="False"))  # sa only relevant if actbuchung==True
-                else:
-                    flash(xret)
-        else:
-            flash("Keine Auftragsbuchung ohne Kommt!")
-            return redirect(url_for(
-                'home',
-                username=username,
-            ))
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
+        return actbuchung(nr, username, sa)
 
     return render_template(
         "gemeinkostenbuttons.html",
@@ -315,10 +257,7 @@ def identification(page):
         logging.info(page)
 
         if page == "gemeinkosten":
-            if GEMEINKOSTEN_BUTTONS is True:
-                return redirect(url_for("gemeinkosten_buttons", userid=userid))
-            elif GEMEINKOSTEN_BUTTONS is False:  # display GK page as just an input field for BelegNr
-                return redirect(url_for("gemeinkosten", userid=userid))
+            return redirect(url_for("gemeinkosten_buttons", userid=userid))
 
         return redirect(url_for(page, userid=userid))
 
