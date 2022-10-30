@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 import pandas as pd
 from XMLRead import terminalNumber
+from datetime import datetime
 import configparser
 
 
@@ -13,6 +14,7 @@ DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)
 connection = engine.connect()
 # print(engine)
+dateTimeObj = datetime.now()
 
 
 Platz = ""
@@ -42,10 +44,26 @@ def getPersonaldetails(connection):
     return personalname
 
 
+def getStatustableItem(firmNo, persNo, dateTime,currentTime):
+    statustableItems = pd.read_sql_query("Select Top 1000 T951_FirmaNr,T951_Satzart,T951_TagId,T951_ArbIst,T951_DatumTS,T905_Bez"
+         ",case when T951_Satzart in ('G') then null else TSNxt end as TSNxt"
+          ",datediff(minute,T951_DAtumts,case when TSNxt is null then case when T951_Satzart in ('G') then null else currentTime end else TSNxt end ) as T951Dauer"
+         "from (Select T951_FirmaNr,T951_Satzart,T951_TagId,T951_ArbIst,T951_DatumTS,"
+						"(Select Top 1 T951_DatumTS from KSAlias.dbo.T951_Buchungsdaten as b where b.T951_Firmanr = a.T951_FirmaNr"
+							"and b.T951_PersNr = a.T951_PersNr and b.T951_TagId = a.T951_TagId and b.T951_DAtumts > a.T951_DatumTS"
+							"and T951_Satzart not in ('N') order by b.T951_Datumts asc ) as TSNxt,T905_Bez"
+			"from KSAlias.dbo.T951_Buchungsdaten as a"
+			"inner join  KSAlias.dbo.T905_ArbMasch on T951_FirmaNr = firmNo and T951_PersNr =persNo  and T951_TagId = dateTime and T905_FirmaNr = T951_Firmanr"
+						"and T905_Nr = T951_Arbist and T951_Satzart not in ('N')) as T951 order by T951_DatumTS asc", connection, coerce_float=False)
+    return statustableItems
+
 Arbeitplatzlist = getArbeitplazlist(connection)
 personalname = getPersonaldetails(connection)
+#DATETIME - format: YYYY-MM-DD HH:MI:SS
+statustableitemlist = getStatustableItem("01",1035,"2021-02-05 16:18:15",currentTime=dateTimeObj)
 print(Arbeitplatzlist)
 print(personalname)
+print(statustableitemlist)
 
 
 
@@ -85,3 +103,4 @@ PersonalNumberFilter = pd.read_sql_query("Select T910_Nr,T910_Name,T910_Vorname 
                                          "group by T910_Nr,T910_Name,T910_Vorname",connection)
 print(PersonalNumberFilter)
 """
+
