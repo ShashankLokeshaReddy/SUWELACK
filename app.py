@@ -52,6 +52,7 @@ SERIAL = True
 SCANCARDNO = True
 T905ALLOWROUTE = True
 ROUTEDIALOG = True
+SHOW_BUTTON_IDS = False  # If true, show Arbeitsplatz and GK IDs after their name for debugging
 
 
 @babel.localeselector
@@ -378,6 +379,7 @@ def anmelden(userid, sa):
         user=userid,
         username=username,
         buttonText=get_list("arbeitsplatz"),
+        show_button_ids=SHOW_BUTTON_IDS,
         sidebarItems=get_list("sidebarItems")
     )
 
