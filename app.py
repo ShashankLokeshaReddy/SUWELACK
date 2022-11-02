@@ -81,8 +81,8 @@ def home():
     if request.method == 'POST':
         inputBarValue = request.form["inputbar"]
         try:
-            usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == inputBarValue]
-            username = usernamepd['VorNameName'].values[0]
+            usernamepd = dbconnection.getPersonaldetails(inputBarValue)
+            username = usernamepd['formatted_name']
 
         finally:
             if "selectedButton" in request.form:
@@ -141,8 +141,8 @@ def arbeitsplatzwechsel(userid):
     """
 
     try:
-        usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
-        username = usernamepd['VorNameName'].values[0]
+        usernamepd = dbconnection.getPersonaldetails(userid)
+        username = usernamepd['formatted_name']
     finally:
         if request.method == 'POST':
             selectedArbeitsplatz = request.form["arbeitplatzbuttons"]
@@ -182,8 +182,8 @@ def gemeinkosten_buttons(userid):
             and Mengendialog is needed.
     """
 
-    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
-    username = usernamepd['VorNameName'].values[0]
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
 
     if request.method == 'POST':
         # Retreive the value of selected button from frontend.
@@ -223,8 +223,8 @@ def gemeinkosten():
         # Retrieve the value of inputted Gemeinkostenauftrag.
         nr = request.form["inputfield"]
         logging.debug(nr)
-        usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == nr]
-        username = usernamepd['VorNameName'].values[0]
+        usernamepd = dbconnection.getPersonaldetails(nr)
+        username = usernamepd['formatted_name']
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
         return actbuchung(nr, username, sa)
@@ -351,8 +351,8 @@ def anmelden(userid, sa):
         "home": After user has chosen an Arbeitsplatz and booking is complete.
     """
 
-    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
-    username = usernamepd['VorNameName'].values[0]
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
 
     if request.method == 'POST':
         selectedArbeitplatz = request.form["arbeitplatzbuttons"]
