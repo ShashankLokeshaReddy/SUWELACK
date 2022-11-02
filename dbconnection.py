@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 import pandas as pd
-from XMLRead import terminalNumber
+from XMLRead import X998_GrpPlatz
 from datetime import datetime
 import configparser
 
@@ -28,7 +28,7 @@ FirmaNumber = config.get("TerminalName")
 """
 
 
-def getArbeitplazlist(X998_GrpPlatz):
+def getArbeitplazlist(X998_GrpPlatz=X998_GrpPlatz):
     arbeitplatzlist = pd.read_sql_query(
         f"""SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr,T905_Art,T905_Typ,T905_Akkord,T905_Leist,T905_Freigabe,
         T905_ArbGrNr,T905_Img,T905_StartScreen,T905_Schleuse FROM ksalias.dbo.G905_TermPlatz INNER JOIN 
@@ -50,6 +50,19 @@ def getPersonaldetails(T912_Nr):
     return pers_info
 
 
+def getGemeinkosten(userid):
+    last_row = pd.read_sql_query(
+        f"""select top 1 T951_DatumTS, T951_PersNr, T912_Nr, T951_ArbIst
+        from T951_bd1 inner join T912_PersCard on T951_BD1.T951_PersNr=T912_PersCard.T912_PersNr
+        where T912_Nr='{userid}' order by T951_DatumTS desc""", connection)
+    platz = last_row.loc[0, "T951_ArbIst"]
+    gk_data = pd.read_sql_query(
+        f"""select top 100 TA05_FA_Nr, TA05_ArtikelBez, TA06_BelegNr, TA06_Platz_Soll from KSAlias.dbo.TA05_FAK1
+        inner join KSAlias.dbo.TA06_FAD1 on TA06_FirmaNr = TA05_FirmaNr and TA06_FA_Nr = TA05_FA_Nr and TA06_Platz_Soll = '{platz}'
+        inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ= '3' and TA21_FirmaNR = 'TE'
+        order by TA06_BelegNr""", connection)
+    return gk_data
+
 def getStatustableItem(firmNo, persNo, dateTime,currentTime):
     statustableItems = pd.read_sql_query("Select Top 1000 T951_FirmaNr,T951_Satzart,T951_TagId,T951_ArbIst,T951_DatumTS,T905_Bez"
          ",case when T951_Satzart in ('G') then null else TSNxt end as TSNxt"
@@ -63,13 +76,13 @@ def getStatustableItem(firmNo, persNo, dateTime,currentTime):
 						"and T905_Nr = T951_Arbist and T951_Satzart not in ('N')) as T951 order by T951_DatumTS asc", connection, coerce_float=False)
     return statustableItems
 
-Arbeitplatzlist = getArbeitplazlist(terminalNumber)
+# Arbeitplatzlist = getArbeitplazlist(terminalNumber)
 # personalname = getPersonaldetails(connection)
-#DATETIME - format: YYYY-MM-DD HH:MI:SS
-#statustableitemlist = getStatustableItem("01",1035,"2021-02-05 16:18:15",currentTime=dateTimeObj)
+# DATETIME - format: YYYY-MM-DD HH:MI:SS
+# statustableitemlist = getStatustableItem("01",1035,"2021-02-05 16:18:15",currentTime=dateTimeObj)
 # print(Arbeitplatzlist)
 # print(personalname)
-#print(statustableitemlist)
+# print(statustableitemlist)
 
 
 

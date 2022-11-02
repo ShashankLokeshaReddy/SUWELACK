@@ -52,9 +52,9 @@ logging.info("dataframeT904 read successful")
 XMLtree = ET.parse('data/X998.xml')
 DataRoot = XMLtree.getroot()
 for tags in DataRoot.findall('X998_ConfigTerm'):
-    terminalNumber = tags.find('X998_GrpPlatz').text
+    X998_GrpPlatz = tags.find('X998_GrpPlatz').text
 
-logging.info("Arbeitsplätze respective of %s" %(terminalNumber))
+logging.info("Arbeitsplätze respective of %s" %(X998_GrpPlatz))
 """
 XML T910  --> Vorname, name and passcode
 
@@ -68,7 +68,7 @@ logging.info("dataframeT910 read successful")
 """
 XML T912  --> username, personalnumber and bez
 """
-dataframeT912= parse_XML("data/T912.xml", ["T912_FirmaNR", "T912_Nr", "T912_PersNr", "T912_Aenderung",
+dataframeT912 = parse_XML("data/T912.xml", ["T912_FirmaNR", "T912_Nr", "T912_PersNr", "T912_Aenderung",
                                            "T912_Anlage", "T912_User"])
 logging.info("dataframeT912 read successful")
 

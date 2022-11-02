@@ -186,23 +186,24 @@ def gemeinkosten_buttons(userid):
     username = usernamepd['formatted_name']
 
     if request.method == 'POST':
-        # Retreive the value of selected button from frontend.
+        # Retrieve the value of selected button from frontend
         selectedGemeinkosten = request.form['gemeinkostenbuttons']
+        selected_gk = request.form["gemeinkostenbuttons"]
+        selected_gk, gk_name = selected_gk.split(",")
         logging.info(f"Gememeinkosten: {selectedGemeinkosten}")
-        logging.debug(selectedGemeinkosten)
 
-        nr = "GK0022400"  # TODO: replace dummy value
-        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)  # start with GK nr
-        kt002.PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
-        print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_gk)  # start with GK nr
+        kt002.PNR_Buch4Clear(1, selected_gk, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+        print(f"[DLL] Buch4Clear: nr:{selected_gk}, sa:{sa}, buaction:{buaction}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
-        return actbuchung(nr, username, sa)
+        return actbuchung(selected_gk, username, sa)
 
     return render_template(
         "gemeinkostenbuttons.html",
         date=datetime.now(),
-        buttonText=get_list("gemeinkostenItems"),
+        buttonText=get_list("gemeinkostenItems", userid=userid),
+        show_button_ids=SHOW_BUTTON_IDS,
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -863,26 +864,28 @@ def actbuchung(nr, username, sa, arbeitsplatz=None):
         return redirect(url_for("home", username=username))
 
 
-def get_list(listname):
+def get_list(listname, userid=None):
     """Getter function for various lists needed for display in the app."""
 
     if listname == "arbeitsplatzgruppe":
         # Implement database calls here.
         return ["Frontenlager", "Verschiedenes(bundes)", "Lehrwerkstatt", "AV(Bunde)"]
     if listname == "arbeitsplatz":
-        # Move the strings here.
-        return [dbconnection.Arbeitplatzlist['T905_bez'], dbconnection.Arbeitplatzlist['T905_Nr']]
+        arbeitsplatz_info = dbconnection.getArbeitplazlist()
+        return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
     if listname == "statusTableItems":
         return ["Gekommen", "G020", "Gruppe 20", "09:34 Uhr", "09:53", "19 Min"]
     if listname == "homeButtons":
         return [["Arbeitplatz wechseln", "Gemeinkosten", "Aufträge", "Status", "Gemeinkosten Beenden", "gemeinkostenandern", "berichtdrucken", "auftragsbuchung", "gruppenbuchung", "fertigungsauftrag", "fertigungauftragerstellen", "gemeinkostenandern"],
                 ["arbeitsplatzwechsel", "gemeinkosten", "auftrage", "status", "gemeinkostenbeenden", "gemeinkostenandern", "berichtdrucken", "auftragsbuchung", "gruppenbuchung", "fertigungsauftrag", "fertigungauftragerstellen", "gemeinkostenandern"]]
     if listname == "gemeinkostenItems":
-        return ["Warten auf Auftrag", "Fertiggungslohn/Zeitlohn", "Sonstige Gemeinkosten", "Gruppensprechrunde",
+        gk_info = dbconnection.getGemeinkosten(userid)
+        return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
+        """return ["Warten auf Auftrag", "Fertiggungslohn/Zeitlohn", "Sonstige Gemeinkosten", "Gruppensprechrunde",
                 "Teamgespräch",
                 "Maschineninstellung", "Reparatur", "Muldenprofit", "Entwicklung", "Transport/Bestückung",
                 "Gemeinkosten", "Raucherpause", "Plantafel",
-                "Reinigung", "Rüsten", "Instandhaltung"]
+                "Reinigung", "Rüsten", "Instandhaltung"]"""
     if listname == "sidebarItems":
         return [["Status", "Berichte drucken", "Auftragsbuchung", "Gruppenbuchung", "Fertigungauftrag erfasssen",
                  "Gemeinkosten ändern"],
