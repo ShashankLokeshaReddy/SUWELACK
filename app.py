@@ -876,21 +876,18 @@ def get_list(listname, userid=None):
     if listname == "statusTableItems":
         return ["Gekommen", "G020", "Gruppe 20", "09:34 Uhr", "09:53", "19 Min"]
     if listname == "homeButtons":
-        return [["Arbeitplatz wechseln", "Gemeinkosten", "Aufträge", "Status", "Gemeinkosten Beenden", "gemeinkostenandern", "berichtdrucken", "auftragsbuchung", "gruppenbuchung", "fertigungsauftrag", "fertigungauftragerstellen", "gemeinkostenandern"],
-                ["arbeitsplatzwechsel", "gemeinkosten", "auftrage", "status", "gemeinkostenbeenden", "gemeinkostenandern", "berichtdrucken", "auftragsbuchung", "gruppenbuchung", "fertigungsauftrag", "fertigungauftragerstellen", "gemeinkostenandern"]]
+        return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
+                ["arbeitsplatzwechsel", "gemeinkosten", "status", "gemeinkostenbeenden", "berichtdrucken",
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid)
         return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
-        """return ["Warten auf Auftrag", "Fertiggungslohn/Zeitlohn", "Sonstige Gemeinkosten", "Gruppensprechrunde",
-                "Teamgespräch",
-                "Maschineninstellung", "Reparatur", "Muldenprofit", "Entwicklung", "Transport/Bestückung",
-                "Gemeinkosten", "Raucherpause", "Plantafel",
-                "Reinigung", "Rüsten", "Instandhaltung"]"""
     if listname == "sidebarItems":
-        return [["Status", "Berichte drucken", "Auftragsbuchung", "Gruppenbuchung", "Fertigungauftrag erfasssen",
-                 "Gemeinkosten ändern"],
-                ["status", "berichtdrucken", "auftragsbuchung", "gruppenbuchung", "fertigungsauftrag",
-                 "gemeinkostenandern"]]
+        return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
+                ["arbeitsplatzwechsel", "gemeinkosten", "status", "gemeinkostenbeenden", "berichtdrucken",
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
     if listname == "frNr":
         return [1067, 2098, 7654, 2376, 8976]
     if listname == "paNr":
