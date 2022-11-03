@@ -13,10 +13,16 @@
 <form action='#' method="POST">
 
 <div class="grp d-flex align-content-center flex-wrap justify-content-center">
+
     <!-- Dynamic population of Buttons -->
     {% for items in range(0,buttonText[0]|length) %}
-        <button type="submit" name="arbeitplatzbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}<span style="font-size: 10px">,{{buttonText[1][items]}}</span></button>
+        {% if show_button_ids %}
+            <button type="submit" name="arbeitplatzbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}<span style="font-size: 10px">,{{buttonText[1][items]}}</span></button>
+        {% else %}
+            <button type="submit" name="arbeitplatzbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
+        {% endif %}
     {% endfor %}
+
 </div>
 
 <div class="d-flex justify-content-between bestätigen">

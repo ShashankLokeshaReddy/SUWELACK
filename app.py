@@ -161,6 +161,7 @@ def arbeitsplatzwechsel(userid):
             user=userid,
             date=datetime.now(),
             buttonText=get_list("arbeitsplatz"),
+            show_button_ids=SHOW_BUTTON_IDS,
             sidebarItems=get_list("sidebarItems")
         )
 
