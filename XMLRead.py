@@ -52,6 +52,7 @@ logging.info("dataframeT904 read successful")
 XMLtree = ET.parse('data/X998.xml')
 DataRoot = XMLtree.getroot()
 for tags in DataRoot.findall('X998_ConfigTerm'):
+    FirmaNr = tags.find('X998_FirmaNr').text
     X998_GrpPlatz = tags.find('X998_GrpPlatz').text
 
 logging.info("Arbeitsplätze respective of %s" %(X998_GrpPlatz))
