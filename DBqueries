@@ -1,0 +1,86 @@
+
+
+ #SatusTableItems
+	@FirmaNr varchar(2)
+	@PersNr bigInt
+    @TagId datetime
+
+	Select Top 1000 T951_FirmaNr,T951_Satzart,T951_TagId,T951_ArbIst,T951_DatumTS,T905_Bez
+         ,case when T951_Satzart in ('G') then null else TSNxt end as TSNxt
+          ,datediff(minute,T951_DAtumts,case when TSNxt is null then case when T951_Satzart in ('G') then null else CURRENT_TIMESTAMP end else TSNxt end ) as T951Dauer
+         from (Select T951_FirmaNr,T951_Satzart,T951_TagId,T951_ArbIst,T951_DatumTS
+						,(Select Top 1 T951_DatumTS from KSAlias.dbo.T951_Buchungsdaten as b where b.T951_Firmanr = a.T951_FirmaNr
+							and b.T951_PersNr = a.T951_PersNr and b.T951_TagId = a.T951_TagId and b.T951_DAtumts > a.T951_DatumTS
+							and T951_Satzart not in ('N') order by b.T951_Datumts asc
+						) as TSNxt
+					,T905_Bez
+				from KSAlias.dbo.T951_Buchungsdaten as a
+			inner join  KSAlias.dbo.T905_ArbMasch on T951_FirmaNr = @FirmaNr and T951_PersNr =@PersNr  and T951_TagId = @TagId and T905_FirmaNr = T951_Firmanr
+						and T905_Nr = T951_Arbist and T951_Satzart not in ('N')
+          ) as T951
+
+		  order by T951_DatumTS asc
+)
+#StatusTableLowerAuftrage
+
+	-- Add the parameters for the function here
+	@FirmaNr varchar(2)
+	,@PersNr bigInt
+	,@Platz varchar(20)
+	, @TagId datetime
+	, @DatumTS datetime
+)
+RETURNS TABLE
+AS
+RETURN
+(
+	Select  top 10000   TA51_AnfangTS,BelegAnz as TA06_BelegNr,TA51_EndeTS,Datediff(minute,TA51_AnfangTS,TA51_endeTS) as TA51_DauerTS,TA06_AgBez,TA51_MengeIstGut,TA51_MengeIstAus,Platz as TA51_Platz_Ist ,TA51_Auf_Stat
+	,TA51_PersNr,cast(TE * (TA51_MengeIstGut+TA51_MengeIstAus) / 60 as dec(12,5)) as TA51_TE
+	from (
+		Select Top 1000 TA51_AnfangTS
+		,TA51_BelegNr as BelegNr
+		,case when TA51_ScanFA = 1 then TA06_FA_Nr else TA51_BelegNr end as BelegAnz
+		,TA51_EndeTS,TA51_MengeIstGut,TA51_MengeIstAus,TA51_Platz_Ist as Platz,TA51_Auf_Stat ,TA51_PersNr
+			,case when TE is not null then TE else TA06_TE  end as TE
+			 from KSAlias.dbo.TA51_FAB1
+				inner join  KSAlias.dbo.TA06_FAD2 as a on TA06_FirmaNr = TA51_FirmaNr and TA06_BelegNr = TA51_BelegNr and TA51_BuArt = 'P'
+						and TA51_TagId = @TagId and TA51_Platz_ist = @Platz and TA51_Anfangts <= @DatumTS
+				inner join  KSAlias.dbo.TA06_FAD3 as b  on b.TA06_FirmaNr = a.TA06_FirmaNr and b.TA06_BelegNr = a.TA06_BelegNr
+				left join (
+					select T909_FirmaNr,T909_Nr,TA06_FA_Nr as FANr,sum(ta06_te) as TE
+						from  KSAlias.dbo.T909_GrpBuch
+						inner join KSAlias.dbo.TA06_FAD1 on TA06_FirmaNr = T909_FirmaNr and TA06_Platz_ist = T909_Nr and  TA06_Platz_Soll = T909_Platz
+						where T909_FirmaNr = @FirmaNr
+						group by  T909_FirmaNr,T909_Nr,TA06_FA_Nr
+		) as x on  TA51_FirmaNr = T909_FirmaNr and  TA06_FA_Nr = FANr and TA51_Platz_ist = T909_Nr  and TA51_TagId = @TagId and TA51_Platz_ist = @Platz and TA51_Anfangts <= @DatumTS and TA51_ScanFA = 1
+	order by TA51_Anfangts desc
+		union
+		Select Top 1000 TA55_DatumTS as TA51_AnfangTS
+		,TA55_BelegNr as BelegNr
+		,case when TA55_ScanFA = 1 then TA06_FA_Nr else TA55_BelegNr end as BelegAnz
+		,TA55_EndeTS as TA51_EndeTS
+			,TA55_MengeGut  as  TA51_MengeIstGut,TA55_MengeAus  as TA51_MengeIstAus,TA55_Platz_Ist as Platz,TA55_Auf_Stat  as TA51_Auf_Stat ,TA55_PersNr as TA51_Persnr
+			,case when TE is not null then TE else TA06_TE  end as TE
+			 from KSAlias.dbo.TA55_Fab1
+				inner join  KSAlias.dbo.TA06_FAD2 as a on TA06_FirmaNr = TA55_FirmaNr and TA06_BelegNr = TA55_BelegNr
+							and TA55_TagId = @TagId and TA55_Platz_ist = @Platz and TA55_Datumts <= @DatumTS
+				inner join  KSAlias.dbo.TA06_FAD3 as b  on b.TA06_FirmaNr = a.TA06_FirmaNr and b.TA06_BelegNr = a.TA06_BelegNr
+				left join (
+					      select T909_FirmaNr,T909_Nr,TA06_FA_Nr as FANr,sum(ta06_te) as TE
+						   from  KSAlias.dbo.T909_GrpBuch
+						   inner join KSAlias.dbo.TA06_FAD1 on TA06_FirmaNr = T909_FirmaNr and TA06_Platz_ist = T909_Nr and  TA06_Platz_Soll = T909_Platz
+						   where T909_FirmaNr = @FirmaNr
+						   group by  T909_FirmaNr,T909_Nr,TA06_FA_Nr
+					      ) as x on  TA55_FirmaNr = T909_FirmaNr and  TA06_FA_Nr = FANr and TA55_Platz_ist = T909_Nr  and TA55_TagId = @TagId
+					 and TA55_Platz_ist = @Platz and TA55_Datumts <= @DatumTS
+					   and (TA55_ScanFA = 1 )
+				order by TA55_DatumTS desc
+	    ) as TA5
+inner join KSAlias.dbo.TA06_FAD2 as a on a.TA06_FirmaNr = @Firmanr and a.TA06_BelegNr= Belegnr
+inner join  KSAlias.dbo.TA06_FAD3 as b  on b.TA06_FirmaNr = a.TA06_FirmaNr and b.TA06_BelegNr = a.TA06_BelegNr
+         order by TA51_AnfangTS Desc
+
+
+)
+
+

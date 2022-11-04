@@ -4,30 +4,30 @@
     <div class="statustable">
     <h3>F010400 - {{ _('Teile ohne Barcode') }}</h3>
 <div class="fertigungauftragcontainer">
+<form action='#' method="POST">
     <div class="d-flex flex-row fertigungauftragrow">
  <div class="d-flex flex-column">
 <div class="d-flex flex-row fertigungauftragrow">
 <div class="d-flex flex-column">
-      <label for="gesamt" class="label">{{ _('Gesamt ist') }}</label>
-      <label for="mengeist" class="label">{{ _('Menge ist') }}</label>
-      <label for="mengeaus" class="label">{{ _('Menge aus') }}</label>
+    <label for="gesamt" class="label">{{ _('Gesamt') }}</label>
+    <label for="mengegut" class="label">{{ _('Menge Gut') }}</label>
+    <label for="mengeaus" class="label">{{ _('Menge Aus') }}</label>
 </div>
       <div class="d-flex flex-column">
-          <input type="number" id="gesamt"  class="form-control fertigungauftrag">
-      <input type="text" id="mengeist" class="form-control fertigungauftrag">
-      <input type="text" id="mengeaus" class="form-control fertigungauftrag">
+          <input type="number" name="menge_soll" id="gesamt"  class="form-control fertigungauftrag">
+      <input type="text" name="menge_gut" id="mengegut" class="form-control fertigungauftrag">
+      <input type="text" name="menge_aus" id="mengeaus" class="form-control fertigungauftrag">
 
 </div>
-
 <div class="d-flex flex-column">
-      <label for="grundrustzeit" class="label">{{ _('Grundrustzeit') }}</label>
+      <label for="grundrustzeit" class="label">{{ _('Grundrüstzeit') }}</label>
       <label for="charge" class="label">{{ _('Charge') }}</label>
       <label for="lagerplatz" class="label">{{ _('Lagerplatz') }}</label>
 </div>
       <div class="d-flex flex-column">
-      <input type="text" id="grundrustzeit"  class="form-control fertigungauftrag">
-      <input type="text" id="charge" class="form-control fertigungauftrag">
-      <input type="text" id="lagerplatz" class="form-control fertigungauftrag">
+      <input type="text" name="ruestzeit" id="grundrustzeit"  class="form-control fertigungauftrag">
+      <input type="text" name="charge" id="charge" class="form-control fertigungauftrag">
+      <input type="text" name="lagerplatz" id="lagerplatz" class="form-control fertigungauftrag">
 </div>
     </div>
 <div class="d-flex flex-row fertigungauftragrow">
@@ -43,26 +43,26 @@
 </thead>
 <tbody>
     <tr>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="div_aus_fehler" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="aus_fehler" id="" class="form-control fertigungauftrag"></td>
       <th scope="row">Fehler</th>
 
     </tr>
     <tr>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="div_aus_oberflaeche" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="aus_oberflaeche" id="" class="form-control fertigungauftrag"></td>
       <th scope="row">Defekte Oberfläsche</th>
 
     </tr>
     <tr>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="div_aus_stapel" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="aus_stapel" id="" class="form-control fertigungauftrag"></td>
       <th scope="row">Stapelfehler</th>
 
     </tr>
     <tr>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="div_aus_kanten" id="" class="form-control fertigungauftrag"></td>
+      <td ><input type="text" name="aus_kanten" id="" class="form-control fertigungauftrag"></td>
       <th scope="row">Kantenanleiner</th>
 
     </tr>
@@ -82,20 +82,19 @@
                     <button type="button" value="*" class="btn btn-secondary">*</button>
                 </div>
                 <div class="row">
-                    <button type="button" value="9" class="btn btn-secondary">9</button>
-                    <button type="button" value="8" class="btn btn-secondary">8</button>
                     <button type="button" value="7" class="btn btn-secondary">7</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
                 </div>
                 <div class="row">
-
-                    <button type="button" value="6" class="btn btn-secondary">6</button>
-                    <button type="button" value="5" class="btn btn-secondary">5</button>
                     <button type="button" value="4" class="btn btn-secondary">4</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
                 </div>
                 <div class="row">
-                    <button type="button" value="3" class="btn btn-secondary">3</button>
-                    <button type="button" value="2" class="btn btn-secondary">2</button>
                     <button type="button" value="1" class="btn btn-secondary">1</button>
+                    <button type="button" value="2" class="btn btn-secondary">2</button>
+                    <button type="button" value="3" class="btn btn-secondary">3</button>
                 </div>
                 <div class="row">
                     <button type="button" value="0" class="btnZ">0</button>
@@ -115,11 +114,12 @@
     <div class="d-flex justify-content-between bestätigen3">
 
     <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
-    <button type="button" onclick="" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
-    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Endmeldung') }}</button>
+    <button type="button"  class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
+    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Endrückmeldung') }}</button>
 
 </div>
 </div>
 </div>
 </div>
+    </form>
 {% endblock %}

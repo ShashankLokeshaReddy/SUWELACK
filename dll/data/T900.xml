@@ -2,6 +2,25 @@
 <NewDataSet>
   <T900_GlobalParam>
     <T900_FirmaNR>TE</T900_FirmaNR>
+    <T900_FieldName>KZEP910</T900_FieldName>
+    <T900_FieldValue>1</T900_FieldValue>
+    <T900_Par01 />
+    <T900_Anlage>2022-03-29T12:01:08.343+02:00</T900_Anlage>
+    <T900_Aenderung>2022-03-29T12:01:08.343+02:00</T900_Aenderung>
+    <T900_User>adm</T900_User>
+  </T900_GlobalParam>
+  <T900_GlobalParam>
+    <T900_FirmaNR>TE</T900_FirmaNR>
+    <T900_FieldName>PraeCalcStaffel</T900_FieldName>
+    <T900_FieldValue>0</T900_FieldValue>
+    <T900_Par01 />
+    <T900_Typ />
+    <T900_Anlage>2020-06-24T09:55:35+02:00</T900_Anlage>
+    <T900_Aenderung>2021-11-19T13:59:04.967+01:00</T900_Aenderung>
+    <T900_User>#fg</T900_User>
+  </T900_GlobalParam>
+  <T900_GlobalParam>
+    <T900_FirmaNR>TE</T900_FirmaNR>
     <T900_FieldName>ImpPathETRM</T900_FieldName>
     <T900_FieldValue>F:\PKS\Import\erp\</T900_FieldValue>
     <T900_Par01 />
@@ -58,16 +77,6 @@
     <T900_FirmaNR>TE</T900_FirmaNR>
     <T900_FieldName>PraeCalcLimit</T900_FieldName>
     <T900_FieldValue>0</T900_FieldValue>
-    <T900_Par01 />
-    <T900_Typ />
-    <T900_Anlage>2020-06-24T09:55:35.133+02:00</T900_Anlage>
-    <T900_Aenderung>2020-06-24T09:55:35.133+02:00</T900_Aenderung>
-    <T900_User>#fg</T900_User>
-  </T900_GlobalParam>
-  <T900_GlobalParam>
-    <T900_FirmaNR>TE</T900_FirmaNR>
-    <T900_FieldName>PraeCalcStaffel</T900_FieldName>
-    <T900_FieldValue>1</T900_FieldValue>
     <T900_Par01 />
     <T900_Typ />
     <T900_Anlage>2020-06-24T09:55:35.133+02:00</T900_Anlage>
@@ -185,24 +194,6 @@
   </T900_GlobalParam>
   <T900_GlobalParam>
     <T900_FirmaNR>TE</T900_FirmaNR>
-    <T900_FieldName>SSTLOHNPATHsic</T900_FieldName>
-    <T900_FieldValue>\\mos\kssystem\</T900_FieldValue>
-    <T900_Par01 />
-    <T900_Anlage>2019-01-25T10:24:10.227+01:00</T900_Anlage>
-    <T900_Aenderung>2019-01-25T10:24:10.227+01:00</T900_Aenderung>
-    <T900_User>adm</T900_User>
-  </T900_GlobalParam>
-  <T900_GlobalParam>
-    <T900_FirmaNR>TE</T900_FirmaNR>
-    <T900_FieldName>TA40_PlanPersKW</T900_FieldName>
-    <T900_FieldValue>8</T900_FieldValue>
-    <T900_Par01 />
-    <T900_Anlage>2019-01-25T10:24:10.227+01:00</T900_Anlage>
-    <T900_Aenderung>2019-01-25T10:24:10.227+01:00</T900_Aenderung>
-    <T900_User>adm</T900_User>
-  </T900_GlobalParam>
-  <T900_GlobalParam>
-    <T900_FirmaNR>TE</T900_FirmaNR>
     <T900_FieldName>SSTDVBERATER</T900_FieldName>
     <T900_FieldValue>12345567</T900_FieldValue>
     <T900_Par01 />
@@ -214,6 +205,24 @@
     <T900_FirmaNR>TE</T900_FirmaNR>
     <T900_FieldName>SSTDVMANDANT</T900_FieldName>
     <T900_FieldValue>54321</T900_FieldValue>
+    <T900_Par01 />
+    <T900_Anlage>2019-01-25T10:24:10.227+01:00</T900_Anlage>
+    <T900_Aenderung>2019-01-25T10:24:10.227+01:00</T900_Aenderung>
+    <T900_User>adm</T900_User>
+  </T900_GlobalParam>
+  <T900_GlobalParam>
+    <T900_FirmaNR>TE</T900_FirmaNR>
+    <T900_FieldName>SSTLOHNPATHsic</T900_FieldName>
+    <T900_FieldValue>\\mos\kssystem\</T900_FieldValue>
+    <T900_Par01 />
+    <T900_Anlage>2019-01-25T10:24:10.227+01:00</T900_Anlage>
+    <T900_Aenderung>2019-01-25T10:24:10.227+01:00</T900_Aenderung>
+    <T900_User>adm</T900_User>
+  </T900_GlobalParam>
+  <T900_GlobalParam>
+    <T900_FirmaNR>TE</T900_FirmaNR>
+    <T900_FieldName>TA40_PlanPersKW</T900_FieldName>
+    <T900_FieldValue>8</T900_FieldValue>
     <T900_Par01 />
     <T900_Anlage>2019-01-25T10:24:10.227+01:00</T900_Anlage>
     <T900_Aenderung>2019-01-25T10:24:10.227+01:00</T900_Aenderung>
