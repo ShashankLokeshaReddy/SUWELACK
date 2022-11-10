@@ -70,11 +70,21 @@
                 return false;
             };
         }
+
         const button = document.querySelector('#clear');
         button.addEventListener('click', () => {
-            document.querySelector('#screen').value = "";
+            var input = document.querySelector('#screen');
+            input.value = input.value.slice(0, -2);
         });
-    };
+
+        document.addEventListener('keypress', function (e) {
+            if (e.keyCode === 13 || e.which === 13) {
+                e.preventDefault();
+                return false;
+            }
+            
+        });
+    }
  </script>
 
 
