@@ -64,17 +64,21 @@
         var screen  = document.getElementById('screen'),
             keypad  = document.getElementById('keypad'),
             buttons = keypad.getElementsByTagName('button');
+            
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].onclick = function () {
                 screen.value = screen.value + this.innerHTML;
                 return false;
             };
         }
+
         const button = document.querySelector('#clear');
         button.addEventListener('click', () => {
-            document.querySelector('#screen').value = "";
+            var input = document.querySelector('#screen');
+            input.value = input.value.slice(0, -2);
         });
-    };
+
+    }
  </script>
 
 
