@@ -48,9 +48,61 @@
 <div class="d-flex justify-content-between bestätigen2">
         <!-- Bestatigen and Abbrechen Buttons -->
     <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
-    <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2"></button>
+    <button type="submit" id="submit" value="submit" onclick="javascript:printDLL()" class="btn btn-primary btn-lg submit2">{{ _('Einreichen') }}</button>
 </div>
 <script>
+    function printDLL()
+    {
+        var dll_content="This is dummy text, soon there will be data from dll";
+        var generator=window.open(",'name,");
+        generator.document.write(`<!DOCTYPE html>
+        <html>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+        body {margin:0;}
+
+        .icon-bar {
+        width: 100%;
+        background-color: #555;
+        overflow: auto;
+        }
+
+        .icon-bar a {
+        float: left;
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+        transition: all 0.3s ease;
+        color: white;
+        font-size: 36px;
+        }
+
+        .icon-bar a:hover {
+        background-color: #000;
+        }
+
+        .active {
+        background-color: #04AA6D;
+        }
+
+        </style>
+        <body>
+
+        <div class="icon-bar" id="noprint">
+        <a onclick="document.getElementById('noprint').hidden = true;window.print();document.getElementById('noprint').hidden = false"><i class="fa fa-print"></i></a> 
+        </div>
+
+        <div>
+        <h1>${dll_content}</h1>
+        </div>
+
+        </body>
+        </html> 
+        `);
+        window.location.href='{{"/"}}'
+    }
+
      $(function(){
 
     $(".dropdown-menu a").click(function(){
