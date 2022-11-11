@@ -64,6 +64,7 @@
         var screen  = document.getElementById('screen'),
             keypad  = document.getElementById('keypad'),
             buttons = keypad.getElementsByTagName('button');
+            
         for (var i = 0; i < buttons.length; i++) {
             buttons[i].onclick = function () {
                 screen.value = screen.value + this.innerHTML;
@@ -77,13 +78,6 @@
             input.value = input.value.slice(0, -2);
         });
 
-        document.addEventListener('keypress', function (e) {
-            if (e.keyCode === 13 || e.which === 13) {
-                e.preventDefault();
-                return false;
-            }
-            
-        });
     }
  </script>
 
