@@ -399,5 +399,7 @@ table tbody tr {
     width: 100%;
 }
 
-
-
+.table2{
+    position: relative;
+    top: 10%;
+}
