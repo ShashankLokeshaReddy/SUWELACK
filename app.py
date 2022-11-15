@@ -15,10 +15,6 @@ import XMLRead
 
 import clr
 
-import numpy as np
-
-import pandas as pd
-
 sys.path.append("dll/bin")
 
 clr.AddReference("kt002_PersNr")
@@ -879,27 +875,10 @@ def get_list(listname, userid=None):
         arbeitsplatz_info = dbconnection.getArbeitplazlist()
         return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
     if listname == "statusTableItems":
-        upper_items, lower_items = dbconnection.getStatustableitems(userid)
-        # create new dataframes for the necessary columns
-        upper_items_df = pd.DataFrame(columns=['Aktion', 'Arbeitplatz', 'Bezeihung', 'Von', 'Bis', 'Dauer'])
-        upper_items_df["Aktion"] = upper_items.iloc[:, 1]
-        # replace K and G strings with Gekommen and Gegangen
-        upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("K","0", regex=False)
-        upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("G","1", regex=False)
-        upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("0","Gekommen", regex=False)
-        upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("1","Gegangen", regex=False)        
-        upper_items_df["Arbeitplatz"] = upper_items.iloc[:, 3]
-        upper_items_df["Bezeihung"] = upper_items.iloc[:, 5]
-        upper_items_df["Von"] = upper_items.iloc[:, 4]
-        upper_items_df["Bis"] = upper_items.iloc[:, 6]
-        upper_items_df["Dauer"] = upper_items.iloc[:, 7]
-        lower_items_df = pd.DataFrame(columns=['Menge', 'Auftragsstatus', 'Pers.Nr'])
-        lower_items_df["Menge"] = lower_items.iloc[:, 5]
-        lower_items_df["Auftragsstatus"] = lower_items.iloc[:, 8]
-        lower_items_df["Pers.Nr"] = lower_items.iloc[:, 9]
+        upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
         # create html tags out of the above data frames
-        upper_items_html = upper_items_df.to_html(classes="table table-striped", index=False, justify="left", border=None).replace('border="1"','border="0"')
-        lower_items_html = lower_items_df.to_html(classes="table table-striped", index=False, justify="left", border=None).replace('border="1"','border="0"')
+        upper_items_html = upper_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
+        lower_items_html = lower_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
         return [upper_items_html, lower_items_html]
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
