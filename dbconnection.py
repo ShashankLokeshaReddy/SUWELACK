@@ -66,4 +66,32 @@ def getStatustableitems(userid):
     lower_items = pd.read_sql_query(
         f"""SELECT * FROM ksmaster.dbo.kstf_TA55TA51_InfoAllFB1('{FirmaNr}', {persnr}, '{platz}', '{date}', '{ts_now}')""",
         connection)
-    return [upper_items, lower_items]
+
+    # create new dataframes for the necessary columns
+    upper_items_df = pd.DataFrame(columns=['Aktion', 'Arbeitplatz', 'Bezeichnung', 'Von', 'Bis', 'Dauer'])
+    upper_items_df["Aktion"] = upper_items.loc[:, "T951_Satzart"]
+    # replace K and G strings with Gekommen and Gegangen
+    upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("K","0", regex=False)
+    upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("G","1", regex=False)
+    upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("A","2", regex=False)
+    upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("0","Gekommen", regex=False)
+    upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("1","Gegangen", regex=False)  
+    upper_items_df["Aktion"] = upper_items_df["Aktion"].str.replace("2","Wechselbuchung", regex=False)        
+    upper_items_df["Arbeitplatz"] = upper_items.loc[:, "T951_ArbIst"]
+    upper_items_df["Bezeichnung"] = upper_items.loc[:, "T905_Bez"]
+    upper_items_df["Von"] = upper_items.loc[:, "T951_DatumTS"]
+    upper_items_df["Bis"] = upper_items.loc[:, "TSNxt"].astype(str).replace("NaT", "")
+    upper_items_df["Dauer"] = upper_items.loc[:, "T951Dauer"]
+
+    lower_items_df = pd.DataFrame(columns=['Auftrag', 'Arbeitplatz', 'Bezeichnung', 'Von', 'Bis', 'Dauer', 'Menge', 'Auftragsstatus', 'Pers.Nr'])
+    lower_items_df["Auftrag"] = lower_items.loc[:, "TA06_BelegNr"]      
+    lower_items_df["Arbeitplatz"] = lower_items.loc[:, "TA51_Platz_Ist"]
+    lower_items_df["Bezeichnung"] = lower_items.loc[:, "TA06_AgBez"]
+    lower_items_df["Von"] = lower_items.loc[:, "TA51_AnfangTS"]
+    lower_items_df["Bis"] = lower_items.loc[:, "TA51_EndeTS"].astype(str).replace("NaT", "")
+    lower_items_df["Dauer"] = lower_items.loc[:, "TA51_DauerTS"]
+    lower_items_df["Menge"] = lower_items.loc[:, "TA51_MengeIstGut"]
+    lower_items_df["Auftragsstatus"] = lower_items.loc[:, "TA51_Auf_Stat"]
+    lower_items_df["Pers.Nr"] = lower_items.loc[:, "TA51_PersNr"].astype(int)
+
+    return [upper_items_df, lower_items_df]

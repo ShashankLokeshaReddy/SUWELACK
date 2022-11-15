@@ -345,7 +345,7 @@ table tbody {
     /* body takes all the remaining available space */
     flex: 1 1 auto;
     display: block;
-    overflow-y: scroll;
+    
 }
 
 table thead,
@@ -355,7 +355,7 @@ table tbody tr {
     width: 99%;
 }
 .table td, .table th {
-    padding: 0.2rem !important;
+    
     vertical-align: baseline;
     border-top: 0px solid #dee2e6;
 }
@@ -399,5 +399,7 @@ table tbody tr {
     width: 100%;
 }
 
-
-
+.table2{
+    position: relative;
+    top: 10%;
+}

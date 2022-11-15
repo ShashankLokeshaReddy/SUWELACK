@@ -277,7 +277,7 @@ def identification(page):
 def status(userid):
     return render_template(
         "status.html",
-        tableItems=get_list("statusTableItems"),
+        tableItems=get_list("statusTableItems",userid),
         date=datetime.now(),
         sidebarItems=get_list("sidebarItems")
     )
@@ -875,7 +875,11 @@ def get_list(listname, userid=None):
         arbeitsplatz_info = dbconnection.getArbeitplazlist()
         return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
     if listname == "statusTableItems":
-        return ["Gekommen", "G020", "Gruppe 20", "09:34 Uhr", "09:53", "19 Min"]
+        upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
+        # create html tags out of the above data frames
+        upper_items_html = upper_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
+        lower_items_html = lower_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
+        return [upper_items_html, lower_items_html]
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
                  "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
