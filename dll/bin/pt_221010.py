@@ -179,7 +179,7 @@ def fabuchta55():
 	result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
 	xret,xInputMenge, xInputMengeNew,xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe=result
 	#print("kt002.BuchTA55_0:" + xret + "," + str(xInputMenge) + "," +  str(xInputMengeNew)  + "," + str(xScanFA) + "," +  xFAStatus+ "," +  xFATS + "," +  xFAEndeTS + "," +  str(xFAMeGut+ "," +  str(xFAMeGes) + "," + str(xFANewScanFA) + "," +  xFANewStatus + "," +  str(xFANewMeGes) + "," +  str(xFANewMe))
-	print(result)
+	print(f"BuchTA55_0: {result}")
 	if len(xret) > 0:
 		xbuchen=False
 
@@ -201,7 +201,8 @@ def fabuchta55():
 		#, ByVal APlatzIst As String, ByRef APersNr As Long _
 		#, ByVal AMengeGut As Double, ByVal AMengeAus As Double, ByVal ATE As Double, ByVal ATRMan As Double, ByVal ATA11Nr As String, ByVal ACharge As String _
 		#, ByVal AVal1 As Double, ByVal AVal2 As Double, ByVal AVal3 As Double, ByVal AVal4 As Double, ByVal AVal5 As Double, ByVal AScanFA As Integer)
-		kt002.BuchTA55_3( xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
+		print(f"BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
+		kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
 		#Störung setzen
 		#MDEGK_Ruest FA-Nr für Rüsten muß in Global Param definiert sein
@@ -768,12 +769,12 @@ import time
 #time.sleep(3)
 #do_stuff(ascanvalue="1035")  # GK buchen
 #print("------------------------------------------------------")
-time.sleep(3)
+#time.sleep(3)
 do_stuff(ascanvalue="FA00300150")  # FA Buchen auf 0006  funktion: fabuchta55
 print("------------------------------------------------------")
 time.sleep(3)
 do_stuff(ascanvalue="1035")  #  buchen
-print("------------------------------------------------------")
-time.sleep(3)
+#print("------------------------------------------------------")
+#time.sleep(3)
 #do_stuff(debug=0)  # Gehen
 
