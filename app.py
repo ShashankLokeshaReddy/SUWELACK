@@ -97,11 +97,11 @@ def home():
                 # something was put into the inputbar and enter was pressed
                 nr = inputBarValue
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                if "GK" in nr:
+                if "GK" in nr or "FA" in nr:
                     # "GK" is a substring in inputted nr, so book GK
                     kt002.PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
                     print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
-                    return redirect(url_for("gemeinkosten"))
+                    return redirect(url_for("identification", page="_auftragsbuchung"))
                 else:
                     return actbuchung(nr, username, sa)
 
@@ -259,8 +259,11 @@ def identification(page):
         userid = request.form["inputfield"]
         logging.info(page)
 
-        if page == "gemeinkosten":
-            return redirect(url_for("gemeinkosten_buttons", userid=userid))
+        if page == "_auftragsbuchung":
+            usernamepd = dbconnection.getPersonaldetails(userid)
+            username = usernamepd['formatted_name']
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+            return actbuchung(userid, username, sa)
 
         return redirect(url_for(page, userid=userid))
 
@@ -408,7 +411,6 @@ def fabuchta55_dialog(userid):
     """
     Route for Mengendialog for GK/FA where fabuchta55 is appropriate.
     Uses 'mengendialog.html'.
-    --CURRENTLY NOT SUPPORTED--
 
     Args:
         userid: Kartennummer that was input into the inputbar on the identification screen.
@@ -418,8 +420,8 @@ def fabuchta55_dialog(userid):
         "anmelden": When this route is part of a K/G/A booking process.
     """
 
-    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
-    username = usernamepd['VorNameName'].values[0]
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
 
     if request.method == 'POST':
         menge_soll = request.form["menge_soll"]
@@ -447,7 +449,13 @@ def fabuchta55_dialog(userid):
             menge_aus = 0.0
         if menge_gut == "":
             menge_gut = 0.0
+        if ruestzeit == "":
+            ruestzeit = 0.0
+        menge_soll = float(menge_gut) + float(menge_aus)
 
+        xInputMenge = 0  # Flag, 1=Menge eingeben
+        xInputMengeNew = 0
+        xFARueckEnd = False
         tl51use = False
         xScanFA = 0
         xFAStatus = ''
@@ -458,16 +466,23 @@ def fabuchta55_dialog(userid):
         xVal3 = 0.0
         xVal4 = 0.0
         xVal5 = 0.0
+        xFANewScanFA = 0
+        xFANewStatus = ''
+        xFANewMeGes = 0.0
+        xFANewMe = 0.0
         xbuchen = True
 
-        xret = kt002.BuchTA55_0(menge_soll, menge_gut, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-        if menge_soll == 1:
-            logging.info("Dialog")
+        result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS, float(menge_gut), float(menge_soll), xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
+        xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
+
+        if len(xret) > 0:
+            xbuchen = False
 
         if xbuchen == True:
             # Auftrag in DB schreiben
             xPersNr = kt002.gtv("T910_Nr")
             xTE = kt002.gtv("TA06_TE")
+            print(f"[DLL] BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
             kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE,
                              float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
@@ -475,7 +490,11 @@ def fabuchta55_dialog(userid):
             if tl51use == True:
                 kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
 
-        kt002.PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+            if xInputMengeNew == 1:
+                # add another Mengendialog, maybe just reroute with skip?
+                raise NotImplementedError
+
+            kt002.PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
 
         flash("FA oder GK erfolgreich gebucht.")
         logging.info("successful")
@@ -626,7 +645,7 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
 
     # Auftrag finden
     if kt002.CheckObject(kt002.dr_TA06) is True:
-        print('bufa CO drta06 exist')
+        print('[DLL] bufa CO drta06 exist')
     else:
         # FANr wird gescannt und über T905ArbGRNr oder T909 und Platz Soll wird Beleg gefunden
         # Buchung auf FA_Nr
@@ -634,7 +653,7 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
             xt905nr = kt002.gtv("T905_Nr")
             xfanr = kt002.gtv("TA05_FA_Nr")
             result = kt002.TA06ReadArbGrNr(xfanr, xt905nr)
-            print('TA06Read' + result)
+            print('[DLL] TA06Read' + result)
             if result == 1:
                 xScanFA = 1
             else:
@@ -644,7 +663,7 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer):
         # Prüfen, ob FA bebucht werden darf
         result = kt002.BuFANr0Status(xbBuchZiel)
         xret, xbBuchZiel = result
-        print('Bufanrstatus ' + xret + ', Buchzeile ' + str(xbBuchZiel))
+        print('[DLL] Bufanrstatus ' + xret + ', Buchzeile ' + str(xbBuchZiel))
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
@@ -665,10 +684,11 @@ def start_booking(nr):
 
     activefkt = ""
     buaction = 7
+    bufunktion = 0
 
-    result = kt002.ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "", 6)
-    ret, checkfa, sa, bufunktion = result
-    print(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}, bufunktion: {bufunktion}")
+    result = kt002.ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "")
+    ret, checkfa, sa = result
+    print(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}")
     result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
     ret, sa, bufunktion = result
     print(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
@@ -778,12 +798,12 @@ def actbuchung(nr, username, sa, arbeitsplatz=None):
         f"[DLL] CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
     if len(xret) > 0:
         # Last booking was G, for everything other than K, last booking needs to be K
-        if sa == "A":
-            flash("Fehler: Kein Arbeitsplatzwechsel ohne Kommt!")
-            return redirect(url_for("home", username=username))
-        if sa == "G":  # should technically not happen
-            flash("Fehler: Keine Gehen Buchung ohne Kommt!")
-            return redirect(url_for("home", username=username))
+        # if sa == "A":
+            # flash("Fehler: Kein Arbeitsplatzwechsel ohne Kommt!")
+            # return redirect(url_for("home", username=username))
+        # if sa == "G":  # should technically not happen
+            # flash("Fehler: Keine Gehen Buchung ohne Kommt!")
+            # return redirect(url_for("home", username=username))
         if kt002.CheckObject(kt002.dr_TA06) is True or kt002.CheckObject(kt002.dr_TA05) is True:
             flash("Fehler: Keine Auftragsbuchung ohne Kommt!")
             return redirect(url_for("home", username=username))
@@ -828,12 +848,15 @@ def actbuchung(nr, username, sa, arbeitsplatz=None):
                 if kt002.CheckObject(kt002.dr_T951) is True:
                     kt002.T905Read(kt002.gtv("T951_Arbist"))
 
+            kt002.T905_NrSelected = kt002.gtv("T905_Nr")
             xret, ata22dauer = bufa(kt002.gtv("TA06_BelegNr"), "", "", "")
             print(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
             if xret == "fabuchta51":
+                print(f"[DLL] Selected FABuchTA51")
                 return fabuchta51(nr, username)
             if xret == "fabuchta55":
-                raise NotImplementedError
+                print(f"[DLL] Selected FABuchTA55")
+                return redirect(url_for("fabuchta55_dialog", userid=nr))
             else:
                 flash("Auftrag nicht gefunden!")
                 return redirect(url_for("home", username=username))
@@ -891,7 +914,7 @@ def get_list(listname, userid=None):
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
                  "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
-                ["arbeitsplatzwechsel", "gemeinkosten", "status", "gemeinkostenbeenden", "berichtdrucken",
+                ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
                  "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
     if listname == "frNr":
         return [1067, 2098, 7654, 2376, 8976]
