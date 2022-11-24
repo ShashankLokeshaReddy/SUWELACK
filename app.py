@@ -14,6 +14,7 @@ from flask_babel import Babel, format_datetime, gettext
 import XMLRead
 
 import clr
+import pandas as pd
 
 sys.path.append("dll/bin")
 
@@ -293,10 +294,10 @@ def berichtdrucken(userid):
     )
 
 
-@app.route("/auftragsbuchung/<userid>", methods=["POST", "GET"])
-def auftragsbuchung(userid):
+@app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
+def arbeitsplatzbuchung(userid):
     return render_template(
-        "auftragsbuchung.html",
+        "arbeitsplatzbuchung.html",
         arbeitplatzIst=get_list("arbeitsplatz"),
         date=datetime.now(),
         faNr=get_list("frNr"),
@@ -872,8 +873,13 @@ def get_list(listname, userid=None):
         # Implement database calls here.
         return ["Frontenlager", "Verschiedenes(bundes)", "Lehrwerkstatt", "AV(Bunde)"]
     if listname == "arbeitsplatz":
-        arbeitsplatz_info = dbconnection.getArbeitplazlist()
-        return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
+        #arbeitsplatz_info = dbconnection.getArbeitplazlist()
+        #return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
+        df = pd.DataFrame({'code': ['G004', 'ZLB14', 'ZLB10'],
+        'name': ['Gruppe 04', 'Azubi - Abt.','Post/Service']
+        })
+        return df
+
     if listname == "statusTableItems":
         upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
         # create html tags out of the above data frames
@@ -894,6 +900,15 @@ def get_list(listname, userid=None):
                 ["arbeitsplatzwechsel", "gemeinkosten", "status", "gemeinkostenbeenden", "berichtdrucken",
                  "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
     if listname == "frNr":
-        return [1067, 2098, 7654, 2376, 8976]
+        df = pd.DataFrame({'f_nr': ['GK002', 'GK007', 'GK008'],
+        'name': ['Warten auf Auftrag', 'Sonstige Gemeinkosten','Plantafel']
+        })
+        return df
     if listname == "paNr":
-        return XMLRead.dataframeT912['T912_PersNr']
+        # 'Creates dummy panda df and returns it'
+        df = pd.DataFrame({'p_nr': ['2129', '2183', '4021'],
+        'name': ['Volker Rieß', 'Mona Eckhardt','Ingrid Raupach']
+        })
+
+        #return XMLRead.dataframeT912['T912_PersNr']
+        return df
