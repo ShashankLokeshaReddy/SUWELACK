@@ -69,6 +69,7 @@ body, html {
 }
 
 .container{
+    flex: 1 1 auto;
     align-items: center !important;
     align-self: center;
     display: flex;
@@ -86,6 +87,7 @@ body, html {
     justify-content: space-evenly;
     justify-items:flex-start;
 }
+
 .card{
     float: right;
     height: 320px;
@@ -291,8 +293,9 @@ body, html {
  }
 
  .kurztext{
-     width: 330px !important;
-     height: 150px !important;
+    margin-top : 8px;
+    width: 330px !important;
+    height: 150px !important;
  }
  .inputtextcolumn{
     row-gap: 22px;
@@ -361,7 +364,7 @@ table tbody tr {
 }
 .datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus{
     width: 330px !important;
-     height: 45px !important;
+    height: 55px !important;
     flex-direction: unset !important;
 }
 .flexrowGemeinkosten{
@@ -417,11 +420,18 @@ hr.solid {
 
 .boxes {
     display: inline-block;
-    width: 60px;
+    width: 200px;
     height: 20px;
   }
 
   .inputbutton2{
+    margin-top : 20px;
+    display: inline-block;
+    width: 330px !important;
+    height: 45px !important;
+}
+.inputbutton3{
+    margin-top : 5px;
     display: inline-block;
     width: 330px !important;
     height: 45px !important;
