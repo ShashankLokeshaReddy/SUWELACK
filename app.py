@@ -406,8 +406,8 @@ def gemeinkostenbeenden(userid):
     )
 
 
-@app.route("/fabuchta55_dialog/<userid>/", methods=["POST", "GET"])
-def fabuchta55_dialog(userid):
+@app.route("/fabuchta55_dialog/<userid>/<menge_soll>/<xFAStatus>/<xFATS>/<xFAEndeTS>/<xScanFA>", methods=["POST", "GET"])
+def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     """
     Route for Mengendialog for GK/FA where fabuchta55 is appropriate.
     Uses 'mengendialog.html'.
@@ -451,34 +451,13 @@ def fabuchta55_dialog(userid):
             menge_gut = 0.0
         if ruestzeit == "":
             ruestzeit = 0.0
-        menge_soll = float(menge_gut) + float(menge_aus)
 
-        xInputMenge = 0  # Flag, 1=Menge eingeben
-        xInputMengeNew = 0
-        xFARueckEnd = False
-        tl51use = False
-        xScanFA = 0
-        xFAStatus = ''
-        xFATS = ''
-        xFAEndeTS = ''
-        xVal1 = 0.0
-        xVal2 = 0.0
-        xVal3 = 0.0
-        xVal4 = 0.0
-        xVal5 = 0.0
-        xFANewScanFA = 0
-        xFANewStatus = ''
-        xFANewMeGes = 0.0
-        xFANewMe = 0.0
         xbuchen = True
+        tl51use = False
+        xScanFA = int(xScanFA)  # make sure dtype is correct
+        xVal1, xVal2, xVal3, xVal4, xVal5 = 0.0, 0.0, 0.0, 0.0, 0.0
 
-        result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS, float(menge_gut), float(menge_soll), xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
-        xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
-
-        if len(xret) > 0:
-            xbuchen = False
-
-        if xbuchen == True:
+        if xbuchen:
             # Auftrag in DB schreiben
             xPersNr = kt002.gtv("T910_Nr")
             xTE = kt002.gtv("TA06_TE")
@@ -487,12 +466,13 @@ def fabuchta55_dialog(userid):
                              float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
             # Störung setzen
-            if tl51use == True:
+            if tl51use:
                 kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
 
-            if xInputMengeNew == 1:
+            # directly add mengendialog for an Auftrag that is now starting, currently not implemented
+            # if xInputMengeNew == 1:
                 # add another Mengendialog, maybe just reroute with skip?
-                raise NotImplementedError
+                # raise NotImplementedError
 
             kt002.PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
 
@@ -504,6 +484,7 @@ def fabuchta55_dialog(userid):
     return render_template(
         "mengendialog.html",
         date=datetime.now(),
+        menge_soll=menge_soll,
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -856,7 +837,66 @@ def actbuchung(nr, username, sa, arbeitsplatz=None):
                 return fabuchta51(nr, username)
             if xret == "fabuchta55":
                 print(f"[DLL] Selected FABuchTA55")
-                return redirect(url_for("fabuchta55_dialog", userid=nr))
+                xInputMenge = 0  # Flag, 1=Menge eingeben
+                xInputMengeNew = 0
+                xFARueckEnd = False
+                xScanFA = 0
+                xFAStatus = ''
+                xFATS = ''
+                xFAEndeTS = ''
+                xFAMeGut = 0.0
+                xFAMeGes = 0.0
+                xFANewScanFA = 0
+                xFANewStatus = ''
+                xFANewMeGes = 0.0
+                xFANewMe = 0.0
+
+                result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS,
+                                          xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus,
+                                          xFANewMeGes, xFANewMe)
+                xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
+
+                print(f"[DLL] BuchTA55_0: {result}")
+                if len(xret) == 0 and xInputMenge == 1:
+                    return redirect(url_for("fabuchta55_dialog", userid=nr, menge_soll=xFAMeGes, xFAStatus=xFAStatus,
+                                             xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=str(xScanFA)))
+                elif xInputMenge == 0:  # no mengendialog
+
+                    xbuchen = True
+                    tl51use = False
+                    menge_aus = 0.0
+                    menge_gut = 0.0
+                    ruestzeit = 0.0
+                    lagerplatz = ""
+                    charge = ""
+                    xVal1, xVal2, xVal3, xVal4, xVal5 = 0.0, 0.0, 0.0, 0.0, 0.0
+
+                    if xbuchen:
+                        xPersNr = kt002.gtv("T910_Nr")
+                        xTE = kt002.gtv("TA06_TE")
+                        print(
+                            f"[DLL] BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
+                        kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut),
+                                         float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2,
+                                         xVal3, xVal4, xVal5, xScanFA)
+
+                        # Störung setzen
+                        if tl51use:
+                            kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
+
+                        # directly add mengendialog for an Auftrag that is now starting, currently not implemented
+                        # if xInputMengeNew == 1:
+                            # add another Mengendialog, maybe just reroute with skip?
+                            # raise NotImplementedError
+
+                        kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
+
+                    flash("FA oder GK erfolgreich gebucht.")
+                    return redirect(url_for('home', username=username))
+
+                elif len(xret) > 0:
+                    flash("Fehlerhafter Auftrag")
+                    return redirect(url_for('home', username=username))
             else:
                 flash("Auftrag nicht gefunden!")
                 return redirect(url_for("home", username=username))
