@@ -13,8 +13,7 @@ DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)
 connection = engine.connect()
 
-
-def getArbeitplazlist(X998_GrpPlatz=X998_GrpPlatz):
+def getArbeitplazlist():
     arbeitplatzlist = pd.read_sql_query(
         f"""SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr,T905_Art,T905_Typ,T905_Akkord,T905_Leist,T905_Freigabe,
         T905_ArbGrNr,T905_Img,T905_StartScreen,T905_Schleuse FROM ksalias.dbo.G905_TermPlatz INNER JOIN 
@@ -23,13 +22,24 @@ def getArbeitplazlist(X998_GrpPlatz=X998_GrpPlatz):
         connection)
     return arbeitplatzlist
 
+def getArbeitplatzBuchung():
+    arbeitplatzlist = pd.read_sql_query(
+        f"""Select T905_Nr,T905_Bez from T905_ArbMasch inner join G905_TermPlatz on T905_FirmaNr = '{FirmaNr}'  and G905_FirmaNr = T905_FirmaNr and G905_Platz = T905_nr  and G905_Nr = '{X998_GrpPlatz}'""",
+        connection)
+    persnr = pd.read_sql_query(
+        f"""Select * from ksmaster.dbo.kstf_T910G905Bu('{FirmaNr}','{X998_GrpPlatz}')""",
+        connection)
+    persnr["T910_Name"] = persnr['T910_Name'].astype(str) +" "+ persnr["T910_Vorname"]
+    fanr = pd.read_sql_query(
+        f"""Select TA06_FA_Nr,TA05_ArtikelBez  from TA06_FAD1  inner join TA21_AuArt on TA21_FirmaNr = '{FirmaNr}' and TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and (TA21_Typ in ('3') or  TA06_FA_Art = '02') inner join G905_TermPlatz on G905_FirmaNr = TA06_FirmaNr and G905_Platz = TA06_Platz_soll and G905_Nr = '{X998_GrpPlatz}' inner join TA05_FAK1 on TA05_FirmaNr = TA06_FirmaNr and TA05_FA_Nr = TA06_FA_nr group by TA06_FA_nr,TA05_ArtikelBez  order by TA06_FA_Nr""",
+        connection)
+    return [arbeitplatzlist, persnr, fanr]
 
 def getPersonaldetails(T912_Nr):
     pers_info = pd.read_sql_query(
         f"""SELECT T912_Nr,T910_Name,T910_Vorname,T910_Nr FROM ksalias.dbo.T910_Personalliste 
         INNER JOIN ksalias.dbo.T912_PersCard ON T910_Nr = T912_PersNr WHERE T912_Nr = {T912_Nr}""",
         connection, coerce_float=False)
-    # print(f"[DB] {pers_info}")
     pers_info = pers_info.iloc[0, :]  # select first record that matches
     pers_info['T912_Nr'] = str(pers_info['T912_Nr'])
     pers_info['formatted_name'] = pers_info["T910_Vorname"] + ", " + pers_info["T910_Name"]
