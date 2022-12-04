@@ -29,6 +29,7 @@ def getArbeitplatzBuchung():
     persnr = pd.read_sql_query(
         f"""Select * from ksmaster.dbo.kstf_T910G905Bu('{FirmaNr}','{X998_GrpPlatz}')""",
         connection)
+    persnr['T910_Nr'] = persnr['T910_Nr'].astype(int)
     persnr["T910_Name"] = persnr['T910_Name'].astype(str) +" "+ persnr["T910_Vorname"]
     fanr = pd.read_sql_query(
         f"""Select TA06_FA_Nr,TA05_ArtikelBez  from TA06_FAD1  inner join TA21_AuArt on TA21_FirmaNr = '{FirmaNr}' and TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and (TA21_Typ in ('3') or  TA06_FA_Art = '02') inner join G905_TermPlatz on G905_FirmaNr = TA06_FirmaNr and G905_Platz = TA06_Platz_soll and G905_Nr = '{X998_GrpPlatz}' inner join TA05_FAK1 on TA05_FirmaNr = TA06_FirmaNr and TA05_FA_Nr = TA06_FA_nr group by TA06_FA_nr,TA05_ArtikelBez  order by TA06_FA_Nr""",
