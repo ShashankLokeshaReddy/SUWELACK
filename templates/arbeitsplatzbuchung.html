@@ -25,8 +25,8 @@
                         class="btn btn-secondary dropdown-toggle inputbutton">
                     </button>
                     <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {% for index, row in arbeitplatzIst.iterrows(): %}
-                        <a class="dropdown-item" href="#">{{row['code']}} {{row['name']}}</a>
+                        {% for index, row in arbeitplatz_dfs[0].iterrows(): %}
+                        <a class="dropdown-item" href="#">{{row['T905_Nr']}} {{row['T905_Bez']}}</a>
                         <hr />
                         {% endfor %}
                     </div>
@@ -40,8 +40,8 @@
                     <button type="button" data-toggle="dropdown" id="personalNummer"
                         class="btn btn-secondary dropdown-toggle inputbutton"> </button>
                     <div class="DWPR dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {% for index, row in paNr.iterrows(): %}
-                        <a class="dropdown-item" href="#">{{row['p_nr']}} {{row['name']}}</a>
+                        {% for index, row in arbeitplatz_dfs[1].iterrows(): %}
+                        <a class="dropdown-item" href="#">{{row['T910_Nr']}} {{row['T910_Name']}}</a>
                         <hr />
                         {% endfor %}
                     </div>
@@ -56,8 +56,8 @@
                     <button type="button" data-toggle="dropdown" id="FAnummber"
                         class="btn btn-secondary dropdown-toggle inputbutton"> </button>
                     <div class="DWFR dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {% for index, row in faNr.iterrows(): %}
-                        <a class="dropdown-item" href="#">{{row['f_nr']}} {{row['name']}}</a>
+                        {% for index, row in arbeitplatz_dfs[2].iterrows(): %}
+                        <a class="dropdown-item" href="#">{{row['TA06_FA_Nr']}} {{row['TA05_ArtikelBez']}}</a>
                         <hr />
                         {% endfor %}
                     </div>

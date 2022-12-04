@@ -422,6 +422,7 @@ hr.solid {
     display: inline-block;
     width: 200px;
     height: 20px;
+    margin-left : 10px;
   }
 
   .inputbutton2{

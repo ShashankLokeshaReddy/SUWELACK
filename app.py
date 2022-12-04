@@ -298,10 +298,8 @@ def berichtdrucken(userid):
 def arbeitsplatzbuchung(userid):
     return render_template(
         "arbeitsplatzbuchung.html",
-        arbeitplatzIst=get_list("arbeitsplatz"),
+        arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
         date=datetime.now(),
-        faNr=get_list("frNr"),
-        paNr=get_list("paNr"),
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -872,13 +870,14 @@ def get_list(listname, userid=None):
     if listname == "arbeitsplatzgruppe":
         # Implement database calls here.
         return ["Frontenlager", "Verschiedenes(bundes)", "Lehrwerkstatt", "AV(Bunde)"]
+
     if listname == "arbeitsplatz":
-        #arbeitsplatz_info = dbconnection.getArbeitplazlist()
-        #return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
-        df = pd.DataFrame({'code': ['G004', 'ZLB14', 'ZLB10'],
-        'name': ['Gruppe 04', 'Azubi - Abt.','Post/Service']
-        })
-        return df
+        arbeitsplatz_info = dbconnection.getArbeitplazlist()
+        return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
+
+    if listname == "arbeitsplatzbuchung":
+        persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung()
+        return [persnr, arbeitsplatz, fanr]
 
     if listname == "statusTableItems":
         upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
@@ -886,29 +885,19 @@ def get_list(listname, userid=None):
         upper_items_html = upper_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
         lower_items_html = lower_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
         return [upper_items_html, lower_items_html]
+
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
                  "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
                 ["arbeitsplatzwechsel", "gemeinkosten", "status", "gemeinkostenbeenden", "berichtdrucken",
                  "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
+
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid)
         return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
+
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
                  "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
                 ["arbeitsplatzwechsel", "gemeinkosten", "status", "gemeinkostenbeenden", "berichtdrucken",
                  "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
-    if listname == "frNr":
-        df = pd.DataFrame({'f_nr': ['GK002', 'GK007', 'GK008'],
-        'name': ['Warten auf Auftrag', 'Sonstige Gemeinkosten','Plantafel']
-        })
-        return df
-    if listname == "paNr":
-        # 'Creates dummy panda df and returns it'
-        df = pd.DataFrame({'p_nr': ['2129', '2183', '4021'],
-        'name': ['Volker Rieß', 'Mona Eckhardt','Ingrid Raupach']
-        })
-
-        #return XMLRead.dataframeT912['T912_PersNr']
-        return df
