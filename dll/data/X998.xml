@@ -5,7 +5,7 @@
     <X998_Nr>01</X998_Nr>
     <X998_Bez>Server</X998_Bez>
     <X998_SammelBuchung>1</X998_SammelBuchung>
-    <X998_GrpPlatz>20</X998_GrpPlatz>
+    <X998_GrpPlatz>03</X998_GrpPlatz>
     <X998_FATAB>TA51</X998_FATAB>
     <X998_screen>TS</X998_screen>
     <X998_scanner>TS</X998_scanner>
@@ -49,13 +49,13 @@
     <X998_F1Btn5>FKT_STATUS</X998_F1Btn5>
     <X998_F1Btn6>FKT_LIST</X998_F1Btn6>
     <X998_Anlage>2017-03-01T17:47:15+01:00</X998_Anlage>
-    <X998_Aenderung>2021-07-19T10:05:54+02:00</X998_Aenderung>
+    <X998_Aenderung>2021-09-01T12:23:40+02:00</X998_Aenderung>
     <X998_User>#fg</X998_User>
     <X998_Taetigkeit>0</X998_Taetigkeit>
     <X998_PCName>Server</X998_PCName>
-    <X998_LastAct>2022-01-24T11:05:37+01:00</X998_LastAct>
-    <X998_TermVersion>15.8.1.0 - 24.01.2022 11:05:21</X998_TermVersion>
-    <X998_LastStart>2022-01-24T11:05:38+01:00</X998_LastStart>
+    <X998_LastAct>2021-10-05T14:53:26+02:00</X998_LastAct>
+    <X998_TermVersion>15.8.1.0 - 23.08.2021 14:47:44</X998_TermVersion>
+    <X998_LastStart>2021-10-05T14:53:26+02:00</X998_LastStart>
     <X998_SoftNumRight>1</X998_SoftNumRight>
     <x998_Password />
     <X998_Platz />
@@ -63,7 +63,7 @@
     <X998_AllowRoute>0</X998_AllowRoute>
     <X998_ShowMsgGeht>1</X998_ShowMsgGeht>
     <X998_LogOff>0</X998_LogOff>
-    <X998_ShowAllPlatz>1</X998_ShowAllPlatz>
+    <X998_ShowAllPlatz>0</X998_ShowAllPlatz>
     <X998_InfoPZEFull>1</X998_InfoPZEFull>
     <X998_InfoBDEFull>0</X998_InfoBDEFull>
     <X998_Beep>0</X998_Beep>
@@ -81,5 +81,6 @@
     <X998_F1Btn11 />
     <X998_F1Btn12 />
     <X998_Log>0</X998_Log>
+    <X998_ScanCardNo>1</X998_ScanCardNo>
   </X998_ConfigTerm>
 </NewDataSet>
