@@ -957,7 +957,7 @@ def get_list(listname, userid=None):
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
                  "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
-                ["arbeitsplatzwechsel", "gemeinkosten", "status", "gemeinkostenbeenden", "berichtdrucken",
+                ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
                  "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
 
     if listname == "gemeinkostenItems":
