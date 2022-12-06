@@ -38,7 +38,7 @@ app.config['BABEL_DEFAULT_LOCALE'] = 'de'
 babel = Babel(app)
 
 # CONSTANTS
-root = ET.parse("../../data/X998.xml").getroot()[0]  # parse X998.xml file for config
+root = ET.parse("../../dll/data/X998.xml").getroot()[0]  # parse X998.xml file for config
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
 DFORMAT = "%d.%m.%Y"
 APPMSCREEN2 = 1  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
