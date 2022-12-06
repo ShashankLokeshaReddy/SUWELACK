@@ -423,6 +423,11 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     username = usernamepd['formatted_name']
 
     if request.method == 'POST':
+        if request.form["submit"] == "submit_end":
+            xFAStatus = '30'  # Endrückmeldung
+        elif request.form["submit"] == "submit_teil":
+            xFAStatus = '20'  # Teilrückmeldung
+
         menge_soll = request.form["menge_soll"]
         menge_aus = request.form["menge_aus"]
         menge_gut = request.form["menge_gut"]
