@@ -312,8 +312,8 @@ def gruppenbuchung(userid):
     return render_template(
         "gruppenbuchung.html",
         date=datetime.now(),
-        frNr=get_list("frNr"),
-        sidebarItems=get_list("sidebarItems")
+        frNr=get_list("gruppenbuchung_frNr"),
+        #sidebarItems=get_list("gruppe")
     )
 
 
@@ -864,6 +864,7 @@ def actbuchung(nr, username, sa, arbeitsplatz=None):
                 if len(xret) == 0 and xInputMenge == 1:
                     return redirect(url_for("fabuchta55_dialog", userid=nr, menge_soll=xFAMeGes, xFAStatus=xFAStatus,
                                              xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=str(xScanFA)))
+                                             
                 elif xInputMenge == 0:  # no mengendialog
 
                     xbuchen = True
@@ -946,6 +947,10 @@ def get_list(listname, userid=None):
     if listname == "arbeitsplatzbuchung":
         persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung()
         return [persnr, arbeitsplatz, fanr]
+
+    if listname == "gruppenbuchung_frNr":
+        fanr = dbconnection.getGruppenbuchungfrNr()
+        return fanr
 
     if listname == "statusTableItems":
         upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)

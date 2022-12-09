@@ -36,6 +36,12 @@ def getArbeitplatzBuchung():
         connection)
     return [arbeitplatzlist, persnr, fanr]
 
+def getGruppenbuchungfrNr():
+    fanr = pd.read_sql_query(
+        f"""Select T903_NR,T903_Bez from T903_Gruppen where T903_FirmaNr = '{FirmaNr}' and T903_GruPrae not in (0)""",
+        connection)
+    return fanr
+
 def getPersonaldetails(T912_Nr):
     pers_info = pd.read_sql_query(
         f"""SELECT T912_Nr,T910_Name,T910_Vorname,T910_Nr FROM ksalias.dbo.T910_Personalliste 
