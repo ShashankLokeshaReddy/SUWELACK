@@ -313,7 +313,7 @@ def gruppenbuchung(userid):
         "gruppenbuchung.html",
         date=datetime.now(),
         frNr=get_list("gruppenbuchung_frNr"),
-        #sidebarItems=get_list("gruppe")
+        sidebarItems=get_list("sidebarItems")
     )
 
 
@@ -323,7 +323,7 @@ def fertigungsauftrag(userid):
         "fertigungsauftrag.html",
         date=datetime.now(),
         arbeitsplatz=get_list("arbeitsplatz"),
-        frNr=get_list("frNr"),
+        frNr=get_list("fertigungsauftrag_frNr"),
         user="John",
         sidebarItems=get_list("sidebarItems")
     )
@@ -336,7 +336,7 @@ def gemeinkostenandern(userid):
         date=datetime.now(),
         user="John",
         arbeitsplatz=get_list("arbeitsplatz"),
-        frNr=get_list("frNr"),
+        frNr=get_list("gemeinkostenandern_frNr"),
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -951,6 +951,12 @@ def get_list(listname, userid=None):
     if listname == "gruppenbuchung_frNr":
         fanr = dbconnection.getGruppenbuchungfrNr()
         return fanr
+
+    if listname == "fertigungsauftrag_frNr":
+        return [1067, 2098, 7654, 2376, 8976]
+
+    if listname == "gemeinkostenandern_frNr":
+        return [1067, 2098, 7654, 2376, 8976]
 
     if listname == "statusTableItems":
         upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
