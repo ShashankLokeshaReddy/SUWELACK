@@ -16,6 +16,9 @@ import XMLRead
 import clr
 import pandas as pd
 
+import numpy as np
+import pandas as pd
+
 sys.path.append("dll/bin")
 
 clr.AddReference("kt002_PersNr")
@@ -331,14 +334,56 @@ def fertigungsauftrag(userid):
 
 @app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
 def gemeinkostenandern(userid):
-    return render_template(
-        "gemeinkostenandern.html",
-        date=datetime.now(),
-        user="John",
-        arbeitsplatz=get_list("arbeitsplatz"),
-        frNr=get_list("frNr"),
-        sidebarItems=get_list("sidebarItems")
-    )
+
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    gk_info = dbconnection.getGemeinkosten(userid)
+
+    if request.method == 'POST':
+        print("posting")
+        print(request.form)
+        print(type(request.form))
+        print(request.form["submit"])
+        if request.form["submit"] == "ändern":  # change selected Auftrag
+            return redirect(url_for("gemeinkostenandern", userid=userid))
+        elif request.form["submit"] == "erstellen":  # create auftrag
+            datum = request.form["datum"]
+            print(f"datum: {datum}")
+            arbeitsplatz = request.form["arbeitsplatz"]
+            print(f"arbeitsplatz: {arbeitsplatz}")
+            beleg_nr = request.form["gemeinkosten"]
+            print(f"beleg_nr: {beleg_nr}")
+            ata22dauer = request.form["dauer"]
+            print(f"ata22dauer: {ata22dauer}")
+            kurztext = request.form["kurztext"]
+            print(f"kurztext: {kurztext}")
+
+            #ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
+            #ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+            #return actbuchung(userid, usernamepd, sa, ata22dauer=ata22dauer)
+            return redirect(url_for("home", username=usernamepd))
+
+    else:
+        gk_info_df = pd.DataFrame()
+        gk_info_df["gk_dp"] = gk_info["TA05_FA_Nr"] + "_" + gk_info["TA05_ArtikelBez"]
+        gk_lst=gk_info_df["gk_dp"].tolist()
+        dauer=np.linspace(0, 600, num=121).tolist()
+        upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
+        upper_items_df["arbeitplatz_info"] = upper_items_df["Arbeitplatz"] + "_" + upper_items_df["Bezeichnung"]
+        arbeitsplatz=np.unique(upper_items_df.arbeitplatz_info).tolist() # sql call pending
+        arbeitsplatz.insert(0, "Keine")
+
+        return render_template(
+            "gemeinkostenandern.html",
+            date=datetime.now(),
+            anfangTS=datetime.today().strftime(DTFORMAT),
+            arbeitsplatz=arbeitsplatz,
+            frNr=gk_lst,
+            sidebarItems=get_list("sidebarItems"),
+            username=usernamepd['formatted_name'],
+            pers_no=usernamepd['T910_Nr'],
+            dauer=[int(i) for i in dauer],
+            tableItems=get_list("statusTableItems",userid)
+        )
 
 
 @app.route("/anmelden/<userid>/<sa>", methods=["POST", "GET"])
@@ -685,12 +730,12 @@ def start_booking(nr):
     return ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg
 
 
-def fabuchta51(nr, username):
+def fabuchta51(nr, username, ata22dauer=""):
     xStatusMenge = ""
     xEndeTS = datetime.now()
     xAnfangTS = xEndeTS
-    xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  # Stringtransporter Datum
-    xTSEnd = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
+    xTS = xAnfangTS.strftime(DTFORMAT)  # Stringtransporter Datum
+    xTSEnd = xAnfangTS.strftime(DTFORMAT)
 
     xDauer = 0
     xVal1 = 0.0
@@ -701,6 +746,8 @@ def fabuchta51(nr, username):
     xbCancel = False
 
     xTA22Dauer = kt002.gtv("TA22_Dauer")  # aus TA06 gelesen
+    if ata22dauer.isnumeric():
+        xTA22Dauer = int(ata22dauer)  # if given, take assume this
     print(f"[DLL] PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
     result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
     xret, xTS, xStatusMenge = result
@@ -766,7 +813,7 @@ def fabuchta51(nr, username):
     ))
 
 
-def actbuchung(nr, username, sa, arbeitsplatz=None):
+def actbuchung(nr, username, sa, arbeitsplatz=None, ata22dauer=""):
     """K/G/A booking according to sa for user with given card nr and username."""
 
     kst = ""
@@ -834,11 +881,11 @@ def actbuchung(nr, username, sa, arbeitsplatz=None):
                     kt002.T905Read(kt002.gtv("T951_Arbist"))
 
             kt002.T905_NrSelected = kt002.gtv("T905_Nr")
-            xret, ata22dauer = bufa(kt002.gtv("TA06_BelegNr"), "", "", "")
+            xret, ata22dauer = bufa(kt002.gtv("TA06_BelegNr"), "", "", ata22dauer)
             print(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
             if xret == "fabuchta51":
                 print(f"[DLL] Selected FABuchTA51")
-                return fabuchta51(nr, username)
+                return fabuchta51(nr, username, ata22dauer)
             if xret == "fabuchta55":
                 print(f"[DLL] Selected FABuchTA55")
                 xInputMenge = 0  # Flag, 1=Menge eingeben
