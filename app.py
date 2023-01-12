@@ -320,14 +320,30 @@ def gruppenbuchung(userid):
     )
 
 
-@app.route("/fertigungsauftrag/<userid>", methods=["POST", "GET"])
-def fertigungsauftrag(userid):
+@app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
+def fertigungsauftragerfassen(userid):
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    platz=dbconnection.getPlazlist(userid)
+    platzid=platz.T905_Nr.tolist()
+    platzlst= platz.T905_Bez.tolist()
+    auftraglst = []
+    for i in range(len(platzid)):
+        auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen")
+        if auftrag.empty:
+            auftraglst.insert(0,[platzid[i],platzlst[i],""])
+        else:    
+            auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.Bez.tolist()[0]])
+    auftraglst.insert(0, ["","Keine",""])
+    tablecontent=dbconnection.getTables_GKA_FAE(userid, platz, "FA_erfassen")
+    print("tablecontent",tablecontent)
     return render_template(
         "fertigungsauftrag.html",
         date=datetime.now(),
-        arbeitsplatz=get_list("arbeitsplatz"),
-        frNr=get_list("frNr"),
-        user="John",
+        auftraglst=auftraglst,
+        anfangTS=datetime.today().strftime(DTFORMAT),
+        username=usernamepd['formatted_name'],
+        pers_no=usernamepd['T910_Nr'],
+        tablecontent=tablecontent,
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -1003,9 +1019,9 @@ def get_list(listname, userid=None):
 
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid)
@@ -1013,6 +1029,6 @@ def get_list(listname, userid=None):
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen"]]
