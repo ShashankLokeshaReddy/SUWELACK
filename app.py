@@ -320,16 +320,48 @@ def gruppenbuchung(userid):
     )
 
 
-@app.route("/fertigungsauftrag/<userid>", methods=["POST", "GET"])
-def fertigungsauftrag(userid):
-    return render_template(
-        "fertigungsauftrag.html",
-        date=datetime.now(),
-        arbeitsplatz=get_list("arbeitsplatz"),
-        frNr=get_list("frNr"),
-        user="John",
-        sidebarItems=get_list("sidebarItems")
-    )
+@app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
+def fertigungsauftragerfassen(userid):
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    platz=dbconnection.getPlazlist(userid)
+
+    if request.method == 'POST':
+        print("posting")
+        print(request.form)
+        print(type(request.form))
+        print(request.form["submit"])
+        if request.form["submit"] == "erstellen":  # create auftrag
+            datum = request.form["datum"]
+            print(f"datum: {datum}")
+            arbeitsplatz = request.form["arbeitsplatz"]
+            print(f"arbeitsplatz: {arbeitsplatz}")
+            beleg_nr = request.form["auftrag"]
+            print(f"beleg_nr: {beleg_nr}")
+            return redirect(url_for("home", username=usernamepd))
+    else:
+        platzid=platz.T905_Nr.tolist()
+        platzlst= platz.T905_Bez.tolist()
+        auftraglst = []
+        for i in range(len(platzid)):
+            auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen")
+            if auftrag.empty:
+                auftraglst.insert(0,[platzid[i],platzlst[i],""])
+            else:    
+                auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.Bez.tolist()[0]])
+            # tablecontent=dbconnection.getTables_GKA_FAE(userid, platzlst[i], "FA_erfassen")
+            # print("tablecontent",tablecontent)
+        auftraglst.insert(0, ["","Keine",""])
+        tablecontent = [{'TagId':"Code", 'Arbeitplatz':"M001___Materialtransport", 'BelegNr':"FA003___Materialtransport", 'AnfangTS':"25.11.2022 21:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}, {'TagId':"Code", 'Arbeitplatz':"F006___Bereitst. Comil Sonder", 'BelegNr':"FA003___Bereitst. Comil Sonder", 'AnfangTS':"24.11.2022 22:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}]
+        return render_template(
+            "fertigungsauftrag.html",
+            date=datetime.now(),
+            auftraglst=auftraglst,
+            anfangTS=datetime.today().strftime(DTFORMAT),
+            username=usernamepd['formatted_name'],
+            pers_no=usernamepd['T910_Nr'],
+            tablecontent=tablecontent,
+            sidebarItems=get_list("sidebarItems")
+        )
 
 
 @app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
@@ -1003,9 +1035,9 @@ def get_list(listname, userid=None):
 
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid)
@@ -1013,6 +1045,6 @@ def get_list(listname, userid=None):
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "Fertigungsauftrag"],
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftrag"]]
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen"]]

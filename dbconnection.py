@@ -22,6 +22,42 @@ def getArbeitplazlist():
         connection)
     return arbeitplatzlist
 
+def getPlazlist(userid):
+    persnr = getPersonaldetails(userid)['T910_Nr']
+    date = datetime.now().strftime("%Y-%d-%m")
+    Platzlist = pd.read_sql_query(
+        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
+        inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
+        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez""",
+        connection)
+    return Platzlist
+
+def getAuftrag(Platz, template): # TA21_Typ is 3 for GKA and 5 for FA erfassen
+    if template == "GK_ändern":
+        TA21_Typ = 3
+    if template == "FA_erfassen":
+        TA21_Typ = 5
+
+    Auftraglist = pd.read_sql_query(
+        f"""Select TA06_BelegNr,TA06_FA_Nr + '___' + TA06_AgBez as Bez from TA06_FAD2 inner join TA05_FAK1 on 
+        TA05_FirmaNr = TA06_FirmaNr and TA05_FA_Nr = TA06_FA_Nr and TA06_Platz_Soll = '{Platz}' and TA06_Auf_Stat < '3'
+        inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ 
+        in ('{TA21_Typ}') where TA06_FirmaNr = '{FirmaNr}' group by TA06_BelegNr, TA06_FA_Nr, TA06_AgBez
+        order by TA06_BelegNr""",
+        connection)
+    return Auftraglist
+
+def getTables_GKA_FAE(userid, Platz, template):
+    persnr = getPersonaldetails(userid)['T910_Nr']
+    date = datetime.now().strftime("%Y-%d-%m")
+    if template == "GK_ändern":
+        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA51FAAdminFB1('{FirmaNr}', '{date}', '3')",
+        connection)
+    if template == "FA_erfassen":
+        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA55FAAdmin('{FirmaNr}', {persnr}, '{date}', '5', '{Platz}')",
+        connection)
+    return tablelist
+
 def getArbeitplatzBuchung():
     arbeitplatzlist = pd.read_sql_query(
         f"""Select T905_Nr,T905_Bez from T905_ArbMasch inner join G905_TermPlatz on T905_FirmaNr = '{FirmaNr}'  and G905_FirmaNr = T905_FirmaNr and G905_Platz = T905_nr  and G905_Nr = '{X998_GrpPlatz}'""",

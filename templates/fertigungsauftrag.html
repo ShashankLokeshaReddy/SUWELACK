@@ -3,88 +3,351 @@
 
 
 {% block content %}
-<div class="containerr statustable">
-<h3>{{ _('Fertigungsauftrag erfassen') }}</h3>
+<div>
+  <form method="post">
+  
+  <div class="containerr statustable">
+  <h3>{{ _('Fertigungsauftrag erfassen') }}</h3>
+  </div>
 
-<div class="d-flex flex-row flexrowGemeinkosten">
 
-         <label class="textclass" > {{ user.name }} &emsp;</label>
-         <label class="textclass"> &emsp;{{ user.userid }}</label>
- </div>
-
- <div class="d-flex flex-row flexrowGemeinkosten justify-content-between">
- <p>{{ _('Gruppe') }}: </p>
-        <div class="dropdown inputbutton">
-        <button type="button"  data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.arbeitsplatz }}</button>
-        <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
-        {% for items in range(0,arbeitsplatz[0]|length) %}
-            <a class="dropdown-item"  href="#" >{{arbeitsplatz[0][items]}}</a>
-        {% endfor %}
-        </div>
-        </div>
- <p>FrNo:</p>
-        <div class="dropdown inputbutton">
-        <button type="button"  data-toggle="dropdown" id="FAnumber" class="btn btn-secondary dropdown-toggle inputbutton">{{ user.faNr }}</button>
-        <div class="DWFR dropdown-menu" aria-labelledby="dropdownMenuButton">
-        {% for items in range(0,frNr|length) %}
-            <a class="dropdown-item"  href="#" >{{frNr[items]}}</a>
-        {% endfor %}
-        </div>
-        </div>
-
- <label for="datum" class="label">Datum</label>
- <input type="date" id="datum" class="form-control datetime">
- </div>
-
-<div class="d-flex flex-row flexrowGemeinkosten">
-<table class="table table-striped">
-   <thead class="thead-light">
-    <tr>
-      <th scope="col">{{ _('Buchungstag') }}</th>
-      <th scope="col">{{ _('Arbeitsplatz') }}</th>
-      <th scope="col">{{ _('Beleg Nr.') }}</th>
-      <th scope="col">{{ _('Anfang TS') }}</th>
-      <th scope="col">{{ _('Ende TS') }}</th>
-      <th scope="col">{{ _('Dauer TS') }}</th>
-      <th scope="col">{{ _('Menge Gut') }}</th>
-      <th scope="col">{{ _('Auf_stat') }}</th>
-
-    </tr>
-</thead>
-<tbody>
-    <tr>
-      <th scope="row">11.06.2021</th>
-      <td>0006</td>
-      <td>F010400</td>
-      <td>11.06.2021</td>
-      <td>11.06.2021</td>
-      <td>0 Min</td>
-      <td>1</td>
-      <td>TO</td>
-    </tr>
-</tbody>
-</table>
+<div class="flex-container">
+  <div class="flex-row">
+    <div class="flex-nested-row">
+      <label class="textclass" > {{ pers_no }} &emsp; {{ username }} </label>
+    </div>
+  </div>
 </div>
 
-<div class="d-flex justify-content-between bestätigen2">
+<div class="flex-container">
+  <div class="flex-row">
+    <div class="flex-nested-row">
+      <label class="textclass" id="anfangTS">{{anfangTS}}</label>
+    </div>
+  </div>
+  <div class="flex-row">
+    <div class="flex-nested-row flex-right">
+      <label for="datum" class="textclass">{{ _('Datum') }}: &emsp; </label>
+      <input type="date" name="datum" id="datum" value={{ date }} class="form-control datetime"></input>
+    </div>
+  </div>
+</div>
 
-    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
-    <button type="submit" id="submit" value="submit" onclick="window.location.href='{{"/fertigungauftragerstellen"}}'" class="btn btn-primary btn-lg submit2">{{ _('Erstellen') }}</button>
+<div class="flex-container">
+  <div class="flex-row">
+    <div class="flex-nested-row">
+      <label for="arbeitsplatz" class="textclass">{{ _('Arbeitsplatz') }}:  &emsp;</label>
+      <button type="button" name="arbeitsplatz" data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ auftraglst[items] }}</button>
+        <div class="ARBT dropdown-menu scrollable-menu_Buchungstag" aria-labelledby="dropdownMenuButton">
+              {% for items in range(0,auftraglst|length) %}
+                <a class="dropdown-item"  href="#" >{{auftraglst[items][1]}}</a>
+              {% endfor %}
+        </div>
+    </div>
+  </div>
+  <div class="flex-row">
+    <div class="flex-nested-row flex-center">
+      <label for="auftrag" class="textclass">{{ _('Auftrag') }}:  &emsp;</label>
+        <button type="button" name="auftrag" data-toggle="dropdown" id="auftrag" class="btn btn-secondary dropdown-toggle inputbutton"></button>
+        <div class="FAE dropdown-menu scrollable-menu_GK" aria-labelledby="dropdownMenuButton">
+        </div>
+    </div>
+  </div>
+  <div class="flex-row">
+    <div class="flex-nested-row flex-right">
+      <button type="submit" name="submit" value="erstellen" id="Erstellen" class="btn btn-secondary  btn-lg submit2">{{ _('Erstellen') }}</button>
+    </div>
+  </div>
 </div>
+<select id ='selectvalue' style="visibility: hidden"> {{ auftraglst }}
+</select>
+
+<div class="panel-body">
+	
+	<div class="tbl_user_data"></div>
+
 </div>
+
+</form>
+</div>
+
 <script>
 
-    $(function(){
+$(function(){
     $(".ARBT a").click(function(){
-        $("#arbeitsplatz").text($(this).text());
-      $("#arbeitsplatz").val($(this).text());
-     });
+		$("#arbeitsplatz").text($(this).text());
+		$("#arbeitsplatz").val($(this).text());
+		var arbpltz_val = $("#arbeitsplatz")[0].innerHTML;
+		var selectvalue = document.getElementById("selectvalue").innerHTML;
+		const myArray = selectvalue.split("], [");
+		for (var i = 0; i < myArray.length; i++) {
+			myArray[i] = myArray[i].replace("[[","");
+			myArray[i] = myArray[i].replace("]]","");
+			var innerArray = myArray[i].split(",");
+			if (innerArray[1].includes(arbpltz_val.toString())) {
+				var txt = innerArray[2].replace("'","");
+				txt = txt.replace("'","");
+				txt = txt.replace(" ","");
+				txt = txt.replace("\n","");
+				$("#auftrag").text(txt);
+				$("#auftrag").val(txt);
+			}
+		}
+		
+    });
 });
-     $(function(){
-    $(".DWFR a").click(function(){
-      $("#FAnumber").text($(this).text());
-      $("#FAnumber").val($(this).text());
+
+$(function(){
+		$(".FAE a").click(function(){
+		$("#auftrag").text($(this).text());
+		$("#auftrag").val($(this).text());
    });
 });
+
+
+$(document).ready(function($)
+{
+	//ajax row data
+	var ajax_data =  JSON.parse('{{ tablecontent | tojson | safe}}');
+	console.log("ajax_data",ajax_data);
+
+	var random_id = function  () 
+	{
+		var id_num = Math.random().toString(9).substr(2,3);
+		var id_str = Math.random().toString(36).substr(2);
+		
+		return id_num + id_str;
+	}
+
+
+	//--->create data table > start
+	var tbl = '';
+	tbl +='<table class="table table-hover" id ="table-selectable">'
+
+		//--->create table header > start
+		tbl +='<thead>';
+			tbl +='<tr>';
+			tbl +='<th>TagId</th>';
+			tbl +='<th>Arbeitplatz Ist</th>';
+			tbl +='<th>BelegNr</th>';
+			tbl +='<th>Anfang TS</th>';
+			tbl +='<th>Ende TS</th>';
+			tbl +='<th>Dauer TS</th>';
+			tbl +='<th>Menge Gut</th>';
+			tbl +='<th>Auf_Stat</th>';
+		//--->create table header > end
+
+		
+		//--->create table body > start
+		tbl +='<tbody>';
+
+			//--->create table body rows > start
+			$.each(ajax_data, function(index, val) 
+			{
+				//you can replace with your database row id
+				var row_id = random_id();
+
+				//loop through ajax row data
+				tbl +='<tr row_id="'+row_id+'">';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="TagId">'+val['TagId']+'</div></td>';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="Arbeitplatz">'+val['Arbeitplatz']+'</div></td>';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="BelegNr">'+val['BelegNr']+'</div></td>';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="AnfangTS">'+val['AnfangTS']+'</div></td>';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="EndeTS">'+val['EndeTS']+'</div></td>';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="DauerTS">'+val['DauerTS']+'</div></td>';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="Menge Gut">'+val['MengeGut']+'</div></td>';
+					tbl +='<td ><div class="row_data" edit_type="click" col_name="Auf_Stat">'+val['Auf_Stat']+'</div></td>';
+				tbl +='</tr>';
+			});
+
+			//--->create table body rows > end
+
+		tbl +='</tbody>';
+		//--->create table body > end
+
+	tbl +='</table>'	
+	//--->create data table > end
+
+	//out put table data
+	$(document).find('.tbl_user_data').html(tbl);
+
+	//--->make div editable > start
+	$(document).on('click', '.row_data', function(event) 
+	{
+		event.preventDefault(); 
+
+		if($(this).attr('edit_type') == 'button')
+		{
+			return false; 
+		}
+
+		//make div editable
+		$(this).closest('div').attr('contenteditable', 'true');
+		//add bg css
+		$(this).addClass('bg-warning').css('padding','5px');
+
+		$(this).focus();
+	})	
+	//--->make div editable > end
+
+
+	//--->save single field data > start
+	$(document).on('focusout', '.row_data', function(event) 
+	{
+		event.preventDefault();
+
+		if($(this).attr('edit_type') == 'button')
+		{
+			return false; 
+		}
+
+		var row_id = $(this).closest('tr').attr('row_id'); 
+		
+		var row_div = $(this)				
+		.removeClass('bg-warning') //add bg css
+		.css('padding','')
+
+		var col_name = row_div.attr('col_name'); 
+		var col_val = row_div.html(); 
+
+		var arr = {};
+		arr[col_name] = col_val;
+
+		//use the "arr"	object for your ajax call
+		$.extend(arr, {row_id:row_id});
+
+		//out put to show
+		$('.post_msg').html( '<pre class="bg-success">'+JSON.stringify(arr, null, 2) +'</pre>');
+		
+	})	
+	//--->save single field data > end
+
+ 
+	//--->button > edit > start	
+	$(document).on('click', '.btn_edit', function(event) 
+	{
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+
+		tbl_row.find('.btn_save').show();
+		tbl_row.find('.btn_cancel').show();
+
+		//hide edit button
+		tbl_row.find('.btn_edit').hide(); 
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'true')
+		.attr('edit_type', 'button')
+		.addClass('bg-warning')
+		.css('padding','3px')
+
+		//--->add the original entry > start
+		tbl_row.find('.row_data').each(function(index, val) 
+		{  
+			//this will help in case user decided to click on cancel button
+			$(this).attr('original_entry', $(this).html());
+		}); 		
+		//--->add the original entry > end
+
+	});
+	//--->button > edit > end
+
+
+	//--->button > cancel > start	
+	$(document).on('click', '.btn_cancel', function(event) 
+	{
+		event.preventDefault();
+
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('edit_type', 'click')
+		.removeClass('bg-warning')
+		.css('padding','') 
+
+		tbl_row.find('.row_data').each(function(index, val) 
+		{   
+			$(this).html( $(this).attr('original_entry') ); 
+		});  
+	});
+	//--->button > cancel > end
+
+	
+	//--->save whole row entery > start	
+	$(document).on('click', '.btn_save', function(event) 
+	{
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+
+		
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('edit_type', 'click')
+		.removeClass('bg-warning')
+		.css('padding','') 
+
+		//--->get row data > start
+		var arr = {}; 
+		tbl_row.find('.row_data').each(function(index, val) 
+		{   
+			var col_name = $(this).attr('col_name');  
+			var col_val  =  $(this).html();
+			arr[col_name] = col_val;
+		});
+		//--->get row data > end
+
+		//use the "arr"	object for your ajax call
+		$.extend(arr, {row_id:row_id});
+
+		//out put to show
+		$('.post_msg').html( '<pre class="bg-success">'+JSON.stringify(arr, null, 2) +'</pre>')
+		 
+
+	});
+	//--->save whole row entery > end
+
+		// get selected row
+	// display selected row data in text input
+	
+	var table = document.getElementById("table-selectable"),rIndex;
+	
+	for(var i = 1; i < table.rows.length; i++)
+	{
+		table.rows[i].onclick = function()
+		{
+			rIndex = this.rowIndex;
+			console.log("rIndex",$("#arbeitsplatz").text);
+			
+			$("#arbeitsplatz").text(this.cells[1].innerText);
+			$("#auftrag").text(this.cells[2].innerText);
+			$("#anfangTS").text(this.cells[3].innerText);
+		};
+	}
+
+
+}); 
 </script>
 {% endblock %}
