@@ -108,11 +108,8 @@ $(function(){
 $(document).ready(function($)
 {
 	//ajax row data
-	var ajax_data =
-	[
-		{TagId:"Code", Arbeitplatz:"M001___Materialtransport", BelegNr:"FA003___Materialtransport", AnfangTS:"25.11.2022 21:07:09", EndeTS:"With Mark", DauerTS:"mark@codewithmark.com", MengeGut:"Code", Auf_Stat:"With Mark"}, 
-		{TagId:"Code", Arbeitplatz:"F006___Bereitst. Comil Sonder", BelegNr:"FA003___Bereitst. Comil Sonder", AnfangTS:"24.11.2022 22:07:09", EndeTS:"With Mark", DauerTS:"mark@codewithmark.com", MengeGut:"Code", Auf_Stat:"With Mark"}
-	]
+	var ajax_data =  JSON.parse('{{ tablecontent | tojson | safe}}');
+	console.log("ajax_data",ajax_data);
 
 	var random_id = function  () 
 	{
