@@ -1,5 +1,12 @@
 ﻿import sys
 import clr
+import os
+import time
+print(os.getcwd())
+sys.path.append(os.getcwd())
+
+import dbconnection
+
 #original
 #http://pythonnet.github.io
 
@@ -54,16 +61,18 @@ import clr
 from datetime import datetime,timedelta   
 
 
-
+sys.path.append("dll/bin")
 #sys.path.append("c:\temp\testpks")
 clr.AddReference("kt002_PersNr") 
 clr.AddReference("System.Collections")
+
 from System.Collections import Generic
 #from System import *
 from System.Collections import Hashtable
 from System import String
 from System import Object
 
+os.chdir("dll/bin")
 from kt002_persnr import kt002
 kt002.Init()   
 kt002.InitTermConfig()
@@ -131,8 +140,8 @@ def endta51cancelt905(apersnr):
 	#FA sind zu beenden
 	if len(xfa)>0:
 		print('Info mit Eingabeaufforderung S903_ID=MSG0132 "Sollen alle laufenden Aufträge ohne Mengeneingabe beendet werden? ok/no"')
-		msgr=ok
-		if msgr==ok:
+		msgr= "ok"
+		if msgr == "ok":
 			result=kt002.EndTA51Save()
 		else:
 			xret='false'
@@ -171,11 +180,7 @@ def fabuchta55():
 	xVal4=0.0
 	xVal5=0.0
 	xbuchen=True
-	serial=True
 
-	#ByRef AInputMenge As Int16, ByRef AInputMengeNew As Int16, ByVal AFARueckEnd As Boolean, ByRef AScanFA As Integer _
-	#, ByRef AFAStatus As String, ByRef AFATS As DateTime, ByRef AFAEndeTS As DateTime, ByRef AFAMeGut As Double, ByRef AFAMeGes As Double _
-	#, ByRef AFANewScanFA As Integer, ByRef AFANewStatus As String, ByRef AFANewMeGes As Double, ByRef AFANewMe As Double
 	result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
 	xret,xInputMenge, xInputMengeNew,xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe=result
 	#print("kt002.BuchTA55_0:" + xret + "," + str(xInputMenge) + "," +  str(xInputMengeNew)  + "," + str(xScanFA) + "," +  xFAStatus+ "," +  xFATS + "," +  xFAEndeTS + "," +  str(xFAMeGut+ "," +  str(xFAMeGes) + "," + str(xFANewScanFA) + "," +  xFANewStatus + "," +  str(xFANewMeGes) + "," +  str(xFANewMe))
@@ -184,11 +189,6 @@ def fabuchta55():
 		xbuchen=False
 
 	if xInputMenge == 1:
-		#HIER MENGENDIALOG return xbuchen
-            #Diese Routine in Python erstellen
-            #xbuchen = kt001_InputMenge_Modus(Nothing, ActModus, kt002.dr_TA06Buch("TA06_RueckArt"),
-            #kt002.dr_TA06Buch("TA06_BelegNr"), kt002.dr_TA06Buch("TA06_AgBez"), kt002.T905_NrSelected, kt002.dr_TA06Buch("TA06_Soll_Me"), kt002.dr_TA06Buch("TA06_Ist_Me_gut"), kt002.dr_TA06Buch("TA06_Ist_Me_Aus") _
-            #, xFAMeGut, xMengeAus, xtrman, xta11nr, xFAStatus, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xFARueckEnd, xClDetails)
 		print ("Dialog TA55")
 		
 		
@@ -197,10 +197,6 @@ def fabuchta55():
 		#xClDetails noch zu lösen
 		xPersNr = kt002.gtv("T910_Nr")
 		xTE = kt002.gtv("TA06_TE")
-		#BuchTA55_3(ByVal AAufStat As String, ByVal ADatumTS As DateTime, ByVal AEndeTS As DateTime _
-		#, ByVal APlatzIst As String, ByRef APersNr As Long _
-		#, ByVal AMengeGut As Double, ByVal AMengeAus As Double, ByVal ATE As Double, ByVal ATRMan As Double, ByVal ATA11Nr As String, ByVal ACharge As String _
-		#, ByVal AVal1 As Double, ByVal AVal2 As Double, ByVal AVal3 As Double, ByVal AVal4 As Double, ByVal AVal5 As Double, ByVal AScanFA As Integer)
 		print(f"BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
 		kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
@@ -209,46 +205,47 @@ def fabuchta55():
 		if tl51use == True:
 			kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
 		
+		# Below does not happen for now
+		# if xInputMengeNew == 1:
+		# 	xMengeAus = 0
+		# 	xFATS = Now
+		# 	xFAEndeTS = xFATS
+		# 	#HIER MENGENDIALOG
+		# 	#xbuchen = kt001_InputMenge_Modus(Nothing, ActModus, kt002.dr_TA06BuchNew("TA06_RueckArt"),
+		# 	#kt002.dr_TA06BuchNew("TA06_BelegNr"), kt002.dr_TA06BuchNew("TA06_AgBez"), T905_NrSelected, kt002.dr_TA06BuchNew("TA06_Soll_Me"), kt002.dr_TA06BuchNew("TA06_Ist_Me_gut"), kt002.dr_TA06BuchNew("TA06_Ist_Me_Aus") _
+		# 	#, xFANewMe, xMengeAus, xtrman, xta11nr, xFANewStatus, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xFARueckEnd, xClDetails)
 
-		if xInputMengeNew == 1:
-			xMengeAus = 0
-			xFATS = Now
-			xFAEndeTS = xFATS
-			#HIER MENGENDIALOG
-			#xbuchen = kt001_InputMenge_Modus(Nothing, ActModus, kt002.dr_TA06BuchNew("TA06_RueckArt"),
-			#kt002.dr_TA06BuchNew("TA06_BelegNr"), kt002.dr_TA06BuchNew("TA06_AgBez"), T905_NrSelected, kt002.dr_TA06BuchNew("TA06_Soll_Me"), kt002.dr_TA06BuchNew("TA06_Ist_Me_gut"), kt002.dr_TA06BuchNew("TA06_Ist_Me_Aus") _
-			#, xFANewMe, xMengeAus, xtrman, xta11nr, xFANewStatus, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xFARueckEnd, xClDetails)
-
-			if xbuchen == True:
-				#Auftrag in DB schreiben
-				kt002.dr_TA06Buch = kt002.dr_TA06BuchNew
-				#xClDetails, 
-				xTE = kt002.gtv("TA06_TE")
-				kt002.BuchTA55_3(xFANewStatus, xFATS, xFAEndeTS, T905_NrSelected, 0, xFANewMe, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
+		# 	if xbuchen == True:
+		# 		#Auftrag in DB schreiben
+		# 		kt002.dr_TA06Buch = kt002.dr_TA06BuchNew
+		# 		#xClDetails, 
+		# 		xTE = kt002.gtv("TA06_TE")
+		# 		kt002.BuchTA55_3(xFANewStatus, xFATS, xFAEndeTS, T905_NrSelected, 0, xFANewMe, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 	return  xret #fabuchta55
 
-#Public Function PyFABuchTA51(ByVal ATA22Dauer As Object) As String
-def fabuchta51(ata22dauer):
- 	#Dim xret As String = ""
-	#Dim xMsg As String = ""
-	#Dim xClDetails As Collection = Nothing
-	#Dim xMengeGut As Double = 0
-	#Dim xMengeAus As Double = 0
-	#Dim xUA51Id As Long = 0
-	#Dim xTA22Dauer As Integer
-	xStatusMenge = ""
-	xTSLast = datetime.now()
-	xEndeTS = datetime.now()
-	xAnfangTS = xEndeTS
-	xTS=xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  #Stringtransporter Datum    
-	xTSEnd=xAnfangTS.strftime("%d.%m.%Y %H:%M:%S") 
 
+def fabuchta51(ata22dauer, aAnfangTS=None, aEndeTS=None, aBem=None):
+
+	xStatusMenge = ""
+	# xTSLast = datetime.now()
+
+	# if given, set begin and end according to parameter, else assume begin = end = now
+	if aAnfangTS is None and aEndeTS is None:
+		xEndeTS = datetime.now()
+		xAnfangTS = xEndeTS
+	else:
+		xAnfangTS = datetime.strptime(aAnfangTS, "%d.%m.%Y %H:%M:%S")
+		xEndeTS = datetime.strptime(aEndeTS, "%d.%m.%Y %H:%M:%S")
+	xTS=xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  #Stringtransporter Datum    
+	xTSEnd=xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
+
+	print(f"[DLL] fabuchta51 xTS: {xTS}, xTSEnd: {xTSEnd}")
 
 	#Dim xbFound As Boolean = True
 	xTRMan = 0.0
 	xTA11Nr = ""
 	xCharge = ""
-	xDauer = 0 
+	# xDauer = 0 
 	xVal1 = 0.0
 	xVal2 = 0.0
 	xVal3 = 0.0
@@ -260,51 +257,46 @@ def fabuchta51(ata22dauer):
 	if ata22dauer.isnumeric() == True:    # von außen übersteuern
 	    xTA22Dauer = int(ata22dauer)
 	
-	#Function BuchTA51_0(ByVal ATA22Dauer As Integer, ByVal ATSAnf As Date, ByVal ATSEnd As Date, ByRef ATSLast As DateTime, ByRef AStatusMenge As String) As String
-	
-	print('TS' +  xAnfangTS.strftime("%d.%m.%Y %H:%M:%S") )
-	result = kt002.BuchTA51_0(xTA22Dauer, xTS,  xStatusMenge)
-	xret,xTS,xStatusMenge=result  
+	print(f"[DLL] Pre BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
+	result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
+	xret, xTS, xStatusMenge = result
+	print(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
+
+	if not aAnfangTS is None and not aEndeTS is None:  # when booking with given Dauer
+		xStatusMenge = "20"  # TODO: bug in DLL, temporarily overwrite, 20 means just book, don't validate further
+
 	xAnfangTS = datetime.strptime(xTS,dtformat)
 	print("xTS:" + xTS + " Datum:" + xAnfangTS.strftime("%d.%m.%Y %H:%M:%S"))
 	if len(xret) > 0:
 		print("nur laufenden beendet. -Inhalt Message")
 		return xret  #nur laufenden beendet. -Inhalt Message
 	
-	print("xTA22Dauer:" + str(xTA22Dauer))
-	if xTA22Dauer == 3:
-	    #HIER DIALOG dgt11 Gemeinkosten Buchungsdaten ändern
-	    #xDauer = PNR_TA51GKEndDauer(xTSLast, kt002.dr_TA06("TA06_FA_Nr"), kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"))
-		if xDauer > 0:
-			xAnfangTS = xEndeTS.AddMinutes(xDauer * -1)
-			xAnfangTS = xAnfangTS.AddSeconds(-1) #1 sekunde wird wieder draufgerechnet!
-		else:
-			xbCancel = True
-			xret = "MSG0133"
+	# Below only for a specific customer
+	# print("xTA22Dauer:" + str(xTA22Dauer))
+	# if xTA22Dauer == 3:
+	#     #HIER DIALOG dgt11 Gemeinkosten Buchungsdaten ändern
+	#     #xDauer = PNR_TA51GKEndDauer(xTSLast, kt002.dr_TA06("TA06_FA_Nr"), kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"))
+	# 	if xDauer > 0:
+	# 		xAnfangTS = xEndeTS.AddMinutes(xDauer * -1)
+	# 		xAnfangTS = xAnfangTS.AddSeconds(-1) #1 sekunde wird wieder draufgerechnet!
+	# 	else:
+	# 		xbCancel = True
+	# 		xret = "MSG0133"
 
 	#14.06.2013 - auf Ende buchen und Mengenabfrage
 	if xbCancel == False:
 		xta22typ=kt002.gtv("TA22_Typ")
 		print("xta22typ:" + xta22typ)
 		if kt002.gtv("TA22_Typ")  == "7":
-			#HIER DIALOG PYTHON
-	        #if kt001_InputMenge_Modus(Nothing, ActModus, kt002.dr_TA06("TA06_RueckArt"),
-	        #         kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"), T905_NrSelected, kt002.dr_TA06("TA06_Soll_Me"), kt002.dr_TA06("TA06_Ist_Me_gut"), kt002.dr_TA06("TA06_Ist_Me_Aus") _
-	        #        , xMengeGut, xMengeAus, xTRMan, xTA11Nr, xStatusMenge, xCharge, xVal1, xVal2, xVal3, xVal4, xVal5, False, xClDetails) = True Then
-			#NACH DIALOG buchen
-
-			#Public Shared Function BuchTA51_3(ByVal AClDetails As Collection, ByVal ADate As Date, ByVal APersNr As Long, ByVal AFANr As String, ByVal ABelegNr As String, ByVal AStatus As String, ByVal AEntl As String, ByVal AArbPlatz As String,
-			#	ByVal ATE As Double, ByVal ATR As Double, ByVal AZus As Double, ByVal AMengeIstGut As Double, ByVal AMengeIstAus As Double, ByVal ATRMan As Double, ByVal ATA11Nr As String, ByVal ACharge As String _
-			#, ByVal AVal1 As Double, ByVal AVal2 As Double, ByVal AVal3 As Double, ByVal AVal4 As Double, ByVal AVal5 As Double _
-			#, ByVal AFAArt As String, ByVal AAnfangTS As Date) As String
 			xDialog=True
 			if xDialog == True:
 				xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
-				xTS=xAnfangTS.strftime("%d.%m.%Y %H:%M:%S") 
+				xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S") 
+				print("BuchTA51_3:")
+				print(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"),xStatusMenge,kt002.gtv("T910_Entlohnung"),kt002.gtv("T905_Nr"),kt002.gtv("TA06_TE"),kt002.gtv("TA06_TR"),0.0,xmegut,0.0,xTRMan, xTA11Nr, xCharge,xVal1,xVal2,xVal3,xVal4,xVal5,kt002.gtv("TA06_FA_Art"),xTS)
 				kt002.BuchTA51_3( xTSEnd, kt002.gtv("T910_Nr"), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"), xStatusMenge, kt002.gtv("T910_Entlohnung")
 				,kt002.gtv("T905_Nr"), kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0, xMengeGut, xMengeAus, xTRMan, xTA11Nr, xCharge, xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
 				
-				#EvtMsgDisplay("FA Buchen", "MSG0166", kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"))
 				#msg0166=Auftrag "_Msg1" wurde gebucht!
 				xret = "FA Buchen;MSG0166" + ";" + kt002.gtv("TA06_BelegNr") + ";" + kt002.gtv("TA06_AgBez")
 			else:
@@ -321,27 +313,26 @@ def fabuchta51(ata22dauer):
 			kt002.BuchTA51_4_Cancel(xTS, kt002.gtv("T910_Nr"))
 			#23.11.2010
 			if kt002.gtv("TA22_Dauer") != 1:
-				xAnfangTS = xAnfangTS + timedelta(seconds = 1) #xAnfangTS.AddSeconds(1)
+				if aAnfangTS is None and aEndeTS is None:
+					# if not booking with Dauer, add a second for safety (?)
+					xAnfangTS = xAnfangTS + timedelta(seconds = 1) #xAnfangTS.AddSeconds(1)
 				xTS=xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
 				
 				xcl = Generic.Dictionary[String,Object]() #leere liste
 				xdmegut=kt002.gtv("TA06_Soll_Me")
 				xsmegut=str(xdmegut)
 				xmegut=float(xsmegut.replace(",","."))
-				#alle integer sind long in Python
+				
+				print("BuchTA51_3:")
+				print(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"),xStatusMenge,kt002.gtv("T910_Entlohnung"),kt002.gtv("T905_Nr"),kt002.gtv("TA06_TE"),kt002.gtv("TA06_TR"),0.0,xmegut,0.0,xTRMan, xTA11Nr, xCharge,xVal1,xVal2,xVal3,xVal4,xVal5,kt002.gtv("TA06_FA_Art"),xTS)
 				xret = kt002.BuchTA51_3(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"),xStatusMenge,kt002.gtv("T910_Entlohnung"),kt002.gtv("T905_Nr"),kt002.gtv("TA06_TE"),kt002.gtv("TA06_TR"),0.0,xmegut,0.0,xTRMan, xTA11Nr, xCharge,xVal1,xVal2,xVal3,xVal4,xVal5,kt002.gtv("TA06_FA_Art"),xTS)
-	        #EvtMsgDisplay("FA Buchen", "MSG0166", kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"))
+			#EvtMsgDisplay("FA Buchen", "MSG0166", kt002.dr_TA06("TA06_BelegNr"), kt002.dr_TA06("TA06_AgBez"))
 			xret = "FA Buchen;MSG0166" + ";" + kt002.dr_TA06.get_Item("TA06_BelegNr") + ";" + kt002.dr_TA06.get_Item("TA06_AgBez")
 
 	return xret #fabuchta51
 
 
-
-
-	
-#PyBuFA(ByVal ANr As String, ByVal ATA29Nr As String, ByVal AFARueckend As Boolean, ByVal ATA22Dauer As Object) As String
-#ta22dauer - Übersteuerung der Einstellung TA21 - Auftrag mit Dauer buchen
-def bufa(ANr,ATA29Nr,AFARueckend,ata22dauer):
+def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer, aAnfangTS=None, aEndeTS=None):
 	xFehler=''  
 	xbBuchZiel=1
 	xScanFA = 0
@@ -355,7 +346,6 @@ def bufa(ANr,ATA29Nr,AFARueckend,ata22dauer):
       #Vor Buchung, prüfen, ob Kst der Person mit der Kst des zu buchenden Arbeitsplatz stimmt! Wenn nicht Wechsebuchung erzeugen!
       #Wechselbuchung triggert auf T955!!
 		kt002.BuFAWB(ATA29Nr)
-
 
 	#Auftrag finden
 	if kt002.CheckObject(kt002.dr_TA06) == True:
@@ -373,20 +363,18 @@ def bufa(ANr,ATA29Nr,AFARueckend,ata22dauer):
 			else:
 				xFehler = xfanr
 
-
-
 	if len(xFehler) == 0:
 	    #Prüfen, ob FA bebucht werden darf
 	    #setzen Zieltabelle
 		result = kt002.BuFANr0Status(xbBuchZiel)
 		xret,xbBuchZiel=result
 		print ('Bufanrstatus' + xret + ' Buchzile'+ str(xbBuchZiel))
-		
+
 		if len(xFehler) == 0:
 			if xbBuchZiel == 1:
 				xFehler = fabuchta55()
 			else:
-				xFehler = fabuchta51(ata22dauer)
+				xFehler = fabuchta51(ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS)
 	       
 	else:
 		xFehler = "Kein Auftrag!"
@@ -397,17 +385,8 @@ def bufa(ANr,ATA29Nr,AFARueckend,ata22dauer):
 
 
 
-def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz):
+def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz,AAnfangTS=None,AEndeTS=None):
 
-	#Dim xret As String = ""
-  #Dim xbcancel As Boolean 'temporär für test dll
-  #Dim xkstk As Integer
-  #Dim xfarueckend As Integer
-  #Dim xtagid As Date
-  #Dim xmenge As Integer
-  #Dim xMsgBox As MsgBoxResult
-  #Dim xFehler As String = ""
-  #' Dim AKst As String
 	xT905Last =''
 	xTA29Last =''
 	xtagid=''
@@ -416,13 +395,10 @@ def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz):
 	xmenge=0
 	
 	print("actbuchung SA:" + ASA)
-	#Public Shared Function CheckKommt(ByVal ASa As String, ByVal AKst As String,
-  #ByRef ASALast As String, ByRef AKstLast As String, ByRef ATSLast As String, ByRef AT905Last As String, ByRef ATA29Last As String) as string
 	result = kt002.CheckKommt(ASA, AKst, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last)
 	xret,ASALast,AKstLast,ATSLast,xT905Last,xTA29Last=result
 	print(result)
 	if len(xret) > 0:
-		#'!!!MSG Warnung !!!!
 		print("KEINE KOMMT BUCHUNG?")
 		# 'keine Auftragsbuchung ohne Kommt!
 		if kt002.CheckObject(kt002.dr_TA06)== True or kt002.CheckObject(kt002.dr_TA05)== True:
@@ -444,9 +420,9 @@ def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz):
 	if kt002.CheckObject(kt002.dr_TA06) == True or kt002.CheckObject(kt002.dr_TA05) == True:
 		if kt002.CheckObject(kt002.dr_TA06) == True:
 			if kt002.gtv("T951_Arbist") != kt002.gtv("TA06_Platz_Soll"):
-				#Abweichender Arbeitsplatz! Umbuchen?
+				#Abweichender Arbeitsplatz! Umbuchen? || Differing workstation! book to another workstation?
 				if T905AllowRoute == True:
-					#abweichender Platz, umbuchen (umrouten)
+					#abweichender Platz, umbuchen (umrouten) || Differing workstation, book to another workstation
 					if RouteDialog == 0:
 						#14.11.2022 - Meldungsausgaben im PKS
 						#SBSTools.to020.G_MsgSuppress = MsgSuppress.NoSuppress
@@ -455,7 +431,7 @@ def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz):
 							#xFehler = "MSG0137" #Auftrag wurde nicht erfaßt!
 						print("RouteDialog=0 Auftrag nicht erfaßt")
 				else:
-					#'abweichender Platz, umbuchen nicht erlaubt
+					#'abweichender Platz, umbuchen nicht erlaubt || Differing workstation, booking to another workstation not allowed
 					#'23.06.2016
 					if ShowMsgGeht == True:
 						SBSTools.to020.G_MsgSuppress = MsgSuppress.NoSuppress
@@ -473,7 +449,7 @@ def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz):
 					kt002.T905Read(kt002.gtv("T951_Arbist"))
 			
 			kt002.T905_NrSelected = kt002.gtv("T905_Nr") #14.11.2022
-			xret = bufa(kt002.gtv("TA06_BelegNr"), ta29nr, xfaruecknr, '')
+			xret = bufa(kt002.gtv("TA06_BelegNr"), ta29nr, xfaruecknr, '', aAnfangTS=AAnfangTS, aEndeTS=AEndeTS)
 			return xret
 		
 	if len(xret) == 0:
@@ -501,81 +477,22 @@ def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz):
 	return xret #actbuchung
 
 
-
-
-#ByVal ABelegNr As String, ByVal AktAction As ktAction, ByVal AScreen2 As ApplModus, ByVal ATA29Nr As String _
-#                          , ByVal AKst As String _
-#                          , ByRef ASA As String, ByRef AFA As Integer
-def ta06gk(ABelegNr,AktAction,AScreen2,ATA29Nr,AKst,ASA,AFA):
-	xret =''
-	xsalast=''
-	xT905Last=''
-	xTA29Last=''
-	xBelegNr=''
-	xKstLast=''
-	xTSLast=''   
-	xsalast=''   
-	xkstlast=''
-	xtslast=''
-	xfarueckend=''
-
-	#prüfen ob person anwesend ist und aktueller Arbeitsplatz
-	result = kt002.CheckKommt(ASA, AKst, xsalast, xkstlast, xtslast, xT905Last, xTA29Last)
-	xret,xsalast,xkstlast,ATSLast,xT905Last,xTA29Last=result   
-	print('ta06g kcheckkommt:' + xret + ' salast:' + xsalast + ' kstlast:' + xkstlast + ' Tslast:' + ATSLast + ' xt905last:' + xT905Last + ' xTA29Last' + xTA29Last)
-	print ('länge xret:' + str(len(xret)) + ' ABelegNr:' + ABelegNr)
-	#DIALOG AUSWAHL GEMEINKOSTEN
-	if len(xret) == 0:
-		if len(ABelegNr) == 0:
-			#HIER DIALOG AUFBAUEN
-			#xBelegNr = DIALOG RÜCKGABE kt001_ShowTA06GK(xT905Last)
-			print ('Dialog Auswahl Gemeinkosten')
-			xBelegNr = 'GK0120350'
-		else:
-			xBelegNr = ABelegNr
-
-
-	if len(xBelegNr) > 0:
-		if kt002.TA06Read(xBelegNr) == True:
-			if kt002.CheckObject(kt002.dr_T905) == False:
-				kt002.T905Read(xT905Last) 
-			
-			xpersnr=kt002.T910NrGet()
-			#Laufende Aufträge am anderen Arbeitsplatz beenden
-			xret = endta51cancelt905(xpersnr)
-
-			if len(xret) == 0:
-				xret = bufa(xBelegNr, "", xfarueckend,'' )
-	
-	return xret #ta06gk
-
-
 #yVal AScreen2 As Terminal.kt001.ApplModus'
 def ta06gkend(AScreen2):
-	xret = False
 	
 	xMsg = kt002.EndTA51GKCheck()
-    #nix zu beenden
 	if len(xMsg) == 0:
-		if SBSTools.SysVar.G_KUNDENKN.ToUpper == 'ERGRO':
-			ta06gk("", AScreen2, "", "", "", "") 
-		else:
-			xret = "MSG0179" #Es gibt keine Gemeinkostenaufträge zu beenden!
-
-	return xret
-
-	xret = True
-    #Private GK-Aufträge beenden
-	xSql = "exec ksmaster.dbo.kspr_TA51GKEnd2FB1 '" + SBSTools.to020.G_Comp.Nr + "'" 
-	xSql = xSql + " ," + kt002.dr_T910("T910_Nr").ToString
-		## exec sql
-    #SBSTools.ks000.SQLDirect(xSql, "PNR_TA51GKEnd", Nothing)
-
-
-	return xret #end ta06gkend
+		return "MSG0179"  # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
+	else:
+		# execute this stored procedure like the other ones in dbconnection.py, replace default values
+		FirmaNr = 'TE'
+		PersNr = 99999
+		xSql = f"exec ksmaster.dbo.kspr_TA51GKEnd2FB1 '{FirmaNr}', {PersNr}" 
+		return True
 
 ####### End Procedures/Functions
 
+# default values added as constants for testing
 checkfa=False
 aktscreen=1 #0-none,1-dgt001,2-dgt002,3-dgt800
 bufunktion=6 #Buchungsfunktion
@@ -620,9 +537,10 @@ RouteDialog=0
 MsgSuppress=1
 
 
-def do_stuff(ascanvalue):
+def do_stuff(scanvalue, anfang_ts=None, ende_ts=None):
+	
+	# default values added as constants for testing
 	checkfa = False
-	aktscreen = 1  # 0-none,1-dgt001,2-dgt002,3-dgt800
 	bufunktion = 0  # Buchungsfunktion
 	showhost = 1  # Anzeige Hostinformation im Terminal
 	keycodecompende = ""  # Endezeichen Scanwert (manche Scanner liefern nach dem Wert noch zusätzliche Zeichen, die entfernt werden müssen)
@@ -631,25 +549,16 @@ def do_stuff(ascanvalue):
 	scancardno = True
 	sa = ""
 	activefkt = ""  # Funktionsbutton gedrückt,der ausgewählte Wert
-
 	result = ""
 	appmscreen2 = 1  # X998_STARTSCREEN2
 	showmsggeht = 1  # X998_ShowMsgGeht
 	gkendcheck = False  # X998_GKEndCheck
-	btaetigkeit = False  # X998_TAETIGKEIT - bei Arbeitsplatzauswahl, Tätigkeitsauswahl anschließen
 	ta29nr = ''  # Tätigkeit - bei Arbeitsplatzauswahl gesetzt und bleibt erhalten!
 	buaction = 7  # ignore
 	msg = ''
 	kst = ''
 	t905nr = ''  # Arbeitsplatz
 	platz = ''
-	farueckend = 0  # Mengendialog Eingabe Menge oder automatisiert
-	ruecknr = ''
-	menge = 0
-	ta22dauer = 0
-	buchfa = 0  # Buchungsart 0=K/G, 1=FA-Buchung
-	tagid = ''
-	kstk = 0  # aus Personalstamm
 	ret = ''
 	msgfkt = ''
 	msgbuch = ''
@@ -659,7 +568,6 @@ def do_stuff(ascanvalue):
 	kstlast = ''
 	tslast = ''
 	platz = ''
-	tl51use = False  # Störungen mit buchen
 	serial=True #14.11.2022
 	msgdlg=""
 	xmsg=""
@@ -667,60 +575,31 @@ def do_stuff(ascanvalue):
 	#Wechselbuchung einleiten
 	#kt002.T905Read('F004')
 
-	#Debugmode
-	#BUCHFA = debug #0= K/G 1=FA Buchen 2=WB
-
-	# scanvalue="1035" #gescannter Wert
-	scanvalue=ascanvalue #gescannter Wert
-	#person=1035 dbnull-fehler
-	# scanvalue='GK0120350'
-
-
-	print(f"SCANWERT= {ascanvalue}")
-	#ShowNumber(ANumber As String, AActiveFkt1 As String, AktscanTyp As Integer, AShowHost As Boolean, AScanOn As Boolean, AKeyCodeCompEnde As String
-	#, ByRef ACheckFA As Boolean, ByRef ASA As String) As String
-	print(f"[DLL] ShowNumber scanvalue: {scanvalue},activefkt: {activefkt}, scantype: {scantype},showhost: {showhost},scanon: {scanon},keycodcompende: {keycodecompende}, checkfa: {checkfa}, sa: {sa}")
+	print(f"SCANWERT= {scanvalue}")
+	print(f"[DLL] Pre ShowNumber scanvalue: {scanvalue},activefkt: {activefkt}, scantype: {scantype},showhost: {showhost},scanon: {scanon},keycodcompende: {keycodecompende}, checkfa: {checkfa}, sa: {sa}")
 	result=kt002.ShowNumber(scanvalue,activefkt,scantype,showhost,scanon,keycodecompende,checkfa,sa)
 	ret, checkfa, sa = result
-	
 	print(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}")
 
-	n=result
-	print(result)
-	nr=scanvalue
+	nr = scanvalue
 
 
-	#Pruef_PNr(ByVal ACheckFA As Boolean, ByVal ANR As String, ByRef ASA As String, ByRef ABuFunction As Integer) As Boolean
-	print ('Pruef_PNR')
-	print(f"[DLL] PruefPNr checkfa: {checkfa},nr: {nr}, sa: {sa}, bufunktion: {bufunktion}")
-	
+	print(f"[DLL] Pre PruefPNr checkfa: {checkfa}, nr: {nr}, sa: {sa}, bufunktion: {bufunktion}")
 	result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
 	ret,sa,bufunktion=result
 	print(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
-	print('ret,sa,bufunktion')
-	print(result)
-	xpnr=kt002.gtv("T910_Nr")
-	print(f"Nach Pruef_PNr:: Persnr: {xpnr}")
 
-	#Ermitteln der Art der Aktion
-	#Pruef_PNrFkt(ByVal ABuFunction As Integer,  ByVal AScanTyp As Integer, ByRef ASA As String
-	#                , ByRef AktAction As Integer _
-	#                , ByVal AppModScreen2 As Integer _
-	#                , ByVal ASerial As Boolean, ByRef AActiveFkt1 As String, ByRef AMsg As String) As Boolean
+	xpnr=kt002.gtv("T910_Nr")
+	print(f"[DLL] Nach Pruef_PNr Persnr: {xpnr}")
 
 
 	if ret == True:
-
-	#Public Shared Function Pruef_PNrFkt(ByVal AScanValue As String, ByVal ABuFunction As Integer, ByVal AScanTyp As Integer, ByRef ASA As String _
-	#           , ByRef AktAction As Integer _
-	#            , ByVal AppModScreen2 As Integer _
-	#            , ByVal ASerial As Boolean, ByRef AActiveFkt1 As String, ByRef AMsg As String, ByRef AMsgFkt As String, ByRef AMsgDlg As String) As Boolean
-
-			print(f"Pruef_PNRFkt:: nr: {nr},bufunktion: {bufunktion},scantype: {scantype}, sa; {sa},buaction; {buaction},appmscreen2; {appmscreen2},serial: {serial},activefkt: {activefkt},msg: {msg},msgfkt: {msgfkt}, msgdlg: {msgdlg}")
 			msgfkt=""
 			msgdlg=""
 			serial=True
-			result = kt002.Pruef_PNrFkt(nr,bufunktion,scantype,sa,buaction, appmscreen2,serial,activefkt, msg,msgfkt,msgdlg)
+
+			print(f"[DLL] Pre Pruef_PNRFkt nr: {nr}, bufunktion: {bufunktion}, scantype: {scantype}, sa: {sa}, buaction: {buaction}, appmscreen2: {appmscreen2}, serial: {serial}, activefkt: {activefkt},msg: {msg}, msgfkt: {msgfkt}, msgdlg: {msgdlg}")
+			result = kt002.Pruef_PNrFkt(nr, bufunktion, scantype, sa, buaction, appmscreen2, serial, activefkt, msg, msgfkt, msgdlg)
 			ret,sa,buaction,activefkt,msg,msgfkt,msgdlg=result
 			print(f"Result:  ret: {ret},sa: {sa},buaction: {buaction}, activefkt: {activefkt}, msg: {msg}")
 			
@@ -729,17 +608,14 @@ def do_stuff(ascanvalue):
 			if buaction == 1:
 				#if BUCHFA == 3:
 					#sa=''
-				result=actbuchung(ta29nr,kst,sa,t905nr,salast,kstlast,tslast,platz)
+				result=actbuchung(ta29nr,kst,sa,t905nr,salast,kstlast,tslast,platz,AAnfangTS=anfang_ts,AEndeTS=ende_ts)  # propagate anfang and ende when booking with Dauer
 
-			#TA06GK - GK beginnen
-			if buaction == 9:
-				result  = ta06gk(belegnr, buaction, appmscreen2, ta29nr, xKst, xsa, xfa)
-
-			#TA06END- GK beenden gedrück
+			#TA06END- GK beenden gedrückt
 			if buaction == 10:
 				result = ta06gkend(appmscreen2)
 
-			#ignore - keine Aktion ermittelt (verketteter Scan 1. FA-Nr, 2. anschließend Persnr
+			# ignore - keine Aktion ermittelt (verketteter Scan 1. FA-Nr, 2. anschließend Persnr)
+			# ignore - action could not be resolved (this is the first of two calls for FA/GK buchen, next will be with userid/PersNr)
 			if buaction == 7:
 				if bufunktion == 3:
 					if scancardno == True:
@@ -747,34 +623,101 @@ def do_stuff(ascanvalue):
 					else:
 						xmsg = "MSG0147" #Personalnummer scannen
 
-			#GKBuchung
-			#PNR_Buch4Clear(ByVal ADlgPos As Integer, ByVal AScanValue As String, ByVal ASA As String, ByVal AT905Nr As String, ByRef AktAction As Integer _
-			#                                          , ByVal AGKEnd As Boolean, ByRef AActiveFkt1 As String _
-			#                                          , ByRef AMsgFkt As String, ByRef AMsgBuch As String, ByRef AMsgZeit As String, ByRef AMsgPers As String) As Boolean
-
-			print(f"do_stuff:: xmsg: {xmsg}")
+			print(f"[DLL] do_stuff xmsg: {xmsg}")
 			if len(xmsg) == 0:
-				print("Clear Data")
-				result = kt002.PNR_Buch4Clear(1,nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
+				print("Buch4Clear")
+				print(1, nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
+				result = kt002.PNR_Buch4Clear(1, nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
+				print("")
 			
 
+def gk_ändern(fa_old, userid, anfang_ts, dauer):
+	# Change existing Auftragsbuchung, TODO: somehow return error when no GK to delete is found
+	ret = dbconnection.doGKLoeschen(fa_old, userid, anfang_ts)  # delete old booking with BelegNr=scanvalue and Anfang=Anfangts
+	if dauer > 0:
+		# add back booking with correct dauer
+		anfang_ts, ende_ts = dbconnection.doFindTS(userid, dauer)  # find suitable begin and end for new Auftrag
+		if anfang_ts is None and ende_ts is None:
+			ret = dbconnection.doUndoDelete(fa_old, userid)
+			if not ret is None:
+				return "Keine neue Zeitperiode gefunden und Auftrag konnte nicht wiederhergestellt werden!"
+			return "Keine neue Zeitperiode gefunden!"
+		return anfang_ts, ende_ts
+	else:
+		# dauer == 0 meaning no new booking, just delete old
+		# result = kt002.PNR_Buch4Clear(1, scanvalue, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
+		return "Nur gelöscht"
 
-import time
 
-#do_stuff(ascanvalue="1035")  # Kommen
-#print("------------------------------------------------------")
-#time.sleep(3)
-#do_stuff(ascanvalue="GK0080150")  # GK anfangen
-#print("------------------------------------------------------")
-#time.sleep(3)
-#do_stuff(ascanvalue="1035")  # GK buchen
-#print("------------------------------------------------------")
-#time.sleep(3)
-do_stuff(ascanvalue="FA00300150")  # FA Buchen auf 0006  funktion: fabuchta55
+def gk_erstellen(userid, dauer):
+	# create Auftragsbuchung with Dauer
+	anfang_ts, ende_ts = dbconnection.doFindTS(userid, dauer)
+	if anfang_ts is None and ende_ts is None:
+		return "Keine neue Zeitperiode gefunden!"
+	else:
+		return anfang_ts, ende_ts
+
+
+# examples for bookings, the currently uncommented code assumes that userid=1024 is signed in and that a GK Auftrag begins exactly at anfang_ts and has the stated BelegNr (fa_old)
+# it will change the booking to the defined Dauer, in this case 10 minutes
+# you can check your bookins in Microsoft SQL Studio, load file "DLL_QUERY_CHECK.sql" and run ("Ausführen")
+# top table is Kommen/Gehen/Wechsel, middle is GK and bottom is FA
+# you can safely reset the last bookings by setting @xclear=1
+# but be careful with removing Kommen! A time window might be found that is after the deleted and before the new Kommen Buchung, in that case a new booking won't show up!
+#  -> to resolve it, manually set a time window after the new Kommen booking
+
+# do_stuff(scanvalue="1024")  # Kommen/Gehen
+# print("------------------------------------------------------")
+# time.sleep(3)  # add sleep so DLL has time to book in background before starting next queries
+# do_stuff(scanvalue="GK0080150")  # GK anfangen
+# print("------------------------------------------------------")
+# time.sleep(3)
+# do_stuff(scanvalue="1024")  # buchen
+# # anfang_ts = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
+# print("------------------------------------------------------")
+# time.sleep(3)
+# do_stuff(scanvalue="GK0080150")  # GK beenden
+# print("------------------------------------------------------")
+# time.sleep(3)
+# do_stuff(scanvalue="1024")  # buchen
+# print("------------------------------------------------------")
+# time.sleep(3)
+# find out timewindow for changed booking with Dauer, provide exact begin timestamp of Auftrag that has to be changed
+anfang_ts = "2023-01-16T23:26:01"  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
+ret = gk_ändern(fa_old="GK0080150", userid="1024", anfang_ts=anfang_ts, dauer=10)
+if isinstance(ret, str):
+	# display error string and cancel booking
+	print(ret)
+else:
+	anfang_ts, ende_ts = ret
+	print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
+time.sleep(3)
+ret = do_stuff(scanvalue="GK0080150")  # GK ändern booking, this is the new GK BelegNr
 print("------------------------------------------------------")
 time.sleep(3)
-do_stuff(ascanvalue="1035")  #  buchen
-#print("------------------------------------------------------")
-#time.sleep(3)
-#do_stuff(debug=0)  # Gehen
+do_stuff(scanvalue="1024", anfang_ts=anfang_ts, ende_ts=ende_ts)  # buchen
 
+# print("------------------------------------------------------")
+#time.sleep(3)
+# do_stuff(scanvalue="FA00300150")  # FA Buchen auf 0006  funktion: fabuchta55
+# print("------------------------------------------------------")
+# time.sleep(3)
+# do_stuff(scanvalue="1035")  #  buchen
+
+# Pseudocode for Gruppenbuchung
+# Belegnr = ...  # from dialogue
+# GruppeNr = ...  # from dialogue
+# TagId = ...  # from dialogue
+# person_list = dbconnection.getGroupMembers(GruppeNr, TagId)  # get all persons from this group
+# for person in person_list:
+# 	ret = kt002.TA06Read(Belegnr)  # preset the BelegNr in the DLL
+# 	if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
+# 		kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
+# 	ret = gk_erstellen(userid, dauer)  # find time window
+	# if not isinstance(ret, str):
+	# 	anfang_ts, ende_ts = ret
+# 		# no error when finding time window
+# 		do_stuff(FA_Nr)  # GK erstellen
+# 		do_stuff(scanvalue=userid, anfang_ts=anfang_ts, ende_ts=ende_ts)  # book
+
+# For Arbeitsplatzbuchung also just booking with Dauer, may need to propagate the Arbeitsplatz down further from the outside
