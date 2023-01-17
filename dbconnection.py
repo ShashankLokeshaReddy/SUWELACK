@@ -22,7 +22,17 @@ def getArbeitplazlist():
         connection)
     return arbeitplatzlist
 
-def getPlazlist(userid):
+def getPlazlistGKA(userid):
+    persnr = getPersonaldetails(userid)['T910_Nr']
+    date = datetime.now().strftime("%Y-%d-%m")
+    Platzlist = pd.read_sql_query(
+        f"""Select T905_Nr,cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten
+        inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist
+        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr = '{FirmaNr}' group by T905_Nr,T905_Bez""",
+        connection)
+    return Platzlist
+
+def getPlazlistFAE(userid):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(
@@ -49,9 +59,9 @@ def getAuftrag(Platz, template): # TA21_Typ is 3 for GKA and 5 for FA erfassen
 
 def getTables_GKA_FAE(userid, Platz, template):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    date = datetime.now().strftime("%Y-%d-%m")
+    date = datetime.now().strftime("%Y-%m-%d")
     if template == "GK_ändern":
-        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA51FAAdminFB1('{FirmaNr}', '{date}', '3')",
+        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA51FAAdminFB1('{FirmaNr}', {persnr}, '{date}', '3')",
         connection)
     if template == "FA_erfassen":
         tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA55FAAdmin('{FirmaNr}', {persnr}, '{date}', '5', '{Platz}')",
