@@ -22,13 +22,13 @@ def getArbeitplazlist():
         connection)
     return arbeitplatzlist
 
-def getPlazlistGKA(userid):
+def getPlazlistGKA(Platz,userid):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(
-        f"""Select T905_Nr,cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten
-        inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist
-        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr = '{FirmaNr}' group by T905_Nr,T905_Bez""",
+        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
+        inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
+        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez""",
         connection)
     return Platzlist
 
