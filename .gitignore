@@ -3,3 +3,6 @@ env/
 venv/
 .idea/
 dll/log/
+__pycache__/XMLRead.cpython-38.pyc
+__pycache__/app.cpython-38.pyc
+__pycache__/dbconnection.cpython-38.pyc

@@ -55,6 +55,55 @@
         function closeNav() {
           document.getElementById("mySidenav").style.width = "0";
         }
+
+        window.addEventListener("load", () => {
+          clock();
+          function clock() {
+            const today = new Date();
+
+            // get time components
+            const hours = today.getHours();
+            const minutes = today.getMinutes();
+            const seconds = today.getSeconds();
+
+            //add '0' to hour, minute & second when they are less 10
+            const hour = hours < 10 ? "0" + hours : hours;
+            const minute = minutes < 10 ? "0" + minutes : minutes;
+            const second = seconds < 10 ? "0" + seconds : seconds;
+
+            // get date components
+            const month = today.getMonth();
+            const year = today.getFullYear();
+            const day = today.getDate();
+
+            //declaring a list of all months in  a year
+            const monthList = [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+            ];
+
+            //get current date and time
+            const date = monthList[month] + " " + day + ", " + year;
+            const time = hour + ":" + minute + ":" + second + "Uhr";
+
+            //combine current date and time
+            const dateTime = date + " - " + time;
+
+            //print current date and time to the DOM
+            document.getElementById("date-time").innerHTML = dateTime;
+            setTimeout(clock, 1000);
+          }
+        });
         </script>
         
         {% block content%} {% endblock %}
@@ -70,7 +119,7 @@
         <a class="navbar-brand" href="{{ url_for('home', username=username) }}"><img src="/static/images/Icons_Kartenscan.svg" width="64" height="64" alt="">
             {{  _('Home')}}
         </a>
-        <strong>{{ date.strftime("%d %B, %Y - %H:%M") }} Uhr</strong>
+        <strong id="date-time"></strong>
       </nav>
     </footer>
 
