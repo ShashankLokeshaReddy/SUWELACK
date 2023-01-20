@@ -2,6 +2,7 @@
 {% block title %} {{ _('Arbeitsplatzbuchung') }}{% endblock %}
 {% block content%}
 
+<form action='#' method="POST">
 <div class="containerr statustable">
 
     <h3>{{ _('Arbeitsplatzbuchung') }}</h3>
@@ -17,19 +18,16 @@
 
         <div class="d-flex flex-column">              
             <div>
-                <input type="date" class="form-control datetime">
+                <input name="datetime" type="date" class="form-control datetime">
             </div>
             <div style="display: inline">
                 <div class="dropdown inputbutton3">
-                    <button type="button" data-toggle="dropdown" id="arbeitsplatz"
-                        class="btn btn-secondary dropdown-toggle inputbutton">
-                    </button>
-                    <div class="ARBT dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <select name="arbeitsplatz" id="Arbeitsplatznummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
                         {% for index, row in arbeitplatz_dfs[0].iterrows(): %}
-                        <a class="dropdown-item" href="#">{{row['T905_Nr']}} {{row['T905_Bez']}}</a>
+                        <option value="{{row['T905_Nr']}}">{{row['T905_Nr']}} {{row['T905_Bez']}}</option>
                         <hr />
                         {% endfor %}
-                    </div>
+                      </select>
                 </div>
                 <div class="boxes" , id="a_ptz">
                 </div>
@@ -37,35 +35,29 @@
 
             <div style="display: inline">
                 <div class="dropdown inputbutton2">
-                    <button type="button" data-toggle="dropdown" id="personalNummer"
-                        class="btn btn-secondary dropdown-toggle inputbutton"> </button>
-                    <div class="DWPR dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <select name="personalnummer" id="Pnummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
                         {% for index, row in arbeitplatz_dfs[1].iterrows(): %}
-                        <a class="dropdown-item" href="#">{{row['T910_Nr']}} {{row['T910_Name']}}</a>
+                        <option value="{{row['T910_Nr']}}">{{row['T910_Nr']}} {{row['T910_Name']}}</option>
                         <hr />
                         {% endfor %}
-                    </div>
+                      </select>
                 </div>
                 <div class="boxes" , id="p_n">
                 </div>
-            </div>
-            
+            </div>           
             
             <div style="display: inline">
                 <div class="dropdown inputbutton2">
-                    <button type="button" data-toggle="dropdown" id="FAnummber"
-                        class="btn btn-secondary dropdown-toggle inputbutton"> </button>
-                    <div class="DWFR dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <select name="fanummer" id="FAnummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
                         {% for index, row in arbeitplatz_dfs[2].iterrows(): %}
-                        <a class="dropdown-item" href="#">{{row['TA06_FA_Nr']}} {{row['TA05_ArtikelBez']}}</a>
+                        <option value="{{row['TA06_FA_Nr']}}">{{row['TA06_FA_Nr']}} {{row['TA05_ArtikelBez']}}</option>
                         <hr />
                         {% endfor %}
-                    </div>
+                      </select>
                 </div>
                 <div class="boxes" , id="f_n">
                 </div>
             </div>
-
         </div>
 
         <div class="d-flex flex-column inputtextcolumn">
@@ -74,8 +66,8 @@
         </div>
         <div class="d-flex flex-column">
 
-            <input type="text" class="form-control inputbutton"  value="30">
-            <input type="text" class="form-control kurztext">
+            <input name = "dauer" type="text" class="form-control inputbutton"  value="30">
+            <input name = "kurztext" type="text" class="form-control kurztext">
         </div>
     </div>
 
@@ -88,36 +80,67 @@
 
     </div>
 </div>
+</form>
 
 <script type="text/javascript">
+    //replace default selected dropdown values with empty field
+    window.onload = function(){
+    document.getElementById('Pnummer').selectedIndex = -1;
+    document.getElementById('FAnummer').selectedIndex = -1;
+    document.getElementById('Arbeitsplatznummer').selectedIndex = -1;
+  }
+  
     //JS for Datepicker
     $(function () {
         $('#datepicker').datepicker();
     });
+
     //Functions to set Dropdown values
-    $(function () {
-        $(".ARBT a").click(function () {
-            $("#arbeitsplatz").text($(this).text().split(' ')[0]);
-            $("#arbeitsplatz").val($(this).text().split(' ').slice(1, 3));
-            var name = document.getElementById('arbeitsplatz').value.replace(/,/g, ' ');
-            document.getElementById('a_ptz').innerHTML = name;
-        });
-    });
-    $(function () {
-        $(".DWPR a").click(function () {
-            $("#personalNummer").text($(this).text().split(' ')[0]);
-            $("#personalNummer").val($(this).text().split(' ').slice(1, 3));
-            var name = document.getElementById('personalNummer').value.replace(/,/g, ' ');
-            document.getElementById('p_n').innerHTML = name;
-        });
-    });
-    $(function () {
-        $(".DWFR a").click(function () {
-            $("#FAnummber").text($(this).text().split(' ')[0]);
-            $("#FAnummber").val($(this).text().split(' ').slice(1, ));
-            var name = document.getElementById('FAnummber').value.replace(/,/g, ' ');
-            document.getElementById('f_n').innerHTML = name;
-        });
-    });
+    var $previousOptionPN,storedTextPN;
+    var $previousOptionFA,storedTextFA;
+    var $previousOptionArbeitsplatz,storedTextArbeitsplatz;
+    document.getElementById("Pnummer").onchange = function() {
+        var select = document.getElementById('Pnummer');
+        var option = select.options[select.selectedIndex];
+        text = option.text.split(' ').splice(1).join(' ');
+        document.getElementById('p_n').innerHTML = text;
+        if($previousOptionPN!=null){
+            $previousOptionPN.text(storedTextPN)
+        }
+        $previousOptionPN=$(this).find("option:selected");
+        storedTextPN=$previousOptionPN.text(); 
+
+        $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
+    };
+
+    document.getElementById("FAnummer").onchange = function() {
+        var select = document.getElementById('FAnummer');
+        var option = select.options[select.selectedIndex];
+        text = option.text.split(' ').splice(1).join(' ');
+        document.getElementById('f_n').innerHTML = text;
+        if($previousOptionFA!=null){
+            $previousOptionFA.text(storedTextFA)
+        }
+        $previousOptionFA=$(this).find("option:selected");
+        storedTextFA=$previousOptionFA.text(); 
+
+        $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
+    };
+
+    document.getElementById("Arbeitsplatznummer").onchange = function() {
+        var select = document.getElementById('Arbeitsplatznummer');
+        var option = select.options[select.selectedIndex];
+        text = option.text.split(' ').splice(1).join(' ');
+        document.getElementById('a_ptz').innerHTML = text;
+        if($previousOptionArbeitsplatz!=null){
+            $previousOptionArbeitsplatz.text(storedTextArbeitsplatz)
+        }
+        $previousOptionArbeitsplatz=$(this).find("option:selected");
+        storedTextArbeitsplatz=$previousOptionArbeitsplatz.text(); 
+
+        $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
+    };
+    
+   
 </script>
 {% endblock %}

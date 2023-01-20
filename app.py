@@ -147,11 +147,9 @@ def arbeitsplatzwechsel(userid):
     finally:
         if request.method == 'POST':
             selectedArbeitsplatz = request.form["arbeitplatzbuttons"]
+            print(request.form)
             # Retrieve the value of selected button
             selectedArbeitsplatz, arbeitsplatzName = selectedArbeitsplatz.split(",")
-            logging.info(f"selectedArbeitsplatz: {selectedArbeitsplatz}")
-            logging.info(f"arbeitsplatzName: {arbeitsplatzName}")
-
             nr = userid
             kt002.T905Read(selectedArbeitsplatz)
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
@@ -209,6 +207,21 @@ def gemeinkosten_buttons(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
+@app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
+def arbeitsplatzbuchung(userid):
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
+    if request.method == 'POST':
+        selected_faNr = request.form.get('fanummer')  
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_faNr)
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+        return actbuchung(selected_faNr, username, sa)
+    return render_template(
+        "arbeitsplatzbuchung.html",
+        arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
+        date=datetime.now(),
+        sidebarItems=get_list("sidebarItems")
+    )
 
 @app.route("/gemeinkosten/", methods=["POST", "GET"])
 def gemeinkosten():
@@ -297,18 +310,22 @@ def berichtdrucken(userid):
     )
 
 
-@app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
-def arbeitsplatzbuchung(userid):
-    return render_template(
-        "arbeitsplatzbuchung.html",
-        arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
-        date=datetime.now(),
-        sidebarItems=get_list("sidebarItems")
-    )
+#@app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
+#def arbeitsplatzbuchung(userid):
+#    return render_template(
+#        "arbeitsplatzbuchung.html",
+#        arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
+#        date=datetime.now(),
+#        sidebarItems=get_list("sidebarItems")
+#    )
 
 
 @app.route("/gruppenbuchung/<userid>", methods=["POST", "GET"])
 def gruppenbuchung(userid):
+    if request.method == 'POST':
+        print(request.form.get('fanummer'))
+        print(request.form.get('dauer'))
+        print(request.form.get('datetime'))
     return render_template(
         "gruppenbuchung.html",
         date=datetime.now(),
