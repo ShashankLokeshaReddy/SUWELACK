@@ -40,6 +40,7 @@ app.secret_key = "suwelack"
 app.config['BABEL_DEFAULT_LOCALE'] = 'de'
 babel = Babel(app)
 
+verwaltungsterminal = False   # variable to show Gruppen field in the UI or not
 # CONSTANTS
 root = ET.parse("../../dll/data/X998.xml").getroot()[0]  # parse X998.xml file for config
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
@@ -314,8 +315,10 @@ def arbeitsplatzbuchung(userid):
 def gruppenbuchung(userid):
     return render_template(
         "gruppenbuchung.html",
+        terminal = verwaltungsterminal,
         date=datetime.now(),
-        frNr=get_list("frNr"),
+        frNr=get_list("gruppenbuchung_frNr"),
+        gruppe=get_list("gruppe"),
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -943,6 +946,7 @@ def actbuchung(nr, username, sa, arbeitsplatz=None, ata22dauer=""):
                 if len(xret) == 0 and xInputMenge == 1:
                     return redirect(url_for("fabuchta55_dialog", userid=nr, menge_soll=xFAMeGes, xFAStatus=xFAStatus,
                                              xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=str(xScanFA)))
+                                             
                 elif xInputMenge == 0:  # no mengendialog
 
                     xbuchen = True
@@ -1025,6 +1029,20 @@ def get_list(listname, userid=None):
     if listname == "arbeitsplatzbuchung":
         persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung()
         return [persnr, arbeitsplatz, fanr]
+
+    if listname == "gruppenbuchung_frNr":
+        fanr = dbconnection.getGruppenbuchungfrNr()
+        return fanr
+
+    if listname == "gruppe":
+        gruppe = dbconnection.getGruppenbuchungGruppe()
+        return gruppe
+
+    if listname == "fertigungsauftrag_frNr":
+        return [1067, 2098, 7654, 2376, 8976]
+
+    if listname == "gemeinkostenandern_frNr":
+        return [1067, 2098, 7654, 2376, 8976]
 
     if listname == "statusTableItems":
         upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
