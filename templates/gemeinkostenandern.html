@@ -36,10 +36,10 @@
   <div class="flex-row">
     <div class="flex-nested-row">
       <label for="arbeitsplatz" class="textclass">{{ _('Buchungstag') }}Gruppe:  &emsp;</label>
-      <button type="button" name="arbeitsplatz" data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ arbeitsplatz[0] }}</button>
+      <button type="button" name="arbeitsplatz" data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ auftraglst[items] }}</button>
         <div class="ARBT dropdown-menu scrollable-menu_Buchungstag" aria-labelledby="dropdownMenuButton">
-              {% for items in range(0,arbeitsplatz|length) %}
-                <a class="dropdown-item"  href="#" >{{arbeitsplatz[items]}}</a>
+              {% for items in range(0,auftraglst|length) %}
+                <a class="dropdown-item"  href="#" >{{auftraglst[items][1]}}</a>
               {% endfor %}
         </div>
     </div>
@@ -47,11 +47,8 @@
   <div class="flex-row">
     <div class="flex-nested-row flex-center">
       <label for="Gemeinkosten" class="textclass">{{ _('Gemeinkosten') }}:  &emsp;</label>
-        <button type="button" name="gemeinkosten" data-toggle="dropdown" id="Gemeinkosten" class="btn btn-secondary dropdown-toggle inputbutton">{{ frNr[0] }}</button>
-        <div class="GKA dropdown-menu scrollable-menu_GK" aria-labelledby="dropdownMenuButton">
-              {% for items in range(0,frNr|length) %}
-                <a class="dropdown-item"  href="#" >{{frNr[items]}}</a>
-              {% endfor %}
+        <button type="button" name="gemeinkosten" data-toggle="dropdown" id="Gemeinkosten" class="btn btn-secondary dropdown-toggle inputbutton"></button>
+        <div class="GKA dropdown-menu scrollable-menu_GK"  id="GK_drpdown" aria-labelledby="dropdownMenuButton">	
         </div>
     </div>
   </div>
@@ -87,6 +84,7 @@
   </div>
 </div>
 
+
 <div class="panel-body">
 	
 	<div class="tbl_user_data"></div>
@@ -100,16 +98,46 @@
 
 $(function(){
     $(".ARBT a").click(function(){
-      $("#arbeitsplatz").text($(this).text());
-      $("#arbeitsplatz").val($(this).text());
+	$("#arbeitsplatz").text($(this).text());
+	$("#arbeitsplatz").val($(this).text());
+	var arbpltz_val = $("#arbeitsplatz")[0].innerHTML;
+	var selectvalue =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
+	for (var i = 0; i < selectvalue.length; i++) {
+		if (selectvalue[i].platz.includes(arbpltz_val)){
+			if (selectvalue[i].bez === ""){
+				$("#Gemeinkosten").text(selectvalue[i].bez);
+				$("#Gemeinkosten").val(selectvalue[i].bez);				
+			}
+			else{
+				$("#Gemeinkosten").text(selectvalue[i].bez[0]);
+				$("#Gemeinkosten").val(selectvalue[i].bez[0]);
+			}
+			
+			var div = document.getElementById("GK_drpdown");
+			// removes the existing children before adding new anchors
+			while (div.firstChild) {
+				div.removeChild(div.firstChild);
+			}
+			var options = selectvalue[i].bez;
+			for (var i = 0; i < options.length; i++) {
+				var opt = options[i];
+				var anchor = document.createElement("a");
+				anchor.classList.add("dropdown-item");
+				anchor.href = "#";
+				anchor.textContent = opt;
+				anchor.display = "block";
+				anchor.onclick = function(){
+					$("#Gemeinkosten").text($(this).text());
+					$("#Gemeinkosten").val($(this).text());
+				}
+				div.appendChild(anchor);
+			}
+
+		}
+	}
     });
 });
-$(function(){
-    $(".GKA a").click(function(){
-    $("#Gemeinkosten").text($(this).text());
-    $("#Gemeinkosten").val($(this).text());
-   });
-});
+
 $(function(){
     $(".DAU a").click(function(){
     $("#Dauer").text($(this).text());
@@ -120,11 +148,7 @@ $(function(){
 $(document).ready(function($)
 {
 	//ajax row data
-	var ajax_data =
-	[
-		{TagId:"Code", Arbeitplatz:"0006_Verpackung", BelegNr:"GK002_Warten auf Auftrag", AnfangTS:"25.11.2022 21:07:09", EndeTS:"With Mark", DauerTS:"mark@codewithmark.com", Anfang:"Code", Ende:"With Mark", Dauer:"0", Kurztext:"Kz1"}, 
-		{TagId:"Code", Arbeitplatz:"0006_Verpackung", BelegNr:"GK010_Maschineneinstellung", AnfangTS:"24.11.2022 22:07:09", EndeTS:"With Mark", DauerTS:"mark@codewithmark.com", Anfang:"Code", Ende:"With Mark", Dauer:"15", Kurztext:"Kz2"}
-	]
+	var ajax_data =  JSON.parse('{{ tablecontent | tojson | safe}}');
 
 	var random_id = function  () 
 	{
@@ -353,7 +377,8 @@ $(document).ready(function($)
 	// display selected row data in text input
 	
 	var table = document.getElementById("table-selectable"),rIndex;
-	
+	var selectvalue =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
+
 	for(var i = 1; i < table.rows.length; i++)
 	{
 		table.rows[i].onclick = function()
@@ -361,8 +386,40 @@ $(document).ready(function($)
 			rIndex = this.rowIndex;
 			console.log("rIndex",$("#arbeitsplatz").text);
 			
-			$("#arbeitsplatz").text(this.cells[1].innerText);
-			$("#Gemeinkosten").text(this.cells[2].innerText);
+			for (var k = 0; k < selectvalue.length; k++) {
+				if (selectvalue[k].id.includes(this.cells[1].innerText)){
+					$("#arbeitsplatz").text(selectvalue[k].platz);
+				}
+				if (selectvalue[k].belegNr.includes(this.cells[2].innerText)){
+					for (var j = 0; j < selectvalue[k].belegNr.length; j++) {
+						if (selectvalue[k].belegNr[j].includes(this.cells[2].innerText)){
+							$("#Gemeinkosten").text(selectvalue[k].bez[j]);
+							var div = document.getElementById("GK_drpdown");
+							// removes the existing children before adding new anchors
+							while (div.firstChild) {
+								div.removeChild(div.firstChild);
+							}
+							var options = selectvalue[k].bez;
+							for (var l = 0; l < options.length; l++) {
+								var opt = options[l];
+								var anchor = document.createElement("a");
+								anchor.classList.add("dropdown-item");
+								anchor.href = "#";
+								anchor.textContent = opt;
+								anchor.display = "block";
+								anchor.onclick = function(){
+									$("#Gemeinkosten").text($(this).text());
+									$("#Gemeinkosten").val($(this).text());
+								}
+								div.appendChild(anchor);
+							}
+						
+						}
+					}
+				}				
+			}	
+			
+			// $("#Gemeinkosten").text(this.cells[2].innerText);
 			$("#anfangTS").text(this.cells[3].innerText);
 			$("#Dauer").text(this.cells[8].innerText);
 			document.getElementById("GKA").value = this.cells[9].innerText;
