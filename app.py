@@ -383,9 +383,7 @@ def gemeinkostenandern(userid):
     if request.method == 'POST':
         print("posting")
         print(request.form)
-        print(type(request.form
-        
-        ))
+        print(type(request.form))
         print(request.form["submit"])
         if request.form["submit"] == "ändern":  # change selected Auftrag
             return redirect(url_for("gemeinkostenandern", userid=userid))
