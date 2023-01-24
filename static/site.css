@@ -102,7 +102,7 @@ body, html {
 }
 
 .form-control,.form-control:focus, input, select{
-    width: 725px;
+    width: 500px;
     height: 45px;
     box-sizing: inherit;
     display: flex;
@@ -270,7 +270,7 @@ body, html {
     font-size: 20px;
     align-items: center !important;
     width: min-content;
-    text-align: center;uu
+    text-align: center;
     margin-top: 20px !important;
     row-gap: 0px;
      text-transform: capitalize;
@@ -361,10 +361,16 @@ table tbody tr {
     
     vertical-align: baseline;
     border-top: 0px solid #dee2e6;
+    word-wrap: break-word;
 }
-.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus{
-    width: 330px !important;
-    height: 55px !important;
+.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus, #Dauer {
+    width: 200px !important;
+    height: 45px !important;
+    flex-direction: unset !important;
+}
+#arbeitsplatz, #Gemeinkosten {
+    width: 300px !important;
+    height: 45px !important;
     flex-direction: unset !important;
 }
 .flexrowGemeinkosten{
@@ -437,6 +443,78 @@ hr.solid {
     width: 330px !important;
     height: 45px !important;
 }
-.no-italics {
-    font-style: normal;   
+.oneline {
+    display: inline-block;
+}
+
+.flex-container {
+    display: flex;
+    margin: 5px;
+}
+
+.flex-row {
+    display: flex;
+    flex: 1 1 auto;
+    height: auto;
+    margin: 5px;
+}
+
+.flex-column {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    height: auto;
+    margin: 5px;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-right {
+    align-items: right;
+    justify-content: right;
+}
+
+.flex-nested-row {
+    display: flex;
+    flex: 1 1 auto;
+    margin: 5px;
+}
+
+.flex-nested-column {
+    display: flex;
+    flex: 1 1 auto;
+    margin: 5px;
+}
+
+.scrollable-menu_GK, .scrollable-menu_Buchungstag {
+    height: auto;
+    max-height: 200px;
+    width: 300px;
+    overflow-x: hidden;
+    align-items: left;
+    justify-content: left;
+}
+
+.scrollable-menu_Dauer {
+    height: auto;
+    max-height: 200px;
+    width: 200px;
+    overflow-x: hidden;
+    align-items: left;
+    justify-content: left;
+}
+
+#Ändern {
+    width: 200px !important;
+    height: 45px !important;
+    flex-direction: unset !important;
+}
+
+#Erstellen {
+    width: 200px !important;
+    height: 45px !important;
+    flex-direction: unset !important;
 }

@@ -11,6 +11,9 @@
         <div class="d-flex flex-column inputtextcolumn">
             <p>{{ _('Buchungstag') }}: </p>
             <p>{{ _('FA Nr.') }} </p>
+            {% if terminal != False %}
+                <p>{{ _('Gruppe.') }} </p>
+            {% endif %}
         </div>
 
         <div class="d-flex flex-column">
@@ -20,7 +23,9 @@
 
             <div style="display: inline">
                 <div class="dropdown inputbutton2">
-                    <select name="fanummer" id="FAnummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
+                    <button type="button" data-toggle="dropdown" id="FAnummber"
+                        class="btn btn-secondary dropdown-toggle inputbutton drop"> </button>
+                    <div class="FANR dropdown-menu" aria-labelledby="dropdownMenuButton">
                         {% for index, row in frNr.iterrows(): %}
                         <option value="{{row['T903_NR']}}">{{row['T903_NR']}} {{row['T903_Bez']}}</option>
                         <hr />
@@ -34,12 +39,14 @@
             {% if terminal != False %}
                 <div style="display: inline">
                     <div class="dropdown inputbutton2">
-                        <select name="fanummer" id="Gruppe" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
-                            {% for index, row in frNr.iterrows(): %}
-                            <option value="{{row['T903_NR']}}">{{row['TA05_FA_Nr']}} {{row['TA05_ArtikelBez']}}</option>
+                        <button type="button" data-toggle="dropdown" id="Gruppe"
+                            class="btn btn-secondary dropdown-toggle inputbutton drop"> </button>
+                        <div class="Gruppe dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% for index, row in gruppe.iterrows(): %}
+                            <a class="dropdown-item" href="#">{{row['TA05_FA_Nr']}} {{row['TA05_ArtikelBez']}}</a>
                             <hr />
                             {% endfor %}
-                        </select>
+                        </div>
                     </div>
                     <div class="boxes" , id="gruppe">
                     </div>
@@ -99,17 +106,21 @@
         $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
     };
 
-    document.getElementById("Gruppe").onchange = function () {
-        var select = document.getElementById('Gruppe');
-        var option = select.options[select.selectedIndex];
-        text = option.text.split(' ').splice(1).join(' ');
-        document.getElementById('gruppe').innerHTML = text;
-        if ($previousOptionGruppe != null) {
-            $previousOptionGruppe.text(storedTextPN)
-        }
-        $previousOptionGruppe = $(this).find("option:selected");
-        storedTextGruppe = $previousOptionGruppe.text();
-        $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
-    };
+        $(".Gruppe a").click(function () {
+            $("#Gruppe").text($(this).text().split(' ')[0]);
+            $("#Gruppe").val($(this).text().split(' ').slice(1, ));
+            var name = document.getElementById('Gruppe').value.replace(/,/g, ' ');
+            document.getElementById('gruppe').innerHTML = name;
+        });
+    });
+    $(function () {
+
+        $(".FANR a").click(function () {
+            $("#FAnummber").text($(this).text().split(' ')[0]);
+            $("#FAnummber").val($(this).text().split(' ').slice(1, ));
+            var name = document.getElementById('FAnummber').value.replace(/,/g, ' ');
+            document.getElementById('gruppe_frNr').innerHTML = name;
+        });
+    });
 </script>
 {% endblock %}
