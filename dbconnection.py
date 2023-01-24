@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine
 import pandas as pd
 from XMLRead import X998_GrpPlatz, FirmaNr
 from datetime import datetime
@@ -11,7 +11,6 @@ DB = 'rtp'
 driver = 'SQL Server Native Client 11.0'
 DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)
-future_engine = create_engine(DATABASE_CONNECTION, future=True)
 connection = engine.connect()
 
 def getArbeitplazlist():
@@ -23,7 +22,17 @@ def getArbeitplazlist():
         connection)
     return arbeitplatzlist
 
-def getPlazlist(userid):
+def getPlazlistGKA(Platz,userid):
+    persnr = getPersonaldetails(userid)['T910_Nr']
+    date = datetime.now().strftime("%Y-%d-%m")
+    Platzlist = pd.read_sql_query(
+        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
+        inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
+        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez""",
+        connection)
+    return Platzlist
+
+def getPlazlistFAE(userid):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(
@@ -50,9 +59,9 @@ def getAuftrag(Platz, template): # TA21_Typ is 3 for GKA and 5 for FA erfassen
 
 def getTables_GKA_FAE(userid, Platz, template):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    date = datetime.now().strftime("%Y-%d-%m")
+    date = datetime.now().strftime("%Y-%m-%d")
     if template == "GK_ändern":
-        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA51FAAdminFB1('{FirmaNr}', '{date}', '3')",
+        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA51FAAdminFB1('{FirmaNr}', {persnr}, '{date}', '3')",
         connection)
     if template == "FA_erfassen":
         tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA55FAAdmin('{FirmaNr}', {persnr}, '{date}', '5', '{Platz}')",
@@ -72,18 +81,6 @@ def getArbeitplatzBuchung():
         f"""Select TA06_FA_Nr,TA05_ArtikelBez  from TA06_FAD1  inner join TA21_AuArt on TA21_FirmaNr = '{FirmaNr}' and TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and (TA21_Typ in ('3') or  TA06_FA_Art = '02') inner join G905_TermPlatz on G905_FirmaNr = TA06_FirmaNr and G905_Platz = TA06_Platz_soll and G905_Nr = '{X998_GrpPlatz}' inner join TA05_FAK1 on TA05_FirmaNr = TA06_FirmaNr and TA05_FA_Nr = TA06_FA_nr group by TA06_FA_nr,TA05_ArtikelBez  order by TA06_FA_Nr""",
         connection)
     return [arbeitplatzlist, persnr, fanr]
-
-def getGruppenbuchungfrNr():
-    fanr = pd.read_sql_query(
-        f"""Select T903_NR,T903_Bez from T903_Gruppen where T903_FirmaNr = '{FirmaNr}' and T903_GruPrae not in (0)""",
-        connection)
-    return fanr
-
-def getGruppenbuchungGruppe():
-    gruppe = pd.read_sql_query(
-        f"""Select TA05_FA_Nr,TA05_ArtikelBez from TA05_FAK1 where TA05_FirmaNr = '{FirmaNr}' and TA05_FA_Nr like  'GK0%'""",
-        connection)
-    return gruppe
 
 def getPersonaldetails(T912_Nr):
     pers_info = pd.read_sql_query(
@@ -155,47 +152,3 @@ def getStatustableitems(userid):
     lower_items_df["Pers.Nr"] = lower_items.loc[:, "TA51_PersNr"].astype(int)
 
     return [upper_items_df, lower_items_df]
-
-def getGroupMembers(GruppeNr, TagId):
-    # e.g. TagId = "2023-01-11T00:00:00"
-    # e.g. GruppeNr = "12"
-    members = pd.read_sql_query(
-        f"""Select T905_Nr, T951_PersNr, T905_BuArt from T951_Buchungsdaten
-            inner join T905_ArbMasch on T951_FirmaNr='{FirmaNr}' and T905_FirmaNr = T951_FirmaNr
-            and T905_Nr = T951_ArbIst and T951_Satzart in ('K', 'A')
-            and T951_TagId = '{TagId}' and T905_BuArt in ('3', '1')
-            inner join T904_Kostenstellen on T904_FirmaNr = T905_FirmaNr and T904_Nr = T905_KstNr and T904_GruppeNr = '{GruppeNr}'
-            group by T905_Nr, T951_PersNr, T905_BuArt"""
-    )
-    return members
-
-def doGKLoeschen(belegnr, userid, anfangts):
-    persnr = getPersonaldetails(userid)["T910_Nr"]
-    with future_engine.connect() as connection:
-        ret = connection.execute(text(f"""EXEC ksmaster.dbo.kspr_TA51DeletewLogFB1 @FirmaNr='{FirmaNr}', @TS='{anfangts}', @BelegNr='{belegnr}', @PersNr={persnr}"""))
-        connection.commit()
-    return ret
-
-def doFindTS(userid, dauer):
-    persnr = getPersonaldetails(userid)["T910_Nr"]
-    date = datetime.now().strftime("%Y-%m-%dT00:00:00")  # day for which new period needs to be found
-    platz = getLastbooking(userid).loc[0, "T951_ArbIst"]
-    with future_engine.connect() as connection:
-        ret = connection.execute(text(f"""EXEC ksmaster.dbo.kspr_TA51FindTSFB1 @FirmaNr='{FirmaNr}', @PersNr={persnr}, @Platz='{platz}', @TagId='{date}', @dauer={dauer}"""))
-        rows = ret.cursor.fetchall()
-        connection.commit()
-    if not rows is None:
-        if len(rows) > 1:
-            anfang_ts, ende_ts = rows[1]
-            return anfang_ts, ende_ts
-    return None, None
-
-def doUndoDelete(belegnr, userid):
-    persnr = getPersonaldetails(userid)["T910_Nr"]
-    ts = datetime.now().strftime("%Y-%d-%mT%H:%M:%S")
-    with future_engine.connect() as connection:
-        try:
-            ret = connection.execute(text(f"""EXEC ksmaster.dbo.kspr_TA51LogCopyUndoFB1 @FirmaNr='{FirmaNr}', @TS='{ts}', @BelegNr='{belegnr}', @PersNr={persnr}"""))
-            connection.commit()
-        except:
-            return "Auftrag konnte nicht wiederhergestellt werden"
