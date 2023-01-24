@@ -375,7 +375,7 @@ def gemeinkostenandern(userid):
 
     usernamepd = dbconnection.getPersonaldetails(userid)
     df=dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern")
-    platz=dbconnection.getPlazlistGKA("M001",userid)
+    platz=dbconnection.getPlazlistGKA(userid)
     tablecontent=[]
     for index, row in df.iterrows():
         item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%d-%m-%Y %H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%d-%m-%Y %H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}

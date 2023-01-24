@@ -23,7 +23,7 @@ def getArbeitplazlist():
         connection)
     return arbeitplatzlist
 
-def getPlazlistGKA(Platz,userid):
+def getPlazlistGKA(userid):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(
