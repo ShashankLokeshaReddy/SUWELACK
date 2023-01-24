@@ -315,8 +315,10 @@ def arbeitsplatzbuchung(userid):
 def gruppenbuchung(userid):
     return render_template(
         "gruppenbuchung.html",
+        terminal = verwaltungsterminal,
         date=datetime.now(),
-        frNr=get_list("frNr"),
+        frNr=get_list("gruppenbuchung_frNr"),
+        gruppe=get_list("gruppe"),
         sidebarItems=get_list("sidebarItems")
     )
 
