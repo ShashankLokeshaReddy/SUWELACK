@@ -826,9 +826,11 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
-                xFehler = fabuchta55()
+                xFehler = ("fabuchta55", ata22dauer) 
+                # xFehler = fabuchta55()
             else:
-                xFehler = fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS)
+                xFehler = ("fabuchta51", ata22dauer) 
+                # xFehler = fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS)
 
     else:
         xFehler = ("Kein Auftrag!", ata22dauer)
