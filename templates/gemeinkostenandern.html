@@ -4,7 +4,7 @@
 
 {% block content%}
 <div>
-<form method="post">
+<form method="post" action="{{ url_for('gemeinkostenandern',userid=userid)}}">
 
 <div class="containerr statustable">
 <h3>{{ _('Gemeinkosten ändern') }}</h3>
@@ -21,7 +21,7 @@
 <div class="flex-container">
   <div class="flex-row">
     <div class="flex-nested-row">
-      <label class="textclass" id="anfangTS">{{anfangTS}}</label>
+      <input type="hidden" class="textclass" name="anfangTS" id="anfangTS" value={{ anfangTS }} >{{anfangTS}}</input>
     </div>
   </div>
   <div class="flex-row">
@@ -36,31 +36,28 @@
   <div class="flex-row">
     <div class="flex-nested-row">
       <label for="arbeitsplatz" class="textclass">{{ _('Buchungstag') }}Gruppe:  &emsp;</label>
-      <button type="button" name="arbeitsplatz" data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ auftraglst[items] }}</button>
-        <div class="ARBT dropdown-menu scrollable-menu_Buchungstag" aria-labelledby="dropdownMenuButton">
-              {% for items in range(0,auftraglst|length) %}
-                <a class="dropdown-item"  href="#" >{{auftraglst[items][1]}}</a>
-              {% endfor %}
-        </div>
+      <select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
+        {% for items in range(0,auftraglst|length) %}
+          <option value="{{auftraglst[items][1]}}">{{auftraglst[items][1]}}</option>
+		{% endfor %}
+	</select>
     </div>
   </div>
   <div class="flex-row">
     <div class="flex-nested-row flex-center">
-      <label for="Gemeinkosten" class="textclass">{{ _('Gemeinkosten') }}:  &emsp;</label>
-        <button type="button" name="gemeinkosten" data-toggle="dropdown" id="Gemeinkosten" class="btn btn-secondary dropdown-toggle inputbutton"></button>
-        <div class="GKA dropdown-menu scrollable-menu_GK"  id="GK_drpdown" aria-labelledby="dropdownMenuButton">	
-        </div>
+		<label for="Gemeinkosten" class="textclass">{{ _('Gemeinkosten') }}:  &emsp;</label>
+		<select name="gemeinkosten" id="Gemeinkosten" class="form-control">
+		</select>
     </div>
   </div>
   <div class="flex-row">
     <div class="flex-nested-row flex-right">
     <label for="Dauer" class="textclass">{{ _('Dauer') }}: &emsp;</label>
-    <button type="button" name="dauer" data-toggle="dropdown" id="Dauer" class="btn btn-secondary dropdown-toggle inputbutton">{{ dauer[0] }}</button>
-    <div class="DAU dropdown-menu scrollable-menu_Dauer" aria-labelledby="dropdownMenuButton">
-          {% for items in range(0,dauer|length) %}
-            <a class="dropdown-item"  href="#" >{{dauer[items]}}</a>
-          {% endfor %}
-    </div>
+	<select name="dauer" id="dauer" class="DAU form-control">
+        {% for items in range(0,dauer|length) %}
+        	<option value="{{dauer[items]}}">{{dauer[items]}}</option>
+		{% endfor %}
+	</select>
     </div>
   </div>
 </div>
@@ -97,10 +94,12 @@
 <script>
 
 $(function(){
-    $(".ARBT a").click(function(){
-	$("#arbeitsplatz").text($(this).text());
-	$("#arbeitsplatz").val($(this).text());
-	var arbpltz_val = $("#arbeitsplatz")[0].innerHTML;
+	const arbeitsplatz = document.querySelector("#arbeitsplatz");
+    arbeitsplatz.addEventListener("change", function() {
+	// $("#arbeitsplatz").text($(this).text());
+	// $("#arbeitsplatz").val($(this).text());
+	var arbpltz_val = arbeitsplatz.value;
+	console.log("arbpltz_val",arbpltz_val)
 	var selectvalue =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
 	for (var i = 0; i < selectvalue.length; i++) {
 		if (selectvalue[i].platz.includes(arbpltz_val)){
@@ -113,33 +112,25 @@ $(function(){
 				$("#Gemeinkosten").val(selectvalue[i].bez[0]);
 			}
 			
-			var div = document.getElementById("GK_drpdown");
+			var div = document.getElementById("Gemeinkosten");
 			// removes the existing children before adding new anchors
 			while (div.firstChild) {
 				div.removeChild(div.firstChild);
 			}
 			var options = selectvalue[i].bez;
-			for (var i = 0; i < options.length; i++) {
-				var opt = options[i];
-				var anchor = document.createElement("a");
-				anchor.classList.add("dropdown-item");
-				anchor.href = "#";
-				anchor.textContent = opt;
-				anchor.display = "block";
-				anchor.onclick = function(){
-					$("#Gemeinkosten").text($(this).text());
-					$("#Gemeinkosten").val($(this).text());
-				}
-				div.appendChild(anchor);
+			for (var j = 0; j < options.length; j++) {
+				var option = document.createElement("option");
+				option.value = selectvalue[i].belegNr[j];
+				option.text = options[j];
+				div.appendChild(option);
 			}
-
 		}
 	}
     });
 });
 
 $(function(){
-    $(".DAU a").click(function(){
+    $(".DAU").click(function(){
     $("#Dauer").text($(this).text());
     $("#Dauer").val($(this).text());
    });
@@ -384,35 +375,32 @@ $(document).ready(function($)
 		table.rows[i].onclick = function()
 		{
 			rIndex = this.rowIndex;
-			console.log("rIndex",$("#arbeitsplatz").text);
+			var arbeitsplatz = document.getElementById("arbeitsplatz");
+			var Gemeinkosten = document.getElementById("Gemeinkosten");
+			var selectedValue = arbeitsplatz.value;
+			var selectedText = arbeitsplatz.options[arbeitsplatz.selectedIndex].text;
+			console.log("rIndex",selectedText);
 			
 			for (var k = 0; k < selectvalue.length; k++) {
 				if (selectvalue[k].id.includes(this.cells[1].innerText)){
-					$("#arbeitsplatz").text(selectvalue[k].platz);
+					$("#arbeitsplatz").val(selectvalue[k].platz);
 				}
+				console.log("selectvalue[k].bez[j]",selectvalue[k]);
 				if (selectvalue[k].belegNr.includes(this.cells[2].innerText)){
 					for (var j = 0; j < selectvalue[k].belegNr.length; j++) {
 						if (selectvalue[k].belegNr[j].includes(this.cells[2].innerText)){
-							$("#Gemeinkosten").text(selectvalue[k].bez[j]);
-							var div = document.getElementById("GK_drpdown");
-							// removes the existing children before adding new anchors
-							while (div.firstChild) {
-								div.removeChild(div.firstChild);
+							// // removes the existing children before adding new anchors
+							while (Gemeinkosten.firstChild) {
+								Gemeinkosten.removeChild(Gemeinkosten.firstChild);
 							}
 							var options = selectvalue[k].bez;
 							for (var l = 0; l < options.length; l++) {
-								var opt = options[l];
-								var anchor = document.createElement("a");
-								anchor.classList.add("dropdown-item");
-								anchor.href = "#";
-								anchor.textContent = opt;
-								anchor.display = "block";
-								anchor.onclick = function(){
-									$("#Gemeinkosten").text($(this).text());
-									$("#Gemeinkosten").val($(this).text());
-								}
-								div.appendChild(anchor);
+								var option = document.createElement("option");
+								option.value = selectvalue[k].belegNr[l];
+								option.text = options[l];
+								Gemeinkosten.appendChild(option);
 							}
+							$("#Gemeinkosten").val(selectvalue[k].belegNr[j]);
 						
 						}
 					}
@@ -420,21 +408,42 @@ $(document).ready(function($)
 			}	
 			
 			// $("#Gemeinkosten").text(this.cells[2].innerText);
-			$("#anfangTS").text(this.cells[3].innerText);
-			$("#Dauer").text(this.cells[8].innerText);
+			// $("#anfangTS").text(this.cells[3].innerText);
+			// $("#Dauer").text(this.cells[8].innerText);
+			document.getElementById("anfangTS").value = this.cells[3].innerText;
+			document.getElementById("dauer").value = this.cells[8].innerText;
 			document.getElementById("GKA").value = this.cells[9].innerText;
 		};
 	}
 
 	// edit the row
-	$(function(){
-    $("#Ändern").click(function(){
+	// $(function(){
+    // $("#Ändern").click(function(){
+	// 	var dauer = document.getElementById("Dauer").value;
+	// 	var kurztext = document.getElementById("GKA").value;
+	// 	var anfangTS = document.getElementById("anfangTS").value;
+	// 	console.log("anderen");
+	// 	console.log(dauer);
+	// 	console.log(kurztext);
+	// 	console.log(anfangTS);
+	// 	table.rows[rIndex].cells[8].innerText = document.getElementById("Dauer").value;
+	// 	table.rows[rIndex].cells[9].innerText = document.getElementById("GKA").value;
+    // });
+	// });
 
-		table.rows[rIndex].cells[8].innerText = document.getElementById("Dauer").value;
-		table.rows[rIndex].cells[9].innerText = document.getElementById("GKA").value;
-    });
-	});
-
+// Get the button element
+// var button = document.getElementById("Ändern");
+// // Add an event listener to the button
+// button.addEventListener("click", function() {
+// 	// Change the value of the button
+// 		var dauer = document.getElementById("Dauer").value;
+// 		var arbeitsplatz = document.getElementById("arbeitsplatz").value;
+// 		var Gemeinkosten = document.getElementById("Gemeinkosten").value;
+// 		console.log("anderen");
+// 		console.log(dauer);
+// 		console.log(arbeitsplatz);
+// 	button.value = Gemeinkosten;
+// });
 
 }); 
 </script>
