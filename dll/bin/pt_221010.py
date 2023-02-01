@@ -684,8 +684,8 @@ def gk_erstellen(userid, dauer):
 # print("------------------------------------------------------")
 # time.sleep(3)
 # find out timewindow for changed booking with Dauer, provide exact begin timestamp of Auftrag that has to be changed
-anfang_ts = "2023-01-31T22:03:58"  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
-ret = gk_ändern(fa_old="GKP0011550", userid="1025", anfang_ts=anfang_ts, dauer=10)
+anfang_ts = "2023-02-01T21:52:44"  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
+ret = gk_ändern(fa_old="GK0021850", userid="1024", anfang_ts=anfang_ts, dauer=0)
 if isinstance(ret, str):
 	# display error string and cancel booking
 	print(ret)
@@ -693,7 +693,7 @@ else:
 	anfang_ts, ende_ts = ret
 	print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
 time.sleep(3)
-ret = do_stuff(scanvalue="GKP0011550")  # GK ändern booking, this is the new GK BelegNr
+ret = do_stuff(scanvalue="GK0061850")  # GK ändern booking, this is the new GK BelegNr
 print("------------------------------------------------------")
 time.sleep(3)
 do_stuff(scanvalue="1025", anfang_ts=anfang_ts, ende_ts=ende_ts)  # buchen

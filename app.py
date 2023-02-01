@@ -396,7 +396,7 @@ def gemeinkostenandern(userid):
     platz=dbconnection.getPlazlistGKA(userid)
     tablecontent=[]
     for index, row in df.iterrows():
-        item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%d-%m-%Y %H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%d-%m-%Y %H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
+        item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
         tablecontent.insert(0,item)
     if request.method == 'POST':
         datum = request.form["datum"]
@@ -412,12 +412,11 @@ def gemeinkostenandern(userid):
         kurztext = request.form["kurztext"]
         print(f"kurztext: {kurztext}")
         print("posting")
-        print(request.form)
-        print(type(request.form))
         # print(request.form["submit"])
         if request.form["submit"] == "ändern":  # change selected Auftrag
             ret = gk_ändern(fa_old=beleg_nr, userid=userid, anfang_ts=anfang_ts, dauer=ata22dauer)
             if isinstance(ret, str):
+                # ende_ts = anfang_ts # initial assignment, gets overrided
                 # display error string and cancel booking
                 print("ret pos cond: ",ret)
             else:
@@ -465,20 +464,20 @@ def gemeinkostenandern(userid):
         auftraglst_ajax.insert(0, {'id':"",'platz':"Keine",'belegNr':"",'bez':""})
         dauer=np.linspace(0, 600, num=121).tolist()
 
-        return render_template(
-            "gemeinkostenandern.html",
-            date=datetime.now(),
-            anfangTS=datetime.today().strftime(DTFORMAT),
-            auftraglst=auftraglst,
-            auftraglst_ajax=auftraglst_ajax,
-            sidebarItems=get_list("sidebarItems"),
-            username=usernamepd['formatted_name'],
-            pers_no=usernamepd['T910_Nr'],
-            userid=userid,
-            dauer=[int(i) for i in dauer],
-            tableItems=get_list("statusTableItems",userid),
-            tablecontent=tablecontent
-        )
+    return render_template(
+        "gemeinkostenandern.html",
+        date=datetime.now(),
+        anfangTS=datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        auftraglst=auftraglst,
+        auftraglst_ajax=auftraglst_ajax,
+        sidebarItems=get_list("sidebarItems"),
+        username=usernamepd['formatted_name'],
+        pers_no=usernamepd['T910_Nr'],
+        userid=userid,
+        dauer=[int(i) for i in dauer],
+        tableItems=get_list("statusTableItems",userid),
+        tablecontent=tablecontent
+    )
 
 
 @app.route("/anmelden/<userid>/<sa>", methods=["POST", "GET"])
@@ -826,11 +825,11 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
-                xFehler = ("fabuchta55", ata22dauer) 
-                # xFehler = fabuchta55()
+                # xFehler = ("fabuchta55", ata22dauer) 
+                xFehler = fabuchta55()
             else:
-                xFehler = ("fabuchta51", ata22dauer) 
-                # xFehler = fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS)
+                # xFehler = ("fabuchta51", ata22dauer)
+                xFehler = fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS)
 
     else:
         xFehler = ("Kein Auftrag!", ata22dauer)
@@ -974,10 +973,11 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
         flash("Laufende Aufträge beendet.")
         kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
         print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
-        return redirect(url_for(
-            'home',
-            username=username,
-        ))
+        # return redirect(url_for(
+        #     'home',
+        #     username=username,
+        # ))
+        return xret
 
     # if xTA22Dauer == 3:
     #     if xDauer > 0:
@@ -1040,23 +1040,23 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
                 "TA06_AgBez")
     kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
     print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
-
     flash("FA oder GK erfolgreich gebucht.")
     logging.info("successful")
 
-    return redirect(url_for(
-        'home',
-        username=username,
-    ))
+    return xret
+    # return redirect(url_for(
+    #     'home',
+    #     username=username
+    # ))
 
 
 # added and modified by Shashank
-def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", atslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None):
+def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None):
     """K/G/A booking according to sa for user with given card nr and username."""
     # kst = AKst
     # salast = ASALast
     # kstlast = AKstLast
-    # atslast = ATSLast
+    # tslast = ATSLast
     xT905Last = ""
     xTA29Last = ""
     xtagid=''
@@ -1064,7 +1064,7 @@ def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", atslast="", 
     xfaruecknr=''
     xmenge=0
 
-    result = kt002.CheckKommt(sa, kst, salast, kstlast, atslast, xT905Last, xTA29Last)
+    result = kt002.CheckKommt(sa, kst, salast, kstlast, tslast, xT905Last, xTA29Last)
     xret, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last = result
     print(
         f"[DLL] CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
@@ -1129,77 +1129,77 @@ def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", atslast="", 
                     kt002.T905Read(kt002.gtv("T951_Arbist"))
 
             kt002.T905_NrSelected = kt002.gtv("T905_Nr")
-            xret, ata22dauer = bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer)
+            xret = bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer)
             print(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
-            if xret == "fabuchta51":
-                print(f"[DLL] Selected FABuchTA51")
-                return fabuchta51(nr=nr, username=username, ata22dauer=ata22dauer)
-            if xret == "fabuchta55":
-                print(f"[DLL] Selected FABuchTA55")
-                xInputMenge = 0  # Flag, 1=Menge eingeben
-                xInputMengeNew = 0
-                xFARueckEnd = False
-                xScanFA = 0
-                xFAStatus = ''
-                xFATS = ''
-                xFAEndeTS = ''
-                xFAMeGut = 0.0
-                xFAMeGes = 0.0
-                xFANewScanFA = 0
-                xFANewStatus = ''
-                xFANewMeGes = 0.0
-                xFANewMe = 0.0
+            # if xret == "fabuchta51":
+            #     print(f"[DLL] Selected FABuchTA51")
+            #     return fabuchta51(nr=nr, username=username, ata22dauer=ata22dauer)
+            # if xret == "fabuchta55":
+            #     print(f"[DLL] Selected FABuchTA55")
+            #     xInputMenge = 0  # Flag, 1=Menge eingeben
+            #     xInputMengeNew = 0
+            #     xFARueckEnd = False
+            #     xScanFA = 0
+            #     xFAStatus = ''
+            #     xFATS = ''
+            #     xFAEndeTS = ''
+            #     xFAMeGut = 0.0
+            #     xFAMeGes = 0.0
+            #     xFANewScanFA = 0
+            #     xFANewStatus = ''
+            #     xFANewMeGes = 0.0
+            #     xFANewMe = 0.0
 
-                result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS,
-                                          xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus,
-                                          xFANewMeGes, xFANewMe)
-                xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
+            #     result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS,
+            #                               xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus,
+            #                               xFANewMeGes, xFANewMe)
+            #     xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
 
-                print(f"[DLL] BuchTA55_0: {result}")
-                if len(xret) == 0 and xInputMenge == 1:
-                    return redirect(url_for("fabuchta55_dialog", userid=nr, menge_soll=xFAMeGes, xFAStatus=xFAStatus,
-                                             xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=str(xScanFA)))
+            #     print(f"[DLL] BuchTA55_0: {result}")
+            #     if len(xret) == 0 and xInputMenge == 1:
+            #         return redirect(url_for("fabuchta55_dialog", userid=nr, menge_soll=xFAMeGes, xFAStatus=xFAStatus,
+            #                                  xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=str(xScanFA)))
                                              
-                elif xInputMenge == 0:  # no mengendialog
+            #     elif xInputMenge == 0:  # no mengendialog
 
-                    xbuchen = True
-                    tl51use = False
-                    menge_aus = 0.0
-                    menge_gut = 0.0
-                    ruestzeit = 0.0
-                    lagerplatz = ""
-                    charge = ""
-                    xVal1, xVal2, xVal3, xVal4, xVal5 = 0.0, 0.0, 0.0, 0.0, 0.0
+            #         xbuchen = True
+            #         tl51use = False
+            #         menge_aus = 0.0
+            #         menge_gut = 0.0
+            #         ruestzeit = 0.0
+            #         lagerplatz = ""
+            #         charge = ""
+            #         xVal1, xVal2, xVal3, xVal4, xVal5 = 0.0, 0.0, 0.0, 0.0, 0.0
 
-                    if xbuchen:
-                        xPersNr = kt002.gtv("T910_Nr")
-                        xTE = kt002.gtv("TA06_TE")
-                        print(
-                            f"[DLL] BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
-                        kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut),
-                                         float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2,
-                                         xVal3, xVal4, xVal5, xScanFA)
+            #         if xbuchen:
+            #             xPersNr = kt002.gtv("T910_Nr")
+            #             xTE = kt002.gtv("TA06_TE")
+            #             print(
+            #                 f"[DLL] BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
+            #             kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut),
+            #                              float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2,
+            #                              xVal3, xVal4, xVal5, xScanFA)
 
-                        # Störung setzen
-                        if tl51use:
-                            kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
+            #             # Störung setzen
+            #             if tl51use:
+            #                 kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
 
-                        # directly add mengendialog for an Auftrag that is now starting, currently not implemented
-                        # if xInputMengeNew == 1:
-                            # add another Mengendialog, maybe just reroute with skip?
-                            # raise NotImplementedError
+            #             # directly add mengendialog for an Auftrag that is now starting, currently not implemented
+            #             # if xInputMengeNew == 1:
+            #                 # add another Mengendialog, maybe just reroute with skip?
+            #                 # raise NotImplementedError
 
-                        kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
+            #             kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
 
-                    flash("FA oder GK erfolgreich gebucht.")
-                    return redirect(url_for('home', username=username))
+            #         flash("FA oder GK erfolgreich gebucht.")
+            #         return redirect(url_for('home', username=username))
 
-                elif len(xret) > 0:
-                    flash("Fehlerhafter Auftrag")
-                    return redirect(url_for('home', username=username))
-            else:
-                flash("Auftrag nicht gefunden!")
-                return redirect(url_for("home", username=username))
+            #     elif len(xret) > 0:
+            #         flash("Fehlerhafter Auftrag")
+            #         return redirect(url_for('home', username=username))
+            # else:
+            #     flash("Auftrag nicht gefunden!")
+            return redirect(url_for("home", username=username))
 
     if len(xret) == 0:
         result = kt002.PNR_Buch(sa, kst, t905nr, ta29nr, APlatz, xtagid, xkstk)
@@ -1338,7 +1338,7 @@ def do_stuff(scanvalue, anfang_ts=None, ende_ts=None):
 			if len(xmsg) == 0:
 				print("Buch4Clear")
 				print(1, nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
-				result = kt002.PNR_Buch4Clear(1, nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
+				# result = kt002.PNR_Buch4Clear(1, nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
 				print("")
 			
 
