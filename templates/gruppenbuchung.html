@@ -3,7 +3,6 @@
 
 {% block content%}
 
-<form action='#' method="POST">
 <div class="containerr statustable">
     <h3>{{ _('Gruppenbuchung') }}</h3>
     <div class="flex-row">
@@ -18,7 +17,7 @@
 
         <div class="d-flex flex-column">
             <div>
-                <input type="date" name = "datetime" class="form-control dropdown-toggle datetime">
+                <input type="date" class="form-control dropdown-toggle datetime">
             </div>
 
             <div style="display: inline">
@@ -27,10 +26,10 @@
                         class="btn btn-secondary dropdown-toggle inputbutton drop"> </button>
                     <div class="FANR dropdown-menu" aria-labelledby="dropdownMenuButton">
                         {% for index, row in frNr.iterrows(): %}
-                        <option value="{{row['T903_NR']}}">{{row['T903_NR']}} {{row['T903_Bez']}}</option>
+                        <a class="dropdown-item" href="#">{{row['T903_NR']}} {{row['T903_Bez']}}</a>
                         <hr />
                         {% endfor %}
-                      </select>
+                    </div>
                 </div>
                 <div class="boxes" , id="gruppe_frNr">
                 </div>
@@ -63,8 +62,8 @@
 
         <div class="d-flex flex-column">
 
-            <input type="text" name = "dauer" class="form-control inputbutton" value="30">
-            <input type="text" name = "kurztext" class="form-control kurztext">
+            <input type="text" class="form-control inputbutton" value="30">
+            <input type="text" class="form-control kurztext">
 
         </div>
     </div>
@@ -77,34 +76,10 @@
             }}</button>
     </div>
 </div>
-</form>
+
 <script>
-    //replace default selected FAnummer value with empty field
-    window.onload = function () {
-        document.getElementById('FAnummer').selectedIndex = -1;
-        document.getElementById('Gruppe').selectedIndex = -1;
-
-    }
-
-    var $previousOption, storedText;
-    var $previousOptionGruppe, storedTextGruppe;
     <!-- Script to display the item which is selected in the dropdown. -->
-    document.getElementById("FAnummer").onchange = function () {
-
-        // Separate FA string from id and place the string in the right side box
-        var select = document.getElementById('FAnummer');
-        var option = select.options[select.selectedIndex];
-        text = option.text.split(' ').splice(1).join(' ');
-        document.getElementById('gruppe_frNr').innerHTML = text;
-        // Break dropdown options and place the FA id of selected option on the FA Nr field
-        // Replacing the dropdown items with the id changes original select options, reset options to there actual text
-        if ($previousOption != null) {
-            $previousOption.text(storedText)
-        }
-        $previousOption = $(this).find("option:selected");
-        storedText = $previousOption.text();
-        $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
-    };
+    $(function () {
 
         $(".Gruppe a").click(function () {
             $("#Gruppe").text($(this).text().split(' ')[0]);

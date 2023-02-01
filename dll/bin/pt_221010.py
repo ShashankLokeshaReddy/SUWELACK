@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 import clr
 import os
 import time
@@ -255,7 +255,7 @@ def fabuchta51(ata22dauer, aAnfangTS=None, aEndeTS=None, aBem=None):
 
 	xTA22Dauer = kt002.gtv("TA22_Dauer") #aus TA06 gelesen
 	if ata22dauer.isnumeric() == True:    # von außen übersteuern
-		xTA22Dauer = int(ata22dauer)
+	    xTA22Dauer = int(ata22dauer)
 	
 	print(f"[DLL] Pre BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
 	result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
@@ -375,7 +375,7 @@ def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer, aAnfangTS=None, aEndeTS=None):
 				xFehler = fabuchta55()
 			else:
 				xFehler = fabuchta51(ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS)
-				print("xFehler shashank",xFehler)
+	       
 	else:
 		xFehler = "Kein Auftrag!"
 		if kt002.CheckObject(kt002.dr_TA06) == True and kt002.CheckObject(kt002.dr_TA05)== False:
@@ -397,8 +397,6 @@ def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz,AAnfangTS=
 	print("actbuchung SA:" + ASA)
 	result = kt002.CheckKommt(ASA, AKst, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last)
 	xret,ASALast,AKstLast,ATSLast,xT905Last,xTA29Last=result
-	print("checkkommt shashank")
-	print(xret,ASALast,AKstLast,ATSLast,xT905Last,xTA29Last)
 	print(result)
 	if len(xret) > 0:
 		print("KEINE KOMMT BUCHUNG?")
@@ -414,6 +412,7 @@ def actbuchung(ta29nr,AKst,ASA,t905nr,ASALast,AKstLast,ATSLast,APlatz,AAnfangTS=
 
 
 	xret = endta51cancelt905(xpersnr)
+	
 	if kt002.CheckObject(kt002.dr_T905)== True:
 		t905nr = kt002.gtv("T905_Nr")
 	print('Platz:' + t905nr)
@@ -684,8 +683,8 @@ def gk_erstellen(userid, dauer):
 # print("------------------------------------------------------")
 # time.sleep(3)
 # find out timewindow for changed booking with Dauer, provide exact begin timestamp of Auftrag that has to be changed
-anfang_ts = "2023-02-01T21:52:44"  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
-ret = gk_ändern(fa_old="GK0021850", userid="1024", anfang_ts=anfang_ts, dauer=0)
+anfang_ts = "2023-01-16T23:26:01"  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
+ret = gk_ändern(fa_old="GK0080150", userid="1024", anfang_ts=anfang_ts, dauer=10)
 if isinstance(ret, str):
 	# display error string and cancel booking
 	print(ret)
@@ -693,10 +692,10 @@ else:
 	anfang_ts, ende_ts = ret
 	print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
 time.sleep(3)
-ret = do_stuff(scanvalue="GK0061850")  # GK ändern booking, this is the new GK BelegNr
+ret = do_stuff(scanvalue="GK0080150")  # GK ändern booking, this is the new GK BelegNr
 print("------------------------------------------------------")
 time.sleep(3)
-do_stuff(scanvalue="1025", anfang_ts=anfang_ts, ende_ts=ende_ts)  # buchen
+do_stuff(scanvalue="1024", anfang_ts=anfang_ts, ende_ts=ende_ts)  # buchen
 
 # print("------------------------------------------------------")
 #time.sleep(3)

@@ -431,7 +431,7 @@ hr.solid {
     margin-left : 10px;
   }
 
-.inputbutton2{
+  .inputbutton2{
     margin-top : 20px;
     display: inline-block;
     width: 330px !important;
@@ -517,8 +517,4 @@ hr.solid {
     width: 200px !important;
     height: 45px !important;
     flex-direction: unset !important;
-}
-
-.anfangTS{
-    border: hidden;
 }
