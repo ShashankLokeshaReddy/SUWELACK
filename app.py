@@ -782,7 +782,7 @@ def endta51cancelt905(apersnr):
 
 
 # modified/ cleaned by Shashank
-def bufa(ANr, ATA29Nr, AFARueckend, ata22dauer, aAnfangTS=None, aEndeTS=None):
+def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None):
     """Checks whether current GK/FA active in DLL is ok to be booked and decides which fabuchta is appropriate."""
 
     xFehler=''  
@@ -1127,7 +1127,7 @@ def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", atslast="", 
                     kt002.T905Read(kt002.gtv("T951_Arbist"))
 
             kt002.T905_NrSelected = kt002.gtv("T905_Nr")
-            xret, ata22dauer = bufa(ANr=kt002.gtv("TA06_BelegNr"), ATA29Nr=ta29nr, AFARueckend=xfaruecknr, ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS)
+            xret, ata22dauer = bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer)
             print(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
             if xret == "fabuchta51":
                 print(f"[DLL] Selected FABuchTA51")
