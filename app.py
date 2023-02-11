@@ -345,7 +345,29 @@ def gruppenbuchung(userid):
 def fertigungsauftragerfassen(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
     platz=dbconnection.getPlazlistFAE(userid)
-
+    platzid=platz.T905_Nr.tolist()
+    platzlst= platz.T905_Bez.tolist()
+    auftraglst = []
+    auftraglst_ajax = []
+    tablecontent = []
+    for i in range(len(platzid)):
+        auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen")
+        print(auftrag)
+        if auftrag.empty:
+            auftraglst.insert(0,[platzid[i],platzlst[i],"",""])
+            auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
+        else:    
+            auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist()[0],auftrag.Bez.tolist()[0]])
+            auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist()[0],'bez':auftrag.Bez.tolist()[0]})               
+    
+        tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen")
+        if not tableitem.empty:
+            for index, row in tableitem.iterrows():
+                tableobj={'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'MengeGut':row['TA51_MengeIstGut'], 'Auf_Stat':row['TA51_Auf_Stat']}
+                tablecontent.insert(0,tableobj)
+    auftraglst.insert(0, ["","Keine","",""])
+    auftraglst_ajax.insert(0,{'id':"",'platz':"Keine",'belegNr':"",'bez':""})
+    
     if request.method == 'POST':
         print("posting")
         print(request.form)
@@ -360,26 +382,12 @@ def fertigungsauftragerfassen(userid):
             print(f"beleg_nr: {beleg_nr}")
             return redirect(url_for("home", username=usernamepd))
     else:
-        platzid=platz.T905_Nr.tolist()
-        platzlst= platz.T905_Bez.tolist()
-        auftraglst = []
-        tablecontent = []
-        for i in range(len(platzid)):
-            auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen")
-            if auftrag.empty:
-                auftraglst.insert(0,[platzid[i],platzlst[i],""])
-            else:    
-                auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.Bez.tolist()[0]])
-            tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen")
-            if not tableitem.empty:
-                tableobj={'TagId':tableitem['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':tableitem['TA51_Platz_ist'], 'BelegNr':tableitem['TA51_BelegNr'], 'AnfangTS':tableitem['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':tableitem['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':tableitem['TA51_DauerTS'], 'MengeGut':tableitem['TA51_MengeIstGut'], 'Auf_Stat':tableitem['TA51_Auf_Stat']}
-                tablecontent.insert(tableobj)
-        auftraglst.insert(0, ["","Keine",""])
         # tablecontent = [{'TagId':"Code", 'Arbeitplatz':"M001___Materialtransport", 'BelegNr':"FA003___Materialtransport", 'AnfangTS':"25.11.2022 21:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}, {'TagId':"Code", 'Arbeitplatz':"F006___Bereitst. Comil Sonder", 'BelegNr':"FA003___Bereitst. Comil Sonder", 'AnfangTS':"24.11.2022 22:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}]
         return render_template(
             "fertigungsauftrag.html",
             date=datetime.now(),
             auftraglst=auftraglst,
+            auftraglst_ajax=auftraglst_ajax,
             anfangTS=datetime.today().strftime(DTFORMAT),
             username=usernamepd['formatted_name'],
             pers_no=usernamepd['T910_Nr'],
@@ -425,6 +433,8 @@ def gemeinkostenandern(userid):
         auftraglst.insert(0, [["","Keine","",""]])
         auftraglst_ajax.insert(0, [{'id':"",'platz':"Keine",'belegNr':"",'bez':""}])
     
+    # print("auftraglst............",auftraglst)
+    # print("auftraglst_ajax............",auftraglst_ajax)
     if request.method == 'POST':
         datum = request.form["datum"]
         print(f"datum: {datum}")
@@ -434,10 +444,12 @@ def gemeinkostenandern(userid):
         print(f"anfangTS: {anfang_ts}")
         arbeitsplatz = request.form["arbeitsplatz"]
         for i in range(len(auftraglst)):
-            if auftraglst[i][1] == arbeitsplatz:
-                pltz_id_bk = auftraglst[i][0]
+            for j in range(len(auftraglst[i])):
+                if auftraglst[i][j][1] == arbeitsplatz:
+                    pltz_id_bk = auftraglst[i][j][0]
                 
         print(f"arbeitsplatz: {arbeitsplatz}")
+        print(f"pltz_id_bk: {pltz_id_bk}")
         beleg_nr_old = request.form["old_beleg_nr"]
         print(f"beleg_nr_old: {beleg_nr_old}")
         beleg_nr = request.form["gemeinkosten"]
@@ -457,7 +469,7 @@ def gemeinkostenandern(userid):
                 print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
                 
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-                # kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 actbuchung(ta29nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext)
                 return redirect(url_for("gemeinkostenandern", userid=userid))
@@ -473,6 +485,7 @@ def gemeinkostenandern(userid):
                 print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
                 
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
+                kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 actbuchung(ta29nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext) 
                 return redirect(url_for("gemeinkostenandern", userid=userid))
@@ -981,7 +994,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     xret, xTS, xStatusMenge = result
     xAnfangTS = datetime.strptime(xTS, DTFORMAT)
     print(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
-    if not aAnfangTS is None and not aEndeTS is None:  # when booking with given Dauer
+    if not aAnfangTS is None and not aEndeTS is None and not xTS=="01.01.1900 00:00:00":  # when booking with given Dauer
         xStatusMenge = "20"  # TODO: bug in DLL, temporarily overwrite, 20 means just book, don't validate further
 
     print("xTS:" + xTS + " Datum:" + xAnfangTS.strftime(DTFORMAT))

@@ -37,9 +37,9 @@
     <div class="flex-nested-row">
       <label for="arbeitsplatz" class="textclass">{{ _('Buchungstag') }}Gruppe:  &emsp;</label>
       <select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
-        {% for items in range(0,auftraglst|length) %}
-          <option value="{{auftraglst[items][1]}}">{{auftraglst[items][1]}}</option>
-		{% endfor %}
+		{% for item in auftraglst[0] %}
+			<option value="{{item.1}}">{{item.1}}</option>
+	  	{% endfor %}
 	</select>
     </div>
   </div>
@@ -81,6 +81,8 @@
   </div>
 </div>
 
+<input type="text" name ='old_beleg_nr' id ='old_beleg_nr' style="visibility: hidden"> 
+</input>
 
 <div class="panel-body">
 	
@@ -96,33 +98,35 @@
 $(function(){
 	const arbeitsplatz = document.querySelector("#arbeitsplatz");
     arbeitsplatz.addEventListener("change", function() {
-	// $("#arbeitsplatz").text($(this).text());
-	// $("#arbeitsplatz").val($(this).text());
 	var arbpltz_val = arbeitsplatz.value;
-	console.log("arbpltz_val",arbpltz_val)
-	var selectvalue =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
-	for (var i = 0; i < selectvalue.length; i++) {
-		if (selectvalue[i].platz.includes(arbpltz_val)){
-			if (selectvalue[i].bez === ""){
-				$("#Gemeinkosten").text(selectvalue[i].bez);
-				$("#Gemeinkosten").val(selectvalue[i].bez);				
-			}
-			else{
-				$("#Gemeinkosten").text(selectvalue[i].bez[0]);
-				$("#Gemeinkosten").val(selectvalue[i].bez[0]);
-			}
+	var selectvalues =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
+	for (var index = 0; index < selectvalues.length; index++){
+		for (var inner_index = 0; inner_index < selectvalues[index].length; inner_index++){
+			selectvalue = selectvalues[index][inner_index]
 			
-			var div = document.getElementById("Gemeinkosten");
-			// removes the existing children before adding new anchors
-			while (div.firstChild) {
-				div.removeChild(div.firstChild);
-			}
-			var options = selectvalue[i].bez;
-			for (var j = 0; j < options.length; j++) {
-				var option = document.createElement("option");
-				option.value = selectvalue[i].belegNr[j];
-				option.text = options[j];
-				div.appendChild(option);
+			if (selectvalue.platz.includes(arbpltz_val)){
+				if (selectvalue.bez === ""){
+					$("#Gemeinkosten").text(selectvalue.bez);
+					$("#Gemeinkosten").val(selectvalue.bez);				
+				}
+				else{
+					$("#Gemeinkosten").text(selectvalue.bez[0]);
+					$("#Gemeinkosten").val(selectvalue.bez[0]);
+				}
+				
+				var div = document.getElementById("Gemeinkosten");
+				// removes the existing children before adding new anchors
+				while (div.firstChild) {
+					div.removeChild(div.firstChild);
+				}
+				var options = selectvalue.bez;
+				for (var j = 0; j < options.length; j++) {
+					var option = document.createElement("option");
+					option.value = selectvalue.belegNr[j];
+					option.text = options[j];
+					div.appendChild(option);
+				}
+				break;
 			}
 		}
 	}
@@ -140,7 +144,6 @@ $(document).ready(function($)
 {
 	//ajax row data
 	var ajax_data =  JSON.parse('{{ tablecontent | tojson | safe}}');
-
 	var random_id = function  () 
 	{
 		var id_num = Math.random().toString(9).substr(2,3);
@@ -368,19 +371,21 @@ $(document).ready(function($)
 	// display selected row data in text input
 	
 	var table = document.getElementById("table-selectable"),rIndex;
-	var selectvalue =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
 
+	// console.log("table:",table)
 	for(var i = 1; i < table.rows.length; i++)
 	{
 		table.rows[i].onclick = function()
 		{
+			var selectvalues =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
+			selectvalue = selectvalues[i-2]
 			rIndex = this.rowIndex;
 			var arbeitsplatz = document.getElementById("arbeitsplatz");
 			var Gemeinkosten = document.getElementById("Gemeinkosten");
 			var selectedValue = arbeitsplatz.value;
 			var selectedText = arbeitsplatz.options[arbeitsplatz.selectedIndex].text;
 			console.log("rIndex",selectedText);
-			
+
 			for (var k = 0; k < selectvalue.length; k++) {
 				if (selectvalue[k].id.includes(this.cells[1].innerText)){
 					$("#arbeitsplatz").val(selectvalue[k].platz);
@@ -401,7 +406,7 @@ $(document).ready(function($)
 								Gemeinkosten.appendChild(option);
 							}
 							$("#Gemeinkosten").val(selectvalue[k].belegNr[j]);
-						
+							$("#old_beleg_nr").val(selectvalue[k].belegNr[j]);
 						}
 					}
 				}				
@@ -411,8 +416,9 @@ $(document).ready(function($)
 			// $("#anfangTS").text(this.cells[3].innerText);
 			// $("#Dauer").text(this.cells[8].innerText);
 			document.getElementById("anfangTS").value = this.cells[3].innerText;
-			document.getElementById("dauer").value = this.cells[8].innerText;
+			document.getElementById("dauer").value = this.cells[5].innerText;
 			document.getElementById("GKA").value = this.cells[9].innerText;
+			document.getElementById("GKA").text = this.cells[9].innerText;
 		};
 	}
 
