@@ -344,6 +344,7 @@ def gruppenbuchung(userid):
 @app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
 def fertigungsauftragerfassen(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
+    username=usernamepd['formatted_name']
     platz=dbconnection.getPlazlistFAE(userid)
     platzid=platz.T905_Nr.tolist()
     platzlst= platz.T905_Bez.tolist()
@@ -373,14 +374,18 @@ def fertigungsauftragerfassen(userid):
         print(request.form)
         print(type(request.form))
         print(request.form["submit"])
-        if request.form["submit"] == "erstellen":  # create auftrag
+        if request.form["submit"] == "erstellen": 
             datum = request.form["datum"]
             print(f"datum: {datum}")
             arbeitsplatz = request.form["arbeitsplatz"]
             print(f"arbeitsplatz: {arbeitsplatz}")
             beleg_nr = request.form["auftrag"]
             print(f"beleg_nr: {beleg_nr}")
-            return redirect(url_for("home", username=usernamepd))
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
+            kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+            actbuchung(ta29nr=userid)
+            return redirect(url_for("home", username=username,))
     else:
         # tablecontent = [{'TagId':"Code", 'Arbeitplatz':"M001___Materialtransport", 'BelegNr':"FA003___Materialtransport", 'AnfangTS':"25.11.2022 21:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}, {'TagId':"Code", 'Arbeitplatz':"F006___Bereitst. Comil Sonder", 'BelegNr':"FA003___Bereitst. Comil Sonder", 'AnfangTS':"24.11.2022 22:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}]
         return render_template(
