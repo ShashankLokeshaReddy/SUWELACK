@@ -34,30 +34,28 @@
 </div>
 
 <div class="flex-container">
-  <div class="flex-row">
-    <div class="flex-nested-row">
-      <label for="arbeitsplatz" class="textclass">{{ _('Arbeitsplatz') }}:  &emsp;</label>
-      <button type="button" name="arbeitsplatz" data-toggle="dropdown" id="arbeitsplatz" class="btn btn-secondary dropdown-toggle inputbutton">{{ auftraglst[items] }}</button>
-        <div class="ARBT dropdown-menu scrollable-menu_Buchungstag" aria-labelledby="dropdownMenuButton">
-              {% for items in range(0,auftraglst|length) %}
-                <a class="dropdown-item"  href="#" >{{auftraglst[items][1]}}</a>
-              {% endfor %}
-        </div>
-    </div>
-  </div>
-  <div class="flex-row">
-    <div class="flex-nested-row flex-center">
-      <label for="auftrag" class="textclass">{{ _('Auftrag') }}:  &emsp;</label>
-        <button type="button" name="auftrag" data-toggle="dropdown" id="auftrag" class="btn btn-secondary dropdown-toggle inputbutton"></button>
-        <div class="FAE dropdown-menu scrollable-menu_GK" aria-labelledby="dropdownMenuButton">
-        </div>
-    </div>
-  </div>
-  <div class="flex-row">
-    <div class="flex-nested-row flex-right">
-      <button type="submit" name="submit" value="erstellen" id="Erstellen" class="btn btn-secondary  btn-lg submit2">{{ _('Erstellen') }}</button>
-    </div>
-  </div>
+	<div class="flex-row">
+		<div class="flex-nested-row">
+		<label for="arbeitsplatz" class="textclass">{{ _('Arbeitplatz') }}:  &emsp;</label>
+		<select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
+			{% for items in range(0,auftraglst|length) %}
+			<option value="{{auftraglst[items][1]}}">{{auftraglst[items][1]}}</option>
+			{% endfor %}
+		</select>
+		</div>
+	</div>
+	<div class="flex-row">
+		<div class="flex-nested-row flex-center">
+			<label for="auftrag" class="textclass">{{ _('Auftrag') }}:  &emsp;</label>
+			<select name="auftrag" id="auftrag" class="form-control">
+			</select>
+		</div>
+	</div>
+	<div class="flex-row">
+		<div class="flex-nested-row flex-right">
+		<button type="submit" name="submit" value="erstellen" id="Erstellen" class="btn btn-secondary  btn-lg submit2">{{ _('Erstellen') }}</button>
+		</div>
+	</div>
 </div>
 <select id ='selectvalue' style="visibility: hidden"> {{ auftraglst }}
 </select>
@@ -74,35 +72,35 @@
 <script>
 
 $(function(){
-    $(".ARBT a").click(function(){
-		$("#arbeitsplatz").text($(this).text());
-		$("#arbeitsplatz").val($(this).text());
-		var arbpltz_val = $("#arbeitsplatz")[0].innerHTML;
-		var selectvalue = document.getElementById("selectvalue").innerHTML;
-		const myArray = selectvalue.split("], [");
-		for (var i = 0; i < myArray.length; i++) {
-			myArray[i] = myArray[i].replace("[[","");
-			myArray[i] = myArray[i].replace("]]","");
-			var innerArray = myArray[i].split(",");
-			if (innerArray[1].includes(arbpltz_val.toString())) {
-				var txt = innerArray[2].replace("'","");
-				txt = txt.replace("'","");
-				txt = txt.replace(" ","");
-				txt = txt.replace("\n","");
-				$("#auftrag").text(txt);
-				$("#auftrag").val(txt);
+	const arbeitsplatz = document.querySelector("#arbeitsplatz");
+    arbeitsplatz.addEventListener("change", function() {
+	var arbpltz_val = arbeitsplatz.value;
+	var selectvalues = JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
+
+	for (var index = 0; index < selectvalues.length; index++){
+		selectvalue = selectvalues[index]
+		if (selectvalue.platz.includes(arbpltz_val)){
+			var div = document.getElementById("auftrag");
+			// removes the existing children before adding new anchors
+			while (div.firstChild) {
+				div.removeChild(div.firstChild);
 			}
+			var option = document.createElement("option");
+			option.value = selectvalue.belegNr;
+			option.text = selectvalue.bez;
+			div.appendChild(option);
+			$("#auftrag").val(selectvalue.belegNr);
 		}
-		
+	}
     });
 });
 
-$(function(){
-		$(".FAE a").click(function(){
-		$("#auftrag").text($(this).text());
-		$("#auftrag").val($(this).text());
-   });
-});
+// $(function(){
+// 		$(".FAE a").click(function(){
+// 		$("#auftrag").text($(this).text());
+// 		$("#auftrag").val($(this).text());
+//    });
+// });
 
 
 $(document).ready(function($)
@@ -338,12 +336,34 @@ $(document).ready(function($)
 	{
 		table.rows[i].onclick = function()
 		{
+			var selectvalues =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
 			rIndex = this.rowIndex;
 			console.log("rIndex",$("#arbeitsplatz").text);
-			
-			$("#arbeitsplatz").text(this.cells[1].innerText);
-			$("#auftrag").text(this.cells[2].innerText);
-			$("#anfangTS").text(this.cells[3].innerText);
+			for (var k = 0; k < selectvalues.length; k++) {
+				var select = document.getElementById("arbeitsplatz");
+				if (selectvalues[k].id === this.cells[1].innerText){
+					var div = document.getElementById("auftrag");
+					// removes the existing children before adding new anchors
+					while (div.firstChild) {
+						div.removeChild(div.firstChild);
+					}
+					var option = document.createElement("option");
+					option.value = selectvalues[k].belegNr;
+					option.text = selectvalues[k].bez;
+					div.appendChild(option);
+
+					for (var i = 0; i < select.options.length; i++) {
+						if (select.options[i].value === selectvalues[k].platz) {
+							// Set the selectedIndex property to the index of the option
+							select.selectedIndex = i;
+							// $("#auftrag").val(selectvalues[k].TA06_BelegNr);
+							$("#auftrag").val(selectvalue[k].belegNr);
+							break;
+						}
+					}
+				}
+				$("#anfangTS").text(this.cells[3].innerText);
+			}
 		};
 	}
 
