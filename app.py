@@ -5,6 +5,8 @@ import xml.etree.ElementTree as ET
 from flask import Flask
 from flask import render_template, request, flash, redirect, url_for
 from datetime import datetime, timedelta
+from dateutil import parser
+
 import time
 
 import dbconnection
@@ -41,7 +43,7 @@ app.secret_key = "suwelack"
 app.config['BABEL_DEFAULT_LOCALE'] = 'de'
 babel = Babel(app)
 
-verwaltungsterminal = False   # variable to show Gruppen field in the UI or not
+verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
 # CONSTANTS
 root = ET.parse("../../dll/data/X998.xml").getroot()[0]  # parse X998.xml file for config
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
@@ -211,16 +213,44 @@ def gemeinkosten_buttons(userid):
         show_button_ids=SHOW_BUTTON_IDS,
         sidebarItems=get_list("sidebarItems")
     )
-
+    
+    
 @app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
 def arbeitsplatzbuchung(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
     username = usernamepd['formatted_name']
     if request.method == 'POST':
-        selected_faNr = request.form.get('fanummer')  
-        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_faNr)
-        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-        return actbuchung(nr=selected_faNr, username=username, sa=sa)
+        persnr = request.form.get('personalnummer')
+        Platz = request.form.get('arbeitsplatz')   # from dialogue
+        FA_Nr = request.form.get('fanummer') 
+        print(persnr,Platz,FA_Nr)
+        date_string = request.form.get('datetime')  # from dialogue
+        date_string = parser.parse(date_string)
+        TagId = date_string.strftime("%Y-%m-%dT00:00:00")
+        dauer = request.form.get('dauer')  # from dialogue
+
+
+        userid = dbconnection.getUserID(persnr)
+        print('*****************************',userid)
+        # Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
+        # print('*****************************',Platz)
+        print(FA_Nr,Platz)
+        Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+        print('*****************************',Belegnr)
+    
+        ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
+        print('*****************************',ret)
+        if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
+            kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
+        ret = gk_erstellen(persnr, dauer)  # find time window
+        print('*****************************',ret)
+        if not isinstance(ret, str):
+            anfang_ts, ende_ts = ret  
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
+            print('ret',ret, 'sa',sa, 'buaction',buaction, 'bufunktion',bufunktion, 'activefkt',activefkt, 'msg',msg, 'msgfkt',msgfkt, 'msgdlg',msgdlg)
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(str(userid))
+            actbuchung(ta29nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts,AEndeTS=ende_ts)
+        return redirect(url_for("arbeitsplatzbuchung", userid=userid))
     return render_template(
         "arbeitsplatzbuchung.html",
         arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
@@ -283,8 +313,15 @@ def identification(page):
             username = usernamepd['formatted_name']
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
             return actbuchung(nr=userid, username=username, sa=sa)
-
+        
+        if page == "gemeinkostenbeenden":
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(userid)
+            ta06gkend(userid=userid)
+            kt002.PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+            return redirect(url_for("home", userid=userid))
         return redirect(url_for(page, userid=userid))
+    
+        
 
     else:
         return render_template(
@@ -315,31 +352,46 @@ def berichtdrucken(userid):
     )
 
 
-#@app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
-#def arbeitsplatzbuchung(userid):
-#    return render_template(
-#        "arbeitsplatzbuchung.html",
-#        arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
-#        date=datetime.now(),
-#        sidebarItems=get_list("sidebarItems")
-#    )
-
-
 @app.route("/gruppenbuchung/<userid>", methods=["POST", "GET"])
 def gruppenbuchung(userid):
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
     if request.method == 'POST':
-        print(request.form.get('fanummer'))
-        print(request.form.get('dauer'))
-        print(request.form.get('datetime'))
+        GruppeNr = request.form.get('gruppe')
+        FA_Nr = request.form.get('fanummer')
+        date_string =  request.form.get('datetime')
+        
+        # parse and convert date string
+        date_string = parser.parse(date_string)
+        TagId = date_string.strftime("%Y-%m-%dT00:00:00")
+        dauer = request.form.get('dauer')
+        person_list = dbconnection.getGroupMembers(GruppeNr, TagId)  # get all persons from this group
+        person_nrs = [round(x) for x in person_list['T951_PersNr'].tolist()]
+        
+        for per_nr in person_nrs:
+            userid = dbconnection.getUserID(per_nr)
+            Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
+            Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+            ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
+            if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
+                kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
+            ret = gk_erstellen(per_nr, dauer)  # find time window
+            print(ret)
+            if not isinstance(ret, str):
+                anfang_ts, ende_ts = ret
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(str(userid))
+                actbuchung(ta29nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
+        return redirect(url_for("gruppenbuchung", userid=userid))
+    
     return render_template(
         "gruppenbuchung.html",
         terminal = verwaltungsterminal,
         date=datetime.now(),
-        frNr=get_list("gruppenbuchung_frNr"),
+        frNr=get_list("gruppenbuchung_faNr"),
         gruppe=get_list("gruppe"),
         sidebarItems=get_list("sidebarItems")
     )
-
 
 @app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
 def fertigungsauftragerfassen(userid):
@@ -392,6 +444,7 @@ def fertigungsauftragerfassen(userid):
 def gemeinkostenandern(userid):
 
     usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
     df=dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern")
     platz=dbconnection.getPlazlistGKA(userid)
     tablecontent=[]
@@ -423,11 +476,15 @@ def gemeinkostenandern(userid):
                 anfang_ts, ende_ts = ret
                 print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
             time.sleep(3)
-            ret = do_stuff(scanvalue=beleg_nr)  # GK ändern booking, this is the new GK BelegNr
-            print("------------------------------------------------------")
-            time.sleep(3)
-            do_stuff(scanvalue=userid, anfang_ts=anfang_ts, ende_ts=ende_ts)
-            return redirect(url_for("gemeinkostenandern", userid=userid))
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(beleg_nr)  # GK ändern booking, this is the new GK BelegNr
+            print(ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg)
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(userid)
+            actbuchung(ta29nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
+            # ret = do_stuff(scanvalue=beleg_nr)  # GK ändern booking, this is the new GK BelegNr
+            # print("------------------------------------------------------")
+            # time.sleep(3)
+            # do_stuff(scanvalue=userid, anfang_ts=anfang_ts, ende_ts=ende_ts)
+            # return redirect(url_for("gemeinkostenandern", userid=userid))
         elif request.form["submit"] == "erstellen":  # create auftrag
             #ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
             #ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
@@ -523,23 +580,6 @@ def anmelden(userid, sa):
         username=username,
         buttonText=get_list("arbeitsplatz"),
         show_button_ids=SHOW_BUTTON_IDS,
-        sidebarItems=get_list("sidebarItems")
-    )
-
-
-@app.route("/gemeinkostenbeenden/<userid>", methods=["POST", "GET"])
-def gemeinkostenbeenden(userid):
-    """--CURRENTLY NOT SUPPORTED--"""
-    usernamepd = dbconnection.personalname.loc[dbconnection.personalname['T912_Nr'] == userid]
-    username = usernamepd['VorNameName'].values[0]
-
-    flash("Gemeinkosten beendet!")
-
-    return render_template(
-        "home.html",
-        date=datetime.now(),
-        username=username,
-        buttonValues=get_list("homeButtons"),
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -682,7 +722,7 @@ def fabuchta51_dialog(userid):
         if ruestzeit == "":
             ruestzeit = 0.0
 
-        xStatusMenge = ""
+        xStatusMenge = "20"
         xEndeTS = datetime.now()
         xAnfangTS = xEndeTS
         xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")  # Stringtransporter Datum
@@ -695,7 +735,7 @@ def fabuchta51_dialog(userid):
         xVal4 = 0.0
         xVal5 = 0.0
         xbCancel = False
-
+        
         xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
         xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
         kt002.BuchTA51_3(xTSEnd, kt002.gtv("T910_Nr"), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"),
@@ -845,7 +885,8 @@ def start_booking(nr):
     activefkt = ""
     buaction = 7
     bufunktion = 0
-
+    print('**************inside start_booking',nr)
+    # print('parameters',type(nr), type(activefkt), type(SCANTYPE), type(SHOWHOST), type(SCANON), type(KEYCODECOMPENDE))
     result = kt002.ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "")
     ret, checkfa, sa = result
     print(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}")
@@ -944,6 +985,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
         xEndeTS = datetime.strptime(aEndeTS, DTFORMAT)
     xTS=xAnfangTS.strftime(DTFORMAT)  #Stringtransporter Datum    
     xTSEnd=xEndeTS.strftime(DTFORMAT)
+    print('*********time',xAnfangTS,xEndeTS)
 
     xTRMan = 0.0
     xTA11Nr = ""
@@ -1064,6 +1106,7 @@ def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", A
     xfaruecknr=''
     xmenge=0
 
+    print(AAnfangTS,AEndeTS)
     result = kt002.CheckKommt(sa, kst, salast, kstlast, tslast, xT905Last, xTA29Last)
     xret, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last = result
     print(
@@ -1235,17 +1278,21 @@ def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", A
         return redirect(url_for("home", username=username))
 
 
-def ta06gkend(AScreen2):
+def ta06gkend(userid,AScreen2=None):
 	
 	xMsg = kt002.EndTA51GKCheck()
 	if len(xMsg) == 0:
-		return "MSG0179"  # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
+		flash("Keine GK zu Beenden") # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
 	else:
 		# execute this stored procedure like the other ones in dbconnection.py, replace default values
-		FirmaNr = 'TE'
-		PersNr = 99999
-		xSql = f"exec ksmaster.dbo.kspr_TA51GKEnd2FB1 '{FirmaNr}', {PersNr}" 
-		return True
+		ret = dbconnection.doGKBeenden(userid)
+		print('****',ret)
+		if ret==True:
+		    flash("Laufende Aufträge beendet")
+		else:
+		    flash("GK konnten nicht beendet werden!")
+            
+        
 
 
 def do_stuff(scanvalue, anfang_ts=None, ende_ts=None):
@@ -1345,9 +1392,10 @@ def do_stuff(scanvalue, anfang_ts=None, ende_ts=None):
 def gk_ändern(fa_old, userid, anfang_ts, dauer):
 	# Change existing Auftragsbuchung, TODO: somehow return error when no GK to delete is found
 	ret = dbconnection.doGKLoeschen(fa_old, userid, anfang_ts)  # delete old booking with BelegNr=scanvalue and Anfang=Anfangts
+	persnr = dbconnection.getPersonaldetails(userid)["T910_Nr"]
 	if dauer > 0:
 		# add back booking with correct dauer
-		anfang_ts, ende_ts = dbconnection.doFindTS(userid, dauer)  # find suitable begin and end for new Auftrag
+		anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer)  # find suitable begin and end for new Auftrag
 		if anfang_ts is None and ende_ts is None:
 			ret = dbconnection.doUndoDelete(fa_old, userid)
 			if not ret is None:
@@ -1383,14 +1431,15 @@ def get_list(listname, userid=None):
     if listname == "arbeitsplatzbuchung":
         persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung()
         return [persnr, arbeitsplatz, fanr]
-
-    if listname == "gruppenbuchung_frNr":
-        fanr = dbconnection.getGruppenbuchungfrNr()
+    
+    if listname == "gruppenbuchung_faNr":
+        fanr = dbconnection.getGruppenbuchungFaNr()
         return fanr
 
     if listname == "gruppe":
         gruppe = dbconnection.getGruppenbuchungGruppe()
         return gruppe
+
 
     if listname == "fertigungsauftrag_frNr":
         return [1067, 2098, 7654, 2376, 8976]
