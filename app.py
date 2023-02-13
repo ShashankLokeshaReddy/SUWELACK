@@ -234,6 +234,9 @@ def arbeitsplatzbuchung(userid):
         if ret == False:
             kt002.TA06ReadPlatz(Belegnr, Platz) 
         ret = gk_erstellen(persnr, dauer)  # find time window
+        if isinstance(ret, str):
+            flash(ret)
+            return redirect(url_for("home",userid=userid))
         if not isinstance(ret, str):
             anfang_ts, ende_ts = ret  
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr) 
@@ -368,6 +371,9 @@ def gruppenbuchung(userid):
             if ret == False: 
                 kt002.TA06ReadPlatz(Belegnr, Platz)
             ret = gk_erstellen(per_nr, dauer)  # find time window
+            if isinstance(ret, str):
+                flash(ret)
+                return redirect(url_for("home",userid=userid))
             if not isinstance(ret, str):
                 anfang_ts, ende_ts = ret
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
@@ -448,7 +454,6 @@ def fertigungsauftragerfassen(userid):
 @app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
 def gemeinkostenandern(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
     df=dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern")
     usernamepd = dbconnection.getPersonaldetails(userid)
     username=usernamepd['formatted_name']
@@ -914,6 +919,10 @@ def start_booking(nr):
 	# xpnr=kt002.gtv("T910_Nr")
 	# print(f"[DLL] Nach Pruef_PNr Persnr: {xpnr}")
         
+    
+	# xpnr=kt002.gtv("T910_Nr")
+	# print(f"[DLL] Nach Pruef_PNr Persnr: {xpnr}")
+        
     result = kt002.Pruef_PNrFkt(nr, bufunktion, SCANTYPE, sa, buaction, APPMSCREEN2, SERIAL, activefkt, "",
                                 "", "")
     ret, sa, buaction, activefkt, msg, msgfkt, msgdlg = result
@@ -958,6 +967,7 @@ def fabuchta55():
 		xbuchen=False
 
 	if xInputMenge == 1:
+        # return fabuchta55 dialogue here
         # return fabuchta55 dialogue here
 		print ("Dialog TA55")
 		
@@ -1005,7 +1015,6 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
         xEndeTS = datetime.strptime(aEndeTS, DTFORMAT)
     xTS=xAnfangTS.strftime(DTFORMAT)  #Stringtransporter Datum    
     xTSEnd=xEndeTS.strftime(DTFORMAT)
-    print('*********time',xAnfangTS,xEndeTS)
 
     xTRMan = 0.0
     xTA11Nr = ""
@@ -1105,6 +1114,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     logging.info("successful")
 
 
+
 def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None):
     """K/G/A booking according to sa for user with given card nr and username."""
     xT905Last = ""
@@ -1158,7 +1168,14 @@ def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", A
                     else:
                         SBSTools.to020.G_MsgSuppress = MsgSuppress.Auto #'von alleine wieder schließen
                         xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
+                    if SHOWMSGGEHT == True:
+                        SBSTools.to020.G_MsgSuppress = MsgSuppress.NoSuppress
+                        xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
+                    else:
+                        SBSTools.to020.G_MsgSuppress = MsgSuppress.Auto #'von alleine wieder schließen
+                        xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
 
+                    xFehler = "MSG0137" #'Auftrag wurde nicht erfaßt!                    
                     xFehler = "MSG0137" #'Auftrag wurde nicht erfaßt!                    
                     print("[DLL] abweichender Platz, umbuchen nicht erlaubt")
                     flash("Abweichender Platz, Umbuchen nicht erlaubt!")
@@ -1221,100 +1238,6 @@ def ta06gkend(userid,AScreen2=None):
             
         
 
-
-def do_stuff(scanvalue, anfang_ts=None, ende_ts=None):
-	
-	# default values added as constants for testing
-	checkfa = False
-	bufunktion = 0  # Buchungsfunktion
-	showhost = 1  # Anzeige Hostinformation im Terminal
-	keycodecompende = ""  # Endezeichen Scanwert (manche Scanner liefern nach dem Wert noch zusätzliche Zeichen, die entfernt werden müssen)
-	scantype = 0  # X998_SCANNER TS,CS,TP
-	scanon = 1  # Scansimulation an (wenn über COM-Port gescannt wird, aber manuell ein scan simuliert werden soll)
-	scancardno = True
-	sa = ""
-	activefkt = ""  # Funktionsbutton gedrückt,der ausgewählte Wert
-	result = ""
-	appmscreen2 = 1  # X998_STARTSCREEN2
-	showmsggeht = 1  # X998_ShowMsgGeht
-	gkendcheck = False  # X998_GKEndCheck
-	ta29nr = ''  # Tätigkeit - bei Arbeitsplatzauswahl gesetzt und bleibt erhalten!
-	buaction = 7  # ignore
-	msg = ''
-	kst = ''
-	t905nr = ''  # Arbeitsplatz
-	platz = ''
-	ret = ''
-	msgfkt = ''
-	msgbuch = ''
-	msgzeit = ''
-	msgpers = ''
-	salast = ''
-	kstlast = ''
-	tslast = ''
-	platz = ''
-	serial=True #14.11.2022
-	msgdlg=""
-	xmsg=""
-
-	#Wechselbuchung einleiten
-	#kt002.T905Read('F004')
-
-	print(f"SCANWERT= {scanvalue}")
-	print(f"[DLL] Pre ShowNumber scanvalue: {scanvalue},activefkt: {activefkt}, scantype: {scantype},showhost: {showhost},scanon: {scanon},keycodcompende: {keycodecompende}, checkfa: {checkfa}, sa: {sa}")
-	result=kt002.ShowNumber(scanvalue,activefkt,scantype,showhost,scanon,keycodecompende,checkfa,sa)
-	ret, checkfa, sa = result
-	print(f"[DLL] ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}")
-
-	nr = scanvalue
-
-
-	print(f"[DLL] Pre PruefPNr checkfa: {checkfa}, nr: {nr}, sa: {sa}, bufunktion: {bufunktion}")
-	result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
-	ret,sa,bufunktion=result
-	print(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
-
-	xpnr=kt002.gtv("T910_Nr")
-	print(f"[DLL] Nach Pruef_PNr Persnr: {xpnr}")
-
-
-	if ret == True:
-			msgfkt=""
-			msgdlg=""
-			serial=True
-
-			print(f"[DLL] Pre Pruef_PNRFkt nr: {nr}, bufunktion: {bufunktion}, scantype: {scantype}, sa: {sa}, buaction: {buaction}, appmscreen2: {appmscreen2}, serial: {serial}, activefkt: {activefkt},msg: {msg}, msgfkt: {msgfkt}, msgdlg: {msgdlg}")
-			result = kt002.Pruef_PNrFkt(nr, bufunktion, scantype, sa, buaction, appmscreen2, serial, activefkt, msg, msgfkt, msgdlg)
-			ret,sa,buaction,activefkt,msg,msgfkt,msgdlg=result
-			print(f"Result:  ret: {ret},sa: {sa},buaction: {buaction}, activefkt: {activefkt}, msg: {msg}")
-			
-
-			#Buchung K/G oder FA (PersNr gescannt oder FA gescannt
-			if buaction == 1:
-				#if BUCHFA == 3:
-					#sa=''
-				result=actbuchung(ta29nr=ta29nr, kst=kst, t905nr=t905nr, salast=salast, kstlast=kstlast, tslast=tslast, APlatz=platz, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)  # propagate anfang and ende when booking with Dauer
-
-			#TA06END- GK beenden gedrückt
-			if buaction == 10:
-				result = ta06gkend(appmscreen2)
-
-			# ignore - keine Aktion ermittelt (verketteter Scan 1. FA-Nr, 2. anschließend Persnr)
-			# ignore - action could not be resolved (this is the first of two calls for FA/GK buchen, next will be with userid/PersNr)
-			if buaction == 7:
-				if bufunktion == 3:
-					if scancardno == True:
-						xmsg = "MSG0147C" #Kartennummer scannen
-					else:
-						xmsg = "MSG0147" #Personalnummer scannen
-
-			print(f"[DLL] do_stuff xmsg: {xmsg}")
-			if len(xmsg) == 0:
-				print("Buch4Clear")
-				print(1, nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
-				# result = kt002.PNR_Buch4Clear(1, nr, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
-				print("")
-			
 
 def gk_ändern(fa_old, userid, anfang_ts, dauer):
 	# Change existing Auftragsbuchung, TODO: somehow return error when no GK to delete is found
