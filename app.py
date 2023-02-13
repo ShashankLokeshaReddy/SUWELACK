@@ -907,7 +907,6 @@ def start_booking(nr):
     activefkt = ""
     buaction = 7
     bufunktion = 0
-    print('**************inside start_booking',nr)
     # print('parameters',type(nr), type(activefkt), type(SCANTYPE), type(SHOWHOST), type(SCANON), type(KEYCODECOMPENDE))
     result = kt002.ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "")
     ret, checkfa, sa = result
@@ -915,13 +914,6 @@ def start_booking(nr):
     result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
     ret, sa, bufunktion = result
     print(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
-    
-	# xpnr=kt002.gtv("T910_Nr")
-	# print(f"[DLL] Nach Pruef_PNr Persnr: {xpnr}")
-        
-    
-	# xpnr=kt002.gtv("T910_Nr")
-	# print(f"[DLL] Nach Pruef_PNr Persnr: {xpnr}")
         
     result = kt002.Pruef_PNrFkt(nr, bufunktion, SCANTYPE, sa, buaction, APPMSCREEN2, SERIAL, activefkt, "",
                                 "", "")
