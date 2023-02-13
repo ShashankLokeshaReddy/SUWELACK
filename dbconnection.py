@@ -181,7 +181,7 @@ def getStatustableitems(userid):
 
 def getGroupMembers(GruppeNr, TagId):
     # e.g. TagId = "2023-01-11T00:00:00"
-    # e.g. GruppeNr = "12"
+    # e.g. GruppeNr = "03"
     members = pd.read_sql_query(
         f"""Select T905_Nr, T951_PersNr, T905_BuArt from T951_Buchungsdaten
             inner join T905_ArbMasch on T951_FirmaNr='{FirmaNr}' and T905_FirmaNr = T951_FirmaNr
@@ -205,7 +205,6 @@ def doGKBeenden(userid):
         try:
             ret= connection.execute(text(f"""EXEC ksmaster.dbo.kspr_TA51GKEnd2FB1 @FirmaNr='{FirmaNr}', @PersNr={persnr}"""))
             connection.commit()
-            print(ret)
             ret = True
         except exc.SQLAlchemyError as e:
             ret = False           

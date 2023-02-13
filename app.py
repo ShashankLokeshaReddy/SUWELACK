@@ -220,37 +220,27 @@ def arbeitsplatzbuchung(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
     username = usernamepd['formatted_name']
     if request.method == 'POST':
+        # collect form values
         persnr = request.form.get('personalnummer')
-        Platz = request.form.get('arbeitsplatz')   # from dialogue
+        Platz = request.form.get('arbeitsplatz')  
         FA_Nr = request.form.get('fanummer') 
-        print(persnr,Platz,FA_Nr)
-        date_string = request.form.get('datetime')  # from dialogue
+        date_string = request.form.get('datetime') 
         date_string = parser.parse(date_string)
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
-        dauer = request.form.get('dauer')  # from dialogue
-
-
+        dauer = request.form.get('dauer') 
         userid = dbconnection.getUserID(persnr)
-        print('*****************************',userid)
-        # Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
-        # print('*****************************',Platz)
-        print(FA_Nr,Platz)
         Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
-        print('*****************************',Belegnr)
-    
         ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
-        print('*****************************',ret)
-        if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
-            kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
+        if ret == False:
+            kt002.TA06ReadPlatz(Belegnr, Platz) 
         ret = gk_erstellen(persnr, dauer)  # find time window
-        print('*****************************',ret)
         if not isinstance(ret, str):
             anfang_ts, ende_ts = ret  
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
-            print('ret',ret, 'sa',sa, 'buaction',buaction, 'bufunktion',bufunktion, 'activefkt',activefkt, 'msg',msg, 'msgfkt',msgfkt, 'msgdlg',msgdlg)
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr) 
+            kt002.PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(str(userid))
             actbuchung(ta29nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts,AEndeTS=ende_ts)
-        return redirect(url_for("arbeitsplatzbuchung", userid=userid))
+        return redirect(url_for("home", userid=userid, username=username))
     return render_template(
         "arbeitsplatzbuchung.html",
         arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
@@ -315,10 +305,12 @@ def identification(page):
             return actbuchung(nr=userid, username=username, sa=sa)
         
         if page == "gemeinkostenbeenden":
+            usernamepd = dbconnection.getPersonaldetails(userid)
+            username = usernamepd['formatted_name']
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(userid)
             ta06gkend(userid=userid)
             kt002.PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
-            return redirect(url_for("home", userid=userid))
+            return redirect(url_for("home", userid=userid, username=username))
         return redirect(url_for(page, userid=userid))
     
         
@@ -373,16 +365,16 @@ def gruppenbuchung(userid):
             Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
             Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
             ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
-            if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
-                kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
+            if ret == False: 
+                kt002.TA06ReadPlatz(Belegnr, Platz)
             ret = gk_erstellen(per_nr, dauer)  # find time window
-            print(ret)
             if not isinstance(ret, str):
                 anfang_ts, ende_ts = ret
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
+                kt002.PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(str(userid))
                 actbuchung(ta29nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
-        return redirect(url_for("gruppenbuchung", userid=userid))
+        return redirect(url_for("home", userid=userid))
     
     return render_template(
         "gruppenbuchung.html",
@@ -396,42 +388,55 @@ def gruppenbuchung(userid):
 @app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
 def fertigungsauftragerfassen(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
+    username=usernamepd['formatted_name']
     platz=dbconnection.getPlazlistFAE(userid)
-
+    platzid=platz.T905_Nr.tolist()
+    platzlst= platz.T905_Bez.tolist()
+    auftraglst = []
+    auftraglst_ajax = []
+    tablecontent = []
+    for i in range(len(platzid)):
+        auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen")
+        print(auftrag)
+        if auftrag.empty:
+            auftraglst.insert(0,[platzid[i],platzlst[i],"",""])
+            auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
+        else:    
+            auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist()[0],auftrag.Bez.tolist()[0]])
+            auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist()[0],'bez':auftrag.Bez.tolist()[0]})               
+    
+        tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen")
+        if not tableitem.empty:
+            for index, row in tableitem.iterrows():
+                tableobj={'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'MengeGut':row['TA51_MengeIstGut'], 'Auf_Stat':row['TA51_Auf_Stat']}
+                tablecontent.insert(0,tableobj)
+    auftraglst.insert(0, ["","Keine","",""])
+    auftraglst_ajax.insert(0,{'id':"",'platz':"Keine",'belegNr':"",'bez':""})
+    
     if request.method == 'POST':
         print("posting")
         print(request.form)
         print(type(request.form))
         print(request.form["submit"])
-        if request.form["submit"] == "erstellen":  # create auftrag
+        if request.form["submit"] == "erstellen": 
             datum = request.form["datum"]
             print(f"datum: {datum}")
             arbeitsplatz = request.form["arbeitsplatz"]
             print(f"arbeitsplatz: {arbeitsplatz}")
             beleg_nr = request.form["auftrag"]
             print(f"beleg_nr: {beleg_nr}")
-            return redirect(url_for("home", username=usernamepd))
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
+            kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+            actbuchung(ta29nr=userid)
+            return redirect(url_for("home", username=username,))
     else:
-        platzid=platz.T905_Nr.tolist()
-        platzlst= platz.T905_Bez.tolist()
-        auftraglst = []
-        tablecontent = []
-        for i in range(len(platzid)):
-            auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen")
-            if auftrag.empty:
-                auftraglst.insert(0,[platzid[i],platzlst[i],""])
-            else:    
-                auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.Bez.tolist()[0]])
-            tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen")
-            if not tableitem.empty:
-                tableobj={'TagId':tableitem['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':tableitem['TA51_Platz_ist'], 'BelegNr':tableitem['TA51_BelegNr'], 'AnfangTS':tableitem['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':tableitem['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':tableitem['TA51_DauerTS'], 'MengeGut':tableitem['TA51_MengeIstGut'], 'Auf_Stat':tableitem['TA51_Auf_Stat']}
-                tablecontent.insert(tableobj)
-        auftraglst.insert(0, ["","Keine",""])
         # tablecontent = [{'TagId':"Code", 'Arbeitplatz':"M001___Materialtransport", 'BelegNr':"FA003___Materialtransport", 'AnfangTS':"25.11.2022 21:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}, {'TagId':"Code", 'Arbeitplatz':"F006___Bereitst. Comil Sonder", 'BelegNr':"FA003___Bereitst. Comil Sonder", 'AnfangTS':"24.11.2022 22:07:09", 'EndeTS':"With Mark", 'DauerTS':"mark@codewithmark.com", 'MengeGut':"Code", 'Auf_Stat':"With Mark"}]
         return render_template(
             "fertigungsauftrag.html",
             date=datetime.now(),
             auftraglst=auftraglst,
+            auftraglst_ajax=auftraglst_ajax,
             anfangTS=datetime.today().strftime(DTFORMAT),
             username=usernamepd['formatted_name'],
             pers_no=usernamepd['T910_Nr'],
@@ -442,99 +447,116 @@ def fertigungsauftragerfassen(userid):
 
 @app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
 def gemeinkostenandern(userid):
-
     usernamepd = dbconnection.getPersonaldetails(userid)
     username = usernamepd['formatted_name']
     df=dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern")
-    platz=dbconnection.getPlazlistGKA(userid)
-    tablecontent=[]
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username=usernamepd['formatted_name']
+
+    auftraglst = []
+    auftraglst_ajax = []
+    tablecontent = []
     for index, row in df.iterrows():
         item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
         tablecontent.insert(0,item)
+        auftraglst_temp = []
+        auftraglst_ajax_temp = []
+        platz = dbconnection.getPlazlistGKA(userid, row['TA51_TagId'].strftime("%Y-%d-%m"))
+        platzid = platz.T905_Nr.tolist()
+        platzlst = platz.T905_Bez.tolist()
+        for i in range(len(platzid)):
+            auftrag=dbconnection.getAuftrag(platzid[i], "GK_ändern")
+            if auftrag.empty:
+                auftraglst_temp.insert(0,[platzid[i],platzlst[i],"",""])
+                auftraglst_ajax_temp.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
+            else:    
+                auftraglst_temp.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist(),auftrag.Bez.tolist()])
+                auftraglst_ajax_temp.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist(),'bez':auftrag.Bez.tolist()})               
+    
+        auftraglst_temp.insert(0, ["","Keine","",""])
+        auftraglst_ajax_temp.insert(0, {'id':"",'platz':"Keine",'belegNr':"",'bez':""})
+            
+        auftraglst.insert(0,auftraglst_temp)
+        auftraglst_ajax.insert(0,auftraglst_ajax_temp)
+            
+    if tablecontent == [] :
+        auftraglst.insert(0, [["","Keine","",""]])
+        auftraglst_ajax.insert(0, [{'id':"",'platz':"Keine",'belegNr':"",'bez':""}])
+    
+    # print("auftraglst............",auftraglst)
+    # print("auftraglst_ajax............",auftraglst_ajax)
     if request.method == 'POST':
         datum = request.form["datum"]
         print(f"datum: {datum}")
-        ata22dauer = int(request.form["dauer"])
-        print(f"ata22dauer: {ata22dauer}")
+        dauer = int(request.form["dauer"])
+        print(f"dauer: {dauer}")
         anfang_ts = request.form["anfangTS"]
         print(f"anfangTS: {anfang_ts}")
         arbeitsplatz = request.form["arbeitsplatz"]
+        for i in range(len(auftraglst)):
+            for j in range(len(auftraglst[i])):
+                if auftraglst[i][j][1] == arbeitsplatz:
+                    pltz_id_bk = auftraglst[i][j][0]
+                
         print(f"arbeitsplatz: {arbeitsplatz}")
+        print(f"pltz_id_bk: {pltz_id_bk}")
+        beleg_nr_old = request.form["old_beleg_nr"]
+        print(f"beleg_nr_old: {beleg_nr_old}")
         beleg_nr = request.form["gemeinkosten"]
         print(f"beleg_nr: {beleg_nr}")
         kurztext = request.form["kurztext"]
         print(f"kurztext: {kurztext}")
         print("posting")
-        # print(request.form["submit"])
         if request.form["submit"] == "ändern":  # change selected Auftrag
-            ret = gk_ändern(fa_old=beleg_nr, userid=userid, anfang_ts=anfang_ts, dauer=ata22dauer)
+            ret = gk_ändern(fa_old=beleg_nr_old, userid=userid, anfang_ts=anfang_ts, dauer=dauer)
             if isinstance(ret, str):
                 # ende_ts = anfang_ts # initial assignment, gets overrided
                 # display error string and cancel booking
-                print("ret pos cond: ",ret)
+                flash(ret)
+                return redirect(url_for('home',username=username,))
             else:
                 anfang_ts, ende_ts = ret
                 print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
-            time.sleep(3)
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(beleg_nr)  # GK ändern booking, this is the new GK BelegNr
-            print(ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg)
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(userid)
-            actbuchung(ta29nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
-            # ret = do_stuff(scanvalue=beleg_nr)  # GK ändern booking, this is the new GK BelegNr
-            # print("------------------------------------------------------")
-            # time.sleep(3)
-            # do_stuff(scanvalue=userid, anfang_ts=anfang_ts, ende_ts=ende_ts)
-            # return redirect(url_for("gemeinkostenandern", userid=userid))
+                
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
+                kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+                actbuchung(ta29nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext)
+                return redirect(url_for("gemeinkostenandern", userid=userid))
+        
         elif request.form["submit"] == "erstellen":  # create auftrag
-            #ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-            #ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-            #return actbuchung(userid, usernamepd, sa, ata22dauer=ata22dauer)
-            ret = gk_erstellen(userid=userid, dauer=ata22dauer)
+            ret = gk_erstellen(userid=userid, dauer=dauer)
             if isinstance(ret, str):
                 # display error string and cancel booking
-                print("ret pos cond: ",ret)
+                flash(ret)
+                return redirect(url_for('home',username=username,))
             else:
                 anfang_ts, ende_ts = ret
                 print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
-            time.sleep(3)
-            ret = do_stuff(scanvalue=beleg_nr)  # GK ändern booking, this is the new GK BelegNr
-            print("------------------------------------------------------")
-            time.sleep(3)
-            do_stuff(scanvalue=userid, anfang_ts=anfang_ts, ende_ts=ende_ts)
-            return redirect(url_for("home", username=usernamepd))
+                
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
+                kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+                actbuchung(ta29nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext) 
+                return redirect(url_for("gemeinkostenandern", userid=userid))
 
     else:
-        platzid=platz.T905_Nr.tolist()
-        platzlst= platz.T905_Bez.tolist()
-        auftraglst = []
-        auftraglst_ajax = []
-        for i in range(len(platzid)):
-            auftrag=dbconnection.getAuftrag(platzid[i], "GK_ändern")
-            if auftrag.empty:
-                auftraglst.insert(0,[platzid[i],platzlst[i],"",""])
-                auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
-            else:    
-                auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist(),auftrag.Bez.tolist()])
-                auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist(),'bez':auftrag.Bez.tolist()})               
-        
-        auftraglst.insert(0, ["","Keine","",""])
-        auftraglst_ajax.insert(0, {'id':"",'platz':"Keine",'belegNr':"",'bez':""})
         dauer=np.linspace(0, 600, num=121).tolist()
 
-    return render_template(
-        "gemeinkostenandern.html",
-        date=datetime.now(),
-        anfangTS=datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-        auftraglst=auftraglst,
-        auftraglst_ajax=auftraglst_ajax,
-        sidebarItems=get_list("sidebarItems"),
-        username=usernamepd['formatted_name'],
-        pers_no=usernamepd['T910_Nr'],
-        userid=userid,
-        dauer=[int(i) for i in dauer],
-        tableItems=get_list("statusTableItems",userid),
-        tablecontent=tablecontent
-    )
+        return render_template(
+            "gemeinkostenandern.html",
+            date=datetime.now(),
+            anfangTS=datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+            auftraglst=auftraglst,
+            auftraglst_ajax=auftraglst_ajax,
+            sidebarItems=get_list("sidebarItems"),
+            username=usernamepd['formatted_name'],
+            pers_no=usernamepd['T910_Nr'],
+            userid=userid,
+            dauer=[int(i) for i in dauer],
+            tableItems=get_list("statusTableItems",userid),
+            tablecontent=tablecontent
+        )
 
 
 @app.route("/anmelden/<userid>/<sa>", methods=["POST", "GET"])
@@ -754,7 +776,7 @@ def fabuchta51_dialog(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
-# modified/ cleaned by Shashank
+
 def endta51cancelt905(apersnr):
     """Terminates all running GK for user with 'apersnr' """
 
@@ -820,10 +842,8 @@ def endta51cancelt905(apersnr):
     return xret
 
 
-# modified/ cleaned by Shashank
-def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None):
+def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None, platz=None, aBem=None):
     """Checks whether current GK/FA active in DLL is ok to be booked and decides which fabuchta is appropriate."""
-
     xFehler=''  
     xbBuchZiel=1
     xScanFA = 0
@@ -865,12 +885,9 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
-                # xFehler = ("fabuchta55", ata22dauer) 
                 xFehler = fabuchta55()
             else:
-                # xFehler = ("fabuchta51", ata22dauer)
-                xFehler = fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS)
-
+                xFehler = fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS, platz=platz, aBem=aBem)
     else:
         xFehler = ("Kein Auftrag!", ata22dauer)
         if kt002.CheckObject(kt002.dr_TA06) is True and kt002.CheckObject(kt002.dr_TA05) is False:
@@ -893,6 +910,10 @@ def start_booking(nr):
     result = kt002.Pruef_PNr(checkfa, nr, sa, bufunktion)
     ret, sa, bufunktion = result
     print(f"[DLL] PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
+    
+	# xpnr=kt002.gtv("T910_Nr")
+	# print(f"[DLL] Nach Pruef_PNr Persnr: {xpnr}")
+        
     result = kt002.Pruef_PNrFkt(nr, bufunktion, SCANTYPE, sa, buaction, APPMSCREEN2, SERIAL, activefkt, "",
                                 "", "")
     ret, sa, buaction, activefkt, msg, msgfkt, msgdlg = result
@@ -901,7 +922,6 @@ def start_booking(nr):
     return ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg
 
 
-# added and modified by Shashank
 def fabuchta55():
 	xInputMenge=0 #Flag, 1=Menge eingeben
 	xInputMengeNew=0
@@ -938,6 +958,7 @@ def fabuchta55():
 		xbuchen=False
 
 	if xInputMenge == 1:
+        # return fabuchta55 dialogue here
 		print ("Dialog TA55")
 		
 		
@@ -973,8 +994,7 @@ def fabuchta55():
 	return  xret #fabuchta55
 
 
-# cleaned and modified by Shashank
-def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, aBem=None):
+def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, aBem=None, platz=None):
     xStatusMenge = ""
     # if given, set begin and end according to parameter, else assume begin = end = now
     if aAnfangTS is None and aEndeTS is None:
@@ -999,15 +1019,17 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     xbCancel = False
 
     xTA22Dauer = kt002.gtv("TA22_Dauer")  # aus TA06 gelesen
-    if ata22dauer.isnumeric():
-        xTA22Dauer = int(ata22dauer)  # if given, take assume this
+    if not isinstance(ata22dauer, int):
+        if ata22dauer.isnumeric():
+            xTA22Dauer = int(ata22dauer)  # if given, take assume this
+    else:
+        xTA22Dauer = ata22dauer
     print(f"[DLL] PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
     result = kt002.BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
     xret, xTS, xStatusMenge = result
     xAnfangTS = datetime.strptime(xTS, DTFORMAT)
     print(f"[DLL] BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
-    
-    if not aAnfangTS is None and not aEndeTS is None:  # when booking with given Dauer
+    if not aAnfangTS is None and not aEndeTS is None and not xTS=="01.01.1900 00:00:00":  # when booking with given Dauer
         xStatusMenge = "20"  # TODO: bug in DLL, temporarily overwrite, 20 means just book, don't validate further
 
     print("xTS:" + xTS + " Datum:" + xAnfangTS.strftime(DTFORMAT))
@@ -1015,20 +1037,19 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
         flash("Laufende Aufträge beendet.")
         kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
         print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
-        # return redirect(url_for(
-        #     'home',
-        #     username=username,
-        # ))
-        return xret
+        return redirect(url_for(
+            'home',
+            username=username,
+        ))
 
-    # if xTA22Dauer == 3:
-    #     if xDauer > 0:
-    #         xAnfangTS = xEndeTS.AddMinutes(xDauer * -1)
-    #         xAnfangTS = xAnfangTS.AddSeconds(-1)  # 1 sekunde wird wieder draufgerechnet!
-    #     else:
-    #         xbCancel = True
-    #         xret = "MSG0133"
-
+    if xTA22Dauer == 3:
+        if xDauer > 0:
+            xAnfangTS = xEndeTS.AddMinutes(xDauer * -1)
+            xAnfangTS = xAnfangTS.AddSeconds(-1) #1 sekunde wird wieder draufgerechnet!
+        else:
+            xbCancel = True
+            xret = "MSG0133"
+ 
     if xbCancel is False:
         xta22typ = kt002.gtv("TA22_Typ")
         print("xta22typ:" + xta22typ)
@@ -1037,10 +1058,10 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
             if xDialog == True:
                 xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
                 xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S") 
-                print("BuchTA51_3:")
-                print(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"),xStatusMenge,kt002.gtv("T910_Entlohnung"),kt002.gtv("T905_Nr"),kt002.gtv("TA06_TE"),kt002.gtv("TA06_TR"),0.0,xmegut,0.0,xTRMan, xTA11Nr, xCharge,xVal1,xVal2,xVal3,xVal4,xVal5,kt002.gtv("TA06_FA_Art"),xTS)
+                if platz == None:
+                    platz = kt002.gtv("T905_Nr")
                 kt002.BuchTA51_3( xTSEnd, kt002.gtv("T910_Nr"), kt002.gtv("TA06_FA_Nr"), kt002.gtv("TA06_BelegNr"), xStatusMenge, kt002.gtv("T910_Entlohnung")
-                ,kt002.gtv("T905_Nr"), kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0, xMengeGut, xMengeAus, xTRMan, xTA11Nr, xCharge, xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
+                ,platz, kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0, xMengeGut, xMengeAus, xTRMan, xTA11Nr, xCharge, xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
                 
                 #msg0166=Auftrag "_Msg1" wurde gebucht!
                 xret = "FA Buchen;MSG0166" + ";" + kt002.gtv("TA06_BelegNr") + ";" + kt002.gtv("TA06_AgBez")
@@ -1050,18 +1071,15 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
                 xret = "FA Buchen;MSG0133;;"
                          
             # dialogue is needed so reroute to route for Mengendialog
-            print("[DLL] in TA22_Typ == 7")
             return redirect(url_for("fabuchta51_dialog", userid=nr))
         else:
             # vorangegangenen Auftrag unterbrechen
-            print("[DLL] in TA22_Typ != 7")
             xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
             t901_nr_print = kt002.gtv("T910_Nr")
             print(f"[DLL] PRE BuchTa51_4_Cancel xTS: {xTS}, T910_Nr: {t901_nr_print}")
             kt002.BuchTA51_4_Cancel(xTS, kt002.gtv("T910_Nr"))
 
             if kt002.gtv("TA22_Dauer") != 1:
-                print("[DLL] in TA22_Dauer != 1")
                 if aAnfangTS is None and aEndeTS is None:
                     # if not booking with Dauer, add a second for safety (?)
                     xAnfangTS = xAnfangTS + timedelta(seconds = 1) #xAnfangTS.AddSeconds(1)
@@ -1071,10 +1089,11 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
                 xdmegut = kt002.gtv("TA06_Soll_Me")
                 xsmegut = str(xdmegut)
                 xmegut=float(xsmegut.replace(",","."))
-
+                if platz == None:
+                    platz = kt002.gtv("T905_Nr")
                 xret = kt002.BuchTA51_3(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"),
                                         kt002.gtv("TA06_BelegNr"), xStatusMenge, kt002.gtv("T910_Entlohnung"),
-                                        kt002.gtv("T905_Nr"), kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0.0,
+                                        platz, kt002.gtv("TA06_TE"), kt002.gtv("TA06_TR"), 0.0,
                                         xmegut, float(0.0), xTRMan, xTA11Nr, xCharge,
                                         xVal1, xVal2, xVal3, xVal4, xVal5, kt002.gtv("TA06_FA_Art"), xTS)
 
@@ -1085,40 +1104,20 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     flash("FA oder GK erfolgreich gebucht.")
     logging.info("successful")
 
-    return xret
-    # return redirect(url_for(
-    #     'home',
-    #     username=username
-    # ))
 
-
-# added and modified by Shashank
-def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None):
+def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None):
     """K/G/A booking according to sa for user with given card nr and username."""
-    # kst = AKst
-    # salast = ASALast
-    # kstlast = AKstLast
-    # tslast = ATSLast
     xT905Last = ""
     xTA29Last = ""
     xtagid=''
     xkstk=0
     xfaruecknr=''
     xmenge=0
-
-    print(AAnfangTS,AEndeTS)
     result = kt002.CheckKommt(sa, kst, salast, kstlast, tslast, xT905Last, xTA29Last)
     xret, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last = result
     print(
         f"[DLL] CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
     if len(xret) > 0:
-        # Last booking was G, for everything other than K, last booking needs to be K
-        # if sa == "A":
-            # flash("Fehler: Kein Arbeitsplatzwechsel ohne Kommt!")
-            # return redirect(url_for("home", username=username))
-        # if sa == "G":  # should technically not happen
-            # flash("Fehler: Keine Gehen Buchung ohne Kommt!")
-            # return redirect(url_for("home", username=username))
         if kt002.CheckObject(kt002.dr_TA06) is True or kt002.CheckObject(kt002.dr_TA05) is True:
             flash("Fehler: Keine Auftragsbuchung ohne Kommt!")
             return redirect(url_for("home", username=username))
@@ -1153,95 +1152,25 @@ def actbuchung(ta29nr="", kst="", t905nr="", salast="", kstlast="", tslast="", A
                             return redirect(url_for("home", username=username))
                 else:
                     # 'abweichender Platz, umbuchen nicht erlaubt
-                    # if SHOWMSGGEHT == True:
-                    #     SBSTools.to020.G_MsgSuppress = MsgSuppress.NoSuppress
-                    #     xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
-                    # else:
-                    #     SBSTools.to020.G_MsgSuppress = MsgSuppress.Auto #'von alleine wieder schließen
-                    #     xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
+                    if SHOWMSGGEHT == True:
+                        SBSTools.to020.G_MsgSuppress = MsgSuppress.NoSuppress
+                        xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
+                    else:
+                        SBSTools.to020.G_MsgSuppress = MsgSuppress.Auto #'von alleine wieder schließen
+                        xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
 
-                    # xFehler = "MSG0137" #'Auftrag wurde nicht erfaßt!                    
+                    xFehler = "MSG0137" #'Auftrag wurde nicht erfaßt!                    
                     print("[DLL] abweichender Platz, umbuchen nicht erlaubt")
                     flash("Abweichender Platz, Umbuchen nicht erlaubt!")
                     return redirect(url_for("home", username=username))
 
         if len(xret) == 0:
-            print("[DLL] 884 xret==0")
             if kt002.CheckObject(kt002.dr_T905) is False:
                 if kt002.CheckObject(kt002.dr_T951) is True:
                     kt002.T905Read(kt002.gtv("T951_Arbist"))
 
             kt002.T905_NrSelected = kt002.gtv("T905_Nr")
-            xret = bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer)
-            print(f"[DLL] bufa xret: {xret}, ata22dauer: {ata22dauer}")
-            # if xret == "fabuchta51":
-            #     print(f"[DLL] Selected FABuchTA51")
-            #     return fabuchta51(nr=nr, username=username, ata22dauer=ata22dauer)
-            # if xret == "fabuchta55":
-            #     print(f"[DLL] Selected FABuchTA55")
-            #     xInputMenge = 0  # Flag, 1=Menge eingeben
-            #     xInputMengeNew = 0
-            #     xFARueckEnd = False
-            #     xScanFA = 0
-            #     xFAStatus = ''
-            #     xFATS = ''
-            #     xFAEndeTS = ''
-            #     xFAMeGut = 0.0
-            #     xFAMeGes = 0.0
-            #     xFANewScanFA = 0
-            #     xFANewStatus = ''
-            #     xFANewMeGes = 0.0
-            #     xFANewMe = 0.0
-
-            #     result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS,
-            #                               xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus,
-            #                               xFANewMeGes, xFANewMe)
-            #     xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
-
-            #     print(f"[DLL] BuchTA55_0: {result}")
-            #     if len(xret) == 0 and xInputMenge == 1:
-            #         return redirect(url_for("fabuchta55_dialog", userid=nr, menge_soll=xFAMeGes, xFAStatus=xFAStatus,
-            #                                  xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=str(xScanFA)))
-                                             
-            #     elif xInputMenge == 0:  # no mengendialog
-
-            #         xbuchen = True
-            #         tl51use = False
-            #         menge_aus = 0.0
-            #         menge_gut = 0.0
-            #         ruestzeit = 0.0
-            #         lagerplatz = ""
-            #         charge = ""
-            #         xVal1, xVal2, xVal3, xVal4, xVal5 = 0.0, 0.0, 0.0, 0.0, 0.0
-
-            #         if xbuchen:
-            #             xPersNr = kt002.gtv("T910_Nr")
-            #             xTE = kt002.gtv("TA06_TE")
-            #             print(
-            #                 f"[DLL] BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
-            #             kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, float(menge_gut),
-            #                              float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2,
-            #                              xVal3, xVal4, xVal5, xScanFA)
-
-            #             # Störung setzen
-            #             if tl51use:
-            #                 kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
-
-            #             # directly add mengendialog for an Auftrag that is now starting, currently not implemented
-            #             # if xInputMengeNew == 1:
-            #                 # add another Mengendialog, maybe just reroute with skip?
-            #                 # raise NotImplementedError
-
-            #             kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
-
-            #         flash("FA oder GK erfolgreich gebucht.")
-            #         return redirect(url_for('home', username=username))
-
-            #     elif len(xret) > 0:
-            #         flash("Fehlerhafter Auftrag")
-            #         return redirect(url_for('home', username=username))
-            # else:
-            #     flash("Auftrag nicht gefunden!")
+            xret = bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS, platz=arbeitsplatz, aBem=aBem)
             return redirect(url_for("home", username=username))
 
     if len(xret) == 0:
@@ -1284,9 +1213,7 @@ def ta06gkend(userid,AScreen2=None):
 	if len(xMsg) == 0:
 		flash("Keine GK zu Beenden") # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
 	else:
-		# execute this stored procedure like the other ones in dbconnection.py, replace default values
 		ret = dbconnection.doGKBeenden(userid)
-		print('****',ret)
 		if ret==True:
 		    flash("Laufende Aufträge beendet")
 		else:
