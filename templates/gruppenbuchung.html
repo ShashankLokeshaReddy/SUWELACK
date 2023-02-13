@@ -3,6 +3,7 @@
 
 {% block content%}
 
+<form action='#' method="POST">
 <div class="containerr statustable">
     <h3>{{ _('Gruppenbuchung') }}</h3>
     <div class="flex-row">
@@ -17,19 +18,17 @@
 
         <div class="d-flex flex-column">
             <div>
-                <input type="date" class="form-control dropdown-toggle datetime">
+                <input type="date" name = "datetime" class="form-control dropdown-toggle datetime">
             </div>
 
             <div style="display: inline">
                 <div class="dropdown inputbutton2">
-                    <button type="button" data-toggle="dropdown" id="FAnummber"
-                        class="btn btn-secondary dropdown-toggle inputbutton drop"> </button>
-                    <div class="FANR dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <select name="fanummer" id="FAnummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
                         {% for index, row in frNr.iterrows(): %}
-                        <a class="dropdown-item" href="#">{{row['T903_NR']}} {{row['T903_Bez']}}</a>
+                        <option value="{{row['TA05_FA_Nr']}}">{{row['TA05_FA_Nr']}} {{row['TA05_ArtikelBez']}}</option>
                         <hr />
                         {% endfor %}
-                    </div>
+                      </select>
                 </div>
                 <div class="boxes" , id="gruppe_frNr">
                 </div>
@@ -38,14 +37,12 @@
             {% if terminal != False %}
                 <div style="display: inline">
                     <div class="dropdown inputbutton2">
-                        <button type="button" data-toggle="dropdown" id="Gruppe"
-                            class="btn btn-secondary dropdown-toggle inputbutton drop"> </button>
-                        <div class="Gruppe dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <select name="gruppe" id="Gruppe" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
                             {% for index, row in gruppe.iterrows(): %}
-                            <a class="dropdown-item" href="#">{{row['TA05_FA_Nr']}} {{row['TA05_ArtikelBez']}}</a>
+                            <option value="{{row['T903_NR']}}">{{row['T903_NR']}} {{row['T903_Bez']}}</option>
                             <hr />
                             {% endfor %}
-                        </div>
+                        </select>
                     </div>
                     <div class="boxes" , id="gruppe">
                     </div>
@@ -62,8 +59,8 @@
 
         <div class="d-flex flex-column">
 
-            <input type="text" class="form-control inputbutton" value="30">
-            <input type="text" class="form-control kurztext">
+            <input type="text" name = "dauer" class="form-control inputbutton" value="30">
+            <input type="text" name = "kurztext" class="form-control kurztext">
 
         </div>
     </div>
@@ -76,26 +73,46 @@
             }}</button>
     </div>
 </div>
-
+</form>
 <script>
+    //replace default selected FAnummer value with empty field
+    window.onload = function () {
+        document.getElementById('FAnummer').selectedIndex = -1;
+        document.getElementById('Gruppe').selectedIndex = -1;
+
+    }
+
+    var $previousOption, storedText;
+    var $previousOptionGruppe, storedTextGruppe;
     <!-- Script to display the item which is selected in the dropdown. -->
-    $(function () {
+    document.getElementById("FAnummer").onchange = function () {
 
-        $(".Gruppe a").click(function () {
-            $("#Gruppe").text($(this).text().split(' ')[0]);
-            $("#Gruppe").val($(this).text().split(' ').slice(1, ));
-            var name = document.getElementById('Gruppe').value.replace(/,/g, ' ');
-            document.getElementById('gruppe').innerHTML = name;
-        });
-    });
-    $(function () {
+        // Separate FA string from id and place the string in the right side box
+        var select = document.getElementById('FAnummer');
+        var option = select.options[select.selectedIndex];
+        text = option.text.split(' ').splice(1).join(' ');
+        document.getElementById('gruppe_frNr').innerHTML = text;
+        // Break dropdown options and place the FA id of selected option on the FA Nr field
+        // Replacing the dropdown items with the id changes original select options, reset options to there actual text
+        if ($previousOption != null) {
+            $previousOption.text(storedText)
+        }
+        $previousOption = $(this).find("option:selected");
+        storedText = $previousOption.text();
+        $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
+    };
 
-        $(".FANR a").click(function () {
-            $("#FAnummber").text($(this).text().split(' ')[0]);
-            $("#FAnummber").val($(this).text().split(' ').slice(1, ));
-            var name = document.getElementById('FAnummber').value.replace(/,/g, ' ');
-            document.getElementById('gruppe_frNr').innerHTML = name;
-        });
-    });
+    document.getElementById("Gruppe").onchange = function () {
+        var select = document.getElementById('Gruppe');
+        var option = select.options[select.selectedIndex];
+        text = option.text.split(' ').splice(1).join(' ');
+        document.getElementById('gruppe').innerHTML = text;
+        if ($previousOptionGruppe != null) {
+            $previousOptionGruppe.text(storedTextPN)
+        }
+        $previousOptionGruppe = $(this).find("option:selected");
+        storedTextGruppe = $previousOptionGruppe.text();
+        $(this).find("option:selected").text($(this).find("option:selected").text().match(/([a-zA-Z0-9]+)/g)[0]);
+    };
 </script>
 {% endblock %}
