@@ -59,6 +59,7 @@ import dbconnection
 
 
 from datetime import datetime,timedelta   
+from dateutil import parser
 
 
 sys.path.append("dll/bin")
@@ -683,19 +684,19 @@ def gk_erstellen(userid, dauer):
 # print("------------------------------------------------------")
 # time.sleep(3)
 # find out timewindow for changed booking with Dauer, provide exact begin timestamp of Auftrag that has to be changed
-anfang_ts = "2023-01-16T23:26:01"  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
-ret = gk_ändern(fa_old="GK0080150", userid="1024", anfang_ts=anfang_ts, dauer=10)
-if isinstance(ret, str):
-	# display error string and cancel booking
-	print(ret)
-else:
-	anfang_ts, ende_ts = ret
-	print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
-time.sleep(3)
-ret = do_stuff(scanvalue="GK0080150")  # GK ändern booking, this is the new GK BelegNr
-print("------------------------------------------------------")
-time.sleep(3)
-do_stuff(scanvalue="1024", anfang_ts=anfang_ts, ende_ts=ende_ts)  # buchen
+# anfang_ts = "2023-01-16T23:26:01"  # in real application, get anfang timestamp from booking to change from table, make sure to use T notation
+# ret = gk_ändern(fa_old="GK0080150", userid="1024", anfang_ts=anfang_ts, dauer=10)
+# if isinstance(ret, str):
+# 	# display error string and cancel booking
+# 	print(ret)
+# else:
+# 	anfang_ts, ende_ts = ret
+# 	print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
+# time.sleep(3)
+# ret = do_stuff(scanvalue="GK0080150")  # GK ändern booking, this is the new GK BelegNr
+# print("------------------------------------------------------")
+# time.sleep(3)
+# do_stuff(scanvalue="1024", anfang_ts=anfang_ts, ende_ts=ende_ts)  # buchen
 
 # print("------------------------------------------------------")
 #time.sleep(3)
@@ -704,20 +705,56 @@ do_stuff(scanvalue="1024", anfang_ts=anfang_ts, ende_ts=ende_ts)  # buchen
 # time.sleep(3)
 # do_stuff(scanvalue="1035")  #  buchen
 
-# Pseudocode for Gruppenbuchung
-# Belegnr = ...  # from dialogue
-# GruppeNr = ...  # from dialogue
-# TagId = ...  # from dialogue
+# #Pseudocode for Gruppenbuchung
+# GruppeNr = '03'  # from dialogue
+# FA_Nr = 'GK002'
+# date_string =   '2023-02-05' # from dialogue
+# date_string = parser.parse(date_string)
+# TagId = date_string.strftime("%Y-%m-%dT00:00:00")
+# dauer = '5' # from dialogue
 # person_list = dbconnection.getGroupMembers(GruppeNr, TagId)  # get all persons from this group
-# for person in person_list:
-# 	ret = kt002.TA06Read(Belegnr)  # preset the BelegNr in the DLL
-# 	if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
-# 		kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
-# 	ret = gk_erstellen(userid, dauer)  # find time window
-	# if not isinstance(ret, str):
-	# 	anfang_ts, ende_ts = ret
-# 		# no error when finding time window
-# 		do_stuff(FA_Nr)  # GK erstellen
-# 		do_stuff(scanvalue=userid, anfang_ts=anfang_ts, ende_ts=ende_ts)  # book
+# person_nrs = [round(x) for x in person_list['T951_PersNr'].tolist()]
+# person_nrs=[4021]
+# print('*****************************',person_nrs)
+
+# for per_nr in person_nrs:
+#     userid = dbconnection.getUserID(per_nr)
+#     print('*****************************',userid)
+#     Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
+#     print('*****************************',Platz)
+#     Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+#     print('*****************************',Belegnr)
+    
+#     ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
+#     print('*****************************',ret)
+#     if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
+#         kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
+#     ret = gk_erstellen(per_nr, dauer)  # find time window
+#     print('*****************************',ret)
+#     if not isinstance(ret, str):
+#         anfang_ts, ende_ts = ret
+#         # no error when finding time window
+#         do_stuff(Belegnr)  # GK erstellen
+#         do_stuff(str(userid))  # book
 
 # For Arbeitsplatzbuchung also just booking with Dauer, may need to propagate the Arbeitsplatz down further from the outside
+# Platz = 'V002'  # from dialogue
+# FA_Nr = 'GK002'
+# date_string =   '2023-02-05' # from dialogue
+# date_string = parser.parse(date_string)
+# TagId = date_string.strftime("%Y-%m-%dT00:00:00")
+# dauer = '5' # from dialogue
+# persnr =  '4021'
+
+
+# userid = dbconnection.getUserID(persnr)
+# Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+# ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
+# if ret == False:  # if BelegNr not found, i'm not quite sure what the TA06Read returns in that case
+#     kt002.TA06ReadPlatz(Belegnr, Platz)  # specify Platz (depends on last booking of person)
+# ret = gk_erstellen(persnr, dauer)  # find time window
+# if not isinstance(ret, str):
+#     anfang_ts, ende_ts = ret
+#     # no error when finding time window
+#     do_stuff(Belegnr)  # GK erstellen
+#     do_stuff(str(userid))  # book
