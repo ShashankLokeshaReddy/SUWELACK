@@ -367,7 +367,7 @@ $(document).ready(function($)
 	});
 	//--->save whole row entery > end
 
-		// get selected row
+	// get selected row
 	// display selected row data in text input
 	
 	var table = document.getElementById("table-selectable"),rIndex;
@@ -378,23 +378,34 @@ $(document).ready(function($)
 		table.rows[i].onclick = function()
 		{
 			var selectvalues =  JSON.parse('{{ auftraglst_ajax | tojson | safe}}');
-			selectvalue = selectvalues[i-2]
 			rIndex = this.rowIndex;
+			selectvalue = selectvalues[rIndex-1]
 			var arbeitsplatz = document.getElementById("arbeitsplatz");
 			var Gemeinkosten = document.getElementById("Gemeinkosten");
-			var selectedValue = arbeitsplatz.value;
-			var selectedText = arbeitsplatz.options[arbeitsplatz.selectedIndex].text;
-			console.log("rIndex",selectedText);
+			// var selectedValue = arbeitsplatz.value;
+			// var selectedText = arbeitsplatz.options[arbeitsplatz.selectedIndex].text;
+			console.log(rIndex,"rIndex",selectvalue);
 
 			for (var k = 0; k < selectvalue.length; k++) {
 				if (selectvalue[k].id.includes(this.cells[1].innerText)){
+					console.log("selectvalue[k].bez[j]",selectvalue[k]);
+					// // removes the existing children before adding new options
+					while (arbeitsplatz.firstChild) {
+						arbeitsplatz.removeChild(arbeitsplatz.firstChild);
+					}
+					for (var l = 0; l < selectvalue.length; l++) {
+						var option = document.createElement("option");
+						option.value = selectvalue[l].platz;
+						option.text = selectvalue[l].platz;
+						arbeitsplatz.appendChild(option);
+					}
 					$("#arbeitsplatz").val(selectvalue[k].platz);
 				}
-				console.log("selectvalue[k].bez[j]",selectvalue[k]);
+				
 				if (selectvalue[k].belegNr.includes(this.cells[2].innerText)){
 					for (var j = 0; j < selectvalue[k].belegNr.length; j++) {
 						if (selectvalue[k].belegNr[j].includes(this.cells[2].innerText)){
-							// // removes the existing children before adding new anchors
+							// // removes the existing children before adding new options
 							while (Gemeinkosten.firstChild) {
 								Gemeinkosten.removeChild(Gemeinkosten.firstChild);
 							}
@@ -412,44 +423,12 @@ $(document).ready(function($)
 				}				
 			}	
 			
-			// $("#Gemeinkosten").text(this.cells[2].innerText);
-			// $("#anfangTS").text(this.cells[3].innerText);
-			// $("#Dauer").text(this.cells[8].innerText);
 			document.getElementById("anfangTS").value = this.cells[3].innerText;
 			document.getElementById("dauer").value = this.cells[5].innerText;
 			document.getElementById("GKA").value = this.cells[9].innerText;
 			document.getElementById("GKA").text = this.cells[9].innerText;
 		};
 	}
-
-	// edit the row
-	// $(function(){
-    // $("#Ändern").click(function(){
-	// 	var dauer = document.getElementById("Dauer").value;
-	// 	var kurztext = document.getElementById("GKA").value;
-	// 	var anfangTS = document.getElementById("anfangTS").value;
-	// 	console.log("anderen");
-	// 	console.log(dauer);
-	// 	console.log(kurztext);
-	// 	console.log(anfangTS);
-	// 	table.rows[rIndex].cells[8].innerText = document.getElementById("Dauer").value;
-	// 	table.rows[rIndex].cells[9].innerText = document.getElementById("GKA").value;
-    // });
-	// });
-
-// Get the button element
-// var button = document.getElementById("Ändern");
-// // Add an event listener to the button
-// button.addEventListener("click", function() {
-// 	// Change the value of the button
-// 		var dauer = document.getElementById("Dauer").value;
-// 		var arbeitsplatz = document.getElementById("arbeitsplatz").value;
-// 		var Gemeinkosten = document.getElementById("Gemeinkosten").value;
-// 		console.log("anderen");
-// 		console.log(dauer);
-// 		console.log(arbeitsplatz);
-// 	button.value = Gemeinkosten;
-// });
 
 }); 
 </script>
