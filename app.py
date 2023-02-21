@@ -204,7 +204,7 @@ def gemeinkosten_buttons(userid):
         print(f"[DLL] Buch4Clear: nr:{selected_gk}, sa:{sa}, buaction:{buaction}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
-        return actbuchung(nr=selected_gk, username=username, sa=sa)
+        return actbuchung(nr=userid, username=username, sa=sa)
 
     return render_template(
         "gemeinkostenbuttons.html",
@@ -230,6 +230,9 @@ def arbeitsplatzbuchung(userid):
         dauer = request.form.get('dauer') 
         userid = dbconnection.getUserID(persnr)
         Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+        if Belegnr == "error":
+            flash("GK Auftrag für diesen Platz nicht definiert!")
+            return redirect(url_for("home", username=username))
         ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
         if ret == False:
             kt002.TA06ReadPlatz(Belegnr, Platz) 
@@ -239,10 +242,10 @@ def arbeitsplatzbuchung(userid):
             return redirect(url_for("home",userid=userid))
         if not isinstance(ret, str):
             anfang_ts, ende_ts = ret  
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr) 
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr) 
             kt002.PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(str(userid))
-            actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts,AEndeTS=ende_ts)
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
+            return actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts,AEndeTS=ende_ts)
         return redirect(url_for("home", userid=userid, username=username))
     return render_template(
         "arbeitsplatzbuchung.html",
@@ -305,7 +308,7 @@ def identification(page):
             usernamepd = dbconnection.getPersonaldetails(userid)
             username = usernamepd['formatted_name']
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-            return actbuchung(nr=userid, username=username, sa=sa)
+            return actbuchung(nr=userid, username=username, sa=sa, endroute="home")
         
         if page == "gemeinkostenbeenden":
             usernamepd = dbconnection.getPersonaldetails(userid)
@@ -314,6 +317,7 @@ def identification(page):
             ta06gkend(userid=userid)
             kt002.PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
             return redirect(url_for("home", userid=userid, username=username))
+        
         return redirect(url_for(page, userid=userid))
     
         
@@ -367,6 +371,9 @@ def gruppenbuchung(userid):
             userid = dbconnection.getUserID(per_nr)
             Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
             Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+            if Belegnr == "error":
+                flash("GK Auftrag für diesen Platz nicht definiert!")
+                continue
             ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
             if ret == False: 
                 kt002.TA06ReadPlatz(Belegnr, Platz)
@@ -376,10 +383,11 @@ def gruppenbuchung(userid):
                 return redirect(url_for("home",userid=userid))
             if not isinstance(ret, str):
                 anfang_ts, ende_ts = ret
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
                 kt002.PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(str(userid))
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
                 actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
+                time.sleep(1)  # make sure database has time to catch up
         return redirect(url_for("home", userid=userid))
     
     return render_template(
@@ -422,17 +430,13 @@ def fertigungsauftragerfassen(userid):
         print("posting")
         if request.form["submit"] == "erstellen": 
             datum = request.form["datum"]
-            print(f"datum: {datum}")
             arbeitsplatz = request.form["arbeitsplatz"]
-            print(f"arbeitsplatz: {arbeitsplatz}")
             beleg_nr = request.form["auftrag"]
-            beleg_nr = "FA00300150" # TODO: bug here -> works only for this value, needs to be discussed with Mr.Gruhl
-            print(f"beleg_nr: {beleg_nr}")
+            # beleg_nr = "FA00300150" # TODO: bug here -> works only for this value
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
             kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-            actbuchung(nr=userid, sa=sa)
-            return redirect(url_for("fertigungsauftragerfassen", userid=userid))
+            return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
     else:
         return render_template(
             "fertigungsauftrag.html",
@@ -604,8 +608,8 @@ def anmelden(userid, sa):
     )
 
 
-@app.route("/fabuchta55_dialog/<userid>/<menge_soll>/<xFAStatus>/<xFATS>/<xFAEndeTS>/<xScanFA>", methods=["POST", "GET"])
-def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA):
+@app.route("/fabuchta55_dialog/<userid>/<menge_soll>/<xFAStatus>/<xFATS>/<xFAEndeTS>/<xScanFA>/<endroute>", methods=["POST", "GET"])
+def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, endroute):
     """
     Route for Mengendialog for GK/FA where fabuchta55 is appropriate.
     Uses 'mengendialog.html'.
@@ -679,10 +683,13 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA):
 
             kt002.PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
 
-        flash("FA oder GK erfolgreich gebucht.")
+        flash("FA erfolgreich gebucht.")
         logging.info("successful")
 
-        return redirect(url_for('home', username=username))
+        if endroute == "home":
+            return redirect(url_for('home', username=username))
+        else:
+            return redirect(url_for("fertigungsauftragerfassen", userid=userid))
 
     return render_template(
         "mengendialog.html",
@@ -776,13 +783,13 @@ def fabuchta51_dialog(userid):
 
 
 def endta51cancelt905(apersnr):
-    """Terminates all running GK for user with 'apersnr' """
+    """Terminates all running GK and FA for user with 'apersnr'."""
 
     xret = ''
     msgr = ''
     xfa = ''
     xgk = ''
-    xbcancel=0
+    final_ret = ''
 
     xmsg = kt002.EndTA51GKCheck()
     logging.info('result EndTA51GKCheck: ' + xmsg)
@@ -791,12 +798,34 @@ def endta51cancelt905(apersnr):
         xret = "MSG0133" #Vorgang wurde abgebrochen
         if SHOWMSGGEHT == 1:
             print('Info mit Eingabeaufforderung S903_ID=MSG0178 "GK müssen erst beendet werden!"')
-            #ok oder no Eingabe
+            # TODO: show modal
+            model_yes = True  # user pressed yes
+            if model_yes:
+                userid = dbconnection.getUserID(apersnr)
+                ret = dbconnection.doGKBeenden(userid)
+                result = kt002.EndTA51GKSave()
+                if ret==True:
+                    final_ret = "GK"
+                else:
+                    flash("GK konnten nicht beendet werden!")
+                    return "error"
+            else:  # user pressed no, cancel booking
+                flash("GK Buchung abgebrochen!")
+                return "error"
+            
             msgr='ok'
         else:
+            # just terminate GK without asking
             print('Info OHNE Eingabeaufforderung S903_ID=MSG0178 "GK müssen erst beendet werden!"')
-            #geht mit ok weiter
-            msgr='ok'        
+            userid = dbconnection.getUserID(apersnr)
+            ret = dbconnection.doGKBeenden(userid)
+            result = kt002.EndTA51GKSave()
+            if ret==True:
+                final_ret = "GK"
+            else:
+                flash("GK konnten nicht beendet werden!")
+                return "error"
+            msgr='ok'
 
     if msgr == 'ok':
         if GKENDCHECK == 1:
@@ -826,27 +855,37 @@ def endta51cancelt905(apersnr):
     # FA sind zu beenden
     if len(xfa) > 0:
         print('Info mit Eingabeaufforderung S903_ID=MSG0132 "Sollen alle laufenden Aufträge ohne Mengeneingabe beendet werden? ok/no"')
-        msgr= "ok"
-        if msgr == "ok":
-            result=kt002.EndTA51Save()
-        else:
-            xret='false'
+        result = kt002.EndTA51Save()
+        final_ret = "FA"
 
     # GK sind zu beenden
     if len(xgk) > 0:
         result = kt002.EndTA51GKSave()
-        # xret = "GK"
+        final_ret = "GK"
 
-    return xret
+    return final_ret
 
 
-def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None, platz=None, aBem=None):
+def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None, platz=None, aBem=None, userid=None, endroute="home"):
     """Checks whether current GK/FA active in DLL is ok to be booked and decides which fabuchta is appropriate."""
-    xFehler=''  
-    xbBuchZiel=1
+    xFehler = ''  
+    xbBuchZiel = 1
     xScanFA = 0
     xfanr = ''
-    xt905nr=''
+    xt905nr = ''
+    xInputMenge = 0 # Flag, 1=Menge eingeben
+    xInputMengeNew = 0
+    xFARueckEnd = False
+    xScanFA = 0
+    xFAStatus = ''
+    xFATS = ''
+    xFAEndeTS = ''
+    xFAMeGut = 0.0
+    xFAMeGes = 0.0
+    xFANewScanFA = 0
+    xFANewStatus = ''
+    xFANewMeGes = 0.0
+    xFANewMe = 0.0
     
     #Prüfen, ob WB gemacht werden muß
     #nur dann, wenn Arbeitsplatz gelesen worden ist!
@@ -877,19 +916,54 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
     if len(xFehler) == 0:
         # Prüfen, ob FA bebucht werden darf
+        print(kt002.gtv("dr_TA06"))
         result = kt002.BuFANr0Status(xbBuchZiel)
         xret, xbBuchZiel = result
         print('[DLL] Bufanrstatus ' + xret + ', Buchzeile ' + str(xbBuchZiel))
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
-                xFehler = fabuchta55()
+
+                result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS,
+                                          xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
+                xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
+                print(f"[DLL] BuchTA55_0: {result}")
+                if len(xret) > 0:
+                    # cancel
+                    flash("Buchung fehlgeschlagen!")
+                    usernamepd = dbconnection.getPersonaldetails(userid)
+                    username = usernamepd['formatted_name']
+                    return redirect(url_for("home", username=username))
+
+                if xInputMenge == 1:
+                    # show Mengendialog
+                    print("[DLL] Mengendialog")
+                    xScanFA = str(xScanFA)
+                    return redirect(url_for("fabuchta55_dialog", userid=userid, menge_soll=xFAMeGes, xFAStatus=xFAStatus,
+                                            xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=xScanFA, endroute=endroute))
+                else:
+                    # don't show Mengendialog
+                    print("[DLL] Kein Mengendialog")
+                    xFehler = fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA)
+                    kt002.PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+                    flash("Fertigungsauftrag gebucht.")
+                    usernamepd = dbconnection.getPersonaldetails(userid)
+                    username = usernamepd['formatted_name']
+                    return redirect(url_for("home", username=username))
             else:
-                xFehler = fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS, platz=platz, aBem=aBem)
+                usernamepd = dbconnection.getPersonaldetails(userid)
+                username = usernamepd['formatted_name']
+                return fabuchta51(ata22dauer=ata22dauer, aAnfangTS=aAnfangTS, aEndeTS=aEndeTS, platz=platz, aBem=aBem, username=username)
     else:
+        usernamepd = dbconnection.getPersonaldetails(userid)
+        username = usernamepd['formatted_name']
         xFehler = ("Kein Auftrag!", ata22dauer)
         if kt002.CheckObject(kt002.dr_TA06) is True and kt002.CheckObject(kt002.dr_TA05) is False:
             xFehler = ("Keine Kopfdaten vorhanden!", ata22dauer)
+            flash("Keine Kopfdaten vorhanden!")
+            return redirect(url_for("home", username=username))
+        flash("Keinen Auftrag gefunden!")
+        return redirect(url_for("home", username=username))
 
     return xFehler
 
@@ -916,76 +990,50 @@ def start_booking(nr):
     return ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg
 
 
-def fabuchta55():
-	xInputMenge=0 #Flag, 1=Menge eingeben
-	xInputMengeNew=0
-	xFARueckEnd=False
-	xScanFA=0
-	xFAStatus=''
-	xFATS=''
-	xFAEndeTS=''
-	xFAMeGut=0.0
-	xFAMeGes=0.0
-	xFANewScanFA=0
-	xFANewStatus=''
-	xFANewMeGes=0.0
-	xFANewMe=0.0
-	xPersNr=0
-	xTE =0.0
-	xMengeAus=0.0
-	xtrman=0.0
-	xta11nr=''
-	xcharge=''
-	xVal1=0.0
-	xVal2=0.0
-	xVal3=0.0
-	xVal4=0.0
-	xVal5=0.0
-	xbuchen=True
-	tl51use=False
-
-	result = kt002.BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
-	xret,xInputMenge, xInputMengeNew,xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe=result
-	#print("kt002.BuchTA55_0:" + xret + "," + str(xInputMenge) + "," +  str(xInputMengeNew)  + "," + str(xScanFA) + "," +  xFAStatus+ "," +  xFATS + "," +  xFAEndeTS + "," +  str(xFAMeGut+ "," +  str(xFAMeGes) + "," + str(xFANewScanFA) + "," +  xFANewStatus + "," +  str(xFANewMeGes) + "," +  str(xFANewMe))
-	print(f"BuchTA55_0: {result}")
-	if len(xret) > 0:
-		xbuchen=False
-
-	if xInputMenge == 1:
-        # return fabuchta55 dialogue here
-		print ("Dialog TA55")
+def fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA):
+    xFAMeGut=0.0
+    xMengeAus=0.0
+    xtrman=0.0
+    xta11nr=''
+    xcharge=''
+    xVal1=0.0
+    xVal2=0.0
+    xVal3=0.0
+    xVal4=0.0
+    xVal5=0.0
+    tl51use=False
 		
-		
-	if xbuchen == True:
-		#Auftrag in DB schreiben
-		#xClDetails noch zu lösen
-		xPersNr = kt002.gtv("T910_Nr")
-		xTE = kt002.gtv("TA06_TE")
-		print(f"BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
-		kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
+    #Auftrag in DB schreiben
+    #xClDetails noch zu lösen
+    xPersNr = kt002.gtv("T910_Nr")
+    xTE = kt002.gtv("TA06_TE")
+    xScanFA = int(xScanFA)  # make sure dtype is correct
+    print(f"BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
+    kt002.BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, kt002.T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
-		#Störung setzen
-		#MDEGK_Ruest FA-Nr für Rüsten muß in Global Param definiert sein
-		if tl51use == True:
-			kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
-		
-		# Below does not happen for now
-		# if xInputMengeNew == 1:
-		# 	xMengeAus = 0
-		# 	xFATS = Now
-		# 	xFAEndeTS = xFATS
-		# 	#HIER MENGENDIALOG
-		# 	#xbuchen = kt001_InputMenge_Modus(Nothing, ActModus, kt002.dr_TA06BuchNew("TA06_RueckArt"),
-		# 	#kt002.dr_TA06BuchNew("TA06_BelegNr"), kt002.dr_TA06BuchNew("TA06_AgBez"), T905_NrSelected, kt002.dr_TA06BuchNew("TA06_Soll_Me"), kt002.dr_TA06BuchNew("TA06_Ist_Me_gut"), kt002.dr_TA06BuchNew("TA06_Ist_Me_Aus") _
-		# 	#, xFANewMe, xMengeAus, xtrman, xta11nr, xFANewStatus, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xFARueckEnd, xClDetails)
+    #Störung setzen
+    #MDEGK_Ruest FA-Nr für Rüsten muß in Global Param definiert sein
+    if tl51use == True:
+        kt002.BuchTA55_3_TL(xFAEndeTS, kt002.T905_NrSelected)
+    
+    # Below does not happen for now
+    # if xInputMengeNew == 1:
+    # 	xMengeAus = 0
+    # 	xFATS = Now
+    # 	xFAEndeTS = xFATS
+    # 	#HIER MENGENDIALOG
+    # 	#xbuchen = kt001_InputMenge_Modus(Nothing, ActModus, kt002.dr_TA06BuchNew("TA06_RueckArt"),
+    # 	#kt002.dr_TA06BuchNew("TA06_BelegNr"), kt002.dr_TA06BuchNew("TA06_AgBez"), T905_NrSelected, kt002.dr_TA06BuchNew("TA06_Soll_Me"), kt002.dr_TA06BuchNew("TA06_Ist_Me_gut"), kt002.dr_TA06BuchNew("TA06_Ist_Me_Aus") _
+    # 	#, xFANewMe, xMengeAus, xtrman, xta11nr, xFANewStatus, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xFARueckEnd, xClDetails)
 
-		# 	if xbuchen == True:
-		# 		#Auftrag in DB schreiben
-		# 		kt002.dr_TA06Buch = kt002.dr_TA06BuchNew
-		# 		#xClDetails, 
-		# 		xTE = kt002.gtv("TA06_TE")
-		# 		kt002.BuchTA55_3(xFANewStatus, xFATS, xFAEndeTS, T905_NrSelected, 0, xFANewMe, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
-	return  xret #fabuchta55
+    # 	if xbuchen == True:
+    # 		#Auftrag in DB schreiben
+    # 		kt002.dr_TA06Buch = kt002.dr_TA06BuchNew
+    # 		#xClDetails, 
+    # 		xTE = kt002.gtv("TA06_TE")
+    # 		kt002.BuchTA55_3(xFANewStatus, xFATS, xFAEndeTS, T905_NrSelected, 0, xFANewMe, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
+    
+    return  xret #fabuchta55
 
 
 def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, aBem=None, platz=None):
@@ -1079,7 +1127,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
                 xcl = Generic.Dictionary[String,Object]() #leere liste
                 xdmegut = kt002.gtv("TA06_Soll_Me")
                 xsmegut = str(xdmegut)
-                xmegut=float(xsmegut.replace(",","."))
+                xmegut = float(xsmegut.replace(",","."))
                 if platz == None:
                     platz = kt002.gtv("T905_Nr")
                 xret = kt002.BuchTA51_3(xTSEnd, int(kt002.gtv("T910_Nr")), kt002.gtv("TA06_FA_Nr"),
@@ -1092,11 +1140,11 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
                 "TA06_AgBez")
     kt002.PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
     print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
-    flash("FA oder GK erfolgreich gebucht.")
-    logging.info("successful")
+    flash("Gemeinkosten erfolgreich gebucht.")
+    return redirect(url_for("home", username=username))
 
 
-def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None):
+def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None, endroute="home"):
     """K/G/A booking according to sa for user with given card nr and username."""
     xT905Last = ""
     xTA29Last = ""
@@ -1121,6 +1169,9 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
         flash('Laufende GK-Aufträge wurden beendet!')
     elif cancel_xret == 'FA':
         flash('Laufende FA-Aufträge wurden beendet!')
+    elif cancel_xret == 'error':
+        # flash of error already called in endta51cancelt905
+        return redirect(url_for("home", username=username))
 
     if kt002.CheckObject(kt002.dr_T905) is True:
         t905nr = kt002.gtv("T905_Nr")
@@ -1142,13 +1193,6 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
                             return redirect(url_for("home", username=username))
                 else:
                     # 'abweichender Platz, umbuchen nicht erlaubt
-                    if SHOWMSGGEHT == True:
-                        SBSTools.to020.G_MsgSuppress = MsgSuppress.NoSuppress
-                        xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
-                    else:
-                        SBSTools.to020.G_MsgSuppress = MsgSuppress.Auto #'von alleine wieder schließen
-                        xMsgBox = to001_Msg.Msg(MsgType.mtWarning, Nothing, "MSG0194", "kt001 - Pruef_AgNr", "", "", MessageBoxButtons.OK, MessageBoxDefaultButton.Button1, xmld_S903)
-
                     xFehler = "MSG0137" #'Auftrag wurde nicht erfaßt!                    
                     print("[DLL] abweichender Platz, umbuchen nicht erlaubt")
                     flash("Abweichender Platz, Umbuchen nicht erlaubt!")
@@ -1160,8 +1204,7 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
                     kt002.T905Read(kt002.gtv("T951_Arbist"))
 
             kt002.T905_NrSelected = kt002.gtv("T905_Nr")
-            xret = bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS, platz=arbeitsplatz, aBem=aBem)
-            return redirect(url_for("home", username=username))
+            return bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS, platz=arbeitsplatz, aBem=aBem, userid=nr, endroute=endroute)
 
     if len(xret) == 0:
      
@@ -1197,11 +1240,11 @@ def ta06gkend(userid,AScreen2=None):
 	
 	xMsg = kt002.EndTA51GKCheck()
 	if len(xMsg) == 0:
-		flash("Keine GK zu Beenden") # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
+		flash("Keine GK zu Beenden!") # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
 	else:
 		ret = dbconnection.doGKBeenden(userid)
 		if ret==True:
-			flash("Laufende Aufträge beendet")
+			flash("Laufende Aufträge beendet.")
 		else:
 			flash("GK konnten nicht beendet werden!")
 

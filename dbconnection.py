@@ -105,6 +105,8 @@ def getBelegNr(FA_Nr, Platz):
         f"""select TA06_BelegNr from dbo.TA06_FAD1  
         inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ= '3' and TA21_FirmaNR = '{FirmaNr}'
         where TA06_FA_NR = '{FA_Nr}' and TA06_Platz_Soll = '{Platz}' order by TA06_BelegNr""", connection)
+    if beleg_nr.shape[0] == 0:
+        return "error"
     return beleg_nr.iloc[0, 0]
 
 def getPersonaldetails(T912_Nr):
