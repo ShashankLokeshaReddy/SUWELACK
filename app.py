@@ -224,7 +224,7 @@ def arbeitsplatzbuchung(userid):
         persnr = request.form.get('personalnummer')
         Platz = request.form.get('arbeitsplatz')  
         FA_Nr = request.form.get('fanummer') 
-        date_string = request.form.get('datetime') 
+        date_string = request.form.get('datetime')
         date_string = parser.parse(date_string)
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         dauer = request.form.get('dauer') 
@@ -236,7 +236,7 @@ def arbeitsplatzbuchung(userid):
         ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
         if ret == False:
             kt002.TA06ReadPlatz(Belegnr, Platz) 
-        ret = gk_erstellen(userid, dauer)  # find time window
+        ret = gk_erstellen(userid, dauer, TagId)  # find time window
         if isinstance(ret, str):
             flash(ret)
             return redirect(url_for("home",userid=userid))
@@ -377,7 +377,7 @@ def gruppenbuchung(userid):
             ret = kt002.TA06Read(Belegnr)  # prese the BelegNr in the DLL
             if ret == False: 
                 kt002.TA06ReadPlatz(Belegnr, Platz)
-            ret = gk_erstellen(userid, dauer)  # find time window
+            ret = gk_erstellen(userid, dauer, TagId) # find time window
             if isinstance(ret, str):
                 flash(ret)
                 return redirect(url_for("home",userid=userid))
@@ -435,8 +435,12 @@ def fertigungsauftragerfassen(userid):
             # beleg_nr = "FA00300150" # TODO: bug here -> works only for this value
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
             kt002.PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-            return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
+            if bufunktion == 3:
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+                return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
+            else:
+                flash("Buchung fehlgeschlagen")
+                return redirect(url_for('home',username=username,))
     else:
         return render_template(
             "fertigungsauftrag.html",
@@ -462,7 +466,7 @@ def gemeinkostenandern(userid):
     auftraglst_ajax = []
     tablecontent = []
     for index, row in df.iterrows():
-        item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
+        item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%d %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%d %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%d %H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%d %H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
         tablecontent.insert(0,item)
         auftraglst_temp = []
         auftraglst_ajax_temp = []
@@ -495,6 +499,8 @@ def gemeinkostenandern(userid):
         print(f"dauer: {dauer}")
         anfang_ts = request.form["anfangTS"]
         print(f"anfangTS: {anfang_ts}")
+        date_string = parser.parse(datum)
+        TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         arbeitsplatz = request.form["arbeitsplatz"]
         for i in range(len(auftraglst)):
             for j in range(len(auftraglst[i])):
@@ -511,7 +517,7 @@ def gemeinkostenandern(userid):
         print(f"kurztext: {kurztext}")
         print("posting")
         if request.form["submit"] == "ändern":  # change selected Auftrag
-            ret = gk_ändern(fa_old=beleg_nr_old, userid=userid, anfang_ts=anfang_ts, dauer=dauer)
+            ret = gk_ändern(fa_old=beleg_nr_old, userid=userid, anfang_ts=anfang_ts, dauer=dauer, date=TagId)
             if isinstance(ret, str):
                 # display error string and cancel booking
                 flash(ret)
@@ -527,7 +533,7 @@ def gemeinkostenandern(userid):
                 return redirect(url_for("gemeinkostenandern", userid=userid))
         
         elif request.form["submit"] == "erstellen":  # create auftrag
-            ret = gk_erstellen(userid=userid, dauer=dauer)
+            ret = gk_erstellen(userid=userid, dauer=dauer, date=TagId)
             if isinstance(ret, str):
                 # display error string and cancel booking
                 flash(ret)
@@ -543,12 +549,12 @@ def gemeinkostenandern(userid):
                 return redirect(url_for("gemeinkostenandern", userid=userid))
 
     else:
-        dauer=np.linspace(0, 600, num=121).tolist()
+        dauer=np.linspace(0, 600, num=601).tolist()
 
         return render_template(
             "gemeinkostenandern.html",
             date=datetime.now(),
-            anfangTS=datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+            anfangTS=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             auftraglst=auftraglst,
             auftraglst_ajax=auftraglst_ajax,
             sidebarItems=get_list("sidebarItems"),
@@ -1207,7 +1213,6 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
             return bufa(ANr=kt002.gtv("TA06_BelegNr"), ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS, platz=arbeitsplatz, aBem=aBem, userid=nr, endroute=endroute)
 
     if len(xret) == 0:
-     
         if len(xret) == 0:
             if sa == "K":
                 return redirect(url_for(
@@ -1249,13 +1254,13 @@ def ta06gkend(userid,AScreen2=None):
 			flash("GK konnten nicht beendet werden!")
 
 
-def gk_ändern(fa_old, userid, anfang_ts, dauer):
+def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 	# Change existing Auftragsbuchung, TODO: somehow return error when no GK to delete is found
 	ret = dbconnection.doGKLoeschen(fa_old, userid, anfang_ts)  # delete old booking with BelegNr=scanvalue and Anfang=Anfangts
 	persnr = dbconnection.getPersonaldetails(userid)["T910_Nr"]
 	if dauer > 0:
 		# add back booking with correct dauer
-		anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer)  # find suitable begin and end for new Auftrag
+		anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer, date)  # find suitable begin and end for new Auftrag
 		if anfang_ts is None and ende_ts is None:
 			ret = dbconnection.doUndoDelete(fa_old, userid)
 			if not ret is None:
@@ -1268,10 +1273,10 @@ def gk_ändern(fa_old, userid, anfang_ts, dauer):
 		return "Nur gelöscht"
 
 
-def gk_erstellen(userid, dauer):
+def gk_erstellen(userid, dauer, date):
 	# create Auftragsbuchung with Dauer
 	persnr = dbconnection.getPersonaldetails(userid)["T910_Nr"]
-	anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer)
+	anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer, date)
 	if anfang_ts is None and ende_ts is None:
 		return "Keine neue Zeitperiode gefunden!"
 	else:

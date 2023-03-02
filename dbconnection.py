@@ -211,9 +211,9 @@ def doGKBeenden(userid):
             ret = False           
     return ret
 
-def doFindTS(persnr, dauer):
+def doFindTS(persnr, dauer, date):
     userid = getUserID(persnr)
-    date = datetime.now().strftime("%Y-%m-%dT00:00:00")  # day for which new period needs to be found
+    # date = datetime.now().strftime("%Y-%m-%dT00:00:00")  # day for which new period needs to be found
     platz = getLastbooking(userid).loc[0, "T951_ArbIst"]
     with future_engine.connect() as connection:
         ret = connection.execute(text(f"""EXEC ksmaster.dbo.kspr_TA51FindTSFB1 @FirmaNr='{FirmaNr}', @PersNr={persnr}, @Platz='{platz}', @TagId='{date}', @dauer={dauer}"""))
