@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block title %} {{ _('Gemeinkosten ändern') }} {% endblock %}
+{% block navbar %}
 
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <!-- Flash messages -->
+            <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
+            <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+            <p><strong>{{username}}</strong> - {{ date.strftime("%H:%M") }} Uhr - {{msg}}</p>
+            <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}
 
 {% block content%}
 <div>
@@ -21,7 +35,8 @@
 <div class="flex-container">
   <div class="flex-row">
     <div class="flex-nested-row">
-      <input type="text" class="textclass" name="anfangTS" id="anfangTS" value={{ anfangTS }} ></input>
+	  <label for="anfangTS" class="textclass" id="anfangTS_label">{{ anfangTS }} </label>
+      <input type="text" class="textclass" name="anfangTS" id="anfangTS" value={{ anfangTS }} style="visibility: hidden"></input>
     </div>
   </div>
   <div class="flex-row">
@@ -424,6 +439,7 @@ $(document).ready(function($)
 			}	
 			
 			document.getElementById("anfangTS").value = this.cells[3].innerText;
+			document.getElementById("anfangTS_label").innerHTML = this.cells[3].innerText;
 			document.getElementById("dauer").value = this.cells[5].innerText;
 			document.getElementById("GKA").value = this.cells[9].innerText;
 			document.getElementById("GKA").text = this.cells[9].innerText;
