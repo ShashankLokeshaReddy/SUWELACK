@@ -88,6 +88,7 @@ def home():
 
     if request.method == 'POST':
         inputBarValue = request.form["inputbar"]
+        username = None
         try:
             usernamepd = dbconnection.getPersonaldetails(inputBarValue)
             username = usernamepd['formatted_name']
@@ -110,6 +111,10 @@ def home():
                     kt002.PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
                     print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
                     return redirect(url_for("identification", page="_auftragsbuchung"))
+                if username is None:
+                    # handle the case where username is not valid
+                    flash("Ungültiger Benutzername")
+                    return redirect(url_for("home"))
                 else:
                     return actbuchung(nr=nr, username=username, sa=sa)
 

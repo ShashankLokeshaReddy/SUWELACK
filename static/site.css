@@ -224,10 +224,10 @@ body, html {
     margin-left: 15px;
 }
 
-.flex-row{
+/* .flex-row{
     margin: 10px 5px 20px 30px;
     align-items:baseline;
-}
+} */
 .bestätigen{
     margin: 80px 20px 20px 20px;
     padding-bottom: 80px;
@@ -363,13 +363,13 @@ table tbody tr {
     border-top: 0px solid #dee2e6;
     word-wrap: break-word;
 }
-.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus, #Dauer {
+.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus, #dauer {
     width: 200px !important;
     height: 45px !important;
     flex-direction: unset !important;
 }
 #arbeitsplatz, #Gemeinkosten {
-    width: 300px !important;
+    width: 365px !important;
     height: 45px !important;
     flex-direction: unset !important;
 }
