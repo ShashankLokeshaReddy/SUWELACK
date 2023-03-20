@@ -25,7 +25,6 @@ def getArbeitplazlist():
 
 def getPlazlistGKA(userid, date):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    # date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(
         f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
@@ -106,6 +105,8 @@ def getBelegNr(FA_Nr, Platz):
         f"""select TA06_BelegNr from dbo.TA06_FAD1  
         inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ= '3' and TA21_FirmaNR = '{FirmaNr}'
         where TA06_FA_NR = '{FA_Nr}' and TA06_Platz_Soll = '{Platz}' order by TA06_BelegNr""", connection)
+    if beleg_nr.shape[0] == 0:
+        return "error"
     return beleg_nr.iloc[0, 0]
 
 def getPersonaldetails(T912_Nr):
@@ -210,9 +211,9 @@ def doGKBeenden(userid):
             ret = False           
     return ret
 
-def doFindTS(persnr, dauer):
+def doFindTS(persnr, dauer, date):
     userid = getUserID(persnr)
-    date = datetime.now().strftime("%Y-%m-%dT00:00:00")  # day for which new period needs to be found
+    # date = datetime.now().strftime("%Y-%m-%dT00:00:00")  # day for which new period needs to be found
     platz = getLastbooking(userid).loc[0, "T951_ArbIst"]
     with future_engine.connect() as connection:
         ret = connection.execute(text(f"""EXEC ksmaster.dbo.kspr_TA51FindTSFB1 @FirmaNr='{FirmaNr}', @PersNr={persnr}, @Platz='{platz}', @TagId='{date}', @dauer={dauer}"""))
