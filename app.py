@@ -6,6 +6,7 @@ from flask import Flask
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import PickleType
 from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length
@@ -23,8 +24,10 @@ from flask_babel import Babel, format_datetime, gettext
 import XMLRead
 
 import clr
+import System
 import pandas as pd
-
+import ctypes
+from ctypes import *
 import numpy as np
 import pandas as pd
 
@@ -33,15 +36,13 @@ sys.path.append("dll/bin")
 clr.AddReference("kt002_PersNr")
 clr.AddReference("System.Collections")
 
-from kt002_persnr import kt002
 from System.Collections import Generic
 from System.Collections import Hashtable
 from System import String
 from System import Object
+from System import Type
 
 os.chdir("dll/bin")
-kt002.Init()
-kt002.InitTermConfig()
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
@@ -78,6 +79,26 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(100))
+    dll_instance = db.Column(db.String(100))
+
+db.create_all()
+# Load DLL file path and create multiple instances
+instance_nrs = User.query.count() # 1   
+dll_instances = []
+dll_ref = System.Reflection.Assembly.LoadFrom("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll")
+for i in range(instance_nrs):
+    print(i)
+    type = dll_ref.GetType('kt002_persnr.kt002')
+    print('....dll ref1 type', type)
+    print(dll_ref.FullName)
+    instance = System.Activator.CreateInstance(type)
+    dll_instances.append(instance)
+print("DLL List",dll_instances)
+# Initialize DLL instances
+kt002 = dll_instances[0]
+print("kt002 when initialized: ",hex(id(kt002)))
+kt002.Init()
+kt002.InitTermConfig()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -93,6 +114,26 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
     submit = SubmitField('Login')
 
+    def validate(self, extra_validators=None):
+        global kt002
+        rv = super(LoginForm, self).validate()
+        if not rv:
+            return False
+
+        user = User.query.filter_by(username=self.username.data).first()
+        if user and check_password_hash(user.password, self.password.data):
+            user_index = User.query.filter(User.id <= user.id).count() - 1
+            if user_index < len(dll_instances):
+                dll_instance = dll_instances[user_index]
+                user.dll_instance = hex(id(dll_instance))
+                db.session.commit()
+                kt002 = dll_instance
+                kt002.Init()
+                kt002.InitTermConfig()
+                return True
+
+        return False
+
 @app.route('/index')
 def index():
     return render_template('index.html', buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
@@ -106,6 +147,14 @@ def register():
             new_user = User(username=form.username.data, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
+            instance_nrs = User.query.count()
+            dll_insts = []
+            for i in range(instance_nrs):
+                type = dll_ref.GetType('kt002_persnr.kt002')
+                instance = System.Activator.CreateInstance(type)
+                dll_insts.append(instance)
+            global dll_instances, kt002
+            dll_instances = dll_insts
             flash('You have successfully registered!')
         else:
             flash('User already exists!')
@@ -127,7 +176,8 @@ def login():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
+    users = User.query.all()
+    return render_template('dashboard.html', users=users, buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
 
 @app.route('/logout')
 @login_required
@@ -158,7 +208,7 @@ def home():
         "identification": if any button except submit was pressed.
         "home": if value from inputbar is a valid Kartennummer and correct Satzart is "G" (Gehen) or if an error occured
     """
-
+    print("this is kt002 in home: ",hex(id(kt002)))
     if request.method == 'POST':
         inputBarValue = request.form["inputbar"]
         username = None
@@ -1414,6 +1464,6 @@ def get_list(listname, userid=None):
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
                  "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen"]]
 
-if __name__ == '__main__':
-    db.create_all()
+# if __name__ == '__main__':
+    
     # app.run(debug=True)
