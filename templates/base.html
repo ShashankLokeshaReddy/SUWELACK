@@ -119,6 +119,7 @@
         <a class="navbar-brand" href="{{ url_for('home', username=username) }}"><img src="/static/images/Icons_Kartenscan.svg" width="64" height="64" alt="">
             {{  _('Home')}}
         </a>
+        <p>Als {{ current_user.username }} angemeldet</p>
         <strong id="date-time"></strong>
       </nav>
     </footer>

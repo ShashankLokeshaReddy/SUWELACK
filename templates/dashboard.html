@@ -1,32 +1,52 @@
-{% extends "base.html" %}
-
-{% block title %}{{ _('Dashboard') }}{% endblock %}
-
-{% block navbar %}
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for msg in messages %}
-            <!-- Flash messages -->
-            <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
-            <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
-            <p>{{msg}}</p>
-            <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-{% endblock %}
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="statustableflex">
-  <h1>Welcome, {{ current_user.username }}</h1>
-  <p>You are logged in and have access to the dashboard.</p>
-  <p>User instances:</p>
-  <ul>
-    {% for user in users %}
-      <li>{{ user.username }}: {{ user.dll_instance }}</li>
-    {% endfor %}
-  </ul>
-  <p><a href="{{ url_for('logout') }}">Logout</a></p>
-</div>
+  <div class="ml-3">
+    <h1>Willkommen, {{ current_user.username }}</h1>
+    <p>Sie sind angemeldet und haben Zugriff auf das Dashboard.</p>
+    <h2>Benutzer</h2>
+    <a href="{{ url_for('logout') }}" class="btn" style="float: right;">Ausloggen</a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>DLL Path</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.dll_path }}</td>
+            <td>
+              <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn">Bearbeiten</a>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Löschen</button>
+              <div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModalLabel">Benutzer löschen</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Möchten Sie diesen Benutzer wirklich löschen?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn" data-dismiss="modal">Stornieren</button>
+                      <a href="{{ url_for('delete_user', user_id=user.id) }}" class="btn btn-danger">Löschen</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}

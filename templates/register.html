@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ _('Register') }}{% endblock %}
+{% block title %}{{ _('Registrieren') }}{% endblock %}
 
 {% block navbar %}
 {% with messages = get_flashed_messages() %}
@@ -19,24 +19,23 @@
 
 {% block content %}
 <div class="statustableflex">
-  <h1>Register</h1>
+  <h1>Registrieren</h1>
   <form method="POST" action="{{ url_for('register') }}">
     {{ form.csrf_token }}
     {{ form.name }}
-    <label for="username">Username</label>
+    <label for="username">Nutzername</label>
     <input type="text" name="username" id="username" required>
 
-    <label for="password">Password</label>
+    <label for="password">Passwort</label>
     <input type="password" name="password" id="password" required>
 
-    <label for="confirm_password">Confirm Password</label>
+    <label for="confirm_password">Bestätige das Passwort</label>
     <input type="password" name="confirm_password" id="confirm_password" required>
     <h1></h1>
-    <input type="submit" value="Register" class="btn btn-secondary  btn-lg submit2">
+    <input type="submit" value="Registrieren" class="btn btn-secondary  btn-lg submit2">
   </form>
   <div class="buttons">
-    <a href="{{ url_for('login') }}">Login</a>
-    <a href="{{ url_for('register') }}">Register</a>
+    <a href="{{ url_for('login') }}">Anmeldung</a>
   </div>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ _('Index') }}{% endblock %}
-
 {% block navbar %}
+
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for msg in messages %}
@@ -18,10 +18,10 @@
 
 {% block content%}
   <div class="statustableflex">
-    <h1>Welcome to Admin Console of the PKS app</h1>
+    <h1>Willkommen bei der Admin-Konsole der PKS-App</h1>
     <div class="buttons">
-      <a href="{{ url_for('login') }}">Login</a>
-      <a href="{{ url_for('register') }}">Register</a>
+      <a href="{{ url_for('login') }}">Anmeldung</a>
+      <a href="{{ url_for('register') }}">Registrieren</a>
     </div>
   </div>  
 {% endblock %}
