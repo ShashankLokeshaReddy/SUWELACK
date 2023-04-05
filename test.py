@@ -26,7 +26,9 @@ sa = ""
 
 sys.path.append("dll/bin")
 clr.AddReference("kt002_PersNr")
-clr.AddReference("kt002_PersNr_2")
+# clr.AddReference("kt002_PersNr_2")
+
+print(os.getcwd())
 
 dll_ref1 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll")
 dll_ref2 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr_2.dll")
