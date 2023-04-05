@@ -37,11 +37,11 @@ clr.AddReference("kt002_PersNr")
 clr.AddReference("System.Collections")
 
 dll_ref1 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll")
-dll_ref2 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr_2.dll")
+# dll_ref2 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr_2.dll")
 type1 = dll_ref1.GetType('kt002_persnr.kt002')
-type2 = dll_ref2.GetType('kt002_persnr.kt002')
+# type2 = dll_ref2.GetType('kt002_persnr.kt002')
 instance1 = System.Activator.CreateInstance(type1)
-instance2 = System.Activator.CreateInstance(type2)
+# instance2 = System.Activator.CreateInstance(type2)
 
 from System.Collections import Generic
 from System.Collections import Hashtable
@@ -53,24 +53,24 @@ import shutil
 os.chdir("dll/bin")
 instance1.Init()
 instance1.InitTermConfig()
-instance2.Init()
-instance2.InitTermConfig()
+# instance2.Init()
+# instance2.InitTermConfig()
 
-res1 = instance1.ShowNumber("1024","",0,1,1,"",False,"")
-res2 = instance2.ShowNumber("1035","",0,1,1,"",False,"")
-ret1, checkfa1, sa1 = res1
-ret2, checkfa2, sa2 = res2
+# res1 = instance1.ShowNumber("1024","",0,1,1,"",False,"")
+# res2 = instance2.ShowNumber("1035","",0,1,1,"",False,"")
+# ret1, checkfa1, sa1 = res1
+# ret2, checkfa2, sa2 = res2
 
-res1 = instance1.Pruef_PNr(checkfa1, "1024", sa1, 7)
-print(instance1.gtv("T910_Nr"))
-res2 = instance2.Pruef_PNr(checkfa2, "1035", sa2, 7)
-print(instance2.gtv("T910_Nr"))
-ret1, sa1, bufunktion1 = res1
-ret2, sa2, bufunktion2 = res2
+# res1 = instance1.Pruef_PNr(checkfa1, "1024", sa1, 7)
+# print(instance1.gtv("T910_Nr"))
+# res2 = instance2.Pruef_PNr(checkfa2, "1035", sa2, 7)
+# print(instance2.gtv("T910_Nr"))
+# ret1, sa1, bufunktion1 = res1
+# ret2, sa2, bufunktion2 = res2
 
-print(instance1.gtv("T910_Nr"))
-print(instance2.gtv("T910_Nr"))
-print("")
+# print(instance1.gtv("T910_Nr"))
+# print(instance2.gtv("T910_Nr"))
+# print("")
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
