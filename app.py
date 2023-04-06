@@ -105,7 +105,7 @@ def delete_dll_copy(dll_path):
     if os.path.exists(dll_path):
         os.remove(dll_path)
     else:
-        print(dll_path ,"DLL file was not deleted")
+        print(dll_path ,"DLL-Datei wurde nicht gelöscht")
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -171,7 +171,7 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 login_user(user)
                 return redirect(url_for('dashboard'))
-        flash('Invalid username or password')
+        flash('ungültiger Benutzername oder Passwort')
     return render_template('login.html', form=form, buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
 
 @app.route('/dashboard')
@@ -190,13 +190,13 @@ def edit_user(user_id):
             user.username = form.username.data
             user.password = generate_password_hash(form.password.data, method='sha256')
             db.session.commit()
-            flash('User updated successfully!')
+            flash('Benutzer erfolgreich aktualisiert!')
             return redirect(url_for('dashboard'))
         else:
             form.username.data = user.username
             return render_template('register.html', form=form, buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
     else:
-        flash('User not found')
+        flash('Benutzer nicht gefunden')
         return redirect(url_for('dashboard'))
 
 @app.route('/delete_user/<int:user_id>')
