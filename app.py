@@ -37,11 +37,8 @@ clr.AddReference("kt002_PersNr")
 clr.AddReference("System.Collections")
 
 dll_ref1 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll")
-# dll_ref2 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr_2.dll")
 type1 = dll_ref1.GetType('kt002_persnr.kt002')
-# type2 = dll_ref2.GetType('kt002_persnr.kt002')
 instance1 = System.Activator.CreateInstance(type1)
-# instance2 = System.Activator.CreateInstance(type2)
 
 from System.Collections import Generic
 from System.Collections import Hashtable
@@ -53,24 +50,6 @@ import shutil
 os.chdir("dll/bin")
 instance1.Init()
 instance1.InitTermConfig()
-# instance2.Init()
-# instance2.InitTermConfig()
-
-# res1 = instance1.ShowNumber("1024","",0,1,1,"",False,"")
-# res2 = instance2.ShowNumber("1035","",0,1,1,"",False,"")
-# ret1, checkfa1, sa1 = res1
-# ret2, checkfa2, sa2 = res2
-
-# res1 = instance1.Pruef_PNr(checkfa1, "1024", sa1, 7)
-# print(instance1.gtv("T910_Nr"))
-# res2 = instance2.Pruef_PNr(checkfa2, "1035", sa2, 7)
-# print(instance2.gtv("T910_Nr"))
-# ret1, sa1, bufunktion1 = res1
-# ret2, sa2, bufunktion2 = res2
-
-# print(instance1.gtv("T910_Nr"))
-# print(instance2.gtv("T910_Nr"))
-# print("")
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
@@ -114,18 +93,6 @@ db.create_all()
 # create a dictionary to store the dll instances for each logged in user
 dll_instances = {}
 
-# Initialize the dll instances for all the users
-# users = User.query.all()
-# for user in users:
-#     dll_path = user.dll_path
-#     if dll_path and os.path.exists(dll_path):
-#         dll_ref = System.Reflection.Assembly.LoadFrom(dll_path)
-#         type = dll_ref.GetType('kt002_persnr.kt002')
-#         instance = System.Activator.CreateInstance(type)
-#         dll_instances[user.username] = instance
-#         instance.Init()
-#         instance.InitTermConfig()
-
 # Function to create a copy of the DLL for a given user
 def create_dll_copy(username):
     src_path = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll"
@@ -162,10 +129,6 @@ class LoginForm(FlaskForm):
         user = User.query.filter_by(username=self.username.data).first()
         if user and check_password_hash(user.password, self.password.data):
             dll_path = user.dll_path
-            # dll_path = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr_2.dll"
-            print("dll_path in login:",dll_path)
-            # os.chdir("C:\\Users\\MSSQL\\PycharmProjects\\suwelack")
-            # print(os.getcwd())
             if dll_path and os.path.exists(dll_path):
                 dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
                 type = dll_ref.GetType('kt002_persnr.kt002')
@@ -279,9 +242,6 @@ def home():
         "identification": if any button except submit was pressed.
         "home": if value from inputbar is a valid Kartennummer and correct Satzart is "G" (Gehen) or if an error occured
     """
-    print("this is dll_instances in home: ",dll_instances)
-    print("this is dll_instance in home: ",hex(id(dll_instances[current_user.username])))
-    print("this is dll_path in home: ",current_user.dll_path)
     if request.method == 'POST':
         inputBarValue = request.form["inputbar"]
         username = None
@@ -802,10 +762,7 @@ def anmelden(userid, sa):
 
         result = dll_instances[current_user.username].PNR_Buch(sa, '', selectedArbeitplatz, '', '', '', 0)
         xret, ASA, AKst, APlatz, xtagid, xkstk = result
-        time.sleep(30)
-        print("logged in username: ", current_user.username)
-        print("logged in dll path: ", current_user.dll_path, hex(id(dll_instances[current_user.username])))
-        
+
         if len(xret) == 0:
             dll_instances[current_user.username].PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
             result = dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
