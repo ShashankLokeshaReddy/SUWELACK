@@ -15,30 +15,30 @@ future_engine = create_engine(DATABASE_CONNECTION, future=True)
 connection = engine.connect()
 
 def getArbeitplazlist():
-    arbeitplatzlist = pd.read_sql_query(
+    arbeitplatzlist = pd.read_sql_query(text(
         f"""SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr,T905_Art,T905_Typ,T905_Akkord,T905_Leist,T905_Freigabe,
         T905_ArbGrNr,T905_Img,T905_StartScreen,T905_Schleuse FROM ksalias.dbo.G905_TermPlatz INNER JOIN 
         ksalias.dbo.T905_ArbMasch ON G905_Platz = T905_nr AND G905_FirmaNr = T905_FirmaNr 
-        WHERE G905_FirmaNr = '{FirmaNr}' AND G905_Nr = '{X998_GrpPlatz}' AND T905_Inaktiv <> 1 ORDER BY G905_Lfdnr""",
+        WHERE G905_FirmaNr = '{FirmaNr}' AND G905_Nr = '{X998_GrpPlatz}' AND T905_Inaktiv <> 1 ORDER BY G905_Lfdnr"""),
         connection)
     return arbeitplatzlist
 
 def getPlazlistGKA(userid, date):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    Platzlist = pd.read_sql_query(
+    Platzlist = pd.read_sql_query(text(
         f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
-        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez""",
+        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez"""),
         connection)
     return Platzlist
 
 def getPlazlistFAE(userid):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%d-%m")
-    Platzlist = pd.read_sql_query(
+    Platzlist = pd.read_sql_query(text(
         f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
-        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez""",
+        and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez"""),
         connection)
     return Platzlist
 
@@ -48,12 +48,12 @@ def getAuftrag(Platz, template): # TA21_Typ is 3 for GKA and 5 for FA erfassen
     if template == "FA_erfassen":
         TA21_Typ = 5
 
-    Auftraglist = pd.read_sql_query(
+    Auftraglist = pd.read_sql_query(text(
         f"""Select TA06_BelegNr,TA06_FA_Nr + '___' + TA06_AgBez as Bez from TA06_FAD2 inner join TA05_FAK1 on 
         TA05_FirmaNr = TA06_FirmaNr and TA05_FA_Nr = TA06_FA_Nr and TA06_Platz_Soll = '{Platz}' and TA06_Auf_Stat < '3'
         inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ 
         in ('{TA21_Typ}') where TA06_FirmaNr = '{FirmaNr}' group by TA06_BelegNr, TA06_FA_Nr, TA06_AgBez
-        order by TA06_BelegNr""",
+        order by TA06_BelegNr"""),
         connection)
     return Auftraglist
 
@@ -61,58 +61,58 @@ def getTables_GKA_FAE(userid, Platz, template):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%m-%d")
     if template == "GK_ändern":
-        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA51FAAdminFB1('{FirmaNr}', {persnr}, '{date}', '3')",
+        tablelist = pd.read_sql_query(text(f"Select * from ksmaster.dbo.kstf_TA51FAAdminFB1('{FirmaNr}', {persnr}, '{date}', '3')"),
         connection)
     if template == "FA_erfassen":
-        tablelist = pd.read_sql_query(f"Select * from ksmaster.dbo.kstf_TA55FAAdmin('{FirmaNr}', {persnr}, '{date}', '5', '{Platz}')",
+        tablelist = pd.read_sql_query(text(f"Select * from ksmaster.dbo.kstf_TA55FAAdmin('{FirmaNr}', {persnr}, '{date}', '5', '{Platz}')"),
         connection)
     return tablelist
 
 def getArbeitplatzBuchung():
-    arbeitplatzlist = pd.read_sql_query(
-        f"""Select T905_Nr,T905_Bez from T905_ArbMasch inner join G905_TermPlatz on T905_FirmaNr = '{FirmaNr}'  and G905_FirmaNr = T905_FirmaNr and G905_Platz = T905_nr  and G905_Nr = '{X998_GrpPlatz}'""",
+    arbeitplatzlist = pd.read_sql_query(text(
+        f"""Select T905_Nr,T905_Bez from T905_ArbMasch inner join G905_TermPlatz on T905_FirmaNr = '{FirmaNr}'  and G905_FirmaNr = T905_FirmaNr and G905_Platz = T905_nr  and G905_Nr = '{X998_GrpPlatz}'"""),
         connection)
     persnr = pd.read_sql_query(
-        f"""Select * from ksmaster.dbo.kstf_T910G905Bu('{FirmaNr}','{X998_GrpPlatz}')""",
+        text(f"""Select * from ksmaster.dbo.kstf_T910G905Bu('{FirmaNr}','{X998_GrpPlatz}')"""),
         connection)
     persnr['T910_Nr'] = persnr['T910_Nr'].astype(int)
     persnr["T910_Name"] = persnr['T910_Name'].astype(str) +" "+ persnr["T910_Vorname"]
-    fanr = pd.read_sql_query(
-        f"""Select TA06_FA_Nr,TA05_ArtikelBez  from TA06_FAD1  inner join TA21_AuArt on TA21_FirmaNr = '{FirmaNr}' and TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and (TA21_Typ in ('3') or  TA06_FA_Art = '02') inner join G905_TermPlatz on G905_FirmaNr = TA06_FirmaNr and G905_Platz = TA06_Platz_soll and G905_Nr = '{X998_GrpPlatz}' inner join TA05_FAK1 on TA05_FirmaNr = TA06_FirmaNr and TA05_FA_Nr = TA06_FA_nr group by TA06_FA_nr,TA05_ArtikelBez  order by TA06_FA_Nr""",
+    fanr = pd.read_sql_query(text(
+        f"""Select TA06_FA_Nr,TA05_ArtikelBez  from TA06_FAD1  inner join TA21_AuArt on TA21_FirmaNr = '{FirmaNr}' and TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and (TA21_Typ in ('3') or  TA06_FA_Art = '02') inner join G905_TermPlatz on G905_FirmaNr = TA06_FirmaNr and G905_Platz = TA06_Platz_soll and G905_Nr = '{X998_GrpPlatz}' inner join TA05_FAK1 on TA05_FirmaNr = TA06_FirmaNr and TA05_FA_Nr = TA06_FA_nr group by TA06_FA_nr,TA05_ArtikelBez  order by TA06_FA_Nr"""),
         connection)
     return [arbeitplatzlist, persnr, fanr]
 
 def getGruppenbuchungGruppe():
-    gruppe = pd.read_sql_query(
-        f"""Select T903_NR,T903_Bez from T903_Gruppen where T903_FirmaNr = '{FirmaNr}' and T903_GruPrae not in (0)""",
+    gruppe = pd.read_sql_query(text(
+        f"""Select T903_NR,T903_Bez from T903_Gruppen where T903_FirmaNr = '{FirmaNr}' and T903_GruPrae not in (0)"""),
         connection)
     return gruppe
 
 def getGruppenbuchungFaNr():
-    fanr = pd.read_sql_query(
-        f"""Select TA05_FA_Nr,TA05_ArtikelBez from TA05_FAK1 where TA05_FirmaNr = '{FirmaNr}' and TA05_FA_Nr like  'GK0%'""",
+    fanr = pd.read_sql_query(text(
+        f"""Select TA05_FA_Nr,TA05_ArtikelBez from TA05_FAK1 where TA05_FirmaNr = '{FirmaNr}' and TA05_FA_Nr like  'GK0%'"""),
         connection)
     return fanr
 
 def getUserID(persnr):
-    userid = pd.read_sql_query(
-        f"""select T912_Nr from ksalias.dbo.T912_PersCard where T912_PersNr = {persnr}""", 
+    userid = pd.read_sql_query(text(
+        f"""select T912_Nr from ksalias.dbo.T912_PersCard where T912_PersNr = {persnr}"""), 
         connection)
     return round(userid.iloc[0, 0])
 
 def getBelegNr(FA_Nr, Platz):
-    beleg_nr = pd.read_sql_query(
+    beleg_nr = pd.read_sql_query(text(
         f"""select TA06_BelegNr from dbo.TA06_FAD1  
         inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ= '3' and TA21_FirmaNR = '{FirmaNr}'
-        where TA06_FA_NR = '{FA_Nr}' and TA06_Platz_Soll = '{Platz}' order by TA06_BelegNr""", connection)
+        where TA06_FA_NR = '{FA_Nr}' and TA06_Platz_Soll = '{Platz}' order by TA06_BelegNr"""), connection)
     if beleg_nr.shape[0] == 0:
         return "error"
     return beleg_nr.iloc[0, 0]
 
 def getPersonaldetails(T912_Nr):
-    pers_info = pd.read_sql_query(
+    pers_info = pd.read_sql_query(text(
         f"""SELECT T912_Nr,T910_Name,T910_Vorname,T910_Nr FROM ksalias.dbo.T910_Personalliste 
-        INNER JOIN ksalias.dbo.T912_PersCard ON T910_Nr = T912_PersNr WHERE T912_Nr = {T912_Nr}""",
+        INNER JOIN ksalias.dbo.T912_PersCard ON T910_Nr = T912_PersNr WHERE T912_Nr = {T912_Nr}"""),
         connection, coerce_float=False)
     pers_info = pers_info.iloc[0, :]  # select first record that matches
     pers_info['T912_Nr'] = str(pers_info['T912_Nr'])
@@ -121,21 +121,21 @@ def getPersonaldetails(T912_Nr):
 
 
 def getLastbooking(userid):
-    last_booking = pd.read_sql_query(
+    last_booking = pd.read_sql_query(text(
         f"""select top 1 T951_DatumTS, T951_PersNr, T912_Nr, T951_ArbIst
         from T951_bd1 inner join T912_PersCard on T951_BD1.T951_PersNr=T912_PersCard.T912_PersNr
-        where T912_Nr='{userid}' order by T951_DatumTS desc""", connection)
+        where T912_Nr='{userid}' order by T951_DatumTS desc"""), connection)
     return last_booking
 
 
 def getGemeinkosten(userid):
     last_booking = getLastbooking(userid)
     platz = last_booking.loc[0, "T951_ArbIst"]
-    gk_data = pd.read_sql_query(
+    gk_data = pd.read_sql_query(text(
         f"""select top 100 TA05_FA_Nr, TA05_ArtikelBez, TA06_BelegNr, TA06_Platz_Soll from KSAlias.dbo.TA05_FAK1
         inner join KSAlias.dbo.TA06_FAD1 on TA06_FirmaNr = TA05_FirmaNr and TA06_FA_Nr = TA05_FA_Nr and TA06_Platz_Soll = '{platz}'
         inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ= '3' and TA21_FirmaNR = '{FirmaNr}'
-        order by TA06_BelegNr""", connection)
+        order by TA06_BelegNr"""), connection)
     return gk_data
 
 
@@ -145,10 +145,10 @@ def getStatustableitems(userid):
     ts_now = datetime.now().strftime("%Y-%d-%m %H:%M:%S")
     last_booking = getLastbooking(userid)
     platz = last_booking.loc[0, "T951_ArbIst"]
-    upper_items = pd.read_sql_query(f"""SELECT * FROM ksmaster.dbo.kstf_T951BD1_Info('{FirmaNr}', {persnr}, '{date}')""",
+    upper_items = pd.read_sql_query(text(f"""SELECT * FROM ksmaster.dbo.kstf_T951BD1_Info('{FirmaNr}', {persnr}, '{date}')"""),
                                     connection)
-    lower_items = pd.read_sql_query(
-        f"""SELECT * FROM ksmaster.dbo.kstf_TA55TA51_InfoAllFB1('{FirmaNr}', {persnr}, '{platz}', '{date}', '{ts_now}')""",
+    lower_items = pd.read_sql_query(text(
+        f"""SELECT * FROM ksmaster.dbo.kstf_TA55TA51_InfoAllFB1('{FirmaNr}', {persnr}, '{platz}', '{date}', '{ts_now}')"""),
         connection)
 
     # create new dataframes for the necessary columns
@@ -183,13 +183,13 @@ def getStatustableitems(userid):
 def getGroupMembers(GruppeNr, TagId):
     # e.g. TagId = "2023-01-11T00:00:00"
     # e.g. GruppeNr = "03"
-    members = pd.read_sql_query(
+    members = pd.read_sql_query(text(
         f"""Select T905_Nr, T951_PersNr, T905_BuArt from T951_Buchungsdaten
             inner join T905_ArbMasch on T951_FirmaNr='{FirmaNr}' and T905_FirmaNr = T951_FirmaNr
             and T905_Nr = T951_ArbIst and T951_Satzart in ('K', 'A')
             and T951_TagId = '{TagId}' and T905_BuArt in ('3', '1')
             inner join T904_Kostenstellen on T904_FirmaNr = T905_FirmaNr and T904_Nr = T905_KstNr and T904_GruppeNr = '{GruppeNr}'
-            group by T905_Nr, T951_PersNr, T905_BuArt""", connection
+            group by T905_Nr, T951_PersNr, T905_BuArt"""), connection
     )
     return members
 

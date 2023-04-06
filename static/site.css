@@ -518,3 +518,8 @@ hr.solid {
     height: 45px !important;
     flex-direction: unset !important;
 }
+
+.statustableflex {
+    margin-left: 50px;
+  }
+  

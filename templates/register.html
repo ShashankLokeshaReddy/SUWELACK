@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ _('Registrieren') }}{% endblock %}
+
+{% block navbar %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <!-- Flash messages -->
+            <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
+            <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+            <p>{{msg}}</p>
+            <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<div class="statustableflex">
+  <h1>Registrieren</h1>
+  <form method="POST" action="{{ url_for('register') }}">
+    {{ form.csrf_token }}
+    {{ form.name }}
+    <label for="username">Nutzername</label>
+    <input type="text" name="username" id="username" required>
+
+    <label for="password">Passwort</label>
+    <input type="password" name="password" id="password" required>
+
+    <label for="confirm_password">Bestätige das Passwort</label>
+    <input type="password" name="confirm_password" id="confirm_password" required>
+    <h1></h1>
+    <input type="submit" value="Registrieren" class="btn btn-secondary  btn-lg submit2">
+  </form>
+  <div class="buttons">
+    <a href="{{ url_for('login') }}">Anmeldung</a>
+  </div>
+</div>
+{% endblock %}
