@@ -2,6 +2,3597 @@
 <NewDataSet>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB08_3</T905_NR>
+    <T905_Bez>Diverse Rekla/Klein</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB08_3</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2023-02-21T14:39:10+01:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T16:49:31.42+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB08</T905_NR>
+    <T905_Bez>Diverse</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB08</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2023-02-21T14:39:10+01:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T16:48:34.013+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB04_3</T905_NR>
+    <T905_Bez>Export ReklaKlein</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB04_3</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2023-02-21T14:39:10+01:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:29:00.66+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB04</T905_NR>
+    <T905_Bez>Export</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB04</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-14T11:38:38+02:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:28:52.113+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB03_3</T905_NR>
+    <T905_Bez>OPD ReklaKlein</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB03_3</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2023-02-21T14:39:10+01:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:28:40.71+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB03</T905_NR>
+    <T905_Bez>OPD</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB03</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-14T11:37:38+02:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:28:31.527+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB02_3</T905_NR>
+    <T905_Bez>OP Diana ReklaKlein</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB02_3</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2023-02-21T14:39:10+01:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:28:22.517+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB02</T905_NR>
+    <T905_Bez>OP Diana</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB02</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-14T11:36:31+02:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:28:12.343+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB01_3</T905_NR>
+    <T905_Bez>OP Anna-Lena ReklaKlein</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB01_3</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2023-02-21T14:39:10+01:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:28:02.88+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB01</T905_NR>
+    <T905_Bez>OP Anna-Lena</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB01</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-14T11:34:42+02:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T15:27:53.237+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>ZLG25</T905_NR>
+    <T905_Bez>Kehrmaschine GT</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>1230</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2023-02-21T14:39:11+01:00</T905_Anlage>
+    <T905_Aenderung>2023-02-21T14:39:11+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn>01F</T905_TA25Kn>
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn>GK</T905_GKKn>
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>A001</T905_NR>
+    <T905_Bez>Bekantung Lagerware</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>KA001</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2018-03-06T09:28:04+01:00</T905_Anlage>
+    <T905_Aenderung>2023-01-30T14:34:47.567+01:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>2</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn>01F</T905_TA25Kn>
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+    <T905_SensorStoer>0</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG1204</T905_NR>
+    <T905_Bez>SK/AZ montieren</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K1204</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:19:38+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T12:23:38.437+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG1203</T905_NR>
+    <T905_Bez>Presse 3</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K1203</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:18:33+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T11:27:36.663+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG1202</T905_NR>
+    <T905_Bez>Presse 2</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K1202</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:18:08+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T11:27:20.257+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG1201</T905_NR>
+    <T905_Bez>Presse 1</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K1201</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:17:20+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T11:27:00.693+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG505</T905_NR>
+    <T905_Bez>Krallen</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K505</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:53:14.347+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:53:14.347+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG503</T905_NR>
+    <T905_Bez>P+H Alt</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K503</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:34:27+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:37:14.607+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG504</T905_NR>
+    <T905_Bez>Bereitstellung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K504</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:36:46+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:37:03.92+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG502</T905_NR>
+    <T905_Bez>P+H Blenden</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K502</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:33:54+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:34:07.673+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG501</T905_NR>
+    <T905_Bez>P+H Türen</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K501</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T08:31:02+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:33:34.55+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG605</T905_NR>
+    <T905_Bez>Sockelfußautomat</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K605</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T07:56:13+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:10:43.14+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG604</T905_NR>
+    <T905_Bez>Stern Verpackung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K604</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T07:55:37+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:10:34.03+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG603</T905_NR>
+    <T905_Bez>Stern Montage</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K603</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T07:55:14+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:10:24.903+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG602</T905_NR>
+    <T905_Bez>Stern Presse</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K602</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T07:54:04+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:10:15.233+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG601</T905_NR>
+    <T905_Bez>MAW und Handmontage</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K601</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T07:49:45+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:10:05.247+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG2402</T905_NR>
+    <T905_Bez>Platz Hermann</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K2402</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-20T14:57:22+02:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:09:54.793+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG2401</T905_NR>
+    <T905_Bez>Packsize Bünde</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K2401</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-20T14:56:44+02:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:09:45.217+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG1803</T905_NR>
+    <T905_Bez>Griffschalen</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K1803</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-27T10:27:08+02:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:09:33.293+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG1802</T905_NR>
+    <T905_Bez>MAW BAZ</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K1802</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-27T10:26:26+02:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:09:23.293+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>BG1801</T905_NR>
+    <T905_Bez>BIMA Bünde</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K1801</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-27T10:23:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:09:11.56+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>0527</T905_NR>
+    <T905_Bez>Umreifung Stern Band</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>K6527</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-21T07:31:08+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-21T08:08:52.81+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>ZLG24</T905_NR>
+    <T905_Bez>Instandh. GT</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>1115</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-18T15:03:24.477+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-18T15:03:24.477+01:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>F002</T905_NR>
+    <T905_Bez>Fertigung 50/75 Stollen</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>KF002</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-11-15T07:16:16.5+01:00</T905_Anlage>
+    <T905_Aenderung>2022-11-15T07:16:16.5+01:00</T905_Aenderung>
+    <T905_User>akurz</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB07</T905_NR>
+    <T905_Bez>Kaufm. Auszubildende(r)</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB07</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-28T10:54:21.63+02:00</T905_Anlage>
+    <T905_Aenderung>2022-10-28T10:54:21.63+02:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>G006</T905_NR>
+    <T905_Bez>Gruppe 06</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>1006</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2019-01-30T11:38:13+01:00</T905_Anlage>
+    <T905_Aenderung>2022-10-18T09:35:27.467+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>3</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>1</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>360</T905_SensorStoer>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB06</T905_NR>
+    <T905_Bez>Marketing</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB06</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-14T11:40:21.947+02:00</T905_Anlage>
+    <T905_Aenderung>2022-10-14T11:40:21.947+02:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>SB05</T905_NR>
+    <T905_Bez>Stabstelle</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>SB05</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-10-14T11:39:34.947+02:00</T905_Anlage>
+    <T905_Aenderung>2022-10-14T11:39:34.947+02:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP106</T905_NR>
+    <T905_Bez>Instandhaltung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK106</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP107</T905_NR>
+    <T905_Bez>Lehrwerkstatt</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK107</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP108</T905_NR>
+    <T905_Bez>AV (Bünde)</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK108</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP109</T905_NR>
+    <T905_Bez>AV / Dispo (Getmold)</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK109</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP112</T905_NR>
+    <T905_Bez>Werksmeister</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK112</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP1150</T905_NR>
+    <T905_Bez>Dispo</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK1150</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP12</T905_NR>
+    <T905_Bez>SK-Abteilung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK12</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP14</T905_NR>
+    <T905_Bez>Fertigung Eigenfronten</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK14</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP16</T905_NR>
+    <T905_Bez>Verpackung/Blockstollen Getmold</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK16</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP17</T905_NR>
+    <T905_Bez>Zuschnitt</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK17</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP18</T905_NR>
+    <T905_Bez>Bima / MAW</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK18</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP20</T905_NR>
+    <T905_Bez>Sonderanfertigung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK20</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP24</T905_NR>
+    <T905_Bez>Verpackung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK24</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP25</T905_NR>
+    <T905_Bez>Fertigung C-Teile</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK25</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP26</T905_NR>
+    <T905_Bez>BIMA Getmold</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK26</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP3</T905_NR>
+    <T905_Bez>Kommission</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK3</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP4</T905_NR>
+    <T905_Bez>Bereitstellung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK4</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP4910</T905_NR>
+    <T905_Bez>Fertigung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK4910</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP4920</T905_NR>
+    <T905_Bez>AV</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK4920</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP4940</T905_NR>
+    <T905_Bez>Qualitätsm.</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK4940</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP5</T905_NR>
+    <T905_Bez>Fronten Bohren</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK5</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP5200</T905_NR>
+    <T905_Bez>Logisitk</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK5200</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP5320</T905_NR>
+    <T905_Bez>LKW HF-RM</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK5320</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP5330</T905_NR>
+    <T905_Bez>LKW HF-RM</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK5330</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP5340</T905_NR>
+    <T905_Bez>LKW HR-RM</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK5340</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP5350</T905_NR>
+    <T905_Bez>LKW HR-RM</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK5350</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP5360</T905_NR>
+    <T905_Bez>LKW HF-RM</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK5360</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP6</T905_NR>
+    <T905_Bez>Stern</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK6</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP6411</T905_NR>
+    <T905_Bez>Verkauf In</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK6411</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP6412</T905_NR>
+    <T905_Bez>Verkauf NL</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK6412</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP6414</T905_NR>
+    <T905_Bez>Verkauf So</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK6414</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP6423</T905_NR>
+    <T905_Bez>Gebiet 15</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK6423</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP7</T905_NR>
+    <T905_Bez>Band II Co</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK7</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP7100</T905_NR>
+    <T905_Bez>Geschäftsl</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK7100</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP7200</T905_NR>
+    <T905_Bez>EDV</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK7200</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP7300</T905_NR>
+    <T905_Bez>Finanzen</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK7300</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP7600</T905_NR>
+    <T905_Bez>kaufm. Azubi</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK7600</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>1</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP8</T905_NR>
+    <T905_Bez>HS-Montage</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK8</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP9200</T905_NR>
+    <T905_Bez>Umlage Werk</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK9200</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:18+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:18+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>W001</T905_NR>
+    <T905_Bez>Werk</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>W001</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>1</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP01</T905_NR>
+    <T905_Bez>Werk</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>W001</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP1</T905_NR>
+    <T905_Bez>Fertigung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK1</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP10</T905_NR>
+    <T905_Bez>Versand</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK10</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP100</T905_NR>
+    <T905_Bez>Warenannahme 1</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK100</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP101</T905_NR>
+    <T905_Bez>Pappe falten</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK101</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP103</T905_NR>
+    <T905_Bez>Holz</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK103</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP104</T905_NR>
+    <T905_Bez>Quali</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK103</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>WP105</T905_NR>
+    <T905_Bez>Verschiedenes (Bünde)</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>WK105</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM />
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>0</T905_Stellplatz>
+    <T905_KnFaktorNZ>1</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>E001</T905_NR>
+    <T905_Bez>Erfassung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>E0001</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-09-22T14:57:17+02:00</T905_Anlage>
+    <T905_Aenderung>2022-09-22T14:57:17+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn />
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>F015</T905_NR>
+    <T905_Bez>Flüsterprofil Bekantung</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>KF015</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2022-06-24T08:42:31+02:00</T905_Anlage>
+    <T905_Aenderung>2022-06-24T08:42:49.28+02:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>ZLG23</T905_NR>
+    <T905_Bez>Nachholer Getmold</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>1220</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2021-09-02T14:49:18+02:00</T905_Anlage>
+    <T905_Aenderung>2021-09-02T14:51:44.95+02:00</T905_Aenderung>
+    <T905_User>tschneider</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>03</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>0</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
+    <T905_NR>F114</T905_NR>
+    <T905_Bez>Teile zuschneiden</T905_Bez>
+    <T905_Bez2 />
+    <T905_ArbGrNr />
+    <T905_KstNr>KF114</T905_KstNr>
+    <T905_Art />
+    <T905_Typ />
+    <T905_Akkord />
+    <T905_Leist>0</T905_Leist>
+    <T905_Terminal />
+    <T905_Freigabe />
+    <T905_Anlage>2021-07-16T11:11:21+02:00</T905_Anlage>
+    <T905_Aenderung>2021-07-16T11:11:38.173+02:00</T905_Aenderung>
+    <T905_User>#fg</T905_User>
+    <T905_Planrel>0</T905_Planrel>
+    <T905_PlanMaAnz>0</T905_PlanMaAnz>
+    <T905_PlanZM>01</T905_PlanZM>
+    <T905_Sort>0</T905_Sort>
+    <T905_StartScreen />
+    <T905_Split>0</T905_Split>
+    <T905_EFGKst />
+    <T905_Schleuse />
+    <T905_CreateFA>0</T905_CreateFA>
+    <T905_BuArt>3</T905_BuArt>
+    <T905_Inaktiv>0</T905_Inaktiv>
+    <T905_KZEInaktiv>0</T905_KZEInaktiv>
+    <T905_Stellplatz>1</T905_Stellplatz>
+    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
+    <T905_TA25Kn />
+    <T905_AgSum>0</T905_AgSum>
+    <T905_GKKn />
+    <T905_WerkKn>WK</T905_WerkKn>
+    <T905_LohnGrp />
+    <T905_ZG>0</T905_ZG>
+    <T905_TaetGrp />
+    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
+  </T905_ArbMasch>
+  <T905_ArbMasch>
+    <T905_FirmaNr>TE</T905_FirmaNr>
     <T905_NR>F101</T905_NR>
     <T905_Bez>Formwangen/ Hauben</T905_Bez>
     <T905_Bez2 />
@@ -38,6 +3629,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -77,6 +3669,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -116,6 +3709,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -155,6 +3749,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -194,6 +3789,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -233,6 +3829,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -272,6 +3869,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -311,6 +3909,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -350,6 +3949,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -389,6 +3989,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -428,6 +4029,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -467,6 +4069,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -506,6 +4109,8 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>1</T905_Oee>
+    <T905_SensorStoer>360</T905_SensorStoer>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -545,6 +4150,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -584,6 +4190,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -623,6 +4230,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>1</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -662,6 +4270,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>1</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -701,6 +4310,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -739,6 +4349,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -777,6 +4388,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -810,12 +4422,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -849,12 +4462,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -888,12 +4502,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -927,12 +4542,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -972,6 +4588,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1005,12 +4622,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1044,12 +4662,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1083,12 +4702,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1122,12 +4742,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1167,6 +4788,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1206,6 +4828,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1245,6 +4868,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1284,6 +4908,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1317,12 +4942,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1356,12 +4982,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1395,12 +5022,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1434,12 +5062,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1473,12 +5102,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1512,12 +5142,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1551,12 +5182,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1590,12 +5222,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1629,12 +5262,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1668,49 +5302,13 @@
     <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
     <T905_TA25Kn />
     <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
+    <T905_GKKn>GK</T905_GKKn>
     <T905_WerkKn>WK</T905_WerkKn>
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
-  </T905_ArbMasch>
-  <T905_ArbMasch>
-    <T905_FirmaNr>TE</T905_FirmaNr>
-    <T905_NR>G006</T905_NR>
-    <T905_Bez>Gruppe 06</T905_Bez>
-    <T905_Bez2 />
-    <T905_ArbGrNr />
-    <T905_KstNr>1006</T905_KstNr>
-    <T905_Art />
-    <T905_Typ />
-    <T905_Akkord />
-    <T905_Leist>0</T905_Leist>
-    <T905_Terminal />
-    <T905_Freigabe />
-    <T905_Anlage>2019-01-30T11:38:13.46+01:00</T905_Anlage>
-    <T905_Aenderung>2019-01-30T11:38:13.46+01:00</T905_Aenderung>
-    <T905_User>tschneider</T905_User>
-    <T905_Planrel>0</T905_Planrel>
-    <T905_PlanMaAnz>0</T905_PlanMaAnz>
-    <T905_PlanZM>01</T905_PlanZM>
-    <T905_Sort>0</T905_Sort>
-    <T905_StartScreen />
-    <T905_Split>0</T905_Split>
-    <T905_EFGKst />
-    <T905_Schleuse />
-    <T905_CreateFA>0</T905_CreateFA>
-    <T905_BuArt>3</T905_BuArt>
-    <T905_Inaktiv>0</T905_Inaktiv>
-    <T905_KZEInaktiv>0</T905_KZEInaktiv>
-    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
-    <T905_TA25Kn />
-    <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
-    <T905_WerkKn>WK</T905_WerkKn>
-    <T905_LohnGrp />
-    <T905_ZG>0</T905_ZG>
-    <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1748,6 +5346,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1785,6 +5384,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1822,6 +5422,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1859,6 +5460,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1896,6 +5498,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1933,6 +5536,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -1970,6 +5574,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2007,6 +5612,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2044,44 +5650,7 @@
     <T905_LohnGrp />
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
-  </T905_ArbMasch>
-  <T905_ArbMasch>
-    <T905_FirmaNr>TE</T905_FirmaNr>
-    <T905_NR>A001</T905_NR>
-    <T905_Bez>Bekantung Lagerware</T905_Bez>
-    <T905_Bez2 />
-    <T905_ArbGrNr />
-    <T905_KstNr>KA001</T905_KstNr>
-    <T905_Art />
-    <T905_Typ />
-    <T905_Akkord />
-    <T905_Leist>0</T905_Leist>
-    <T905_Terminal />
-    <T905_Freigabe />
-    <T905_Anlage>2018-03-06T09:28:04+01:00</T905_Anlage>
-    <T905_Aenderung>2018-06-06T10:57:53.523+02:00</T905_Aenderung>
-    <T905_User>tschneider</T905_User>
-    <T905_Planrel>0</T905_Planrel>
-    <T905_PlanMaAnz>2</T905_PlanMaAnz>
-    <T905_PlanZM>01</T905_PlanZM>
-    <T905_Sort>0</T905_Sort>
-    <T905_StartScreen />
-    <T905_Split>0</T905_Split>
-    <T905_EFGKst />
-    <T905_Schleuse />
-    <T905_CreateFA>0</T905_CreateFA>
-    <T905_BuArt>3</T905_BuArt>
-    <T905_Inaktiv>0</T905_Inaktiv>
-    <T905_KZEInaktiv>0</T905_KZEInaktiv>
-    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
-    <T905_TA25Kn />
-    <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
-    <T905_WerkKn>WK</T905_WerkKn>
-    <T905_LohnGrp />
-    <T905_ZG>0</T905_ZG>
-    <T905_TaetGrp />
-    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2120,6 +5689,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2158,6 +5728,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2196,6 +5767,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2234,6 +5806,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2272,6 +5845,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2310,6 +5884,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2348,6 +5923,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2386,6 +5962,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2424,6 +6001,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2462,6 +6040,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2500,6 +6079,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2538,6 +6118,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2576,6 +6157,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2614,6 +6196,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2652,6 +6235,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2690,44 +6274,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
-  </T905_ArbMasch>
-  <T905_ArbMasch>
-    <T905_FirmaNr>TE</T905_FirmaNr>
-    <T905_NR>F002</T905_NR>
-    <T905_Bez>Fertigung 50/75 Stollen</T905_Bez>
-    <T905_Bez2 />
-    <T905_ArbGrNr />
-    <T905_KstNr>KF002</T905_KstNr>
-    <T905_Art />
-    <T905_Typ />
-    <T905_Akkord />
-    <T905_Leist>0</T905_Leist>
-    <T905_Terminal />
-    <T905_Freigabe />
-    <T905_Anlage>2017-04-11T11:21:18+02:00</T905_Anlage>
-    <T905_Aenderung>2017-05-03T12:45:45.42+02:00</T905_Aenderung>
-    <T905_User>tschneider</T905_User>
-    <T905_Planrel>0</T905_Planrel>
-    <T905_PlanMaAnz>2</T905_PlanMaAnz>
-    <T905_PlanZM>01</T905_PlanZM>
-    <T905_Sort>0</T905_Sort>
-    <T905_StartScreen />
-    <T905_Split>0</T905_Split>
-    <T905_EFGKst />
-    <T905_Schleuse />
-    <T905_CreateFA>0</T905_CreateFA>
-    <T905_BuArt>3</T905_BuArt>
-    <T905_Inaktiv>0</T905_Inaktiv>
-    <T905_KZEInaktiv>0</T905_KZEInaktiv>
-    <T905_KnFaktorNZ>0</T905_KnFaktorNZ>
-    <T905_TA25Kn />
-    <T905_AgSum>0</T905_AgSum>
-    <T905_GKKn />
-    <T905_WerkKn>WK</T905_WerkKn>
-    <T905_LohnGrp />
-    <T905_ZG>0</T905_ZG>
-    <T905_TaetGrp />
-    <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2766,6 +6313,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2804,6 +6352,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2842,6 +6391,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2880,6 +6430,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2918,6 +6469,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2956,6 +6508,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -2994,6 +6547,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3032,6 +6586,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3070,6 +6625,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3108,6 +6664,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3146,6 +6703,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3184,6 +6742,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3222,6 +6781,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3260,6 +6820,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3298,6 +6859,7 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
   <T905_ArbMasch>
     <T905_FirmaNr>TE</T905_FirmaNr>
@@ -3336,5 +6898,6 @@
     <T905_ZG>0</T905_ZG>
     <T905_TaetGrp />
     <T905_LohnExpNo>0</T905_LohnExpNo>
+    <T905_Oee>0</T905_Oee>
   </T905_ArbMasch>
 </NewDataSet>

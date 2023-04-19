@@ -2,6 +2,1420 @@
 <NewDataSet>
   <T904_Kostenstellen>
     <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB04_3</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPExport  ReklaKlein</T904_Bez>
+    <T904_GruppeNr>34</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-20T14:33:59+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-23T10:18:27.543+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB03_3</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPD ReklaKlein</T904_Bez>
+    <T904_GruppeNr>33</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T14:39:09+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-23T10:18:22.27+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB02_3</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPDiana  ReklaKlein</T904_Bez>
+    <T904_GruppeNr>32</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-20T14:33:27+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-23T10:18:12.8+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB01_3</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPAnna-Lena ReklaKlein</T904_Bez>
+    <T904_GruppeNr>31</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-20T14:33:14+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-23T10:18:05.293+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB04</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPExport</T904_Bez>
+    <T904_GruppeNr>34</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-14T11:31:06+02:00</T904_Anlage>
+    <T904_Aenderung>2023-02-22T09:50:08.367+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB03</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPDeutschland</T904_Bez>
+    <T904_GruppeNr>33</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-14T11:30:42+02:00</T904_Anlage>
+    <T904_Aenderung>2023-02-22T09:49:52.58+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB02</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPDiana</T904_Bez>
+    <T904_GruppeNr>32</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-14T11:30:16+02:00</T904_Anlage>
+    <T904_Aenderung>2023-02-22T09:49:36.797+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB01</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPAnna-Lena</T904_Bez>
+    <T904_GruppeNr>31</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-14T11:29:45+02:00</T904_Anlage>
+    <T904_Aenderung>2023-02-22T09:49:21.267+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB08</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Diverse</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T08:36:30+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T16:49:14.65+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB08_3</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Diverse Rekla</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T16:49:06.043+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T16:49:06.043+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KSB08</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Diverse</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T15:29:38.02+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T15:29:38.02+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KSB04</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPExport</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T15:27:31.523+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T15:27:31.523+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KSB03</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPDeutschland</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T15:27:16.717+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T15:27:16.717+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KSB02</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPDiana</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T15:26:57.94+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T15:26:57.94+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KSB01</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>OPAnna-Lena</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T15:26:13.937+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T15:26:13.937+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>1230</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Kehrmaschine GT</T904_Bez>
+    <T904_GruppeNr>110</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2023-02-21T14:39:08+01:00</T904_Anlage>
+    <T904_Aenderung>2023-02-21T14:39:08+01:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K1204</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>SK/AZ montieren</T904_Bez>
+    <T904_GruppeNr>12</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:16:18+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T12:03:47.24+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K1203</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Presse 3</T904_Bez>
+    <T904_GruppeNr>12</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:15:33+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T11:23:45.96+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K1202</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Presse 2</T904_Bez>
+    <T904_GruppeNr>12</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:15:10+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T11:22:59.633+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K1201</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Presse 1</T904_Bez>
+    <T904_GruppeNr>12</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:14:40+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T11:22:34.133+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K505</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Krallen</T904_Bez>
+    <T904_GruppeNr>05</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:52:46.673+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T08:52:46.673+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K504</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bereitstellung</T904_Bez>
+    <T904_GruppeNr>05</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:32:38.237+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T08:32:38.237+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K503</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>P+H Alt</T904_Bez>
+    <T904_GruppeNr>05</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:30:25+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T08:32:03.253+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K502</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>P+H Blenden</T904_Bez>
+    <T904_GruppeNr>05</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:30:06+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T08:31:50.473+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K501</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>P+H Türen</T904_Bez>
+    <T904_GruppeNr>05</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T08:29:28+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T08:31:36.723+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K6527</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Umreifung Stern Band</T904_Bez>
+    <T904_GruppeNr>06</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T07:29:58+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T07:58:43.2+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K601</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>MAW und Handmontage</T904_Bez>
+    <T904_GruppeNr>06</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T07:44:59+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T07:57:04.87+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K605</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Sockelfußautomat</T904_Bez>
+    <T904_GruppeNr>06</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T07:47:21.47+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T07:47:21.47+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K604</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Stern Verpackung</T904_Bez>
+    <T904_GruppeNr>06</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T07:46:40.83+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T07:46:40.83+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K603</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Stern Montage</T904_Bez>
+    <T904_GruppeNr>06</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T07:46:16.267+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T07:46:16.267+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K602</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Stern Presse</T904_Bez>
+    <T904_GruppeNr>06</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-21T07:45:51.143+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-21T07:45:51.143+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>1115</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Instandh. GT</T904_Bez>
+    <T904_GruppeNr>110</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-11-18T15:01:34.07+01:00</T904_Anlage>
+    <T904_Aenderung>2022-11-18T15:01:34.07+01:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB07</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Kaufm. Auszubildende(r)</T904_Bez>
+    <T904_GruppeNr>Sachb</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-28T10:54:11.74+02:00</T904_Anlage>
+    <T904_Aenderung>2022-10-28T10:54:11.74+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K2402</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Platz Hermann</T904_Bez>
+    <T904_GruppeNr>24</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-20T14:55:31.55+02:00</T904_Anlage>
+    <T904_Aenderung>2022-10-20T14:55:31.55+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K2401</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Packsize Bünde</T904_Bez>
+    <T904_GruppeNr>24</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-20T14:55:04.533+02:00</T904_Anlage>
+    <T904_Aenderung>2022-10-20T14:55:04.533+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB06</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Marketing</T904_Bez>
+    <T904_GruppeNr>Sachb</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-14T11:32:14.683+02:00</T904_Anlage>
+    <T904_Aenderung>2022-10-14T11:32:14.683+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>SB05</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Stabstelle</T904_Bez>
+    <T904_GruppeNr>Sachb</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-10-14T11:31:42.153+02:00</T904_Anlage>
+    <T904_Aenderung>2022-10-14T11:31:42.153+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K1803</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Griffschalen</T904_Bez>
+    <T904_GruppeNr>18</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-09-27T10:21:22.373+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-27T10:21:22.373+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K1801</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>BIMA Bünde</T904_Bez>
+    <T904_GruppeNr>18</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-09-27T10:18:44+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-27T10:20:57.093+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K1802</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>MAW BAZ</T904_Bez>
+    <T904_GruppeNr>18</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-09-27T10:20:43.077+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-27T10:20:43.077+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>E0001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Auftragsbearbeitung</T904_Bez>
+    <T904_GruppeNr>30</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>W001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Werk</T904_Bez>
+    <T904_GruppeNr>90</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK1</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Fertigung</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK10</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Versand</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK100</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Warenannahme 1</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK101</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Pappe falten</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK103</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Holz</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK104</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Quali</T904_Bez>
+    <T904_GruppeNr>W103</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_BildName />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK105</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verschiedenes (Bünde)</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK106</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Instandhaltung</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK107</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Lehrwerkstatt</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK108</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>AV (Bünde)</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK109</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>AV / Dispo (Getmold)</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK112</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Werksmeister</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK1150</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Dispo</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK12</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>SK-Abteilung</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK14</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Fertigung Eigenfronten</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK16</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verpackung/Blockstollen Getmold</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK17</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Zuschnitt</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK18</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bima / MAW</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK20</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Sonderanfertigung</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK24</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verpackung</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK25</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Fertigung C-Teile</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK26</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>BIMA Getmold</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK3</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Kommission</T904_Bez>
+    <T904_GruppeNr>W3</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK4</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bereitstellung</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK4910</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Fertigung</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK4920</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>AV</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK4940</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Qualitätsm.</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK5</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Fronten Bohren</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK5200</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Logisitk</T904_Bez>
+    <T904_GruppeNr>W5200</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK5320</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>LKW HF-RM</T904_Bez>
+    <T904_GruppeNr>W5320</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK5330</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>LKW HF-RM</T904_Bez>
+    <T904_GruppeNr>W5330</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK5340</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>LKW HR-RM</T904_Bez>
+    <T904_GruppeNr>W5340</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK5350</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>LKW HR-RM</T904_Bez>
+    <T904_GruppeNr>W5350</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK5360</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>LKW HF-RM</T904_Bez>
+    <T904_GruppeNr>W5360</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK6</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Stern</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK6411</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verkauf In</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_BildName />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK6412</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verkauf NL</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_BildName />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK6414</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verkauf So</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_BildName />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK6423</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Gebiet 15</T904_Bez>
+    <T904_GruppeNr>W6423</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK7</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Band II Co</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK7100</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Geschäftsl</T904_Bez>
+    <T904_GruppeNr>W7100</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK7200</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>EDV</T904_Bez>
+    <T904_GruppeNr>W7200</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK7300</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Finanzen</T904_Bez>
+    <T904_GruppeNr>W7300</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK7600</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>kaufm. Azubi</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK8</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>HS-Montage</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>WK9200</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Umlage Werk</T904_Bez>
+    <T904_GruppeNr>W4</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>1</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt>0</T904_KstRueckArt>
+    <T904_Anlage>2022-09-22T14:57:17+02:00</T904_Anlage>
+    <T904_Aenderung>2022-09-22T14:57:17+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KF015</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Flüsterprofil Bekantung</T904_Bez>
+    <T904_GruppeNr>26</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2022-06-24T08:41:59+02:00</T904_Anlage>
+    <T904_Aenderung>2022-06-24T08:43:03.247+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>1220</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Nachholer GT</T904_Bez>
+    <T904_GruppeNr>110</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR />
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2021-09-02T14:50:08+02:00</T904_Anlage>
+    <T904_Aenderung>2021-09-02T14:51:04.12+02:00</T904_Aenderung>
+    <T904_User>tschneider</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KF114</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Teile zuschneiden</T904_Bez>
+    <T904_GruppeNr>20</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2021-07-16T11:10:55.303+02:00</T904_Anlage>
+    <T904_Aenderung>2021-07-16T11:10:55.303+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
     <T904_NR>KF101</T904_NR>
     <T904_NRExtern />
     <T904_Bez>Formwangen/Hauben</T904_Bez>
@@ -738,6 +2152,262 @@
   </T904_Kostenstellen>
   <T904_Kostenstellen>
     <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K7001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bereitst. Dübelware</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K8001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bereitst. E-Böden</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K9001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bereitst. UT/OT- RW</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KF011</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Steckboardbeschlag</T904_Bez>
+    <T904_GruppeNr>16</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KV001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verladen / Logistik</T904_Bez>
+    <T904_GruppeNr>16</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KV002</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Verladen Gr. 03</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KV003</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Fronten zu Versand</T904_Bez>
+    <T904_GruppeNr>14</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KZ002</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bekanten,Fälzen,Bohren,Dübeln</T904_Bez>
+    <T904_GruppeNr>25</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KK001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Nachschüsse / Organisation</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KK002</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bereitst. Regale</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KK003</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Bereitst. Sonderanf.</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KM001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Materialtransport</T904_Bez>
+    <T904_GruppeNr>03</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KN001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Nachschuß schneiden</T904_Bez>
+    <T904_GruppeNr>14</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KS001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Alte Schelling </T904_Bez>
+    <T904_GruppeNr>17</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KS002</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Grosse Schelling </T904_Bez>
+    <T904_GruppeNr>17</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>KS003</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Plattenlager</T904_Bez>
+    <T904_GruppeNr>17</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
     <T904_NR>KB002</T904_NR>
     <T904_NRExtern />
     <T904_Bez>Kommissionieren</T904_Bez>
@@ -882,230 +2552,6 @@
   </T904_Kostenstellen>
   <T904_Kostenstellen>
     <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KK001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Nachschüsse / Organisation</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KK002</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Bereitst. Regale</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KK003</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Bereitst. Sonderanf.</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KM001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Materialtransport</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KN001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Nachschuß schneiden</T904_Bez>
-    <T904_GruppeNr>14</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KS001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Alte Schelling </T904_Bez>
-    <T904_GruppeNr>17</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KS002</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Grosse Schelling </T904_Bez>
-    <T904_GruppeNr>17</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KS003</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Plattenlager</T904_Bez>
-    <T904_GruppeNr>17</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KV001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Verladen / Logistik</T904_Bez>
-    <T904_GruppeNr>16</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KV002</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Verladen Gr. 03</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KV003</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Fronten zu Versand</T904_Bez>
-    <T904_GruppeNr>14</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KZ002</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Bekanten,Fälzen,Bohren,Dübeln</T904_Bez>
-    <T904_GruppeNr>25</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>K0006</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Verpackung</T904_Bez>
-    <T904_GruppeNr>16</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>K4001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Endkontrolle Fronten</T904_Bez>
-    <T904_GruppeNr>14</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
     <T904_NR>K6001</T904_NR>
     <T904_NRExtern />
     <T904_Bez>Bereitst. UT/OT-Seiten</T904_Bez>
@@ -1154,58 +2600,26 @@
   </T904_Kostenstellen>
   <T904_Kostenstellen>
     <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>K7001</T904_NR>
+    <T904_NR>K0006</T904_NR>
     <T904_NRExtern />
-    <T904_Bez>Bereitst. Dübelware</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>K8001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Bereitst. E-Böden</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>K9001</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Bereitst. UT/OT- RW</T904_Bez>
-    <T904_GruppeNr>03</T904_GruppeNr>
-    <T904_AnzPers>0</T904_AnzPers>
-    <T904_FaktKap>0</T904_FaktKap>
-    <T904_KostSatz>0</T904_KostSatz>
-    <T904_QsGR>0</T904_QsGR>
-    <T904_KstRueckArt />
-    <T904_BildName />
-    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
-    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
-    <T904_User>#fg</T904_User>
-  </T904_Kostenstellen>
-  <T904_Kostenstellen>
-    <T904_FirmaNR>TE</T904_FirmaNR>
-    <T904_NR>KF011</T904_NR>
-    <T904_NRExtern />
-    <T904_Bez>Steckboardbeschlag</T904_Bez>
+    <T904_Bez>Verpackung</T904_Bez>
     <T904_GruppeNr>16</T904_GruppeNr>
+    <T904_AnzPers>0</T904_AnzPers>
+    <T904_FaktKap>0</T904_FaktKap>
+    <T904_KostSatz>0</T904_KostSatz>
+    <T904_QsGR>0</T904_QsGR>
+    <T904_KstRueckArt />
+    <T904_BildName />
+    <T904_Anlage>2017-05-12T09:49:28.943+02:00</T904_Anlage>
+    <T904_Aenderung>2017-05-12T09:49:28.943+02:00</T904_Aenderung>
+    <T904_User>#fg</T904_User>
+  </T904_Kostenstellen>
+  <T904_Kostenstellen>
+    <T904_FirmaNR>TE</T904_FirmaNR>
+    <T904_NR>K4001</T904_NR>
+    <T904_NRExtern />
+    <T904_Bez>Endkontrolle Fronten</T904_Bez>
+    <T904_GruppeNr>14</T904_GruppeNr>
     <T904_AnzPers>0</T904_AnzPers>
     <T904_FaktKap>0</T904_FaktKap>
     <T904_KostSatz>0</T904_KostSatz>

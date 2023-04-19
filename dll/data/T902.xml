@@ -2,15 +2,27 @@
 <NewDataSet>
   <T902_Abteilungstabelle>
     <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>Sachb</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Sachbearbeitung</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-10-14T11:24:39.823+02:00</T902_Anlage>
+    <T902_Aenderung>2022-10-14T11:24:39.823+02:00</T902_Aenderung>
+    <T902_User>tschneider</T902_User>
+    <T902_Werk>01</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
     <T902_NR>BvB</T902_NR>
     <T902_NR_Extern />
     <T902_Bez>"nicht Bucher" - Bünde</T902_Bez>
     <T902_KurzKN />
     <T902_Veran />
     <T902_Anlage>2021-03-25T13:38:12+01:00</T902_Anlage>
-    <T902_Aenderung>2021-03-25T14:03:02.163+01:00</T902_Aenderung>
-    <T902_User>gt013</T902_User>
-    <T902_Werk />
+    <T902_Aenderung>2022-10-14T11:18:28.057+02:00</T902_Aenderung>
+    <T902_User>tschneider</T902_User>
+    <T902_Werk>01</T902_Werk>
   </T902_Abteilungstabelle>
   <T902_Abteilungstabelle>
     <T902_FirmaNR>TE</T902_FirmaNR>
@@ -19,10 +31,94 @@
     <T902_Bez>Verwaltung Bünde</T902_Bez>
     <T902_KurzKN />
     <T902_Veran />
-    <T902_Anlage>2019-03-06T16:01:19.93+01:00</T902_Anlage>
-    <T902_Aenderung>2019-03-06T16:01:19.93+01:00</T902_Aenderung>
-    <T902_User>gt013</T902_User>
-    <T902_Werk />
+    <T902_Anlage>2019-03-06T16:01:19+01:00</T902_Anlage>
+    <T902_Aenderung>2022-10-14T11:18:09.183+02:00</T902_Aenderung>
+    <T902_User>tschneider</T902_User>
+    <T902_Werk>01</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>WBUE</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Werk Bünde</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-09-22T14:56:57+02:00</T902_Anlage>
+    <T902_Aenderung>2022-09-22T14:56:57+02:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>W1</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>WDISPO</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Werk Dispo</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-09-22T14:56:57+02:00</T902_Anlage>
+    <T902_Aenderung>2022-09-22T14:56:57+02:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>W1</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>WGT</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Werk Getmold</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-09-22T14:56:57+02:00</T902_Anlage>
+    <T902_Aenderung>2022-09-22T14:56:57+02:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>W1</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>WMEISTER</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Werk Meister</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-09-22T14:56:57+02:00</T902_Anlage>
+    <T902_Aenderung>2022-09-22T14:56:57+02:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>W1</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>WPRODBUE</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Werk Bünde</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-09-22T14:56:57+02:00</T902_Anlage>
+    <T902_Aenderung>2022-09-22T14:56:57+02:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>W1</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>WPRODGT</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Werk Getmold</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-09-22T14:56:57+02:00</T902_Anlage>
+    <T902_Aenderung>2022-09-22T14:56:57+02:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>W1</T902_Werk>
+  </T902_Abteilungstabelle>
+  <T902_Abteilungstabelle>
+    <T902_FirmaNR>TE</T902_FirmaNR>
+    <T902_NR>WQUALI</T902_NR>
+    <T902_NR_Extern />
+    <T902_Bez>Werk Quali</T902_Bez>
+    <T902_KurzKN />
+    <T902_Veran />
+    <T902_Anlage>2022-09-22T14:56:57+02:00</T902_Anlage>
+    <T902_Aenderung>2022-09-22T14:56:57+02:00</T902_Aenderung>
+    <T902_User>#fg</T902_User>
+    <T902_Werk>W1</T902_Werk>
   </T902_Abteilungstabelle>
   <T902_Abteilungstabelle>
     <T902_FirmaNR>TE</T902_FirmaNR>
