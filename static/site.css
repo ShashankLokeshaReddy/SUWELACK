@@ -199,12 +199,12 @@ body, html {
     color: #f1f1f1;
 }
 .abrechh , .abrechh:active ,.abrechh:focus, .abrechh:visited {
-    background-color: #7A7A7A; !important;
+    background-color: #7A7A7A !important;
     height: 70px !important;
     width: 200px !important;
     font-style: normal !important;
     font-weight: bolder !important;
-    color: #f1f1f1; !important;
+    color: #f1f1f1 !important;
     align-self: flex-end !important;
     margin-top: auto !important;
 
@@ -216,7 +216,7 @@ body, html {
     width: 200px !important;
     font-style: normal !important;
     font-weight: bolder !important;
-    color: #f1f1f1; !important;
+    color: #f1f1f1 !important;
     background-color: #ffbf0a !important;
 
 }
