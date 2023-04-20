@@ -118,11 +118,16 @@
     </body>
 
     <footer>
-        <nav class="navbar fixed-bottom navbar-light bg-light">
+        <nav class="navbar fixed-bottom navbar-light bg-light" style="z-index: 1;">
         <a class="navbar-brand" href="{{ url_for('home', username=username) }}"><img src="/static/images/Icons_Kartenscan.svg" width="64" height="64" alt="">
             {{  _('Home')}}
         </a>
-        <p>Als {{ current_user.username }} angemeldet</p>
+        {% if current_user.username %}
+            <p>Als {{ current_user.username }} angemeldet</p>
+        {% else %}
+            <p>Nicht eingeloggt</p>
+        {% endif %}
+
         <strong id="date-time"></strong>
       </nav>
     </footer>

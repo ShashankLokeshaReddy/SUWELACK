@@ -4,9 +4,9 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  padding: 5px 0;
+  padding: 0.3125rem 0;
   background: #F4F4F4;
-  box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+  box-shadow: 0.0625rem 0.0625rem  1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
   user-select: none;
   transition: bottom 0.4s;
 }
@@ -15,16 +15,16 @@
 }
 .keyboard__keys {
   text-align: center;
-  margin-bottom: 90px;
+  margin-bottom: 5.625rem;
 }
 .keyboard__key {
-  height: 45px;
+  height: 2.8125rem;
   width: 6%;
-  max-width: 90px;
-  margin: 3px;
-  border-radius: 4px;
+  max-width: 5.625rem;
+  margin: 0.1875rem;
+  border-radius: 0.25rem;
   border: none;
-  box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+  box-shadow: 0.0625rem 0.0625rem  1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
   background: rgba(255, 255, 255, 0.2);
   color: #232323;
   font-size: 1.05rem;
@@ -46,15 +46,15 @@
 }
 .keyboard__key--extra-wide {
   width: 36%;
-  max-width: 500px;
+  max-width: 31.25rem;
 }
 .keyboard__key--activatable::after {
   content: "";
-  top: 10px;
-  right: 10px;
+  top: 0.625rem;
+  right: 0.625rem;
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
 }
