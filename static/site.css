@@ -11,61 +11,61 @@ body, html {
 .btn-primary, .btn-primary:hover  {
     background-color:#F4F4F4 ;
     border: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
-    margin: 9px 5px 15px 5px;
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
+    margin: 0.5625rem 0.3125rem 0.9375rem 0.3125rem;
     color: #232323;
     outline: none;
     font-style: oblique;
-    font-size: 20px;
-    width: 370px;
+    font-size: 1.25rem;
+    width: 23.125rem;
 
 }
 
 .btn-primary:active:focus, .btn-primary:active,.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:visited, .btn-primary:focus{
     background-color: #ffbf0a !important;
     outline: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
     color: #f1f1f1 !important;
 
 }
 .btn-secondary, .btn-secondary:hover{
     background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
-    margin: 1px 2px 2px 2px;
+    box-shadow: 0.0625rem 0.0625rem 0.625rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
+    margin: 0.0625rem 0.125rem 0.125rem 0.125rem;
     color: #232323;
     font-style: oblique;
 
-    font-size: 20px;
-    height: 55px;
-    width: 55px;
+    font-size: 1.25rem;
+    height: 3.4375rem;
+    width: 3.4375rem;
 }
 .btn-light{
     background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
-    margin: 2px 2px 2px 2px;
+    box-shadow: 0.0625rem 0.0625rem 0.625rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
+    margin: 0.125rem 0.125rem 0.125rem 0.125rem;
     color: #232323;
-    font-size: 20px;
-    height: 115px;
-    width: 55px;
+    font-size: 1.25rem;
+    height: 7.1875rem;
+    width: 3.4375rem;
 }
 .btnZ{
     background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 10px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
-    margin: 3px 2px 2px 2px;
+    box-shadow: 0.0625rem 0.0625rem 0.625rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
+    margin: 0.1875rem 0.125rem 0.125rem 0.125rem;
     color: #232323;
     font-style: oblique;
-    font-size: 20px;
-    height: 55px;
-    width: 116.5px;
+    font-size: 1.25rem;
+    height: 3.4375rem;
+    width: 7.28125rem;
 }
 .btnZ:active:focus, .btnZ:visited, .btnZ:focus{
 
     outline: none !important;
     border: none !important;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
 }
 
 .container{
@@ -74,41 +74,41 @@ body, html {
     align-self: center;
     display: flex;
     justify-content: center;
-    margin: 50px 5px 5px 5px;
+    margin: 3.125rem 0.3125rem 0.3125rem 0.3125rem;
     flex-flow:column wrap;
     width: 100%;
     
 }
 .flex-column{
     float: left;
-    margin-right: 30px;
-    margin-top: 5px;
-    row-gap: 1px;
+    margin-right: 1.875rem;
+    margin-top: 0.3125rem;
+    row-gap: 0.0625rem;
     justify-content: space-evenly;
     justify-items:flex-start;
 }
 
 .card{
     float: right;
-    height: 320px;
-    width: 280px;
-    margin: 27px 2px 2px 30px;
+    height: 20rem;
+    width: 17.5rem;
+    margin: 1.6875rem 0.125rem 0.125rem 1.875rem;
     display: flex;                       
     flex-wrap: wrap;                     
     justify-items: right !important;
     border: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
     background-color: #F4F4F4;
 }
 
 .form-control,.form-control:focus, input, select{
-    width: 500px;
-    height: 45px;
+    width: 31.25rem;
+    height: 2.8125rem;
     box-sizing: inherit;
     display: flex;
     flex-direction: column !important;
     align-self: center;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,1),2px 2px 10px 0 rgba(205, 205, 205,1);
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
     color: #232323;
     border: none;
     outline: none;
@@ -125,12 +125,12 @@ body, html {
     display: block;
 }
 .col-md-8 {
-    margin: 8px 0px 2px 15px;
+    margin: 0.5rem 0rem 0.125rem 0.9375rem;
 }
 .col-md-4 {
-    padding-left: 0px !important;
-    margin-left: 0px !important;
-    margin-top: 8px;
+    padding-left: 0rem !important;
+    margin-left: 0rem !important;
+    margin-top: 0.5rem;
 }
 
 
@@ -146,15 +146,15 @@ body, html {
     background-color:#F8F8F8;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 3.75rem;
     font-family: 'SF Pro', sans-serif;
 
   }
   
 .sidenav a {
-    padding: 15px 8px 15px 32px;
+    padding: 0.9375rem 0.5rem 0.9375rem 2rem;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-family: 'SF Pro', sans-serif;
     color: #7A7A7A;
     display: block;
@@ -168,43 +168,43 @@ body, html {
 .sidenav .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    right: 1.5625rem;
+    font-size: 3rem;
+    margin-left: 3.125rem;
     color: #ffbf0a;
   }
   
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+  @media screen and (max-height: 28.125rem) {
+    .sidenav {padding-top: 0.9375rem;}
+    .sidenav a {font-size: 1.5rem;}
   }
  /* The Arbeitplatz Buttons */
 
 .btn-ap, .btn-ap:hover  {
     background-color:#F4F4F4 !important;
     border: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
-    margin: 2px 10px 10px 2px;
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,0.5),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,.5);
+    margin: 0.125rem 0.625rem 0.625rem 0.125rem;
     color: #232323;
     font-style: oblique;
-    font-size: 14px;
-    height: 50px;
-    width: 180px;
+    font-size: 0.875rem;
+    height: 3.125rem;
+    width: 15rem;
 
 }
 .btn-ap:active:focus, .btn-ap:visited, .btn-ap:focus{
     background-color: #ffbf0a !important;
     outline: none;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,0.5),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,.5);
     color: #f1f1f1;
 }
 .abrechh , .abrechh:active ,.abrechh:focus, .abrechh:visited {
-    background-color: #7A7A7A; !important;
-    height: 70px !important;
-    width: 200px !important;
+    background-color: #7A7A7A !important;
+    height: 4.375rem !important;
+    width: 12.5rem !important;
     font-style: normal !important;
     font-weight: bolder !important;
-    color: #f1f1f1; !important;
+    color: #f1f1f1 !important;
     align-self: flex-end !important;
     margin-top: auto !important;
 
@@ -212,40 +212,40 @@ body, html {
 }
 
 .submit2 {
-    height: 70px !important;
-    width: 200px !important;
+    height: 4.375rem !important;
+    width: 12.5rem !important;
     font-style: normal !important;
     font-weight: bolder !important;
-    color: #f1f1f1; !important;
+    color: #f1f1f1 !important;
     background-color: #ffbf0a !important;
 
 }
 .p-2{
-    margin-left: 15px;
+    margin-left: 0.9375rem;
 }
 
 /* .flex-row{
-    margin: 10px 5px 20px 30px;
+    margin: 0.625rem 0.3125rem 1.25rem 1.875rem;
     align-items:baseline;
 } */
 .bestätigen{
-    margin: 80px 20px 20px 20px;
-    padding-bottom: 80px;
+    margin: 5rem 1.25rem 1.25rem 1.25rem;
+    padding-bottom: 5rem;
     align-self: flex-end;
     margin-top: auto !important;
     width: -webkit-fill-available;
 }
 .bestätigen2{
-    margin: 10px 30px 20px 30px;
+    margin: 0.625rem 1.875rem 1.25rem 1.875rem;
     align-self: flex-end;
     margin-top: auto;
     width: -webkit-fill-available;
 }
 .topButton{
-    height: 30px;
-    width: 110px;
-    margin-left: 20px;
-    font-size: 15px;
+    height: 1.875rem;
+    width: 6.875rem;
+    margin-left: 1.25rem;
+    font-size: 0.9375rem;
     text-align: center !important;
 
 }
@@ -253,52 +253,52 @@ body, html {
     background-color: #ffbf0a !important;
     outline: none;
     color: #f1f1f1;
-    box-shadow: 1px 1px 20px 0 rgba(205, 205, 205,0.5),2px 2px 10px 0 rgba(205, 205, 205,.5);
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,0.5),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,.5);
 }
 
 .topNotification{
     background-color: #ffbf0a;
-    box-shadow: 2px 2px 30px 0 rgba(205, 205, 205,0.5),2px 2px 30px 0 rgba(205, 205, 205,.5);
+    box-shadow: 0.125rem 0.125rem 1.875rem 0 rgba(205, 205, 205,0.5),0.125rem 0.125rem 1.875rem 0 rgba(205, 205, 205,.5);
     font-style: oblique;
     color: #232323;
-    font-size: 20px;
+    font-size: 1.25rem;
 
 }
  /* The Identification Page */
  .identification {
     font-style: oblique;
-    font-size: 20px;
+    font-size: 1.25rem;
     align-items: center !important;
     width: min-content;
     text-align: center;
-    margin-top: 20px !important;
-    row-gap: 0px;
+    margin-top: 1.25rem !important;
+    row-gap: 0rem;
      text-transform: capitalize;
  }
 
  .statustable{
-     margin:10px;
+     margin:0.625rem;
      height:80%;
  }
   .statustableflex{
-     margin:10px;
+     margin:0.625rem;
      height:80%;
       width: 95%;
       display: flex;
     flex-direction: column;
  }
  .inputbutton{
-     width: 330px !important;
-     height: 60px !important;
+     width: 20.625rem !important;
+     height: 3.75rem !important;
  }
 
  .kurztext{
-    margin-top : 8px;
-    width: 330px !important;
-    height: 150px !important;
+    margin-top : 0.5rem;
+    width: 20.625rem !important;
+    height: 9.375rem !important;
  }
  .inputtextcolumn{
-    row-gap: 22px;
+    row-gap: 1.375rem;
     align-items: end;
  }
  .containerr{
@@ -308,23 +308,23 @@ body, html {
      width: 100%;
  }
  .inputbuttontable{
-     width: 250px !important;
-     height: 45px !important;
+     width: 15.625rem !important;
+     height: 2.8125rem !important;
  }
  .label:hover,.label{
     display: inline-block;
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
     width: max-content;
 }
 
  .radiobuttonsself, .radiobuttonsself:hover, .radiobuttonsself:focus{
-     width: 290px !important;
-    height: 65px !important;
+     width: 18.125rem !important;
+    height: 4.0625rem !important;
 
     font-style: normal !important;
-     margin: 1px 2px 2px 20px;
-     font-size: 20px;
-    padding-top: 15px !important;
+     margin: 0.0625rem 0.125rem 0.125rem 1.25rem;
+     font-size: 1.25rem;
+    padding-top: 0.9375rem !important;
  }
 
  .textclass, .textclass:hover{
@@ -360,41 +360,41 @@ table tbody tr {
 .table td, .table th {
     
     vertical-align: baseline;
-    border-top: 0px solid #dee2e6;
+    border-top: 0rem solid #dee2e6;
     word-wrap: break-word;
 }
 .datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus, #dauer {
-    width: 200px !important;
-    height: 45px !important;
+    width: 12.5rem !important;
+    height: 2.8125rem !important;
     flex-direction: unset !important;
 }
 #arbeitsplatz, #Gemeinkosten {
-    width: 365px !important;
-    height: 45px !important;
+    width: 22.8125rem !important;
+    height: 2.8125rem !important;
     flex-direction: unset !important;
 }
 .flexrowGemeinkosten{
-    margin: 10px 5px 10px 30px;
+    margin: 0.625rem 0.3125rem 0.625rem 1.875rem;
 
 }
 
 .fertigungauftrag {
-    width: 100px !important;
-    height: 45px !important;
-    margin: 5px;
+    width: 6.25rem !important;
+    height: 2.8125rem !important;
+    margin: 0.3125rem;
 }
 .fertigungauftragcolumn {
-    width: 100px !important;
-    height: 45px !important;
-    margin: 5px;
+    width: 6.25rem !important;
+    height: 2.8125rem !important;
+    margin: 0.3125rem;
 }
 .fertigungauftragrow {
-    margin: 5px 5px 5px 0px;
+    margin: 0.3125rem 0.3125rem 0.3125rem 0rem;
     align-items:baseline;
 
 }
 .bestätigen3 {
-    margin: 0px 30px 100px 30px;
+    margin: 0rem 1.875rem 6.25rem 1.875rem;
     align-self: flex-end;
     margin-top: auto;
 }
@@ -403,7 +403,7 @@ table tbody tr {
     align-self: center;
     display: flex;
     justify-content: center;
-    margin: 5px 5px 5px 5px;
+    margin: 0.3125rem 0.3125rem 0.3125rem 0.3125rem;
     flex-flow:column wrap;
     width: 100%;
 }
@@ -415,33 +415,33 @@ table tbody tr {
 
 /* Solid border */
 hr.solid {
-    border-top: 3px solid #bbb;
+    border-top: 0.1875rem solid #bbb;
   }
 
   .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 1.25rem;
 }
 
 .boxes {
     display: inline-block;
-    width: 200px;
-    height: 20px;
-    margin-left : 10px;
+    width: 12.5rem;
+    height: 1.25rem;
+    margin-left : 0.625rem;
   }
 
   .inputbutton2{
-    margin-top : 20px;
+    margin-top : 1.25rem;
     display: inline-block;
-    width: 330px !important;
-    height: 45px !important;
+    width: 20.625rem !important;
+    height: 2.8125rem !important;
 }
 .inputbutton3{
-    margin-top : 5px;
+    margin-top : 0.3125rem;
     display: inline-block;
-    width: 330px !important;
-    height: 45px !important;
+    width: 20.625rem !important;
+    height: 2.8125rem !important;
 }
 .oneline {
     display: inline-block;
@@ -449,14 +449,14 @@ hr.solid {
 
 .flex-container {
     display: flex;
-    margin: 5px;
+    margin: 0.3125rem;
 }
 
 .flex-row {
     display: flex;
     flex: 1 1 auto;
     height: auto;
-    margin: 5px;
+    margin: 0.3125rem;
 }
 
 .flex-column {
@@ -464,7 +464,7 @@ hr.solid {
     flex: 1 1 auto;
     flex-direction: column;
     height: auto;
-    margin: 5px;
+    margin: 0.3125rem;
 }
 
 .flex-center {
@@ -480,19 +480,19 @@ hr.solid {
 .flex-nested-row {
     display: flex;
     flex: 1 1 auto;
-    margin: 5px;
+    margin: 0.3125rem;
 }
 
 .flex-nested-column {
     display: flex;
     flex: 1 1 auto;
-    margin: 5px;
+    margin: 0.3125rem;
 }
 
 .scrollable-menu_GK, .scrollable-menu_Buchungstag {
     height: auto;
-    max-height: 200px;
-    width: 300px;
+    max-height: 12.5rem;
+    width: 18.75rem;
     overflow-x: hidden;
     align-items: left;
     justify-content: left;
@@ -500,26 +500,26 @@ hr.solid {
 
 .scrollable-menu_Dauer {
     height: auto;
-    max-height: 200px;
-    width: 200px;
+    max-height: 12.5rem;
+    width: 12.5rem;
     overflow-x: hidden;
     align-items: left;
     justify-content: left;
 }
 
 #Ändern {
-    width: 200px !important;
-    height: 45px !important;
+    width: 12.5rem !important;
+    height: 2.8125rem !important;
     flex-direction: unset !important;
 }
 
 #Erstellen {
-    width: 200px !important;
-    height: 45px !important;
+    width: 12.5rem !important;
+    height: 2.8125rem !important;
     flex-direction: unset !important;
 }
 
 .statustableflex {
-    margin-left: 50px;
+    margin-left: 3.125rem;
   }
   

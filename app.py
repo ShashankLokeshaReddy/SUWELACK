@@ -635,7 +635,7 @@ def gemeinkostenandern(userid):
     auftraglst_ajax = []
     tablecontent = []
     for index, row in df.iterrows():
-        item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%d %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%d %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%d %H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%d %H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
+        item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
         tablecontent.insert(0,item)
         auftraglst_temp = []
         auftraglst_ajax_temp = []
@@ -668,6 +668,8 @@ def gemeinkostenandern(userid):
         print(f"dauer: {dauer}")
         anfang_ts = request.form["anfangTS"]
         print(f"anfangTS: {anfang_ts}")
+        if datum == "":
+            datum = anfang_ts
         date_string = parser.parse(datum)
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         arbeitsplatz = request.form["arbeitsplatz"]

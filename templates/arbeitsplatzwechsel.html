@@ -17,7 +17,7 @@
     <!-- Dynamic population of Buttons -->
     {% for items in range(0,buttonText[0]|length) %}
         {% if show_button_ids %}
-            <button type="submit" name="arbeitplatzbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}<span style="font-size: 10px">,{{buttonText[1][items]}}</span></button>
+            <button type="submit" name="arbeitplatzbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}<span style="font-size: 0.625rem">,{{buttonText[1][items]}}</span></button>
         {% else %}
             <button type="submit" name="arbeitplatzbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
         {% endif %}
