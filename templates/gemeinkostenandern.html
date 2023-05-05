@@ -21,83 +21,61 @@
 <form method="post" action="{{ url_for('gemeinkostenandern',userid=userid)}}">
 
 <div class="containerr statustable">
-<h3>{{ _('Gemeinkosten ändern') }}</h3>
+	<h3>{{ _('Gemeinkosten ändern') }}</h3>
 </div>
 
 <div class="flex-container">
-  <div class="flex-row">
-    <div class="flex-nested-row">
-      <label class="textclass" > {{ pers_no }} &emsp; {{ username }} </label>
-    </div>
-  </div>
+	<div class="flex-row flex-left">
+		<label for="anfangTS" class="textclass" id="anfangTS_label">{{ anfangTS }} </label>
+	</div>
+	<div class="flex-row flex-right">
+		<label class="textclass" > {{ pers_no }} &emsp; {{ username }} </label>
+	</div>
 </div>
 
-<div class="flex-container">
-  <div class="flex-row">
-    <div class="flex-nested-row">
-	  <label for="anfangTS" class="textclass" id="anfangTS_label">{{ anfangTS }} </label>
-      <input type="text" class="textclass" name="anfangTS" id="anfangTS" value={{ anfangTS }} style="visibility: hidden"></input>
-    </div>
-  </div>
-  <div class="flex-row">
-    <div class="flex-nested-row flex-right">
-      <label for="datum" class="textclass">{{ _('Datum') }}: &emsp; </label>
-      <input type="date" name="datum" id="datum" value={{ date }} class="form-control datetime"></input>
-    </div>
-  </div>
-</div>
-
-<div class="flex-container">
-  <div class="flex-row">
-    <div class="flex-nested-row">
-      <label for="arbeitsplatz" class="textclass">{{ _('Buchungstag') }}Gruppe:  &emsp;</label>
-      <select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
-		{% for item in auftraglst[0] %}
-			<option value="{{item.1}}">{{item.1}}</option>
-	  	{% endfor %}
-	</select>
-    </div>
-  </div>
-  <div class="flex-row">
-    <div class="flex-nested-row flex-center">
+<div class="grp d-flex align-content-center flex-wrap justify-content-center">
+	<div class="flex-row flex-center">
+		<label for="arbeitsplatz" class="textclass">{{ _('Buchungstag') }}Gruppe:  &emsp;</label>
+		<select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
+			{% for item in auftraglst[0] %}
+				<option value="{{item.1}}">{{item.1}}</option>
+			{% endfor %}
+		</select>
+	</div>
+	<div class="flex-row flex-center">
 		<label for="Gemeinkosten" class="textclass">{{ _('Gemeinkosten') }}:  &emsp;</label>
 		<select name="gemeinkosten" id="Gemeinkosten" class="form-control">
 		</select>
-    </div>
-  </div>
-  <div class="flex-row">
-    <div class="flex-nested-row flex-right">
-    <label for="Dauer" class="textclass">{{ _('Dauer') }}: &emsp;</label>
-	<select name="dauer" id="dauer" class="DAU form-control">
-        {% for items in range(0,dauer|length) %}
-        	<option value="{{dauer[items]}}">{{dauer[items]}}</option>
-		{% endfor %}
-	</select>
-    </div>
-  </div>
+	</div>
+	<div class="flex-row flex-center">
+		<label for="GKA" class="textclass">{{ _('Kurztext') }}: &emsp;</label>
+		<input type="text" name="kurztext" id="GKA" class="form-control">
+	</div>
+	<div class="flex-row flex-center">
+		<label for="datum" class="textclass">{{ _('Datum') }}: &emsp; </label>
+		<input type="date" name="datum" id="datum" value="{{ date }}" class="form-control datetime">
+	</div>
+	<div class="flex-row flex-center">
+		<label for="Dauer" class="textclass">{{ _('Dauer') }}: &emsp;</label>
+		<select name="dauer" id="dauer" class="DAU form-control">
+			{% for items in range(0,dauer|length) %}
+				<option value="{{dauer[items]}}">{{dauer[items]}}</option>
+			{% endfor %}
+		</select>
+	</div>
 </div>
 
 <div class="flex-container">
-  <div class="flex-row">
-    <div class="flex-nested-row">
-      <label for="GKA" class="textclass">{{ _('Kurztext') }}: &emsp;</label>
-      <input type="text" name="kurztext" id="GKA" class="form-control">
-    </div>
-  </div>
-  <div class="flex-row">
-    <div class="flex-nested-row flex-right">
-      <button type="submit" name="submit" value="ändern" id="Ändern" class="btn btn-secondary  btn-lg submit2">{{ _('Ändern') }}</button>
-    </div>
-  </div>
-  <div class="flex-row">
-    <div class="flex-nested-row flex-right">
-      <button type="submit" name="submit" value="erstellen" id="Erstellen" class="btn btn-secondary  btn-lg submit2">{{ _('Erstellen') }}</button>
-    </div>
-  </div>
+	<div class="flex-row flex-left">
+		<button type="submit" name="submit" value="ändern" id="Ändern" class="btn btn-secondary  btn-lg submit2">{{ _('Ändern') }}</button>
+	</div>
+	<div class="flex-row flex-right">
+		<button type="submit" name="submit" value="erstellen" id="Erstellen" class="btn btn-secondary  btn-lg submit2">{{ _('Erstellen') }}</button>
+	</div>
 </div>
 
-<input type="text" name ='old_beleg_nr' id ='old_beleg_nr' style="visibility: hidden"> 
-</input>
+<input type="text" class="textclass" name="anfangTS" id="anfangTS" value="{{ anfangTS }}" style="visibility: hidden"></input>
+<input type="text" name ='old_beleg_nr' id ='old_beleg_nr' style="visibility: hidden"> </input>
 
 <div class="panel-body">
 	
@@ -237,7 +215,7 @@ $(document).ready(function($)
 		//make div editable
 		$(this).closest('div').attr('contenteditable', 'true');
 		//add bg css
-		$(this).addClass('bg-warning').css('padding','5px');
+		$(this).addClass('bg-warning').css('padding','0.3125rem');
 
 		$(this).focus();
 	})	
@@ -295,7 +273,7 @@ $(document).ready(function($)
 		.attr('contenteditable', 'true')
 		.attr('edit_type', 'button')
 		.addClass('bg-warning')
-		.css('padding','3px')
+		.css('padding','0.1875rem')
 
 		//--->add the original entry > start
 		tbl_row.find('.row_data').each(function(index, val) 

@@ -668,6 +668,8 @@ def gemeinkostenandern(userid):
         print(f"dauer: {dauer}")
         anfang_ts = request.form["anfangTS"]
         print(f"anfangTS: {anfang_ts}")
+        if datum == "":
+            datum = anfang_ts
         date_string = parser.parse(datum)
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         arbeitsplatz = request.form["arbeitsplatz"]
