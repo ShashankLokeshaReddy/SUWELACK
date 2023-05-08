@@ -114,6 +114,22 @@ body, html {
     outline: none;
     background-color: #F4F4F4;
 }
+
+.form-uhrzeit{
+    width: 10rem;
+    height: 2.8125rem;
+    margin: 0.3125rem;
+    box-sizing: inherit;
+    display: flex;
+    flex-direction: row !important;
+    align-self: left;
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
+    color: #232323;
+    border: none;
+    outline: none;
+    background-color: #F4F4F4;
+}
+
 .topnav{
     justify-content: flex-start;
 }
