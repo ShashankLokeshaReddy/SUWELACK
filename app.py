@@ -56,6 +56,7 @@ app.debug = True
 app.secret_key = "suwelack"
 app.config['BABEL_DEFAULT_LOCALE'] = 'de'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 babel = Babel(app)
 db = SQLAlchemy(app)
 
@@ -371,8 +372,49 @@ def gemeinkosten_buttons(userid):
 
     return render_template(
         "gemeinkostenbuttons.html",
+        title="Gemeinkosten",
         date=datetime.now(),
         buttonText=get_list("gemeinkostenItems", userid=userid),
+        show_button_ids=SHOW_BUTTON_IDS,
+        sidebarItems=get_list("sidebarItems")
+    )
+    
+
+@app.route("/zaehlerstand_buttons/<userid>", methods=["POST", "GET"])
+@login_required
+def zaehlerstand_buttons(userid):
+    """
+    Route for choosing Zähler as Buttons.
+    Uses 'gemeinkostenbuttons.html'.
+
+    Args:
+        userid: Kartennummer that was input into the inputbar on the identification screen.
+
+    Routes to:
+        TODO
+    """
+
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
+
+    if request.method == 'POST':
+        # Retrieve the value of selected button from frontend
+        selected_zs = request.form["gemeinkostenbuttons"]
+        selected_zs, zs_name = selected_zs.split(",")
+        logging.info(f"Zählerstand: {selected_zs, zs_name}")
+
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_zs)  # start with GK nr
+        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_zs, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+        print(f"[DLL] Buch4Clear: nr:{selected_zs}, sa:{sa}, buaction:{buaction}")
+
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
+        return actbuchung(nr=userid, username=username, sa=sa)
+
+    return render_template(
+        "gemeinkostenbuttons.html",
+        title="Zählerstände",
+        date=datetime.now(),
+        buttonText=get_list("zaehlerItems", userid=userid),
         show_button_ids=SHOW_BUTTON_IDS,
         sidebarItems=get_list("sidebarItems")
     )
@@ -785,6 +827,60 @@ def anmelden(userid, sa):
         sidebarItems=get_list("sidebarItems")
     )
 
+@app.route("/fabuchta56_dialog/<userid>/<old_total>/<platz>/<belegnr>", methods=["POST", "GET"])
+@login_required
+def fabuchta56_dialog(userid, old_total, platz, belegnr):
+    """
+    TODO
+    """
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
+
+    if request.method == 'POST':
+        xScanFA=0
+        xFAStatus=''
+        xPersNr=0
+        xTE =0.0
+        xMengeAus=0.0
+        xtrman=0.0
+        xta11nr=''
+        xcharge=''
+        xVal2=0.0
+        xVal3=0.0
+        xVal4=0.0
+        xVal5=0.0
+        xbuchen=True
+
+        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T910) == True:
+            xPersNr = int(dll_instances[current_user.username].gtv("T910_Nr"))
+        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) == True:
+            xTE = dll_instances[current_user.username].gtv("TA06_TE")
+        
+        new_total = int(float(request.form["new_total"]))
+        date_string = parser.parse(request.form["datum"])
+        xMengeGut = int(new_total) - int(old_total) # Difference = new_total - old_total
+        xMengeAus = 0
+        hour = int(request.form["uhrzeit"])
+        xTS = date_string.strftime(f"%d.%m.%Y {hour}:00:00")  #Stringtransporter Datum 
+        
+        if xbuchen == True:
+            print(f"[DLL] BuchTA56_3: ", xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
+                                                            xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
+            dll_instances[current_user.username].BuchTA56_3(xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
+                                                            xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+
+        flash("Zählerstand erfolgreich zurückgemeldet.")
+        return redirect(url_for('zaehlerstand_buttons', userid=userid))
+    
+    return render_template(
+        "zaehlerdialog.html",
+        date=datetime.now(),
+        old_total=float(old_total),
+        belegnr=belegnr,
+        uhrzeit=list(range(1,25)),
+        sidebarItems=get_list("sidebarItems")
+    )
 
 @app.route("/fabuchta55_dialog/<userid>/<menge_soll>/<xFAStatus>/<xFATS>/<xFAEndeTS>/<xScanFA>/<endroute>", methods=["POST", "GET"])
 @login_required
@@ -1069,13 +1165,10 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
     
     #Prüfen, ob WB gemacht werden muß
     #nur dann, wenn Arbeitsplatz gelesen worden ist!
-    if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T905) == True:
-        print("bufa: drT905 vorhanden")
+    if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T905) is True:
+        print("[DLL] dr_T905 vorhanden")
         #Vor Buchung, prüfen, ob Kst der Person mit der Kst des zu buchenden Arbeitsplatz stimmt! Wenn nicht Wechsebuchung erzeugen!
         #Wechselbuchung triggert auf T955!!
-        dll_instances[current_user.username].BuFAWB(ATA29Nr)
-
-    if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T905) is True:
         dll_instances[current_user.username].BuFAWB(ATA29Nr)
 
     # Auftrag finden
@@ -1099,7 +1192,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
         print(dll_instances[current_user.username].gtv("dr_TA06"))
         result = dll_instances[current_user.username].BuFANr0Status(xbBuchZiel)
         xret, xbBuchZiel = result
-        print('[DLL] Bufanrstatus ' + xret + ', Buchzeile ' + str(xbBuchZiel))
+        print('[DLL] Bufanrstatus ' + xret + ', Buchziel ' + str(xbBuchZiel))
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
@@ -1130,6 +1223,21 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
                     usernamepd = dbconnection.getPersonaldetails(userid)
                     username = usernamepd['formatted_name']
                     return redirect(url_for("home", username=username))
+            
+            if xbBuchZiel == 2:
+                if platz is None:
+                    xPlatz = ""
+                else:
+                    xPlatz = platz
+                if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) == True:
+                    belegnr = dll_instances[current_user.username].gtv("TA06_BelegNr")
+                print(f"[DLL] Belegnr: {belegnr}")
+                # letzten Zählerstand holen und Platz wird aus Soll_Platz des FA geholt (jeder Zähler ist einem anderen Platz zugeordnet, Person bucht für andere)
+                result = dll_instances[current_user.username].BuchTA56_0(xPlatz)
+                xret, xPlatz = result
+                if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA56) == True:
+                    old_total = dll_instances[current_user.username].gtv("TA56_Wert") #letzte Zählerstand
+                return redirect(url_for("fabuchta56_dialog", userid=userid, old_total=old_total, belegnr=belegnr, platz=xPlatz))
             else:
                 usernamepd = dbconnection.getPersonaldetails(userid)
                 username = usernamepd['formatted_name']
@@ -1188,7 +1296,7 @@ def fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     xPersNr = dll_instances[current_user.username].gtv("T910_Nr")
     xTE = dll_instances[current_user.username].gtv("TA06_TE")
     xScanFA = int(xScanFA)  # make sure dtype is correct
-    print(f"BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
+    print(f"[DLL] BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
     dll_instances[current_user.username].BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
     #Störung setzen
@@ -1335,9 +1443,14 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
     result = dll_instances[current_user.username].CheckKommt(sa, kst, salast, kstlast, tslast, xT905Last, xTA29Last)
     xret, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last = result
     print(f"[DLL] CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
+    # if xret == "MSG0065":
+    #     flash("Fehler: Keine \"Kommt\"-Buchung vorhanden!")
+    #     dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK, '', '', '', '', '')
+    #     return redirect(url_for("home", username=username))
     if len(xret) > 0:
         if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True or dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA05) is True:
             flash("Fehler: Keine Auftragsbuchung ohne Kommt!")
+            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK, '', '', '', '', '')
             return redirect(url_for("home", username=username))
 
     xpersnr = dll_instances[current_user.username].T910NrGet()
@@ -1395,20 +1508,20 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
                     sa=sa
                 ))               
             elif sa == "G":
-                result = dll_instances[current_user.username].PNR_Buch(sa, '', t905nr, '', '', '', 0)
+                result = dll_instances[current_user.username].PNR_Buch(sa, kst, t905nr, '', '', '', 0)
                 xret, ASA, AKst, APlatz, xtagid, xkstk = result
                 if GKENDCHECK is True:  # Param aus X998 prüfen laufende Aufträge
                     xret = dll_instances[current_user.username].PNR_Buch2Geht()
                 logging.info("Already Logged In")
                 flash("User wurde abgemeldet.")
             elif sa == 'A':
-                result = dll_instances[current_user.username].PNR_Buch(sa, '', t905nr, '', '', '', 0)
+                result = dll_instances[current_user.username].PNR_Buch(sa, kst, t905nr, '', '', '', 0)
                 xret, ASA, AKst, APlatz, xtagid, xkstk = result
                 flash(arbeitsplatz)
                 logging.debug(f"[DLL] booked Arbeitsplatz: {arbeitsplatz}")
 
             if len(xret) == 0:
-                dll_instances[current_user.username].PNR_Buch3(xtagid, sa, '', APlatz, '', '', 0)
+                dll_instances[current_user.username].PNR_Buch3(xtagid, sa, AKst, APlatz, '', '', 0)
                 print(f"[DLL] PNR_Buch3")
             dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK, '', '', '', '', '')
 
@@ -1462,7 +1575,7 @@ def get_list(listname, userid=None):
 
     if listname == "arbeitsplatzgruppe":
         # Implement database calls here.
-        return ["Frontenlager", "Verschiedenes(bundes)", "Lehrwerkstatt", "AV(Bunde)"]
+        return ["Frontendlager", "Verschiedenes (Bünde)", "Lehrwerkstatt", "AV (Bünde)"]
 
     if listname == "arbeitsplatz":
         arbeitsplatz_info = dbconnection.getArbeitplazlist()
@@ -1480,7 +1593,6 @@ def get_list(listname, userid=None):
         gruppe = dbconnection.getGruppenbuchungGruppe()
         return gruppe
 
-
     if listname == "fertigungsauftrag_frNr":
         return [1067, 2098, 7654, 2376, 8976]
 
@@ -1496,19 +1608,23 @@ def get_list(listname, userid=None):
 
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen"],
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen"]]
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid)
         return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
+    
+    if listname == "zaehlerItems":
+        zaehler_info = dbconnection.getZaehler(userid)
+        return [zaehler_info["TA05_ArtikelBez"], zaehler_info["TA06_BelegNr"]]
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen"],
+                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen"]]
+                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
 # if __name__ == '__main__':
     

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %} {{ _('Zählerstandsrückmeldung') }} {% endblock %}
+{% block content%}
+    <div class="statustable">
+    <h3>{{ _('Zählerstandsrückmeldung') }}</h3>
+<div class="fertigungauftragcontainer">
+<form action='#' method="POST">
+    <div class="d-flex flex-row fertigungauftragrow">
+<div class="d-flex flex-column">
+<div class="d-flex flex-row fertigungauftragrow">
+<div class="d-flex flex-column">
+    <label for="old_total" class="label">{{ _('Aktueller Stand') }}</label>
+    <label for="new_total" class="label">{{ _('Neuer Stand') }}</label>
+    <!-- <label for="diff" class="label">{{ _('Differenz') }}</label> -->
+</div>
+<div class="d-flex flex-column">
+      <input type="text" name="old_total" id="old_total" value="{{old_total}}" class="form-control fertigungauftrag">
+      <input type="text" name="new_total" id="new_total" value="0" class="form-control fertigungauftrag">
+      <!-- <input type="text" name="diff" id="diff" value="0" class="form-control fertigungauftrag"> -->
+
+</div>
+<div class="d-flex flex-column">
+      <label for="datum" class="label">{{ _('Datum') }}</label>
+      <label for="uhrzeit" class="label">{{ _('Uhrzeit') }}</label>
+</div>
+<div class="d-flex flex-column">
+    <input type="date" name="datum" id="datum" value={{ date }} class="form-uhrzeit"></input>
+      <select name="uhrzeit" id="uhrzeit" class="form-uhrzeit">
+        {% for items in range(0,uhrzeit|length) %}
+        	<option value="{{uhrzeit[items]}}">{{uhrzeit[items]}}</option>
+		{% endfor %}
+	</select>
+</div>
+</div>
+</div>
+
+
+<div class="d-flex flex-column">
+        <div class="card">
+            <!-- Keypad -->
+            <div class="col-md-8">
+                <div class="row">
+                    <button type="button" value="" class="btn btn-secondary">⌫</button>
+                    <button type="button" value="/" class="btn btn-secondary">/</button>
+                    <button type="button" value="*" class="btn btn-secondary">*</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="7" class="btn btn-secondary">7</button>
+                    <button type="button" value="8" class="btn btn-secondary">8</button>
+                    <button type="button" value="9" class="btn btn-secondary">9</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="4" class="btn btn-secondary">4</button>
+                    <button type="button" value="5" class="btn btn-secondary">5</button>
+                    <button type="button" value="6" class="btn btn-secondary">6</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="1" class="btn btn-secondary">1</button>
+                    <button type="button" value="2" class="btn btn-secondary">2</button>
+                    <button type="button" value="3" class="btn btn-secondary">3</button>
+                </div>
+                <div class="row">
+                    <button type="button" value="0" class="btnZ">0</button>
+                    <button type="button" value="," class="btn btn-secondary">,</button>
+                </div>
+                </div>
+                <div class="col-md-4">
+                     <button type="button" value="-" class="btn btn-secondary">-</button>
+                     <button type="button" value="submit" class="btn btn-light">↵</button>
+                     <button type="button" value="+" class="btn btn-light">+</button>
+</div>
+</div>
+</div>
+
+</div>
+<div class="flex-container">
+    <div class="flex-row flex-left">
+        <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+    </div>
+    <div class="flex-row flex-right">
+        <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Rückmelden') }}</button>
+    </div>
+</div>
+
+
+</div>
+</div>
+    </form>
+{% endblock %}

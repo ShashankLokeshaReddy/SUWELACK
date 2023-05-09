@@ -234,3 +234,11 @@ def doUndoDelete(belegnr, userid):
             connection.commit()
         except:
             return "Auftrag konnte nicht wiederhergestellt werden"
+        
+def getZaehler(userid):
+    persnr = getPersonaldetails(userid)["T910_Nr"]
+    last_booking = getLastbooking(userid)
+    platz = last_booking.loc[0, "T951_ArbIst"]
+    gk_data = pd.read_sql_query(text(
+        f"""SELECT * FROM ksmaster.dbo.kstf_TA06_GKFAGrp('{FirmaNr}', '{platz}', '50', 1)"""), connection)
+    return gk_data
