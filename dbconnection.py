@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, text
 import pandas as pd
-# from XMLRead import X998_GrpPlatz, FirmaNr
+from XMLRead import X998_GrpPlatz, FirmaNr
 from datetime import datetime
 from sqlalchemy import exc
 
@@ -13,6 +13,8 @@ DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)
 future_engine = create_engine(DATABASE_CONNECTION, future=True)
 connection = engine.connect()
+
+print("db", X998_GrpPlatz, FirmaNr)
 
 def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
     arbeitplatzlist = pd.read_sql_query(text(
