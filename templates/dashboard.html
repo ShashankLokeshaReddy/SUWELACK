@@ -12,6 +12,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>DLL Path</th>
+          <th>DLL Data Path</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -21,6 +22,7 @@
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>{{ user.dll_path }}</td>
+            <td>{{ user.dll_path_data }}</td>
             <td>
               <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn">Bearbeiten</a>
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ user.id }}">Löschen</button>

@@ -14,7 +14,9 @@ engine = create_engine(DATABASE_CONNECTION)
 future_engine = create_engine(DATABASE_CONNECTION, future=True)
 connection = engine.connect()
 
-def getArbeitplazlist():
+print("db", X998_GrpPlatz, FirmaNr)
+
+def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
     arbeitplatzlist = pd.read_sql_query(text(
         f"""SELECT T905_Nr,T905_bez,T905_Bez2,T905_KstNr,T905_Art,T905_Typ,T905_Akkord,T905_Leist,T905_Freigabe,
         T905_ArbGrNr,T905_Img,T905_StartScreen,T905_Schleuse FROM ksalias.dbo.G905_TermPlatz INNER JOIN 
@@ -23,7 +25,7 @@ def getArbeitplazlist():
         connection)
     return arbeitplatzlist
 
-def getPlazlistGKA(userid, date):
+def getPlazlistGKA(userid, date, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
     Platzlist = pd.read_sql_query(text(
         f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
@@ -32,7 +34,7 @@ def getPlazlistGKA(userid, date):
         connection)
     return Platzlist
 
-def getPlazlistFAE(userid):
+def getPlazlistFAE(userid, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(text(
@@ -42,7 +44,7 @@ def getPlazlistFAE(userid):
         connection)
     return Platzlist
 
-def getAuftrag(Platz, template): # TA21_Typ is 3 for GKA and 5 for FA erfassen
+def getAuftrag(Platz, template, FirmaNr): # TA21_Typ is 3 for GKA and 5 for FA erfassen
     if template == "GK_ändern":
         TA21_Typ = 3
     if template == "FA_erfassen":
@@ -57,7 +59,7 @@ def getAuftrag(Platz, template): # TA21_Typ is 3 for GKA and 5 for FA erfassen
         connection)
     return Auftraglist
 
-def getTables_GKA_FAE(userid, Platz, template):
+def getTables_GKA_FAE(userid, Platz, template, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%m-%d")
     if template == "GK_ändern":
@@ -68,7 +70,7 @@ def getTables_GKA_FAE(userid, Platz, template):
         connection)
     return tablelist
 
-def getArbeitplatzBuchung():
+def getArbeitplatzBuchung(FirmaNr, X998_GrpPlatz):
     arbeitplatzlist = pd.read_sql_query(text(
         f"""Select T905_Nr,T905_Bez from T905_ArbMasch inner join G905_TermPlatz on T905_FirmaNr = '{FirmaNr}'  and G905_FirmaNr = T905_FirmaNr and G905_Platz = T905_nr  and G905_Nr = '{X998_GrpPlatz}'"""),
         connection)
@@ -82,13 +84,13 @@ def getArbeitplatzBuchung():
         connection)
     return [arbeitplatzlist, persnr, fanr]
 
-def getGruppenbuchungGruppe():
+def getGruppenbuchungGruppe(FirmaNr):
     gruppe = pd.read_sql_query(text(
         f"""Select T903_NR,T903_Bez from T903_Gruppen where T903_FirmaNr = '{FirmaNr}' and T903_GruPrae not in (0)"""),
         connection)
     return gruppe
 
-def getGruppenbuchungFaNr():
+def getGruppenbuchungFaNr(FirmaNr):
     fanr = pd.read_sql_query(text(
         f"""Select TA05_FA_Nr,TA05_ArtikelBez from TA05_FAK1 where TA05_FirmaNr = '{FirmaNr}' and TA05_FA_Nr like  'GK0%'"""),
         connection)
@@ -100,7 +102,7 @@ def getUserID(persnr):
         connection)
     return round(userid.iloc[0, 0])
 
-def getBelegNr(FA_Nr, Platz):
+def getBelegNr(FA_Nr, Platz, FirmaNr):
     beleg_nr = pd.read_sql_query(text(
         f"""select TA06_BelegNr from dbo.TA06_FAD1  
         inner join KSAlias.dbo.TA21_AuArt on TA21_FirmaNr = TA06_FirmaNr and TA21_Nr = TA06_FA_Art and TA21_Typ= '3' and TA21_FirmaNR = '{FirmaNr}'
@@ -119,7 +121,6 @@ def getPersonaldetails(T912_Nr):
     pers_info['formatted_name'] = pers_info["T910_Vorname"] + ", " + pers_info["T910_Name"]
     return pers_info
 
-
 def getLastbooking(userid):
     last_booking = pd.read_sql_query(text(
         f"""select top 1 T951_DatumTS, T951_PersNr, T912_Nr, T951_ArbIst
@@ -127,8 +128,7 @@ def getLastbooking(userid):
         where T912_Nr='{userid}' order by T951_DatumTS desc"""), connection)
     return last_booking
 
-
-def getGemeinkosten(userid):
+def getGemeinkosten(userid, FirmaNr):
     last_booking = getLastbooking(userid)
     platz = last_booking.loc[0, "T951_ArbIst"]
     gk_data = pd.read_sql_query(text(
@@ -138,8 +138,7 @@ def getGemeinkosten(userid):
         order by TA06_BelegNr"""), connection)
     return gk_data
 
-
-def getStatustableitems(userid):
+def getStatustableitems(userid, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
     date = datetime.now().strftime("%Y-%d-%m")
     ts_now = datetime.now().strftime("%Y-%d-%m %H:%M:%S")
@@ -180,7 +179,7 @@ def getStatustableitems(userid):
 
     return [upper_items_df, lower_items_df]
 
-def getGroupMembers(GruppeNr, TagId):
+def getGroupMembers(GruppeNr, TagId, FirmaNr):
     # e.g. TagId = "2023-01-11T00:00:00"
     # e.g. GruppeNr = "03"
     members = pd.read_sql_query(text(
@@ -193,14 +192,14 @@ def getGroupMembers(GruppeNr, TagId):
     )
     return members
 
-def doGKLoeschen(belegnr, userid, anfangts):
+def doGKLoeschen(belegnr, userid, anfangts, FirmaNr):
     persnr = getPersonaldetails(userid)["T910_Nr"]
     with future_engine.connect() as connection:
         ret = connection.execute(text(f"""EXEC ksmaster.dbo.kspr_TA51DeletewLogFB1 @FirmaNr='{FirmaNr}', @TS='{anfangts}', @BelegNr='{belegnr}', @PersNr={persnr}"""))
         connection.commit()
     return ret
 
-def doGKBeenden(userid):
+def doGKBeenden(userid, FirmaNr):
     persnr = getPersonaldetails(userid)["T910_Nr"]
     with future_engine.connect() as connection:
         try:
@@ -211,7 +210,7 @@ def doGKBeenden(userid):
             ret = False           
     return ret
 
-def doFindTS(persnr, dauer, date):
+def doFindTS(persnr, dauer, date, FirmaNr):
     userid = getUserID(persnr)
     # date = datetime.now().strftime("%Y-%m-%dT00:00:00")  # day for which new period needs to be found
     platz = getLastbooking(userid).loc[0, "T951_ArbIst"]
@@ -225,7 +224,7 @@ def doFindTS(persnr, dauer, date):
             return anfang_ts, ende_ts
     return None, None
 
-def doUndoDelete(belegnr, userid):
+def doUndoDelete(belegnr, userid, FirmaNr):
     persnr = getPersonaldetails(userid)["T910_Nr"]
     ts = datetime.now().strftime("%Y-%d-%mT%H:%M:%S")
     with future_engine.connect() as connection:
@@ -235,7 +234,7 @@ def doUndoDelete(belegnr, userid):
         except:
             return "Auftrag konnte nicht wiederhergestellt werden"
         
-def getZaehler(userid):
+def getZaehler(userid, FirmaNr):
     persnr = getPersonaldetails(userid)["T910_Nr"]
     last_booking = getLastbooking(userid)
     platz = last_booking.loc[0, "T951_ArbIst"]
