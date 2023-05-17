@@ -62,13 +62,15 @@ db = SQLAlchemy(app)
 
 verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
 # CONSTANTS
-root = ET.parse("../../dll/data/X998.xml").getroot()[0]  # parse X998.xml file for config
+root  = {}
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
 DFORMAT = "%d.%m.%Y"
 APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
-SHOWMSGGEHT = bool(int(root.findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
-GKENDCHECK = bool(int(root.findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
-BTAETIGKEIT = bool(int(root.findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
+SHOWMSGGEHT = {} # X998_ShowMsgGeht
+GKENDCHECK = {} # X998_GKEndCheck
+BTAETIGKEIT = {} # X998_TAETIGKEIT
+FirmaNr = {}
+X998_GrpPlatz ={}
 SCANTYPE = True  # root.findall('X998_SCANNER')[0].text # X998_SCANNER TS,CS,TP
 SCANON = True  # Scansimulation an
 KEYCODECOMPENDE = ""  # Endzeichen Scanwert
@@ -88,6 +90,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     dll_path = db.Column(db.String(100))  # define the dll_path attribute
+    dll_path_data = db.Column(db.String(100))
 
 db.create_all()
 
@@ -96,18 +99,25 @@ dll_instances = {}
 
 # Function to create a copy of the DLL for a given user
 def create_dll_copy(username):
+    src_path_data = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\data\\X998.xml"
+    dest_path_data = f"C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\data\\X998{username}.xml"
+    shutil.copyfile(src_path_data, dest_path_data)
     src_path = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll"
     dest_path = f"C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr{username}.dll"
     shutil.copyfile(src_path, dest_path)
-    return dest_path
+    return dest_path_data, dest_path
 
 # Function to delete the DLL copy for a given user
-def delete_dll_copy(dll_path):
-    if os.path.exists(dll_path):
-        os.remove(dll_path)
+def delete_dll_copy(user):
+    if os.path.exists(user.dll_path):
+        os.remove(user.dll_path)
     else:
-        print(dll_path ,"DLL-Datei wurde nicht gelöscht")
-
+        print(user.dll_path ,"DLL-Datei wurde nicht gelöscht")
+    if os.path.exists(user.dll_path_data):
+        os.remove(user.dll_path_data)
+    else:
+        print(user.dll_path_data ,"DLL-Datei wurde nicht gelöscht")
+        
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -130,13 +140,21 @@ class LoginForm(FlaskForm):
         user = User.query.filter_by(username=self.username.data).first()
         if user and check_password_hash(user.password, self.password.data):
             dll_path = user.dll_path
-            if dll_path and os.path.exists(dll_path):
+            dll_path_data = user.dll_path_data
+            if dll_path and os.path.exists(dll_path) and dll_path_data and os.path.exists(dll_path_data):
                 dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
                 type = dll_ref.GetType('kt002_persnr.kt002')
                 instance = System.Activator.CreateInstance(type)
                 dll_instances[user.username] = instance
                 instance.Init()
                 instance.InitTermConfig()
+                root[user.username] = ET.parse(f"../../dll/data/X998{user.username}.xml").getroot()[0]  # parse X998.xml file for config
+                SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
+                GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
+                BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
+                FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
+                X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
+                print(FirmaNr, X998_GrpPlatz)
                 return True
 
         return False
@@ -154,8 +172,9 @@ def register():
             new_user = User(username=form.username.data, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
-            dll_path = create_dll_copy(new_user.username)
+            dll_path_data, dll_path = create_dll_copy(new_user.username)
             new_user.dll_path = dll_path
+            new_user.dll_path_data = dll_path_data
             db.session.commit()
             flash('Sie haben sich erfolgreich registriert!')
         else:
@@ -207,7 +226,7 @@ def delete_user(user_id):
     if user:
         db.session.delete(user)
         db.session.commit()
-        delete_dll_copy(user.dll_path)
+        delete_dll_copy(user)
         flash('Benutzer erfolgreich gelöscht!')
     else:
         flash('Benutzer nicht gefunden')
@@ -265,7 +284,7 @@ def home():
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
                 if "GK" in nr or "FA" in nr:
                     # "GK" is a substring in inputted nr, so book GK
-                    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                     print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
                     return redirect(url_for("identification", page="_auftragsbuchung"))
                 if username is None:
@@ -364,7 +383,7 @@ def gemeinkosten_buttons(userid):
         logging.info(f"Gememeinkosten: {selectedGemeinkosten}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_gk)  # start with GK nr
-        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_gk, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_gk, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
         print(f"[DLL] Buch4Clear: nr:{selected_gk}, sa:{sa}, buaction:{buaction}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
@@ -404,7 +423,7 @@ def zaehlerstand_buttons(userid):
         logging.info(f"Zählerstand: {selected_zs, zs_name}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_zs)  # start with GK nr
-        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_zs, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_zs, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
         print(f"[DLL] Buch4Clear: nr:{selected_zs}, sa:{sa}, buaction:{buaction}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
@@ -435,7 +454,7 @@ def arbeitsplatzbuchung(userid):
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         dauer = request.form.get('dauer') 
         userid = dbconnection.getUserID(persnr)
-        Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+        Belegnr = dbconnection.getBelegNr(FA_Nr, Platz, FirmaNr[current_user.username])
         if Belegnr == "error":
             flash("GK Auftrag für diesen Platz nicht definiert!")
             return redirect(url_for("home", username=username))
@@ -449,7 +468,7 @@ def arbeitsplatzbuchung(userid):
         if not isinstance(ret, str):
             anfang_ts, ende_ts = ret  
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr) 
-            dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+            dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
             return actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts,AEndeTS=ende_ts)
         return redirect(url_for("home", userid=userid, username=username))
@@ -521,7 +540,7 @@ def identification(page):
             username = usernamepd['formatted_name']
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg =start_booking(userid)
             ta06gkend(userid=userid)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for("home", userid=userid, username=username))
         
         return redirect(url_for(page, userid=userid))
@@ -573,13 +592,13 @@ def gruppenbuchung(userid):
         date_string = parser.parse(date_string)
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         dauer = request.form.get('dauer')
-        person_list = dbconnection.getGroupMembers(GruppeNr, TagId)  # get all persons from this group
+        person_list = dbconnection.getGroupMembers(GruppeNr, TagId, FirmaNr[current_user.username])  # get all persons from this group
         person_nrs = [round(x) for x in person_list['T951_PersNr'].tolist()]
         
         for per_nr in person_nrs:
             userid = dbconnection.getUserID(per_nr)
             Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
-            Belegnr = dbconnection.getBelegNr(FA_Nr, Platz)
+            Belegnr = dbconnection.getBelegNr(FA_Nr, Platz, FirmaNr[current_user.username])
             if Belegnr == "error":
                 flash("GK Auftrag für diesen Platz nicht definiert!")
                 continue
@@ -593,7 +612,7 @@ def gruppenbuchung(userid):
             if not isinstance(ret, str):
                 anfang_ts, ende_ts = ret
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
-                dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
                 actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
                 time.sleep(1)  # make sure database has time to catch up
@@ -613,14 +632,14 @@ def gruppenbuchung(userid):
 def fertigungsauftragerfassen(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
     username=usernamepd['formatted_name']
-    platz=dbconnection.getPlazlistFAE(userid)
+    platz=dbconnection.getPlazlistFAE(userid, FirmaNr[current_user.username])
     platzid=platz.T905_Nr.tolist()
     platzlst= platz.T905_Bez.tolist()
     auftraglst = []
     auftraglst_ajax = []
     tablecontent = []
     for i in range(len(platzid)):
-        auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen")
+        auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen", FirmaNr[current_user.username])
         if auftrag.empty:
             auftraglst.insert(0,[platzid[i],platzlst[i],"",""])
             auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
@@ -628,7 +647,7 @@ def fertigungsauftragerfassen(userid):
             auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist()[0],auftrag.Bez.tolist()[0]])
             auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist()[0],'bez':auftrag.Bez.tolist()[0]})               
     
-        tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen")
+        tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen", FirmaNr[current_user.username])
         if not tableitem.empty:
             for index, row in tableitem.iterrows():
                 tableobj={'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'MengeGut':row['TA51_MengeIstGut'], 'Auf_Stat':row['TA51_Auf_Stat']}
@@ -644,7 +663,7 @@ def fertigungsauftragerfassen(userid):
             beleg_nr = request.form["auftrag"]
             # beleg_nr = "FA00300150" # TODO: bug here -> works only for this value
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+            dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             if bufunktion == 3:
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
@@ -669,7 +688,7 @@ def fertigungsauftragerfassen(userid):
 @login_required
 def gemeinkostenandern(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
-    df=dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern")
+    df=dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern", FirmaNr[current_user.username])
     usernamepd = dbconnection.getPersonaldetails(userid)
     username=usernamepd['formatted_name']
 
@@ -681,11 +700,11 @@ def gemeinkostenandern(userid):
         tablecontent.insert(0,item)
         auftraglst_temp = []
         auftraglst_ajax_temp = []
-        platz = dbconnection.getPlazlistGKA(userid, row['TA51_TagId'].strftime("%Y-%d-%m"))
+        platz = dbconnection.getPlazlistGKA(userid, row['TA51_TagId'].strftime("%Y-%d-%m"),FirmaNr[current_user.username])
         platzid = platz.T905_Nr.tolist()
         platzlst = platz.T905_Bez.tolist()
         for i in range(len(platzid)):
-            auftrag=dbconnection.getAuftrag(platzid[i], "GK_ändern")
+            auftrag=dbconnection.getAuftrag(platzid[i], "GK_ändern", FirmaNr[current_user.username])
             if auftrag.empty:
                 auftraglst_temp.insert(0,[platzid[i],platzlst[i],"",""])
                 auftraglst_ajax_temp.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
@@ -740,7 +759,7 @@ def gemeinkostenandern(userid):
                 print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
                 
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 actbuchung(nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext)
                 return redirect(url_for("gemeinkostenandern", userid=userid))
@@ -756,7 +775,7 @@ def gemeinkostenandern(userid):
                 print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
                 
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK, '', '', '', '', '')
+                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 actbuchung(nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext) 
                 return redirect(url_for("gemeinkostenandern", userid=userid))
@@ -809,7 +828,7 @@ def anmelden(userid, sa):
 
         if len(xret) == 0:
             dll_instances[current_user.username].PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
-            result = dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
+            result = dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
         
         logging.debug("successful")
         return redirect(url_for(
@@ -868,7 +887,7 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
                                                             xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
             dll_instances[current_user.username].BuchTA56_3(xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
                                                             xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         flash("Zählerstand erfolgreich zurückgemeldet.")
         return redirect(url_for('zaehlerstand_buttons', userid=userid))
@@ -956,7 +975,7 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
                 # add another Mengendialog, maybe just reroute with skip?
                 # raise NotImplementedError
 
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         flash("FA erfolgreich gebucht.")
         logging.info("successful")
@@ -1048,7 +1067,7 @@ def fabuchta51_dialog(userid):
                          xVal1, xVal2, xVal3, xVal4, xVal5, dll_instances[current_user.username].gtv("TA06_FA_Art"), xTS)
 
         xret = "FA Buchen;MSG0166" + ";" + dll_instances[current_user.username].gtv("TA06_BelegNr") + ";" + dll_instances[current_user.username].gtv("TA06_AgBez")
-        dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+        dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
         return redirect(url_for(home, username=username))
 
     return render_template(
@@ -1072,13 +1091,13 @@ def endta51cancelt905(apersnr):
 
     if len(xmsg) > 0:
         xret = "MSG0133" #Vorgang wurde abgebrochen
-        if SHOWMSGGEHT == 1:
+        if SHOWMSGGEHT[current_user.username] == 1:
             print('Info mit Eingabeaufforderung S903_ID=MSG0178 "GK müssen erst beendet werden!"')
             # TODO: show modal
             model_yes = True  # user pressed yes
             if model_yes:
                 userid = dbconnection.getUserID(apersnr)
-                ret = dbconnection.doGKBeenden(userid)
+                ret = dbconnection.doGKBeenden(userid, FirmaNr[current_user.username])
                 result = dll_instances[current_user.username].EndTA51GKSave()
                 if ret==True:
                     final_ret = "GK"
@@ -1094,7 +1113,7 @@ def endta51cancelt905(apersnr):
             # just terminate GK without asking
             print('Info OHNE Eingabeaufforderung S903_ID=MSG0178 "GK müssen erst beendet werden!"')
             userid = dbconnection.getUserID(apersnr)
-            ret = dbconnection.doGKBeenden(userid)
+            ret = dbconnection.doGKBeenden(userid, FirmaNr[current_user.username])
             result = dll_instances[current_user.username].EndTA51GKSave()
             if ret==True:
                 final_ret = "GK"
@@ -1104,7 +1123,7 @@ def endta51cancelt905(apersnr):
             msgr='ok'
 
     if msgr == 'ok':
-        if GKENDCHECK == 1:
+        if GKENDCHECK[current_user.username] == 1:
             print('dialog GK-Kosten ändern (Platz/Belegnummer/Anfangszeitpunkt/Endezeitpunkt')
             #'Dialog GK-Buchung Editierbar und mit update schließen PNR_TA51GKEndSave noch zu realisieren
                 #'anschließend ks001.TA06SetStatusBelegNrN
@@ -1218,7 +1237,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
                     # don't show Mengendialog
                     print("[DLL] Kein Mengendialog")
                     xFehler = fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA)
-                    dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK, '', '', '', '', '')
+                    dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
                     flash("Fertigungsauftrag gebucht.")
                     usernamepd = dbconnection.getPersonaldetails(userid)
                     username = usernamepd['formatted_name']
@@ -1362,7 +1381,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     print("xTS:" + xTS + " Datum:" + xAnfangTS.strftime(DTFORMAT))
     if len(xret) > 0:
         flash("Laufende Aufträge beendet.")
-        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
+        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
         print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
         return redirect(url_for(
             'home',
@@ -1426,7 +1445,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
 
             xret = "FA Buchen;MSG0166" + ";" + dll_instances[current_user.username].dr_TA06.get_Item("TA06_BelegNr") + ";" + dll_instances[current_user.username].dr_TA06.get_Item(
                 "TA06_AgBez")
-    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK, '', '', '', '', '')
+    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
     print(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
     flash("Gemeinkosten erfolgreich gebucht.")
     return redirect(url_for("home", username=username))
@@ -1445,12 +1464,12 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
     print(f"[DLL] CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
     # if xret == "MSG0065":
     #     flash("Fehler: Keine \"Kommt\"-Buchung vorhanden!")
-    #     dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK, '', '', '', '', '')
+    #     dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
     #     return redirect(url_for("home", username=username))
     if len(xret) > 0:
         if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True or dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA05) is True:
             flash("Fehler: Keine Auftragsbuchung ohne Kommt!")
-            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK, '', '', '', '', '')
+            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for("home", username=username))
 
     xpersnr = dll_instances[current_user.username].T910NrGet()
@@ -1510,7 +1529,7 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
             elif sa == "G":
                 result = dll_instances[current_user.username].PNR_Buch(sa, kst, t905nr, '', '', '', 0)
                 xret, ASA, AKst, APlatz, xtagid, xkstk = result
-                if GKENDCHECK is True:  # Param aus X998 prüfen laufende Aufträge
+                if GKENDCHECK[current_user.username] is True:  # Param aus X998 prüfen laufende Aufträge
                     xret = dll_instances[current_user.username].PNR_Buch2Geht()
                 logging.info("Already Logged In")
                 flash("User wurde abgemeldet.")
@@ -1523,7 +1542,7 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
             if len(xret) == 0:
                 dll_instances[current_user.username].PNR_Buch3(xtagid, sa, AKst, APlatz, '', '', 0)
                 print(f"[DLL] PNR_Buch3")
-            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK, '', '', '', '', '')
+            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         return redirect(url_for("home", username=username))
 
@@ -1534,7 +1553,7 @@ def ta06gkend(userid,AScreen2=None):
 	if len(xMsg) == 0:
 		flash("Keine GK zu Beenden!") # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
 	else:
-		ret = dbconnection.doGKBeenden(userid)
+		ret = dbconnection.doGKBeenden(userid, FirmaNr[current_user.username])
 		if ret==True:
 			flash("Laufende Aufträge beendet.")
 		else:
@@ -1543,13 +1562,13 @@ def ta06gkend(userid,AScreen2=None):
 
 def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 	# Change existing Auftragsbuchung, TODO: somehow return error when no GK to delete is found
-	ret = dbconnection.doGKLoeschen(fa_old, userid, anfang_ts)  # delete old booking with BelegNr=scanvalue and Anfang=Anfangts
+	ret = dbconnection.doGKLoeschen(fa_old, userid, anfang_ts, FirmaNr[current_user.username])  # delete old booking with BelegNr=scanvalue and Anfang=Anfangts
 	persnr = dbconnection.getPersonaldetails(userid)["T910_Nr"]
 	if dauer > 0:
 		# add back booking with correct dauer
-		anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer, date)  # find suitable begin and end for new Auftrag
+		anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer, date, FirmaNr[current_user.username])  # find suitable begin and end for new Auftrag
 		if anfang_ts is None and ende_ts is None:
-			ret = dbconnection.doUndoDelete(fa_old, userid)
+			ret = dbconnection.doUndoDelete(fa_old, userid, FirmaNr[current_user.username])
 			if not ret is None:
 				return "Keine neue Zeitperiode gefunden und Auftrag konnte nicht wiederhergestellt werden!"
 			return "Keine neue Zeitperiode gefunden!"
@@ -1563,7 +1582,7 @@ def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 def gk_erstellen(userid, dauer, date):
 	# create Auftragsbuchung with Dauer
 	persnr = dbconnection.getPersonaldetails(userid)["T910_Nr"]
-	anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer, date)
+	anfang_ts, ende_ts = dbconnection.doFindTS(persnr, dauer, date, FirmaNr[current_user.username])
 	if anfang_ts is None and ende_ts is None:
 		return "Keine neue Zeitperiode gefunden!"
 	else:
@@ -1578,19 +1597,19 @@ def get_list(listname, userid=None):
         return ["Frontendlager", "Verschiedenes (Bünde)", "Lehrwerkstatt", "AV (Bünde)"]
 
     if listname == "arbeitsplatz":
-        arbeitsplatz_info = dbconnection.getArbeitplazlist()
+        arbeitsplatz_info = dbconnection.getArbeitplazlist(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
         return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
 
     if listname == "arbeitsplatzbuchung":
-        persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung()
+        persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
         return [persnr, arbeitsplatz, fanr]
     
     if listname == "gruppenbuchung_faNr":
-        fanr = dbconnection.getGruppenbuchungFaNr()
+        fanr = dbconnection.getGruppenbuchungFaNr(FirmaNr[current_user.username])
         return fanr
 
     if listname == "gruppe":
-        gruppe = dbconnection.getGruppenbuchungGruppe()
+        gruppe = dbconnection.getGruppenbuchungGruppe(FirmaNr[current_user.username])
         return gruppe
 
     if listname == "fertigungsauftrag_frNr":
@@ -1600,7 +1619,7 @@ def get_list(listname, userid=None):
         return [1067, 2098, 7654, 2376, 8976]
 
     if listname == "statusTableItems":
-        upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid)
+        upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid, FirmaNr[current_user.username])
         # create html tags out of the above data frames
         upper_items_html = upper_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
         lower_items_html = lower_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
@@ -1613,11 +1632,11 @@ def get_list(listname, userid=None):
                  "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
-        gk_info = dbconnection.getGemeinkosten(userid)
+        gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
         return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
     
     if listname == "zaehlerItems":
-        zaehler_info = dbconnection.getZaehler(userid)
+        zaehler_info = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
         return [zaehler_info["TA05_ArtikelBez"], zaehler_info["TA06_BelegNr"]]
 
     if listname == "sidebarItems":
