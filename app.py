@@ -459,14 +459,16 @@ def arbeitsplatzbuchung(userid):
         Belegnr = dbconnection.getBelegNr(FA_Nr, Platz, FirmaNr[current_user.username])
         if Belegnr == "error":
             flash("GK Auftrag für diesen Platz nicht definiert!")
-            return redirect(url_for("home", username=username))
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            return redirect(url_for("arbeitsplatzbuchung", userid=userid))
         ret = dll_instances[current_user.username].TA06Read(Belegnr)  # prese the BelegNr in the DLL
         if ret == False:
             dll_instances[current_user.username].TA06ReadPlatz(Belegnr, Platz) 
         ret = gk_erstellen(userid, dauer, TagId)  # find time window
         if isinstance(ret, str):
             flash(ret)
-            return redirect(url_for("home",userid=userid))
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            return redirect(url_for("arbeitsplatzbuchung", userid=userid))
         if not isinstance(ret, str):
             anfang_ts, ende_ts = ret  
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr) 
@@ -610,6 +612,7 @@ def gruppenbuchung(userid):
             ret = gk_erstellen(userid, dauer, TagId) # find time window
             if isinstance(ret, str):
                 flash(ret)
+                dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
                 return redirect(url_for("home",userid=userid))
             if not isinstance(ret, str):
                 anfang_ts, ende_ts = ret
@@ -671,6 +674,7 @@ def fertigungsauftragerfassen(userid):
                 return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
             else:
                 flash("Buchung fehlgeschlagen")
+                dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
                 return redirect(url_for('home',username=username,))
     else:
         return render_template(
@@ -755,6 +759,7 @@ def gemeinkostenandern(userid):
             if isinstance(ret, str):
                 # display error string and cancel booking
                 flash(ret)
+                dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
                 return redirect(url_for('home',username=username,))
             else:
                 anfang_ts, ende_ts = ret
@@ -771,6 +776,7 @@ def gemeinkostenandern(userid):
             if isinstance(ret, str):
                 # display error string and cancel booking
                 flash(ret)
+                dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
                 return redirect(url_for('home',username=username,))
             else:
                 anfang_ts, ende_ts = ret
@@ -1163,7 +1169,7 @@ def endta51cancelt905(apersnr):
     return final_ret
 
 
-def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None, platz=None, aBem=None, userid=None, endroute="home"):
+def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None, platz=None, aBem=None, userid=None, endroute="home", sa=""):
     """Checks whether current GK/FA active in DLL is ok to be booked and decides which fabuchta is appropriate."""
     xFehler = ''  
     xbBuchZiel = 1
@@ -1227,6 +1233,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
                     flash("Buchung fehlgeschlagen!")
                     usernamepd = dbconnection.getPersonaldetails(userid)
                     username = usernamepd['formatted_name']
+                    dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
                     return redirect(url_for("home", username=username))
 
                 if xInputMenge == 1:
@@ -1268,9 +1275,11 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
         username = usernamepd['formatted_name']
         xFehler = ("Kein Auftrag!", ata22dauer)
         if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True and dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA05) is False:
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
             xFehler = ("Keine Kopfdaten vorhanden!", ata22dauer)
             flash("Keine Kopfdaten vorhanden!")
             return redirect(url_for("home", username=username))
+        dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK, '', '', '', '', '')
         flash("Keinen Auftrag gefunden!")
         return redirect(url_for("home", username=username))
 
