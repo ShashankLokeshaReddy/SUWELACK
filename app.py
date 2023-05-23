@@ -31,12 +31,34 @@ from ctypes import *
 import numpy as np
 import pandas as pd
 
+# CONSTANTS
+verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
+root  = {}
+DTFORMAT = "%d.%m.%Y %H:%M:%S"
+DFORMAT = "%d.%m.%Y"
+ROOT_DIR = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\"  # directory which directly contains app.py
+APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
+SHOWMSGGEHT = {} # X998_ShowMsgGeht
+GKENDCHECK = {} # X998_GKEndCheck
+BTAETIGKEIT = {} # X998_TAETIGKEIT
+FirmaNr = {}
+X998_GrpPlatz = {}
+SCANTYPE = True  # root.findall('X998_SCANNER')[0].text # X998_SCANNER TS,CS,TP
+SCANON = True  # Scansimulation an
+KEYCODECOMPENDE = ""  # Endzeichen Scanwert
+SHOWHOST = False  # Anzeige Hostinformation im Terminal
+SERIAL = True
+SCANCARDNO = True
+T905ALLOWROUTE = True
+ROUTEDIALOG = True
+SHOW_BUTTON_IDS = False  # If true, show Arbeitsplatz and GK IDs after their name for debugging
+
 sys.path.append("dll/bin")
 
 clr.AddReference("kt002_PersNr")
 clr.AddReference("System.Collections")
 
-dll_ref1 = System.Reflection.Assembly.LoadFile("C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll")
+dll_ref1 = System.Reflection.Assembly.LoadFile(ROOT_DIR+"dll\\bin\\kt002_PersNr.dll")
 type1 = dll_ref1.GetType('kt002_persnr.kt002')
 instance1 = System.Activator.CreateInstance(type1)
 
@@ -60,27 +82,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 babel = Babel(app)
 db = SQLAlchemy(app)
 
-verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
-# CONSTANTS
-root  = {}
-DTFORMAT = "%d.%m.%Y %H:%M:%S"
-DFORMAT = "%d.%m.%Y"
-APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
-SHOWMSGGEHT = {} # X998_ShowMsgGeht
-GKENDCHECK = {} # X998_GKEndCheck
-BTAETIGKEIT = {} # X998_TAETIGKEIT
-FirmaNr = {}
-X998_GrpPlatz ={}
-SCANTYPE = True  # root.findall('X998_SCANNER')[0].text # X998_SCANNER TS,CS,TP
-SCANON = True  # Scansimulation an
-KEYCODECOMPENDE = ""  # Endzeichen Scanwert
-SHOWHOST = False  # Anzeige Hostinformation im Terminal
-SERIAL = True
-SCANCARDNO = True
-T905ALLOWROUTE = True
-ROUTEDIALOG = True
-SHOW_BUTTON_IDS = False  # If true, show Arbeitsplatz and GK IDs after their name for debugging
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -92,18 +93,19 @@ class User(db.Model, UserMixin):
     dll_path = db.Column(db.String(100))  # define the dll_path attribute
     dll_path_data = db.Column(db.String(100))
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 # create a dictionary to store the dll instances for each logged in user
 dll_instances = {}
 
 # Function to create a copy of the DLL for a given user
 def create_dll_copy(username):
-    src_path_data = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\data\\X998.xml"
-    dest_path_data = f"C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\data\\X998{username}.xml"
+    src_path_data = ROOT_DIR+"dll\\data\\X998.xml"
+    dest_path_data = ROOT_DIR+f"dll\\data\\X998{username}.xml"
     shutil.copyfile(src_path_data, dest_path_data)
-    src_path = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr.dll"
-    dest_path = f"C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr{username}.dll"
+    src_path = ROOT_DIR+"dll\\bin\\kt002_PersNr.dll"
+    dest_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr{username}.dll"
     shutil.copyfile(src_path, dest_path)
     return dest_path_data, dest_path
 
