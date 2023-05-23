@@ -632,7 +632,7 @@ def gruppenbuchung(userid):
 def fertigungsauftragerfassen(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
     username=usernamepd['formatted_name']
-    platz=dbconnection.getPlazlistFAE(userid, FirmaNr[current_user.username])
+    platz=dbconnection.getPlazlistFAE(userid, FirmaNr[current_user.username], datetime.now().strftime("%Y-%m-%dT00:00:00"))
     platzid=platz.T905_Nr.tolist()
     platzlst= platz.T905_Bez.tolist()
     auftraglst = []
@@ -696,11 +696,11 @@ def gemeinkostenandern(userid):
     auftraglst_ajax = []
     tablecontent = []
     for index, row in df.iterrows():
-        item = {'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
+        item = {'TagId':row['TA51_TagId'].strftime("%Y-%m-%d"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
         tablecontent.insert(0,item)
         auftraglst_temp = []
         auftraglst_ajax_temp = []
-        platz = dbconnection.getPlazlistGKA(userid, row['TA51_TagId'].strftime("%Y-%d-%m"),FirmaNr[current_user.username])
+        platz = dbconnection.getPlazlistGKA(userid, row['TA51_TagId'].strftime("%Y-%m-%dT00:00:00"), FirmaNr[current_user.username])
         platzid = platz.T905_Nr.tolist()
         platzlst = platz.T905_Bez.tolist()
         for i in range(len(platzid)):
@@ -933,21 +933,21 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
         charge = request.form["charge"]
         lagerplatz = request.form["lagerplatz"]
 
-        aus_fehler = request.form["aus_fehler"]
-        aus_oberflaeche = request.form["aus_oberflaeche"]
-        aus_stapel = request.form["aus_stapel"]
-        aus_kanten = request.form["aus_kanten"]
+        # aus_fehler = request.form["aus_fehler"]
+        # aus_oberflaeche = request.form["aus_oberflaeche"]
+        # aus_stapel = request.form["aus_stapel"]
+        # aus_kanten = request.form["aus_kanten"]
 
-        div_aus_fehler = request.form["div_aus_fehler"]
-        div_aus_oberflaeche = request.form["div_aus_oberflaeche"]
-        div_aus_stapel = request.form["div_aus_stapel"]
-        div_aus_kanten = request.form["div_aus_kanten"]
+        # div_aus_fehler = request.form["div_aus_fehler"]
+        # div_aus_oberflaeche = request.form["div_aus_oberflaeche"]
+        # div_aus_stapel = request.form["div_aus_stapel"]
+        # div_aus_kanten = request.form["div_aus_kanten"]
 
-        try:
-            if menge_aus == "":  # menge_aus not defined, given split up into reasons
-                menge_aus = sum([float(aus_fehler), float(aus_oberflaeche), float(aus_stapel), float(aus_kanten)])
-        except ValueError:
-            menge_aus = 0.0
+        # try:
+        #     if menge_aus == "":  # menge_aus not defined, given split up into reasons
+        #         menge_aus = sum([float(aus_fehler), float(aus_oberflaeche), float(aus_stapel), float(aus_kanten)])
+        # except ValueError:
+        #     menge_aus = 0.0
         if menge_gut == "":
             menge_gut = 0.0
         if ruestzeit == "":

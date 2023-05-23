@@ -34,9 +34,8 @@ def getPlazlistGKA(userid, date, FirmaNr):
         connection)
     return Platzlist
 
-def getPlazlistFAE(userid, FirmaNr):
+def getPlazlistFAE(userid, FirmaNr, date):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(text(
         f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
@@ -140,8 +139,8 @@ def getGemeinkosten(userid, FirmaNr):
 
 def getStatustableitems(userid, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    date = datetime.now().strftime("%Y-%d-%m")
-    ts_now = datetime.now().strftime("%Y-%d-%m %H:%M:%S")
+    date = datetime.now().strftime("%Y-%m-%dT00:00:00")
+    ts_now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     last_booking = getLastbooking(userid)
     platz = last_booking.loc[0, "T951_ArbIst"]
     upper_items = pd.read_sql_query(text(f"""SELECT * FROM ksmaster.dbo.kstf_T951BD1_Info('{FirmaNr}', {persnr}, '{date}')"""),
