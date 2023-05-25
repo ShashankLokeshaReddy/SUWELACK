@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, text
 import pandas as pd
-from XMLRead import X998_GrpPlatz, FirmaNr
 from datetime import datetime
 from sqlalchemy import exc
 

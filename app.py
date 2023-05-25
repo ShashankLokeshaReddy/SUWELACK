@@ -21,7 +21,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 from flask_babel import Babel, format_datetime, gettext
-import XMLRead
 
 import clr
 import System
