@@ -1,5 +1,20 @@
 {% extends "base.html" %}
-{% block title %} {{ _('Arbeitsplatzbuchung') }}{% endblock %}
+{% block title %} {{ _('Arbeitsplatzbuchung') }}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <!-- Flash messages -->
+            <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
+            <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+            <p><strong>{{username}}</strong> - {{ date.strftime("%H:%M") }} Uhr - {{msg}}</p>
+            <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% endblock %}
 {% block content%}
 
 <form action='#' method="POST">
