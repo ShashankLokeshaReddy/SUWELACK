@@ -1638,10 +1638,10 @@ def get_list(listname, userid=None):
         return [upper_items_html, lower_items_html]
 
     if listname == "homeButtons":
-        return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen", "Zählerstandsrückmeldung"],
-                ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
+        return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
+                ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
@@ -1652,10 +1652,10 @@ def get_list(listname, userid=None):
         return [zaehler_info["TA05_ArtikelBez"], zaehler_info["TA06_BelegNr"]]
 
     if listname == "sidebarItems":
-        return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden", "Bericht drucken",
-                 "Gemeinkosten ändern", "Arbeitsplatzbuchung", "Gruppenbuchung", "FA erfassen", "Zählerstandsrückmeldung"],
-                ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden", "berichtdrucken",
-                 "gemeinkostenandern", "arbeitsplatzbuchung", "gruppenbuchung", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
+        return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
+                ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
 # if __name__ == '__main__':
     
