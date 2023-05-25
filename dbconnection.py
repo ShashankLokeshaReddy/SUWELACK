@@ -13,7 +13,6 @@ engine = create_engine(DATABASE_CONNECTION)
 future_engine = create_engine(DATABASE_CONNECTION, future=True)
 connection = engine.connect()
 
-print("db", X998_GrpPlatz, FirmaNr)
 
 def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
     arbeitplatzlist = pd.read_sql_query(text(
@@ -98,7 +97,7 @@ def getUserID(persnr):
     userid = pd.read_sql_query(text(
         f"""select T912_Nr from ksalias.dbo.T912_PersCard where T912_PersNr = {persnr}"""), 
         connection)
-    return round(userid.iloc[0, 0])
+    return str(round(userid.iloc[0, 0]))
 
 def getBelegNr(FA_Nr, Platz, FirmaNr):
     beleg_nr = pd.read_sql_query(text(
