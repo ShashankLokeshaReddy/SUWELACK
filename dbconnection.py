@@ -106,7 +106,7 @@ def getBelegNr(FA_Nr, Platz, FirmaNr):
         where TA06_FA_NR = '{FA_Nr}' and TA06_Platz_Soll = '{Platz}' order by TA06_BelegNr"""), connection)
     if beleg_nr.shape[0] == 0:
         return "error"
-    return beleg_nr.iloc[0, 0]
+    return str(beleg_nr.iloc[0, 0])
 
 def getPersonaldetails(T912_Nr):
     pers_info = pd.read_sql_query(text(
