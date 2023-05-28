@@ -283,17 +283,19 @@ def home():
                 # something was put into the inputbar and enter was pressed
                 nr = inputBarValue
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                if "GK" in nr or "FA" in nr:
-                    # "GK" is a substring in inputted nr, so book GK
+                if msg == "MSG0147C":
+                    # MSG0147C == "Kartennumer scannen!" for FA or GK
                     dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                     print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
                     return redirect(url_for("identification", page="_auftragsbuchung"))
-                if username is None:
-                    # handle the case where username is not valid
-                    flash("Ungültiger Benutzername")
-                    return redirect(url_for("home"))
                 else:
-                    return actbuchung(nr=nr, username=username, sa=sa)
+                    if username is None:
+                        # handle the case where username is not valid
+                        flash("Kartennummer ungültig!")
+                        return redirect(url_for("home", username=""))
+                    else:
+                        # K/G Buchung
+                        return actbuchung(nr=nr, username=username, sa=sa)
 
     elif request.method == "GET":
         username = request.args.get('username')
@@ -527,26 +529,25 @@ def identification(page):
     """
 
     if request.method == 'POST':
-        userid = request.form["inputfield"]
-        logging.info(page)
-
-        if page == "_auftragsbuchung":
+        try:
+            userid = request.form["inputfield"]
             usernamepd = dbconnection.getPersonaldetails(userid)
             username = usernamepd['formatted_name']
+        except:
+            flash("Kartennummer ungültig!", category="error")
+            return redirect(url_for("home", username=""))
+
+        if page == "_auftragsbuchung":
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
             return actbuchung(nr=userid, username=username, sa=sa, endroute="home")
         
         if page == "gemeinkostenbeenden":
-            usernamepd = dbconnection.getPersonaldetails(userid)
-            username = usernamepd['formatted_name']
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
             ta06gkend(userid=userid)
             dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for("home", userid=userid, username=username))
         
         return redirect(url_for(page, userid=userid))
-    
-        
 
     else:
         return render_template(
