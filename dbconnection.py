@@ -115,7 +115,7 @@ def getPersonaldetails(T912_Nr):
         connection, coerce_float=False)
     pers_info = pers_info.iloc[0, :]  # select first record that matches
     pers_info['T912_Nr'] = str(pers_info['T912_Nr'])
-    pers_info['formatted_name'] = pers_info["T910_Vorname"] + ", " + pers_info["T910_Name"]
+    pers_info['formatted_name'] = pers_info["T910_Vorname"] + " " + pers_info["T910_Name"]
     return pers_info
 
 def getLastbooking(userid):
