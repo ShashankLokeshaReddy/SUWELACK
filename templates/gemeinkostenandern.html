@@ -33,37 +33,62 @@
 	</div>
 </div>
 
-<div class="grp d-flex align-content-center flex-wrap justify-content-center">
-	<div class="flex-row flex-center">
-		<label for="arbeitsplatz" class="textclass">{{ _('Buchungstag') }}Gruppe:  &emsp;</label>
-		<select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
-			{% for item in auftraglst[0] %}
-				<option value="{{item.1}}">{{item.1}}</option>
-			{% endfor %}
-		</select>
+<div class="flex-row">
+	<div class="d-flex flex-column inputtextcolumn">
+		<p>{{ _('Gruppe:') }} </p>
+		<p>{{ _('Gemeinkosten:') }} </p>
+		<p>{{ _('Kurztext:') }} </p>
 	</div>
-	<div class="flex-row flex-center">
-		<label for="Gemeinkosten" class="textclass">{{ _('Gemeinkosten') }}:  &emsp;</label>
-		<select name="gemeinkosten" id="Gemeinkosten" class="form-control">
-		</select>
+
+	<div class="d-flex flex-column">              
+		<div style="display: inline">
+			<div class="dropdown inputbutton3">
+				<select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
+					{% for item in auftraglst[0] %}
+						<option value="{{item.1}}">{{item.1}}</option>
+					{% endfor %}
+				</select>		
+			</div>
+			<div class="boxes" , id="a_ptz">
+			</div>
+		</div>
+
+		<div style="display: inline">
+			<div class="dropdown inputbutton2">
+				<select name="gemeinkosten" id="Gemeinkosten" class="form-control">
+				</select>		
+			</div>
+			<div class="boxes" , id="p_n">
+			</div>
+		</div>           
+		
+		<div style="display: inline">
+			<div class="dropdown inputbutton2">
+				<input type="text" name="kurztext" id="GKA" class="form-control">
+			</div>
+			<div class="boxes" , id="f_n">
+			</div>
+		</div>
 	</div>
-	<div class="flex-row flex-center">
-		<label for="GKA" class="textclass">{{ _('Kurztext') }}: &emsp;</label>
-		<input type="text" name="kurztext" id="GKA" class="form-control">
+
+	<div class="d-flex flex-column inputtextcolumn">
+		<p>{{ _('Dauer:') }} </p>
+		<p>{{ _('Datum:') }} </p>
 	</div>
-	<div class="flex-row flex-center">
-		<label for="datum" class="textclass">{{ _('Datum') }}: &emsp; </label>
-		<input type="date" name="datum" id="datum" value="{{ date }}" class="form-control datetime">
-	</div>
-	<div class="flex-row flex-center">
-		<label for="Dauer" class="textclass">{{ _('Dauer') }}: &emsp;</label>
-		<select name="dauer" id="dauer" class="DAU form-control">
-			{% for items in range(0,dauer|length) %}
-				<option value="{{dauer[items]}}">{{dauer[items]}}</option>
-			{% endfor %}
-		</select>
+	<div class="d-flex flex-column">
+		<div style="display: inline">
+			<select name="dauer" id="dauer" class="DAU form-control">
+				{% for items in range(0,dauer|length) %}
+					<option value="{{dauer[items]}}">{{dauer[items]}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div style="display: inline">
+			<input type="date" name="datum" id="datum" value="{{ date }}" class="form-control datetime">
+		</div>
 	</div>
 </div>
+
 
 <div class="flex-container">
 	<div class="flex-row flex-left">
@@ -203,22 +228,22 @@ $(document).ready(function($)
 	$(document).find('.tbl_user_data').html(tbl);
 
 	//--->make div editable > start
-	$(document).on('click', '.row_data', function(event) 
-	{
-		event.preventDefault(); 
+	// $(document).on('click', '.row_data', function(event) 
+	// {
+	// 	event.preventDefault(); 
 
-		if($(this).attr('edit_type') == 'button')
-		{
-			return false; 
-		}
+	// 	if($(this).attr('edit_type') == 'button')
+	// 	{
+	// 		return false; 
+	// 	}
 
-		//make div editable
-		$(this).closest('div').attr('contenteditable', 'true');
-		//add bg css
-		$(this).addClass('bg-warning').css('padding','0.3125rem');
+	// 	//make div editable
+	// 	$(this).closest('div').attr('contenteditable', 'true');
+	// 	//add bg css
+	// 	$(this).addClass('bg-warning').css('padding','0.3125rem');
 
-		$(this).focus();
-	})	
+	// 	$(this).focus();
+	// })	
 	//--->make div editable > end
 
 
