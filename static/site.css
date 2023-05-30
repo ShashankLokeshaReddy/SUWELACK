@@ -384,7 +384,7 @@ table tbody tr {
     height: 2.8125rem !important;
     flex-direction: unset !important;
 }
-#arbeitsplatz, #Gemeinkosten {
+#arbeitsplatz, #Gemeinkosten, #GKA, #auftrag {
     width: 22.8125rem !important;
     height: 2.8125rem !important;
     flex-direction: unset !important;
