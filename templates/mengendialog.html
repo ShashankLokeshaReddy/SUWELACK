@@ -1,8 +1,24 @@
 {% extends "base.html" %}
-{% block title %} {{ _('Gemeinkosten Ändern') }} {% endblock %}
+{% block title %} {{ _('Mengendialog') }} {% endblock %}
+
+{% block navbar %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <!-- Flash messages -->
+            <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
+            <img  src="/static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+            <p>{{msg}}</p>
+            <img  src="/static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}
+
 {% block content%}
     <div class="statustable">
-    <h3>F010400 - {{ _('Teile ohne Barcode') }}</h3>
+    <h3>Mengendialog</h3>
 <div class="fertigungauftragcontainer">
 <form action='#' method="POST">
     <div class="d-flex flex-row fertigungauftragrow">
@@ -14,7 +30,7 @@
     <label for="mengeaus" class="label">{{ _('Menge Aus') }}</label>
 </div>
       <div class="d-flex flex-column">
-          <input type="text" name="menge_soll" id="gesamt" value="{{menge_soll}}" class="form-control fertigungauftrag">
+          <input type="text" name="menge_soll" id="gesamt" value="{{menge_soll}}" class="form-control fertigungauftrag" readonly>
       <input type="text" name="menge_gut" id="mengegut" value="0.0" class="form-control fertigungauftrag">
       <input type="text" name="menge_aus" id="mengeaus" value="0.0" class="form-control fertigungauftrag">
 
@@ -29,45 +45,6 @@
       <input type="text" name="charge" id="charge" class="form-control fertigungauftrag">
       <input type="text" name="lagerplatz" id="lagerplatz" class="form-control fertigungauftrag">
 </div>
-    </div>
-<div class="d-flex flex-row fertigungauftragrow">
-
-    <table class="table table-striped">
-   <thead class="thead-light">
-    <tr>
-      <th scope="col">{{ _('Divisionmenge Aus') }}</th>
-      <th scope="col">{{ _('Menge Aus') }}</th>
-      <th scope="col">{{ _('Ausschußgrund') }}</th>
-
-    </tr>
-</thead>
-<tbody>
-    <tr>
-      <td ><input type="text" name="div_aus_fehler" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" name="aus_fehler" id="" class="form-control fertigungauftrag"></td>
-      <th scope="row">Fehler</th>
-
-    </tr>
-    <tr>
-      <td ><input type="text" name="div_aus_oberflaeche" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" name="aus_oberflaeche" id="" class="form-control fertigungauftrag"></td>
-      <th scope="row">Defekte Oberfläsche</th>
-
-    </tr>
-    <tr>
-      <td ><input type="text" name="div_aus_stapel" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" name="aus_stapel" id="" class="form-control fertigungauftrag"></td>
-      <th scope="row">Stapelfehler</th>
-
-    </tr>
-    <tr>
-      <td ><input type="text" name="div_aus_kanten" id="" class="form-control fertigungauftrag"></td>
-      <td ><input type="text" name="aus_kanten" id="" class="form-control fertigungauftrag"></td>
-      <th scope="row">Kantenanleiner</th>
-
-    </tr>
-</tbody>
-</table>
     </div>
      </div>
 
@@ -98,7 +75,7 @@
                 </div>
                 <div class="row">
                     <button type="button" value="0" class="btnZ">0</button>
-                    <button type="button" value="," class="btn btn-secondary">,</button>
+                    <button type="button" value="." class="btn btn-secondary">.</button>
                 </div>
                 </div>
                 <div class="col-md-4">
@@ -113,7 +90,7 @@
 <div class="d-flex flex-row fertigungauftragrow">
     <div class="d-flex justify-content-between bestätigen3">
 
-    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+    <!-- <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button> -->
     <button type="submit" name="submit" value="submit_teil" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
     <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Endrückmeldung') }}</button>
 

@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, text
 import pandas as pd
-from XMLRead import X998_GrpPlatz, FirmaNr
 from datetime import datetime
 from sqlalchemy import exc
 
@@ -14,7 +13,6 @@ engine = create_engine(DATABASE_CONNECTION)
 future_engine = create_engine(DATABASE_CONNECTION, future=True)
 connection = engine.connect()
 
-print("db", X998_GrpPlatz, FirmaNr)
 
 def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
     arbeitplatzlist = pd.read_sql_query(text(
@@ -34,9 +32,8 @@ def getPlazlistGKA(userid, date, FirmaNr):
         connection)
     return Platzlist
 
-def getPlazlistFAE(userid, FirmaNr):
+def getPlazlistFAE(userid, FirmaNr, date):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    date = datetime.now().strftime("%Y-%d-%m")
     Platzlist = pd.read_sql_query(text(
         f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
@@ -100,7 +97,7 @@ def getUserID(persnr):
     userid = pd.read_sql_query(text(
         f"""select T912_Nr from ksalias.dbo.T912_PersCard where T912_PersNr = {persnr}"""), 
         connection)
-    return round(userid.iloc[0, 0])
+    return str(round(userid.iloc[0, 0]))
 
 def getBelegNr(FA_Nr, Platz, FirmaNr):
     beleg_nr = pd.read_sql_query(text(
@@ -109,7 +106,7 @@ def getBelegNr(FA_Nr, Platz, FirmaNr):
         where TA06_FA_NR = '{FA_Nr}' and TA06_Platz_Soll = '{Platz}' order by TA06_BelegNr"""), connection)
     if beleg_nr.shape[0] == 0:
         return "error"
-    return beleg_nr.iloc[0, 0]
+    return str(beleg_nr.iloc[0, 0])
 
 def getPersonaldetails(T912_Nr):
     pers_info = pd.read_sql_query(text(
@@ -118,7 +115,7 @@ def getPersonaldetails(T912_Nr):
         connection, coerce_float=False)
     pers_info = pers_info.iloc[0, :]  # select first record that matches
     pers_info['T912_Nr'] = str(pers_info['T912_Nr'])
-    pers_info['formatted_name'] = pers_info["T910_Vorname"] + ", " + pers_info["T910_Name"]
+    pers_info['formatted_name'] = pers_info["T910_Vorname"] + " " + pers_info["T910_Name"]
     return pers_info
 
 def getLastbooking(userid):
@@ -140,8 +137,8 @@ def getGemeinkosten(userid, FirmaNr):
 
 def getStatustableitems(userid, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
-    date = datetime.now().strftime("%Y-%d-%m")
-    ts_now = datetime.now().strftime("%Y-%d-%m %H:%M:%S")
+    date = datetime.now().strftime("%Y-%m-%dT00:00:00")
+    ts_now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
     last_booking = getLastbooking(userid)
     platz = last_booking.loc[0, "T951_ArbIst"]
     upper_items = pd.read_sql_query(text(f"""SELECT * FROM ksmaster.dbo.kstf_T951BD1_Info('{FirmaNr}', {persnr}, '{date}')"""),
