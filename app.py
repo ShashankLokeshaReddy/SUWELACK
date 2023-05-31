@@ -878,9 +878,14 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) == True:
             xTE = dll_instances[current_user.username].gtv("TA06_TE")
         
-        new_total = int(float(request.form["new_total"]))
+        try:
+            new_total = int(request.form["new_total"])
+        except ValueError:
+            flash(f"Der Zählerstand muss als ganze Zahl angegeben werden!")
+            return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
+        
         date_string = parser.parse(request.form["datum"])
-        xMengeGut = int(new_total) - int(old_total) # Difference = new_total - old_total
+        xMengeGut = new_total - int(old_total) # Difference = new_total - old_total
         xMengeAus = 0
         hour = int(request.form["uhrzeit"])
         xTS = date_string.strftime(f"%d.%m.%Y {hour}:00:00")  #Stringtransporter Datum 
@@ -898,7 +903,7 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
     return render_template(
         "zaehlerdialog.html",
         date=datetime.now(),
-        old_total=float(old_total),
+        old_total=int(old_total),
         belegnr=belegnr,
         uhrzeit=list(range(1,25)),
         sidebarItems=get_list("sidebarItems")
@@ -928,11 +933,20 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
         elif request.form["submit"] == "submit_teil":
             xFAStatus = '20'  # Teilrückmeldung
 
-        menge_soll = request.form["menge_soll"]
-        menge_aus = request.form["menge_aus"]
-        menge_gut = request.form["menge_gut"]
-
-        ruestzeit = request.form["ruestzeit"]
+        try:
+            error = "Sollmenge"
+            menge_soll = float(request.form["menge_soll"])
+            error = "Menge Aus"
+            menge_aus = float(request.form["menge_aus"])
+            error = "Menge Gut"
+            menge_gut = float(request.form["menge_gut"])
+            error = "Rüstzeit"
+            ruestzeit = float(request.form["ruestzeit"])
+        except ValueError:
+            flash(f"Werte im Feld \"{error}\" müssen Zahlen sein! Nachkommastellen mit Punkt!")
+            return redirect(url_for('fabuchta55_dialog', userid=userid, menge_soll=menge_soll, xFAStatus=xFAStatus,
+                                    xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=xScanFA, endroute=endroute))
+        
         charge = request.form["charge"]
         lagerplatz = request.form["lagerplatz"]
 
