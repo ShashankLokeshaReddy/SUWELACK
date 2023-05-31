@@ -11,6 +11,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length
 from flask_wtf import FlaskForm
+from flask import json
+from werkzeug.exceptions import HTTPException
 
 from datetime import datetime, timedelta
 from dateutil import parser
@@ -155,10 +157,24 @@ class LoginForm(FlaskForm):
                 BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
                 FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
                 X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
-                print(FirmaNr, X998_GrpPlatz)
                 return True
 
         return False
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    # start with the correct headers and status code from the error
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    flash("Es gibt " + str(e.name) + " und der Fehlercode ist " + str(e.code))
+    return redirect(url_for('home'))
 
 @app.route('/index')
 def index():
@@ -263,57 +279,61 @@ def home():
         "identification": if any button except submit was pressed.
         "home": if value from inputbar is a valid Kartennummer and correct Satzart is "G" (Gehen) or if an error occured
     """
-    if request.method == 'POST':
-        inputBarValue = request.form["inputbar"]
-        username = None
-        try:
-            usernamepd = dbconnection.getPersonaldetails(inputBarValue)
-            username = usernamepd['formatted_name']
+    try:
+        inst_current_user = dll_instances[current_user.username]
+        if request.method == 'POST':
+            inputBarValue = request.form["inputbar"]
+            username = None
+            try:
+                usernamepd = dbconnection.getPersonaldetails(inputBarValue)
+                username = usernamepd['formatted_name']
 
-        finally:
-            if "selectedButton" in request.form:
-                selectedButton = request.form["selectedButton"]
+            finally:
+                if "selectedButton" in request.form:
+                    selectedButton = request.form["selectedButton"]
 
-                if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
-                    return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
-                else:
-                    return redirect(url_for("identification", page=selectedButton))
-
-            elif "anmelden_submit" in request.form:
-                # something was put into the inputbar and enter was pressed
-                nr = inputBarValue
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                if msg == "MSG0147C":
-                    # MSG0147C == "Kartennumer scannen!" for FA or GK
-                    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                    print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
-                    return redirect(url_for("identification", page="_auftragsbuchung"))
-                else:
-                    if username is None:
-                        # handle the case where username is not valid
-                        flash("Kartennummer ungültig!")
-                        return redirect(url_for("home", username=""))
+                    if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
+                        return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
                     else:
-                        # K/G Buchung
-                        return actbuchung(nr=nr, username=username, sa=sa)
+                        return redirect(url_for("identification", page=selectedButton))
 
-    elif request.method == "GET":
-        username = request.args.get('username')
-        return render_template(
-            "home.html",
-            date=datetime.now(),
-            username=username,
-            buttonValues=get_list("homeButtons"),
-            sidebarItems=get_list("sidebarItems")
-        )
-    else:
-        return render_template(
-            "home.html",
-            date=datetime.now(),
-            buttonValues=get_list("homeButtons"),
-            sidebarItems=get_list("sidebarItems")
-        )
+                elif "anmelden_submit" in request.form:
+                    # something was put into the inputbar and enter was pressed
+                    nr = inputBarValue
+                    ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
+                    if msg == "MSG0147C":
+                        # MSG0147C == "Kartennumer scannen!" for FA or GK
+                        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                        print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                        return redirect(url_for("identification", page="_auftragsbuchung"))
+                    else:
+                        if username is None:
+                            # handle the case where username is not valid
+                            flash("Kartennummer ungültig!")
+                            return redirect(url_for("home", username=""))
+                        else:
+                            # K/G Buchung
+                            return actbuchung(nr=nr, username=username, sa=sa)
 
+        elif request.method == "GET":
+            username = request.args.get('username')
+            return render_template(
+                "home.html",
+                date=datetime.now(),
+                username=username,
+                buttonValues=get_list("homeButtons"),
+                sidebarItems=get_list("sidebarItems")
+            )
+        else:
+            return render_template(
+                "home.html",
+                date=datetime.now(),
+                buttonValues=get_list("homeButtons"),
+                sidebarItems=get_list("sidebarItems")
+            )
+    except:
+        flash('Bitte loggen Sie sich zuerst ein.')
+        return redirect(url_for('login'))
 
 @app.route("/arbeitsplatzwechsel/<userid>", methods=["POST", "GET"])
 @login_required
