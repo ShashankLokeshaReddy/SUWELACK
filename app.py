@@ -599,6 +599,8 @@ def gruppenbuchung(userid):
         
         for per_nr in person_nrs:
             userid = dbconnection.getUserID(per_nr)
+            usernamepd = dbconnection.getPersonaldetails(userid)
+            username = usernamepd['formatted_name']
             Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
             Belegnr = dbconnection.getBelegNr(FA_Nr, Platz, FirmaNr[current_user.username])
             if Belegnr == "error":
@@ -610,7 +612,6 @@ def gruppenbuchung(userid):
             ret = gk_erstellen(userid, dauer, TagId) # find time window
             if isinstance(ret, str):
                 flash(ret)
-                return redirect(url_for("home",userid=userid))
             if not isinstance(ret, str):
                 anfang_ts, ende_ts = ret
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
@@ -618,7 +619,7 @@ def gruppenbuchung(userid):
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
                 actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
                 time.sleep(0.25)  # make sure database has time to catch up
-        return redirect(url_for("home", userid=userid))
+        return redirect(url_for("home", username=""))
     
     return render_template(
         "gruppenbuchung.html",
