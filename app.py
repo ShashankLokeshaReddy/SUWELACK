@@ -475,7 +475,8 @@ def arbeitsplatzbuchung(userid):
         date_string = request.form.get('datetime')
         date_string = parser.parse(date_string)
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
-        dauer = request.form.get('dauer') 
+        # dauer = request.form.get('dauer') 
+        dauer = int(request.form["dauer"])
         userid = dbconnection.getUserID(persnr)
         Belegnr = dbconnection.getBelegNr(FA_Nr, Platz, FirmaNr[current_user.username])
         if Belegnr == "error":
@@ -495,10 +496,12 @@ def arbeitsplatzbuchung(userid):
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
             return actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
         return redirect(url_for("home", userid=userid, username=username))
+    dauer=np.linspace(0, 600, num=601).tolist()
     return render_template(
         "arbeitsplatzbuchung.html",
         arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
         date=datetime.now(),
+        dauer=[int(i) for i in dauer],
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -613,7 +616,8 @@ def gruppenbuchung(userid):
         # parse and convert date string
         date_string = parser.parse(date_string)
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
-        dauer = request.form.get('dauer')
+        # dauer = request.form.get('dauer')
+        dauer = int(request.form["dauer"])
         person_list = dbconnection.getGroupMembers(GruppeNr, TagId, FirmaNr[current_user.username])  # get all persons from this group
         person_nrs = [round(x) for x in person_list['T951_PersNr'].tolist()]
         
@@ -640,13 +644,14 @@ def gruppenbuchung(userid):
                 actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
                 time.sleep(0.25)  # make sure database has time to catch up
         return redirect(url_for("home", username=""))
-    
+    dauer=np.linspace(0, 600, num=601).tolist()
     return render_template(
         "gruppenbuchung.html",
         terminal = verwaltungsterminal,
-        date=datetime.now(),
+        date=datetime.now().date(),
         frNr=get_list("gruppenbuchung_faNr"),
         gruppe=get_list("gruppe"),
+        dauer=[int(i) for i in dauer],
         sidebarItems=get_list("sidebarItems")
     )
 
@@ -697,7 +702,7 @@ def fertigungsauftragerfassen(userid):
     else:
         return render_template(
             "fertigungsauftrag.html",
-            date=datetime.now(),
+            date=datetime.now().date(),
             auftraglst=auftraglst,
             auftraglst_ajax=auftraglst_ajax,
             anfangTS=datetime.today().strftime(DTFORMAT),
@@ -809,7 +814,7 @@ def gemeinkostenandern(userid):
 
         return render_template(
             "gemeinkostenandern.html",
-            date=datetime.now(),
+            date=datetime.now().date(),
             anfangTS=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             auftraglst=auftraglst,
             auftraglst_ajax=auftraglst_ajax,
