@@ -236,6 +236,15 @@ body, html {
     background-color: #ffbf0a !important;
 
 }
+.submit2:hover {
+    height: 4.375rem !important;
+    width: 12.5rem !important;
+    font-style: normal !important;
+    font-weight: bolder !important;
+    color: #000000 !important;
+    background-color: #f1f1f1 !important;
+
+}
 .p-2{
     margin-left: 0.9375rem;
 }

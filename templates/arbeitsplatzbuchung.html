@@ -33,7 +33,7 @@
 
         <div class="d-flex flex-column">              
             <div>
-                <input name="datetime" type="date" class="form-control datetime">
+                <input name="datetime" type="date" class="form-control datetime" value="{{ date }}">
             </div>
             <div style="display: inline">
                 <div class="dropdown inputbutton3">
@@ -81,7 +81,11 @@
         </div>
         <div class="d-flex flex-column">
             <div style="display: inline">
-                <input name = "dauer" type="text" class="form-control inputbutton"  value="30">
+                <select name="dauer" id="dauer" class="DAU form-control" value="30">
+                    {% for items in range(0,dauer|length) %}
+                        <option value="{{dauer[items]}}">{{dauer[items]}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div style="display: inline">
                 <input name = "kurztext" type="text" class="form-control kurztext">
@@ -111,6 +115,13 @@
     //JS for Datepicker
     $(function () {
         $('#datepicker').datepicker();
+    });
+
+    $(function(){
+        $(".DAU").click(function(){
+        $("#Dauer").text($(this).text());
+        $("#Dauer").val($(this).text());
+    });
     });
 
     //Functions to set Dropdown values
