@@ -53,24 +53,14 @@ ROUTEDIALOG = True
 SHOW_BUTTON_IDS = False  # If true, show Arbeitsplatz and GK IDs after their name for debugging
 
 sys.path.append("dll/bin")
-
-clr.AddReference("kt002_PersNr")
 clr.AddReference("System.Collections")
-
-dll_ref1 = System.Reflection.Assembly.LoadFile(ROOT_DIR+"dll\\bin\\kt002_PersNr.dll")
-type1 = dll_ref1.GetType('kt002_persnr.kt002')
-instance1 = System.Activator.CreateInstance(type1)
+os.chdir("dll/bin")
 
 from System.Collections import Generic
 from System.Collections import Hashtable
 from System import String
 from System import Object
 from System import Type
-import shutil
-
-os.chdir("dll/bin")
-instance1.Init()
-instance1.InitTermConfig()
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
@@ -143,6 +133,7 @@ class LoginForm(FlaskForm):
             dll_path = user.dll_path
             dll_path_data = user.dll_path_data
             if dll_path and os.path.exists(dll_path) and dll_path_data and os.path.exists(dll_path_data):
+                clr.AddReference(dll_path)
                 dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
                 type = dll_ref.GetType('kt002_persnr.kt002')
                 instance = System.Activator.CreateInstance(type)
