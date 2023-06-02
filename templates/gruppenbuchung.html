@@ -33,7 +33,7 @@
 
         <div class="d-flex flex-column">
             <div>
-                <input type="date" name = "datetime" class="form-control dropdown-toggle datetime">
+                <input type="date" name = "datetime" class="form-control dropdown-toggle datetime" value="{{ date }}">
             </div>
 
             <div style="display: inline">
@@ -74,7 +74,11 @@
 
         <div class="d-flex flex-column">
             <div style="display: inline">
-                <input type="text" name = "dauer" class="form-control inputbutton" value="30">
+                <select name="dauer" id="dauer" class="DAU form-control" value="30">
+                    {% for items in range(0,dauer|length) %}
+                        <option value="{{dauer[items]}}">{{dauer[items]}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div style="display: inline">
                 <input type="text" name = "kurztext" class="form-control kurztext">
@@ -98,6 +102,13 @@
         document.getElementById('Gruppe').selectedIndex = -1;
 
     }
+
+    $(function(){
+        $(".DAU").click(function(){
+        $("#Dauer").text($(this).text());
+        $("#Dauer").val($(this).text());
+    });
+    });
 
     var $previousOption, storedText;
     var $previousOptionGruppe, storedTextGruppe;
