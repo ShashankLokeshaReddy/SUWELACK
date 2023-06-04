@@ -889,6 +889,11 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         xVal4=0.0
         xVal5=0.0
         xbuchen=True
+        
+        if request.form["submit"] == "submit_cancel":
+
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            return redirect(url_for('home', username=username))
 
         if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T910) == True:
             xPersNr = int(dll_instances[current_user.username].gtv("T910_Nr"))
@@ -949,7 +954,10 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
             xFAStatus = '30'  # Endrückmeldung
         elif request.form["submit"] == "submit_teil":
             xFAStatus = '20'  # Teilrückmeldung
-
+        elif request.form["submit"] == "submit_cancel":
+            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            return redirect(url_for('home', username=username))
+            
         try:
             error = "Sollmenge"
             menge_soll = float(request.form["menge_soll"])
