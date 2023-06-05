@@ -505,7 +505,7 @@ def arbeitsplatzbuchung(userid):
     return render_template(
         "arbeitsplatzbuchung.html",
         arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
-        date=datetime.now(),
+        date=datetime.now().date(),
         dauer=[int(i) for i in dauer],
         sidebarItems=get_list("sidebarItems")
     )
