@@ -462,7 +462,7 @@ def arbeitsplatzbuchung(userid):
     return render_template(
         "arbeitsplatzbuchung.html",
         arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
-        date=datetime.now(),
+        date=datetime.now().date(),
         dauer=[int(i) for i in dauer],
         sidebarItems=get_list("sidebarItems")
     )
@@ -622,8 +622,8 @@ def fertigungsauftragerfassen(userid):
     # auftraglst.insert(0, ["","Keine","",""])
     # auftraglst_ajax.insert(0,{'id':"",'platz':"Keine",'belegNr':"",'bez':""})
     
-    auftraglst.insert(0,["V002", "Verladen Gr. 03", "FA00300150", "Teile ohne Barcode"])
-    auftraglst_ajax.insert(0,{'id':"V002",'platz':"Verladen Gr. 03",'belegNr':"FA00300150",'bez':"Teile ohne Barcode"})      
+    auftraglst = [['V002', 'V002___Verladen Gr. 03', 'FA00301000', 'FA003___Verladen Gr. 03'], ['M001', 'M001___Materialtransport', 'FG03oBC00650', 'FG03oBC___Teile ohne Barcode'], ['F006', 'F006___Bereitst. Comil Sonder', 'FA00300650', 'FA003___Bereitst. Comil Sonder'], ['BG1201', 'BG1201_Presse 1', '', '']]
+    auftraglst_ajax = [{'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': 'FA00301000', 'bez': 'FA003___Verladen Gr. 03'}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': 'FG03oBC00650', 'bez': 'FG03oBC___Teile ohne Barcode'}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': 'FA00300650', 'bez': 'FA003___Bereitst. Comil Sonder'}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}]
     tableobj={'TagId':"05-06-2023", 'Arbeitplatz':"V002", 'BelegNr':"FA00300150", 'AnfangTS':"05-06-2023 09:10:05", 'EndeTS':"05-06-2023 09:10:05", 'DauerTS':"0", 'MengeGut':"55", 'Auf_Stat':"30"}
     tablecontent.insert(0,tableobj)
     
@@ -679,15 +679,13 @@ def gemeinkostenandern(userid):
     #     auftraglst.insert(0,auftraglst_temp)
     #     auftraglst_ajax.insert(0,auftraglst_ajax_temp)
        
-    auftraglst = []
-    auftraglst_ajax = []
+    auftraglst = [[['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']], [['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']], [['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']], [['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']]]
+    auftraglst_ajax = [[{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}], [{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}], [{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}], [{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}]]
     tablecontent = []           
     item = {'TagId':"05-06-2023", 'Arbeitplatz':"V002", 'BelegNr':"GK0081850", 'AnfangTS':"2023-06-05 11:06:16", 'EndeTS':"2023-06-05 11:16:16", 'DauerTS':"10", 'Anfang':"2023-06-05 11:06:16", 'Ende':"2023-06-05 11:06:16", 'Dauer':0, 'Kurztext':" "}
     tablecontent.insert(0,item)
     #item = {'TagId':row['TA51_TagId'].strftime("%Y-%m-%d"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
     #tablecontent.insert(0,item)
-    auftraglst.insert(0, [" ", "V002__Verladen Gr. 03", " ", "GK008__Gruppensprecherrunde"])
-    auftraglst_ajax.insert(0, {'id':" ",'platz':"V002__Verladen Gr. 03",'belegNr':" ",'bez':"GK008__Gruppensprecherrunde"})
     
     if request.method == 'POST':
         
@@ -1440,7 +1438,7 @@ def get_list(listname, userid=None):
 
     if listname == "arbeitsplatzbuchung":
         # persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
-        persnr = pd.DataFrame(data={"T910_Nr":["1111", "9999"],"T910_Bez":["Erika Musterfrau", "Max Mustermann"]})
+        persnr = pd.DataFrame(data={"T910_Nr":["1111", "9999"],"T910_Name":["Erika Musterfrau", "Max Mustermann"]})
         arbeitsplatz = pd.DataFrame(data={"T905_Nr":["M001", "V002"],"T905_Bez":["Materialtransport", "Verladen Gr. 03"]})
         fanr = pd.DataFrame(data={"TA06_FA_Nr":["GK002", "GK003"],"TA05_ArtikelBez":["Reinigung", "Gemeinkosten"]})
         return [arbeitsplatz, persnr, fanr]
