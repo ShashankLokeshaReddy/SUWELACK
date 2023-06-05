@@ -44,15 +44,7 @@
                 <img src="/static/images/Icons_Online.svg" width="50" height="50" alt="">
               </a>
           </div>        
-{% block navbar %}
-{% with messages = get_flashed_messages() %}
-{% if messages %} {% for msg in messages %}
-<!-- Flash messages -->
-<div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
-  <img src="/static/images/Icons_Info.svg" width="50" height="50" viewBox="0 0 100 100" role="img" aria-label="Warning:">
-  <p>{{msg}}</p>
-  <img src="/static/images/Icons_SchließenBlue.svg" width="50" height="50" viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
-</div> {% endfor %} {% endif %} {% endwith %} {% endblock %}
+
 <script>
   /* Notifcation Script */
 window.setTimeout(function() {

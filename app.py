@@ -94,10 +94,10 @@ dll_instances = {}
 # Function to create a copy of the DLL for a given user
 def create_dll_copy(username):
     src_path_data = ROOT_DIR+"dll\\data\\X998.xml"
-    dest_path_data = ROOT_DIR+f"dll\\data\\X998{username}.xml"
+    dest_path_data = ROOT_DIR+f"dll\\data\\X998-{username}.xml"
     shutil.copyfile(src_path_data, dest_path_data)
     src_path = ROOT_DIR+"dll\\bin\\kt002_PersNr.dll"
-    dest_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr{username}.dll"
+    dest_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{username}.dll"
     shutil.copyfile(src_path, dest_path)
     return dest_path_data, dest_path
 
@@ -106,11 +106,11 @@ def delete_dll_copy(user):
     if os.path.exists(user.dll_path):
         os.remove(user.dll_path)
     else:
-        write_log(user.dll_path, "DLL-Datei wurde nicht gelöscht")
+        write_log(user.dll_path + " DLL-Datei wurde nicht gelöscht")
     if os.path.exists(user.dll_path_data):
         os.remove(user.dll_path_data)
     else:
-        write_log(user.dll_path_data, "DLL-Datei wurde nicht gelöscht")
+        write_log(user.dll_path_data + " DLL-Datei wurde nicht gelöscht")
         
 @login_manager.user_loader
 def load_user(user_id):
@@ -136,14 +136,17 @@ class LoginForm(FlaskForm):
             dll_path = user.dll_path
             dll_path_data = user.dll_path_data
             if dll_path and os.path.exists(dll_path) and dll_path_data and os.path.exists(dll_path_data):
+                print("Adding reference " + dll_path)
                 clr.AddReference(dll_path)
                 dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
                 type = dll_ref.GetType('kt002_persnr.kt002')
                 instance = System.Activator.CreateInstance(type)
                 dll_instances[user.username] = instance
+                # instance.Init(user.username)
                 instance.Init()
                 instance.InitTermConfig()
-                root[user.username] = ET.parse(f"../../dll/data/X998{user.username}.xml").getroot()[0]  # parse X998.xml file for config
+                time.sleep(1)
+                root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
                 SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
                 GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
                 BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
@@ -283,62 +286,58 @@ def home():
         "identification": if any button except submit was pressed.
         "home": if value from inputbar is a valid Kartennummer and correct Satzart is "G" (Gehen) or if an error occured
     """
-    try:
-        inst_current_user = dll_instances[current_user.username]
-        if request.method == 'POST':
-            inputBarValue = request.form["inputbar"]
-            username = None
-            try:
-                usernamepd = dbconnection.getPersonaldetails(inputBarValue)
-                username = usernamepd['formatted_name']
+    inst_current_user = dll_instances[current_user.username]
+    if request.method == 'POST':
+        inputBarValue = request.form["inputbar"]
+        username = None
+        try:
+            usernamepd = dbconnection.getPersonaldetails(inputBarValue)
+            username = usernamepd['formatted_name']
 
-            finally:
-                if "selectedButton" in request.form:
-                    selectedButton = request.form["selectedButton"]
+        finally:
+            if "selectedButton" in request.form:
+                selectedButton = request.form["selectedButton"]
 
-                    if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
-                        return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
+                if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
+                    return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
+                else:
+                    return redirect(url_for("identification", page=selectedButton))
+
+            elif "anmelden_submit" in request.form:
+                # something was put into the inputbar and enter was pressed
+                nr = inputBarValue
+                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
+                if msg == "MSG0147C":
+                    # MSG0147C == "Kartennumer scannen!" for FA or GK
+                    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                    write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                    return redirect(url_for("identification", page="_auftragsbuchung"))
+                else:
+                    if username is None:
+                        # handle the case where username is not valid
+                        flash("Kartennummer ungültig!")
+                        write_log(f"invalid card number: {nr}")
+                        return redirect(url_for("home", username=""))
                     else:
-                        return redirect(url_for("identification", page=selectedButton))
+                        # K/G Buchung
+                        return actbuchung(nr=nr, username=username, sa=sa)
 
-                elif "anmelden_submit" in request.form:
-                    # something was put into the inputbar and enter was pressed
-                    nr = inputBarValue
-                    ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                    if msg == "MSG0147C":
-                        # MSG0147C == "Kartennumer scannen!" for FA or GK
-                        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                        write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}", current_user.username)
-                        return redirect(url_for("identification", page="_auftragsbuchung"))
-                    else:
-                        if username is None:
-                            # handle the case where username is not valid
-                            flash("Kartennummer ungültig!")
-                            write_log(f"invalid card number: {nr}", current_user.username)
-                            return redirect(url_for("home", username=""))
-                        else:
-                            # K/G Buchung
-                            return actbuchung(nr=nr, username=username, sa=sa)
-
-        elif request.method == "GET":
-            username = request.args.get('username')
-            return render_template(
-                "home.html",
-                date=datetime.now(),
-                username=username,
-                buttonValues=get_list("homeButtons"),
-                sidebarItems=get_list("sidebarItems")
-            )
-        else:
-            return render_template(
-                "home.html",
-                date=datetime.now(),
-                buttonValues=get_list("homeButtons"),
-                sidebarItems=get_list("sidebarItems")
-            )
-    except:
-        flash('Bitte loggen Sie sich zuerst ein.')
-        return redirect(url_for('login'))
+    elif request.method == "GET":
+        username = request.args.get('username')
+        return render_template(
+            "home.html",
+            date=datetime.now(),
+            username=username,
+            buttonValues=get_list("homeButtons"),
+            sidebarItems=get_list("sidebarItems")
+        )
+    else:
+        return render_template(
+            "home.html",
+            date=datetime.now(),
+            buttonValues=get_list("homeButtons"),
+            sidebarItems=get_list("sidebarItems")
+        )
 
 @app.route("/arbeitsplatzwechsel/<userid>", methods=["POST", "GET"])
 @login_required
@@ -490,6 +489,7 @@ def arbeitsplatzbuchung(userid):
         ret = dll_instances[current_user.username].TA06Read(Belegnr)  # prese the BelegNr in the DLL
         if ret == False:
             dll_instances[current_user.username].TA06ReadPlatz(Belegnr, Platz) 
+        write_log(f"gk_erstellen: userid:{userid}, dauer:{dauer}, date:{TagId}")
         ret = gk_erstellen(userid, dauer, TagId)  # find time window
         if isinstance(ret, str):
             flash(ret)
@@ -638,6 +638,7 @@ def gruppenbuchung(userid):
             ret = dll_instances[current_user.username].TA06Read(Belegnr)  # preset the BelegNr in the DLL
             if ret == False: 
                 dll_instances[current_user.username].TA06ReadPlatz(Belegnr, Platz)
+            write_log(f"gk_erstellen: userid:{userid}, dauer:{dauer}, date:{TagId}")
             ret = gk_erstellen(userid, dauer, TagId) # find time window
             if isinstance(ret, str):
                 flash(ret)
@@ -793,6 +794,7 @@ def gemeinkostenandern(userid):
                 return redirect(url_for("gemeinkostenandern", userid=userid))
         
         elif request.form["submit"] == "erstellen":  # create auftrag
+            write_log(f"gk_erstellen: userid:{userid}, dauer:{dauer}, date:{TagId}")
             ret = gk_erstellen(userid=userid, dauer=dauer, date=TagId)
             if isinstance(ret, str):
                 # display error string and cancel booking
@@ -923,8 +925,7 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         xTS = date_string.strftime(f"%d.%m.%Y {hour}:00:00")  #Stringtransporter Datum 
         
         if xbuchen == True:
-            write_log(f"BuchTA56_3: ", xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
-                                                            xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
+            write_log(f"BuchTA56_3: {xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA}")
             dll_instances[current_user.username].BuchTA56_3(xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
                                                             xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
             dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
@@ -1014,7 +1015,10 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
 
         if xbuchen:
             # Auftrag in DB schreiben
-            xPersNr = dll_instances[current_user.username].gtv("T910_Nr")
+            xPersNr = int(str(dll_instances[current_user.username].gtv("T910_Nr")))
+            # print(xPersNr)
+            # print(System.Decimal.ToInt32(xPersNr))
+            # print(int(str(xPersNr)))
             xTE = dll_instances[current_user.username].gtv("TA06_TE")
             write_log(f"BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
             dll_instances[current_user.username].BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE,
@@ -1468,7 +1472,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
                 xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S") 
                 if platz == None:
                     platz = dll_instances[current_user.username].gtv("T905_Nr")
-                dll_instances[current_user.username].BuchTA51_3( xTSEnd, dll_instances[current_user.username].gtv("T910_Nr"), dll_instances[current_user.username].gtv("TA06_FA_Nr"), dll_instances[current_user.username].gtv("TA06_BelegNr"), xStatusMenge, dll_instances[current_user.username].gtv("T910_Entlohnung")
+                dll_instances[current_user.username].BuchTA51_3( xTSEnd, int(str(dll_instances[current_user.username].gtv("T910_Nr"))), dll_instances[current_user.username].gtv("TA06_FA_Nr"), dll_instances[current_user.username].gtv("TA06_BelegNr"), xStatusMenge, dll_instances[current_user.username].gtv("T910_Entlohnung")
                 ,platz, dll_instances[current_user.username].gtv("TA06_TE"), dll_instances[current_user.username].gtv("TA06_TR"), 0, xMengeGut, xMengeAus, xTRMan, xTA11Nr, xCharge, xVal1, xVal2, xVal3, xVal4, xVal5, dll_instances[current_user.username].gtv("TA06_FA_Art"), xTS)
                 
                 #msg0166=Auftrag "_Msg1" wurde gebucht!
@@ -1483,9 +1487,9 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
         else:
             # vorangegangenen Auftrag unterbrechen
             xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-            t901_nr_print = dll_instances[current_user.username].gtv("T910_Nr")
+            t901_nr_print = int(str(dll_instances[current_user.username].gtv("T910_Nr")))
             write_log(f"PRE BuchTa51_4_Cancel xTS: {xTS}, T910_Nr: {t901_nr_print}")
-            dll_instances[current_user.username].BuchTA51_4_Cancel(xTS, dll_instances[current_user.username].gtv("T910_Nr"))
+            dll_instances[current_user.username].BuchTA51_4_Cancel(xTS, int(str(dll_instances[current_user.username].gtv("T910_Nr"))))
 
             if dll_instances[current_user.username].gtv("TA22_Dauer") != 1:
                 if aAnfangTS is None and aEndeTS is None:
@@ -1499,6 +1503,9 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
                 xmegut = float(xsmegut.replace(",","."))
                 if platz == None:
                     platz = dll_instances[current_user.username].gtv("T905_Nr")
+                
+                print(dll_instances[current_user.username].gtv("T910_Nr"))
+                print(int(str(dll_instances[current_user.username].gtv("T910_Nr"))))
                 xret = dll_instances[current_user.username].BuchTA51_3(xTSEnd, int(str(dll_instances[current_user.username].gtv("T910_Nr"))), dll_instances[current_user.username].gtv("TA06_FA_Nr"),
                                         dll_instances[current_user.username].gtv("TA06_BelegNr"), xStatusMenge, dll_instances[current_user.username].gtv("T910_Entlohnung"),
                                         platz, dll_instances[current_user.username].gtv("TA06_TE"), dll_instances[current_user.username].gtv("TA06_TR"), 0.0,
