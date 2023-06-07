@@ -160,7 +160,7 @@ def getStatustableitems(userid, FirmaNr):
     upper_items_df["Arbeitplatz"] = upper_items.loc[:, "T951_ArbIst"]
     upper_items_df["Bezeichnung"] = upper_items.loc[:, "T905_Bez"]
     upper_items_df["Von"] = upper_items.loc[:, "T951_DatumTS"]
-    upper_items_df["Bis"] = upper_items.loc[:, "TSNxt"].astype(str).replace("NaT", "")
+    upper_items_df["Bis"] = upper_items.loc[:, "TSNxt"].astype(str).replace("NaT", " ")
     upper_items_df["Dauer"] = upper_items.loc[:, "T951Dauer"]
 
     lower_items_df = pd.DataFrame(columns=['Auftrag', 'Arbeitplatz', 'Bezeichnung', 'Von', 'Bis', 'Dauer', 'Menge', 'Auftragsstatus', 'Pers.Nr'])
@@ -168,7 +168,7 @@ def getStatustableitems(userid, FirmaNr):
     lower_items_df["Arbeitplatz"] = lower_items.loc[:, "TA51_Platz_Ist"]
     lower_items_df["Bezeichnung"] = lower_items.loc[:, "TA06_AgBez"]
     lower_items_df["Von"] = lower_items.loc[:, "TA51_AnfangTS"]
-    lower_items_df["Bis"] = lower_items.loc[:, "TA51_EndeTS"].astype(str).replace("NaT", "")
+    lower_items_df["Bis"] = lower_items.loc[:, "TA51_EndeTS"].astype(str).replace("NaT", " ")
     lower_items_df["Dauer"] = lower_items.loc[:, "TA51_DauerTS"]
     lower_items_df["Menge"] = lower_items.loc[:, "TA51_MengeIstGut"]
     lower_items_df["Auftragsstatus"] = lower_items.loc[:, "TA51_Auf_Stat"]
