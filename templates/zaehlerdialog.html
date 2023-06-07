@@ -125,6 +125,10 @@ window.addEventListener("load", () => {
               <input type="text" name="new_total" id="new_total" value="0" class="form-control fertigungauftrag">
               <!-- <input type="text" name="diff" id="diff" value="0" class="form-control fertigungauftrag"> -->
             </div>
+            <!-- <div class="d-flex flex-column">
+              <button type="button" id="clear1" class="btn btn-secondary">⌫</button>
+              <button type="button" id="clear2" class="btn btn-secondary">⌫</button>
+            </div> -->
             <div class="d-flex flex-column">
               <label for="datum" class="label">{{ _('Datum') }}</label>
               <label for="uhrzeit" class="label">{{ _('Uhrzeit') }}</label>
@@ -140,7 +144,7 @@ window.addEventListener("load", () => {
             <!-- Keypad -->
             <div class="col-md-8" id="keypad">
               <div class="row">
-                <button type="button" value="clear" class="btn btn-secondary">⌫</button>
+                <button type="button" id="clear" class="btn btn-secondary">⌫</button>
                 <button type="button" value="/" class="btn btn-secondary">/</button>
                 <button type="button" value="*" class="btn btn-secondary">*</button>
               </div>
@@ -181,6 +185,16 @@ window.addEventListener("load", () => {
   </div>
 </div>
 <script>
+    // const clear1 = document.querySelector('#clear1');
+    // clear1.addEventListener('click', () => {
+    //   var input = document.querySelector('#old_total');
+    //   input.value = input.value.slice(0, -1);
+    //   })
+    // const clear2 = document.querySelector('#clear2');
+    // clear2.addEventListener('click', () => {
+    //   var input = document.querySelector('#new_total');
+    //   input.value = input.value.slice(0, -1);
+    //   })
   window.onload = function() {
     var inputFields = document.querySelectorAll('input'); // select all input fields
     for (var i = 0; i < inputFields.length; i++) {
@@ -197,7 +211,8 @@ window.addEventListener("load", () => {
         }
         const button = document.querySelector('#clear');
         button.addEventListener('click', () => {
-          currentInput.value = currentInput.value.slice(0, -2);
+          var input = document.querySelector('#new_total');
+          input.value = input.value.slice(0, -2);
         })
         currentInput.addEventListener('keypress', function(event) {
           if (event.keyCode === 13 || event.which === 13) {
