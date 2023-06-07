@@ -18,7 +18,7 @@ from datetime import datetime, timedelta
 from dateutil import parser
 import time
 
-import dbconnection
+# import dbconnection
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -285,8 +285,8 @@ def home():
             inputBarValue = request.form["inputbar"]
             username = None
             try:
-                usernamepd = dbconnection.getPersonaldetails(inputBarValue)
-                username = usernamepd['formatted_name']
+                # usernamepd = dbconnection.getPersonaldetails(inputBarValue)
+                username = "Max Mustermann"
 
             finally:
                 if "selectedButton" in request.form:
@@ -300,20 +300,10 @@ def home():
                 elif "anmelden_submit" in request.form:
                     # something was put into the inputbar and enter was pressed
                     nr = inputBarValue
-                    ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                    if msg == "MSG0147C":
-                        # MSG0147C == "Kartennumer scannen!" for FA or GK
-                        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                        print(f"[DLL] Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                    if "FA" in nr:
                         return redirect(url_for("identification", page="_auftragsbuchung"))
                     else:
-                        if username is None:
-                            # handle the case where username is not valid
-                            flash("Kartennummer ungültig!")
-                            return redirect(url_for("home", username=""))
-                        else:
-                            # K/G Buchung
-                            return actbuchung(nr=nr, username=username, sa=sa)
+                        return redirect(url_for("anmelden", userid=9999, sa="K"))
 
         elif request.method == "GET":
             username = request.args.get('username')
@@ -354,18 +344,16 @@ def arbeitsplatzwechsel(userid):
     """
 
     try:
-        usernamepd = dbconnection.getPersonaldetails(userid)
-        username = usernamepd['formatted_name']
+        # usernamepd = dbconnection.getPersonaldetails(userid)
+        username = "Max Mustermann"
     finally:
         if request.method == 'POST':
             selectedArbeitsplatz = request.form["arbeitplatzbuttons"]
             print(request.form)
             # Retrieve the value of selected button
             selectedArbeitsplatz, arbeitsplatzName = selectedArbeitsplatz.split(",")
-            nr = userid
-            dll_instances[current_user.username].T905Read(selectedArbeitsplatz)
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-            return actbuchung(nr=nr, username=username, sa=sa, arbeitsplatz=arbeitsplatzName)
+            flash(arbeitsplatzName)
+            return redirect(url_for("home", username=username))
 
         return render_template(
             "arbeitsplatzwechsel.html",
@@ -395,22 +383,16 @@ def gemeinkosten_buttons(userid):
             and Mengendialog is needed.
     """
 
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
 
     if request.method == 'POST':
         # Retrieve the value of selected button from frontend
         selectedGemeinkosten = request.form['gemeinkostenbuttons']
         selected_gk = request.form["gemeinkostenbuttons"]
         selected_gk, gk_name = selected_gk.split(",")
-        logging.info(f"Gememeinkosten: {selectedGemeinkosten}")
-
-        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_gk)  # start with GK nr
-        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_gk, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-        print(f"[DLL] Buch4Clear: nr:{selected_gk}, sa:{sa}, buaction:{buaction}")
-
-        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
-        return actbuchung(nr=userid, username=username, sa=sa)
+        flash("Gemeinkosten erfolgreich gebucht.")
+        return redirect(url_for("home", username=username))
 
     return render_template(
         "gemeinkostenbuttons.html",
@@ -436,21 +418,15 @@ def zaehlerstand_buttons(userid):
         TODO
     """
 
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
 
     if request.method == 'POST':
         # Retrieve the value of selected button from frontend
         selected_zs = request.form["gemeinkostenbuttons"]
         selected_zs, zs_name = selected_zs.split(",")
         logging.info(f"Zählerstand: {selected_zs, zs_name}")
-
-        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_zs)  # start with GK nr
-        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_zs, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-        print(f"[DLL] Buch4Clear: nr:{selected_zs}, sa:{sa}, buaction:{buaction}")
-
-        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
-        return actbuchung(nr=userid, username=username, sa=sa)
+        return redirect(url_for("fabuchta56_dialog", userid=9999, old_total="14312", platz="test", belegnr="9999"))
 
     return render_template(
         "gemeinkostenbuttons.html",
@@ -465,8 +441,8 @@ def zaehlerstand_buttons(userid):
 @app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
 @login_required
 def arbeitsplatzbuchung(userid):
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
     if request.method == 'POST':
         # collect form values
         persnr = request.form.get('personalnummer')
@@ -477,30 +453,16 @@ def arbeitsplatzbuchung(userid):
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         # dauer = request.form.get('dauer') 
         dauer = int(request.form["dauer"])
-        userid = dbconnection.getUserID(persnr)
-        Belegnr = dbconnection.getBelegNr(FA_Nr, Platz, FirmaNr[current_user.username])
-        if Belegnr == "error":
-            flash("GK Auftrag für diesen Platz nicht definiert!")
-            return redirect(url_for("arbeitsplatzbuchung", userid=userid))
-        ret = dll_instances[current_user.username].TA06Read(Belegnr)  # prese the BelegNr in the DLL
-        if ret == False:
-            dll_instances[current_user.username].TA06ReadPlatz(Belegnr, Platz) 
-        ret = gk_erstellen(userid, dauer, TagId)  # find time window
-        if isinstance(ret, str):
-            flash(ret)
-            return redirect(url_for("arbeitsplatzbuchung", userid=userid))
-        if not isinstance(ret, str):
-            anfang_ts, ende_ts = ret
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr) 
-            dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
-            return actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
-        return redirect(url_for("home", userid=userid, username=username))
+        userid = "9999"
+        Belegnr = "9999"
+        flash("Gemeinkosten erfolgreich gebucht.")
+        return redirect(url_for("home", username=username))
+        
     dauer=np.linspace(0, 600, num=601).tolist()
     return render_template(
         "arbeitsplatzbuchung.html",
         arbeitplatz_dfs=get_list("arbeitsplatzbuchung",userid),
-        date=datetime.now(),
+        date=datetime.now().date(),
         dauer=[int(i) for i in dauer],
         sidebarItems=get_list("sidebarItems")
     )
@@ -554,20 +516,18 @@ def identification(page):
     if request.method == 'POST':
         try:
             userid = request.form["inputfield"]
-            usernamepd = dbconnection.getPersonaldetails(userid)
-            username = usernamepd['formatted_name']
+            # usernamepd = dbconnection.getPersonaldetails(userid)
+            username = "Max Mustermann"
         except:
             flash("Kartennummer ungültig!", category="error")
             return redirect(url_for("home", username=""))
 
         if page == "_auftragsbuchung":
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-            return actbuchung(nr=userid, username=username, sa=sa, endroute="home")
+            # ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
+            return redirect(url_for("fabuchta55_dialog", userid=userid, menge_soll="100", xFAStatus="", xFATS="", xFAEndeTS="", xScanFA="", endroute="home"))
         
         if page == "gemeinkostenbeenden":
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-            ta06gkend(userid=userid)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+            flash("Laufende Aufträge beendet.")
             return redirect(url_for("home", userid=userid, username=username))
         
         return redirect(url_for(page, userid=userid))
@@ -606,8 +566,8 @@ def berichtdrucken(userid):
 @app.route("/gruppenbuchung/<userid>", methods=["POST", "GET"])
 @login_required
 def gruppenbuchung(userid):
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
     if request.method == 'POST':
         GruppeNr = request.form.get('gruppe')
         FA_Nr = request.form.get('fanummer')
@@ -618,31 +578,10 @@ def gruppenbuchung(userid):
         TagId = date_string.strftime("%Y-%m-%dT00:00:00")
         # dauer = request.form.get('dauer')
         dauer = int(request.form["dauer"])
-        person_list = dbconnection.getGroupMembers(GruppeNr, TagId, FirmaNr[current_user.username])  # get all persons from this group
-        person_nrs = [round(x) for x in person_list['T951_PersNr'].tolist()]
-        
-        for per_nr in person_nrs:
-            userid = dbconnection.getUserID(per_nr)
-            usernamepd = dbconnection.getPersonaldetails(userid)
-            username = usernamepd['formatted_name']
-            Platz = dbconnection.getLastbooking(userid).loc[0,'T951_ArbIst']
-            Belegnr = dbconnection.getBelegNr(FA_Nr, Platz, FirmaNr[current_user.username])
-            if Belegnr == "error":
-                flash("GK Auftrag für diesen Platz nicht definiert!")
-                continue
-            ret = dll_instances[current_user.username].TA06Read(Belegnr)  # preset the BelegNr in the DLL
-            if ret == False: 
-                dll_instances[current_user.username].TA06ReadPlatz(Belegnr, Platz)
-            ret = gk_erstellen(userid, dauer, TagId) # find time window
-            if isinstance(ret, str):
-                flash(ret)
-            if not isinstance(ret, str):
-                anfang_ts, ende_ts = ret
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
-                dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
-                actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
-                time.sleep(0.25)  # make sure database has time to catch up
+        # person_list = dbconnection.getGroupMembers(GruppeNr, TagId, FirmaNr[current_user.username])  # get all persons from this group
+        # person_nrs = [round(x) for x in person_list['T951_PersNr'].tolist()]
+        flash("Gemeinkosten erfolgreich gebucht.")
+        flash("Gemeinkosten erfolgreich gebucht.")
         return redirect(url_for("home", username=""))
     dauer=np.linspace(0, 600, num=601).tolist()
     return render_template(
@@ -658,47 +597,40 @@ def gruppenbuchung(userid):
 @app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
 @login_required
 def fertigungsauftragerfassen(userid):
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username=usernamepd['formatted_name']
-    platz=dbconnection.getPlazlistFAE(userid, FirmaNr[current_user.username], datetime.now().strftime("%Y-%m-%dT00:00:00"))
-    platzid=platz.T905_Nr.tolist()
-    platzlst= platz.T905_Bez.tolist()
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
+    # platz=dbconnection.getPlazlistFAE(userid, FirmaNr[current_user.username], datetime.now().strftime("%Y-%m-%dT00:00:00"))
+    # platzid=platz.T905_Nr.tolist()
+    # platzlst= platz.T905_Bez.tolist()
     auftraglst = []
     auftraglst_ajax = []
     tablecontent = []
-    for i in range(len(platzid)):
-        auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen", FirmaNr[current_user.username])
-        if auftrag.empty:
-            auftraglst.insert(0,[platzid[i],platzlst[i],"",""])
-            auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
-        else:    
-            auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist()[0],auftrag.Bez.tolist()[0]])
-            auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist()[0],'bez':auftrag.Bez.tolist()[0]})               
+    # for i in range(len(platzid)):
+    #     auftrag=dbconnection.getAuftrag(platzid[i], "FA_erfassen", FirmaNr[current_user.username])
+    #     if auftrag.empty:
+    #         auftraglst.insert(0,[platzid[i],platzlst[i],"",""])
+    #         auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
+    #     else:    
+    #         auftraglst.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist()[0],auftrag.Bez.tolist()[0]])
+    #         auftraglst_ajax.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist()[0],'bez':auftrag.Bez.tolist()[0]})               
     
-        tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen", FirmaNr[current_user.username])
-        if not tableitem.empty:
-            for index, row in tableitem.iterrows():
-                tableobj={'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'MengeGut':row['TA51_MengeIstGut'], 'Auf_Stat':row['TA51_Auf_Stat']}
-                tablecontent.insert(0,tableobj)
-    auftraglst.insert(0, ["","Keine","",""])
-    auftraglst_ajax.insert(0,{'id':"",'platz':"Keine",'belegNr':"",'bez':""})
+    #     tableitem=dbconnection.getTables_GKA_FAE(userid, platzid[i], "FA_erfassen", FirmaNr[current_user.username])
+    #     if not tableitem.empty:
+    #         for index, row in tableitem.iterrows():
+    #             tableobj={'TagId':row['TA51_TagId'].strftime("%d-%m-%Y"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%d-%m-%Y %H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%d-%m-%Y %H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'MengeGut':row['TA51_MengeIstGut'], 'Auf_Stat':row['TA51_Auf_Stat']}
+    #             tablecontent.insert(0,tableobj)
+    # auftraglst.insert(0, ["","Keine","",""])
+    # auftraglst_ajax.insert(0,{'id':"",'platz':"Keine",'belegNr':"",'bez':""})
+    
+    auftraglst = [['V002', 'V002___Verladen Gr. 03', 'FA00301000', 'FA003___Verladen Gr. 03'], ['M001', 'M001___Materialtransport', 'FG03oBC00650', 'FG03oBC___Teile ohne Barcode'], ['F006', 'F006___Bereitst. Comil Sonder', 'FA00300650', 'FA003___Bereitst. Comil Sonder'], ['BG1201', 'BG1201_Presse 1', '', '']]
+    auftraglst_ajax = [{'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': 'FA00301000', 'bez': 'FA003___Verladen Gr. 03'}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': 'FG03oBC00650', 'bez': 'FG03oBC___Teile ohne Barcode'}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': 'FA00300650', 'bez': 'FA003___Bereitst. Comil Sonder'}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}]
+    tableobj={'TagId':"05-06-2023", 'Arbeitplatz':"V002", 'BelegNr':"FA00300150", 'AnfangTS':"05-06-2023 09:10:05", 'EndeTS':"05-06-2023 09:10:05", 'DauerTS':"0", 'MengeGut':"55", 'Auf_Stat':"30"}
+    tablecontent.insert(0,tableobj)
     
     if request.method == 'POST':
         print("posting")
         if request.form["submit"] == "erstellen": 
-            datum = request.form["datum"]
-            arbeitsplatz = request.form["arbeitsplatz"]
-            beleg_nr = request.form["auftrag"]
-            # beleg_nr = "FA00300150" # TODO: bug here -> works only for this value
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-            if bufunktion == 3:
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-                return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
-            else:
-                flash("Buchung fehlgeschlagen")
-                dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
-                return redirect(url_for('home',username=username,))
+            return redirect(url_for("fabuchta55_dialog", userid=userid, menge_soll="100", xFAStatus="20", xFATS="", xFAEndeTS="", xScanFA="", endroute="fertigungsauftragerfassen"))
     else:
         return render_template(
             "fertigungsauftrag.html",
@@ -706,8 +638,8 @@ def fertigungsauftragerfassen(userid):
             auftraglst=auftraglst,
             auftraglst_ajax=auftraglst_ajax,
             anfangTS=datetime.today().strftime(DTFORMAT),
-            username=usernamepd['formatted_name'],
-            pers_no=usernamepd['T910_Nr'],
+            username="Max Mustermann",
+            pers_no="9999",
             tablecontent=tablecontent,
             sidebarItems=get_list("sidebarItems")
         )
@@ -716,98 +648,52 @@ def fertigungsauftragerfassen(userid):
 @app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
 @login_required
 def gemeinkostenandern(userid):
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    df=dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern", FirmaNr[current_user.username])
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username=usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    # df = dbconnection.getTables_GKA_FAE(userid, None, "GK_ändern", FirmaNr[current_user.username])
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
 
-    auftraglst = []
-    auftraglst_ajax = []
-    tablecontent = []
-    for index, row in df.iterrows():
-        item = {'TagId':row['TA51_TagId'].strftime("%Y-%m-%d"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
-        tablecontent.insert(0,item)
-        auftraglst_temp = []
-        auftraglst_ajax_temp = []
-        platz = dbconnection.getPlazlistGKA(userid, row['TA51_TagId'].strftime("%Y-%m-%dT00:00:00"), FirmaNr[current_user.username])
-        platzid = platz.T905_Nr.tolist()
-        platzlst = platz.T905_Bez.tolist()
-        for i in range(len(platzid)):
-            auftrag=dbconnection.getAuftrag(platzid[i], "GK_ändern", FirmaNr[current_user.username])
-            if auftrag.empty:
-                auftraglst_temp.insert(0,[platzid[i],platzlst[i],"",""])
-                auftraglst_ajax_temp.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
-            else:    
-                auftraglst_temp.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist(),auftrag.Bez.tolist()])
-                auftraglst_ajax_temp.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist(),'bez':auftrag.Bez.tolist()})               
+    # auftraglst = []
+    # auftraglst_ajax = []
+    # tablecontent = []
+    # for index, row in df.iterrows():
+    #     item = {'TagId':row['TA51_TagId'].strftime("%Y-%m-%d"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
+    #     tablecontent.insert(0,item)
+    #     auftraglst_temp = []
+    #     auftraglst_ajax_temp = []
+    #     platz = dbconnection.getPlazlistGKA(userid, row['TA51_TagId'].strftime("%Y-%m-%dT00:00:00"), FirmaNr[current_user.username])
+    #     platzid = platz.T905_Nr.tolist()
+    #     platzlst = platz.T905_Bez.tolist()
+    #     for i in range(len(platzid)):
+    #         auftrag=dbconnection.getAuftrag(platzid[i], "GK_ändern", FirmaNr[current_user.username])
+    #         if auftrag.empty:
+    #             auftraglst_temp.insert(0,[platzid[i],platzlst[i],"",""])
+    #             auftraglst_ajax_temp.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':"",'bez':""})
+    #         else:    
+    #             auftraglst_temp.insert(0,[platzid[i],platzlst[i],auftrag.TA06_BelegNr.tolist(),auftrag.Bez.tolist()])
+    #             auftraglst_ajax_temp.insert(0,{'id':platzid[i],'platz':platzlst[i],'belegNr':auftrag.TA06_BelegNr.tolist(),'bez':auftrag.Bez.tolist()})               
     
-        auftraglst_temp.insert(0, ["","Keine","",""])
-        auftraglst_ajax_temp.insert(0, {'id':"",'platz':"Keine",'belegNr':"",'bez':""})
+    #     auftraglst_temp.insert(0, ["","Keine","",""])
+    #     auftraglst_ajax_temp.insert(0, {'id':"",'platz':"Keine",'belegNr':"",'bez':""})
             
-        auftraglst.insert(0,auftraglst_temp)
-        auftraglst_ajax.insert(0,auftraglst_ajax_temp)
-            
-    if tablecontent == [] :
-        auftraglst.insert(0, [["","Keine","",""]])
-        auftraglst_ajax.insert(0, [{'id':"",'platz':"Keine",'belegNr':"",'bez':""}])
+    #     auftraglst.insert(0,auftraglst_temp)
+    #     auftraglst_ajax.insert(0,auftraglst_ajax_temp)
+       
+    auftraglst = [[['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']], [['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']], [['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']], [['', 'Keine', '', ''], ['V002', 'V002___Verladen Gr. 03', ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['M001', 'M001___Materialtransport', ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['F006', 'F006___Bereitst. Comil Sonder', ['GK0081150', 'GK0141150', 'GKP131150'], ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']], ['BG1201', 'BG1201_Presse 1', '', '']]]
+    auftraglst_ajax = [[{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}], [{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}], [{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}], [{'id': '', 'platz': 'Keine', 'belegNr': '', 'bez': ''}, {'id': 'V002', 'platz': 'V002___Verladen Gr. 03', 'belegNr': ['GK0081850', 'GK0111850', 'GK0141850', 'GKP131850'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'M001', 'platz': 'M001___Materialtransport', 'belegNr': ['GK0081550', 'GK0111550', 'GK0141550', 'GKP131550'], 'bez': ['GK008___Gruppensprecherrunde', 'GK011___Reparatur', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'F006', 'platz': 'F006___Bereitst. Comil Sonder', 'belegNr': ['GK0081150', 'GK0141150', 'GKP131150'], 'bez': ['GK008___Gruppensprecherrunde', 'GK014___Gemeinkosten', 'GKP13___Reinigung']}, {'id': 'BG1201', 'platz': 'BG1201_Presse 1', 'belegNr': '', 'bez': ''}]]
+    tablecontent = []           
+    item = {'TagId':"05-06-2023", 'Arbeitplatz':"V002", 'BelegNr':"GK0081850", 'AnfangTS':"2023-06-05 11:06:16", 'EndeTS':"2023-06-05 11:16:16", 'DauerTS':"10", 'Anfang':"2023-06-05 11:06:16", 'Ende':"2023-06-05 11:06:16", 'Dauer':0, 'Kurztext':" "}
+    tablecontent.insert(0,item)
+    #item = {'TagId':row['TA51_TagId'].strftime("%Y-%m-%d"), 'Arbeitplatz':row['TA51_Platz_ist'], 'BelegNr':row['TA51_BelegNr'], 'AnfangTS':row['TA51_AnfangTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'EndeTS':row['TA51_EndeTS'].strftime("%Y-%m-%dT%H:%M:%S"), 'DauerTS':row['TA51_DauerTS'], 'Anfang':row['TA51_Anfang'].strftime("%Y-%m-%dT%H:%M:%S"), 'Ende':row['TA51_Ende'].strftime("%Y-%m-%dT%H:%M:%S"), 'Dauer':row['TA51_Dauer'], 'Kurztext':row['TA51_Bemerkung']}
+    #tablecontent.insert(0,item)
     
     if request.method == 'POST':
-        datum = request.form["datum"]
-        print(f"datum: {datum}")
-        dauer = int(request.form["dauer"])
-        print(f"dauer: {dauer}")
-        anfang_ts = request.form["anfangTS"]
-        print(f"anfangTS: {anfang_ts}")
-        if datum == "":
-            datum = anfang_ts
-        date_string = parser.parse(datum)
-        TagId = date_string.strftime("%Y-%m-%dT00:00:00")
-        arbeitsplatz = request.form["arbeitsplatz"]
-        for i in range(len(auftraglst)):
-            for j in range(len(auftraglst[i])):
-                if auftraglst[i][j][1] == arbeitsplatz:
-                    pltz_id_bk = auftraglst[i][j][0]
-                
-        print(f"arbeitsplatz: {arbeitsplatz}")
-        print(f"pltz_id_bk: {pltz_id_bk}")
-        beleg_nr_old = request.form["old_beleg_nr"]
-        print(f"beleg_nr_old: {beleg_nr_old}")
-        beleg_nr = request.form["gemeinkosten"]
-        print(f"beleg_nr: {beleg_nr}")
-        kurztext = request.form["kurztext"]
-        print(f"kurztext: {kurztext}")
-        print("posting")
+        
         if request.form["submit"] == "ändern":  # change selected Auftrag
-            ret = gk_ändern(fa_old=beleg_nr_old, userid=userid, anfang_ts=anfang_ts, dauer=dauer, date=TagId)
-            if isinstance(ret, str):
-                # display error string and cancel booking
-                flash(ret)
-                return redirect(url_for('home',username=username,))
-            else:
-                anfang_ts, ende_ts = ret
-                print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
-                
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-                actbuchung(nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext)
-                return redirect(url_for("gemeinkostenandern", userid=userid))
+            return redirect(url_for("gemeinkostenandern", userid=userid))
         
         elif request.form["submit"] == "erstellen":  # create auftrag
-            ret = gk_erstellen(userid=userid, dauer=dauer, date=TagId)
-            if isinstance(ret, str):
-                # display error string and cancel booking
-                flash(ret)
-                return redirect(url_for('home',username=username,))
-            else:
-                anfang_ts, ende_ts = ret
-                print(f"[DLL] anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
-                
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
-                actbuchung(nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext) 
-                return redirect(url_for("gemeinkostenandern", userid=userid))
+            return redirect(url_for("gemeinkostenandern", userid=userid))
 
     else:
         dauer=np.linspace(0, 600, num=601).tolist()
@@ -819,8 +705,8 @@ def gemeinkostenandern(userid):
             auftraglst=auftraglst,
             auftraglst_ajax=auftraglst_ajax,
             sidebarItems=get_list("sidebarItems"),
-            username=usernamepd['formatted_name'],
-            pers_no=usernamepd['T910_Nr'],
+            username="Max Mustermann",
+            pers_no="9999",
             userid=userid,
             dauer=[int(i) for i in dauer],
             tableItems=get_list("statusTableItems",userid),
@@ -843,8 +729,8 @@ def anmelden(userid, sa):
         "home": After user has chosen an Arbeitsplatz and booking is complete.
     """
 
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
 
     if request.method == 'POST':
         selectedArbeitplatz = request.form["arbeitplatzbuttons"]
@@ -852,14 +738,6 @@ def anmelden(userid, sa):
         flash(arbeitsplatzName)
         logging.debug("%s at %s %s" % (username, selectedArbeitplatz, arbeitsplatzName))
 
-        result = dll_instances[current_user.username].PNR_Buch(sa, '', selectedArbeitplatz, '', '', '', 0)
-        xret, ASA, AKst, APlatz, xtagid, xkstk = result
-
-        if len(xret) == 0:
-            dll_instances[current_user.username].PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
-            result = dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
-        
-        logging.debug("successful")
         return redirect(url_for(
             'home',
             username=username,
@@ -881,8 +759,8 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
     """
     TODO
     """
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
 
     if request.method == 'POST':
         xScanFA=0
@@ -898,30 +776,6 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         xVal4=0.0
         xVal5=0.0
         xbuchen=True
-
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T910) == True:
-            xPersNr = int(dll_instances[current_user.username].gtv("T910_Nr"))
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) == True:
-            xTE = dll_instances[current_user.username].gtv("TA06_TE")
-        
-        try:
-            new_total = int(request.form["new_total"])
-        except ValueError:
-            flash(f"Der Zählerstand muss als ganze Zahl angegeben werden!")
-            return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
-        
-        date_string = parser.parse(request.form["datum"])
-        xMengeGut = new_total - int(old_total) # Difference = new_total - old_total
-        xMengeAus = 0
-        hour = int(request.form["uhrzeit"])
-        xTS = date_string.strftime(f"%d.%m.%Y {hour}:00:00")  #Stringtransporter Datum 
-        
-        if xbuchen == True:
-            print(f"[DLL] BuchTA56_3: ", xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
-                                                            xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
-            dll_instances[current_user.username].BuchTA56_3(xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
-                                                            xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         flash("Zählerstand erfolgreich zurückgemeldet.")
         return redirect(url_for('zaehlerstand_buttons', userid=userid))
@@ -950,76 +804,10 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
         "anmelden": When this route is part of a K/G/A booking process.
     """
 
-    usernamepd = dbconnection.getPersonaldetails(userid)
-    username = usernamepd['formatted_name']
+    # usernamepd = dbconnection.getPersonaldetails(userid)
+    username = "Max Mustermann"
 
     if request.method == 'POST':
-        if request.form["submit"] == "submit_end":
-            xFAStatus = '30'  # Endrückmeldung
-        elif request.form["submit"] == "submit_teil":
-            xFAStatus = '20'  # Teilrückmeldung
-
-        try:
-            error = "Sollmenge"
-            menge_soll = float(request.form["menge_soll"])
-            error = "Menge Aus"
-            menge_aus = float(request.form["menge_aus"])
-            error = "Menge Gut"
-            menge_gut = float(request.form["menge_gut"])
-            error = "Rüstzeit"
-            ruestzeit = float(request.form["ruestzeit"])
-        except ValueError:
-            flash(f"Werte im Feld \"{error}\" müssen Zahlen sein! Nachkommastellen mit Punkt!")
-            return redirect(url_for('fabuchta55_dialog', userid=userid, menge_soll=menge_soll, xFAStatus=xFAStatus,
-                                    xFATS=xFATS, xFAEndeTS=xFAEndeTS, xScanFA=xScanFA, endroute=endroute))
-        
-        charge = request.form["charge"]
-        lagerplatz = request.form["lagerplatz"]
-
-        # aus_fehler = request.form["aus_fehler"]
-        # aus_oberflaeche = request.form["aus_oberflaeche"]
-        # aus_stapel = request.form["aus_stapel"]
-        # aus_kanten = request.form["aus_kanten"]
-
-        # div_aus_fehler = request.form["div_aus_fehler"]
-        # div_aus_oberflaeche = request.form["div_aus_oberflaeche"]
-        # div_aus_stapel = request.form["div_aus_stapel"]
-        # div_aus_kanten = request.form["div_aus_kanten"]
-
-        # try:
-        #     if menge_aus == "":  # menge_aus not defined, given split up into reasons
-        #         menge_aus = sum([float(aus_fehler), float(aus_oberflaeche), float(aus_stapel), float(aus_kanten)])
-        # except ValueError:
-        #     menge_aus = 0.0
-        if menge_gut == "":
-            menge_gut = 0.0
-        if ruestzeit == "":
-            ruestzeit = 0.0
-
-        xbuchen = True
-        tl51use = False
-        xScanFA = int(xScanFA)  # make sure dtype is correct
-        xVal1, xVal2, xVal3, xVal4, xVal5 = 0.0, 0.0, 0.0, 0.0, 0.0
-
-        if xbuchen:
-            # Auftrag in DB schreiben
-            xPersNr = dll_instances[current_user.username].gtv("T910_Nr")
-            xTE = dll_instances[current_user.username].gtv("TA06_TE")
-            print(f"[DLL] BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
-            dll_instances[current_user.username].BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE,
-                             float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
-
-            # Störung setzen
-            if tl51use:
-                dll_instances[current_user.username].BuchTA55_3_TL(xFAEndeTS, dll_instances[current_user.username].T905_NrSelected)
-
-            # directly add mengendialog for an Auftrag that is now starting, currently not implemented
-            # if xInputMengeNew == 1:
-                # add another Mengendialog, maybe just reroute with skip?
-                # raise NotImplementedError
-
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
-
         flash("FA erfolgreich gebucht.")
         logging.info("successful")
 
@@ -1642,20 +1430,26 @@ def get_list(listname, userid=None):
         return ["Frontendlager", "Verschiedenes (Bünde)", "Lehrwerkstatt", "AV (Bünde)"]
 
     if listname == "arbeitsplatz":
-        arbeitsplatz_info = dbconnection.getArbeitplazlist(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
-        return [arbeitsplatz_info['T905_bez'], arbeitsplatz_info['T905_Nr']]
+        # arbeitsplatz_info = dbconnection.getArbeitplazlist(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
+        return [["Verladen Gr. 03", "Materialtransport", "Bereitst. Comil Sonder", "Bereitst. UT/OT-Seiten", "Bereitst. HS-Seiten",
+                 "Bereitst. Pfosten", "Nachschüsse/Organisation", "Betriebsrat"],
+                ["Verladen Gr. 03", "Materialtransport", "Bereitst. Comil Sonder", "Bereitst. UT/OT-Seiten", "Bereitst. HS-Seiten",
+                 "Bereitst. Pfosten", "Nachschüsse/Organisation", "Betriebsrat"]]
 
     if listname == "arbeitsplatzbuchung":
-        persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
-        return [persnr, arbeitsplatz, fanr]
+        # persnr, arbeitsplatz, fanr = dbconnection.getArbeitplatzBuchung(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
+        persnr = pd.DataFrame(data={"T910_Nr":["1111", "9999"],"T910_Name":["Erika Musterfrau", "Max Mustermann"]})
+        arbeitsplatz = pd.DataFrame(data={"T905_Nr":["M001", "V002"],"T905_Bez":["Materialtransport", "Verladen Gr. 03"]})
+        fanr = pd.DataFrame(data={"TA06_FA_Nr":["GK002", "GK003"],"TA05_ArtikelBez":["Reinigung", "Gemeinkosten"]})
+        return [arbeitsplatz, persnr, fanr]
     
     if listname == "gruppenbuchung_faNr":
-        fanr = dbconnection.getGruppenbuchungFaNr(FirmaNr[current_user.username])
-        return fanr
+        # fanr = dbconnection.getGruppenbuchungFaNr(FirmaNr[current_user.username])
+        return pd.DataFrame(data={"TA05_FA_Nr":["GK002", "GK003", "GK004", "GK005"], "TA05_ArtikelBez":["Gruppensprecherrunde", "Reparatur", "Gemeinkosten", "Reinigung"]})
 
     if listname == "gruppe":
-        gruppe = dbconnection.getGruppenbuchungGruppe(FirmaNr[current_user.username])
-        return gruppe
+        # gruppe = dbconnection.getGruppenbuchungGruppe(FirmaNr[current_user.username])T903_NR
+        return pd.DataFrame(data={"T903_NR":["03", "06", "12"], "T903_Bez":["Gruppe 3", "Gruppe 6", "Gruppe 12"]})
 
     if listname == "fertigungsauftrag_frNr":
         return [1067, 2098, 7654, 2376, 8976]
@@ -1664,7 +1458,13 @@ def get_list(listname, userid=None):
         return [1067, 2098, 7654, 2376, 8976]
 
     if listname == "statusTableItems":
-        upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid, FirmaNr[current_user.username])
+        # upper_items_df, lower_items_df = dbconnection.getStatustableitems(userid, FirmaNr[current_user.username])
+        upper_items_df = pd.DataFrame(data={'Aktion':["Gekommen", "Gegangen"], 'Arbeitplatz':["M001", "M001"],
+                                            'Bezeichnung':["Materialtransport", "Materialtransport"],
+                                            'Von':["2023-06-06 05:58:34", "2023-06-06 12:01:23"], 'Bis':["2023-06-06 12:01:23", " "], 'Dauer':["362", "0"]})
+        lower_items_df = pd.DataFrame(data={'Auftrag':["GK0081850"], 'Arbeitplatz':["V002"], 'Bezeichnung':["Gruppensprecherrunde"],
+                                            'Von':["2023-06-06 11:00:02"], 'Bis':["2023-06-06 11:15:32"], 'Dauer':["15"], 'Menge':["0.0"],
+                                            'Auftragsstatus':["25"], 'Pers.Nr':["9999"]})
         # create html tags out of the above data frames
         upper_items_html = upper_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
         lower_items_html = lower_items_df.to_html(classes="table table-striped", index=False, justify="left").replace('border="1"','border="0"')
@@ -1677,12 +1477,12 @@ def get_list(listname, userid=None):
                  "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
-        gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
-        return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
+        # gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
+        return [["Gruppensprecherrunde", "Reparatur", "Gemeinkosten", "Reinigung"], [" ", " ", " ", " "]]
     
     if listname == "zaehlerItems":
-        zaehler_info = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
-        return [zaehler_info["TA05_ArtikelBez"], zaehler_info["TA06_BelegNr"]]
+        # zaehler_info = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
+        return [["Zähler 1", "Zähler 2", "Zähler 3"], [" ", " ", " "]]
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
