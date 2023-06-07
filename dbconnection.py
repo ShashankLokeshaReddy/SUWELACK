@@ -5,9 +5,9 @@ from sqlalchemy import exc
 
 user = 'ksadmin'
 password = 'ksadmin'
-host = 'HOC-W10-212\SQL19'
+host = 'rotpunkt23.rotpunkt.de'
 DB = 'ksrotpunkt'
-driver = 'SQL Server Native Client 11.0'
+driver = 'SQL Server'
 DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)
 future_engine = create_engine(DATABASE_CONNECTION, future=True)

@@ -38,7 +38,7 @@ verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
 root  = {}
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
 DFORMAT = "%d.%m.%Y"
-ROOT_DIR = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\"  # directory which directly contains app.py
+ROOT_DIR = "C:\\PKS_Apache_Version\\suwelack\\"  # directory which directly contains app.py
 APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
 SHOWMSGGEHT = {} # X998_ShowMsgGeht
 GKENDCHECK = {} # X998_GKEndCheck
@@ -269,7 +269,6 @@ def write_log(msg):
 #     return 'de'
 
 @app.route("/", methods=["POST", "GET"])
-@login_required
 def home():
     """
     Base route for showing the home screen with all functionalities as buttons.
@@ -286,7 +285,43 @@ def home():
         "identification": if any button except submit was pressed.
         "home": if value from inputbar is a valid Kartennummer and correct Satzart is "G" (Gehen) or if an error occured
     """
-    inst_current_user = dll_instances[current_user.username]
+    #user = User(username="test", password="test")
+    #login_user(User.query.filter_by(username="test").first())
+    #dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr.dll"
+    #dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
+    #type = dll_ref.GetType('kt002_persnr.kt002')
+    #instance = System.Activator.CreateInstance(type)
+    #dll_instances[user.username] = instance
+    #instance.Init()
+    #instance.InitTermConfig()
+    #root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
+    #SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
+    #GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
+    #BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
+    #FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
+    #X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
+    user = User(username="test", password="test")
+    print(user,"user")
+    login_user(User.query.filter_by(username="test").first())
+    dll_path = "C:\\PKS_Apache_Version\\suwelack\\dll\\bin\\kt002_PersNr-test.dll"
+    clr.AddReference(dll_path)
+    dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
+    type = dll_ref.GetType('kt002_persnr.kt002')
+    instance = System.Activator.CreateInstance(type)
+    dll_instances[user.username] = instance
+    print("cccbn,", dll_instances, user.username)
+    instance.Init()
+    instance.InitTermConfig()
+    time.sleep(1)
+    root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
+    SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
+    GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
+    BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
+    FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
+    X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
+
+
+    # inst_current_user = dll_instances[current_user.username]
     if request.method == 'POST':
         inputBarValue = request.form["inputbar"]
         username = None
@@ -1202,7 +1237,7 @@ def endta51cancelt905(apersnr):
 
     # Prüfen ob Fertigungsaufträge und GK-Aufträge laufen
     result = dll_instances[current_user.username].EndTA51FACheck(xfa, xgk)
-    xret, xfa, xgk = result
+    xfa, xgk = result
 
     if xret is None:
         xret = ''
@@ -1702,9 +1737,9 @@ def get_list(listname, userid=None):
 
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
@@ -1716,9 +1751,9 @@ def get_list(listname, userid=None):
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen"]]
 
 # if __name__ == '__main__':
     

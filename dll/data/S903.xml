@@ -1,6 +1,125 @@
 <?xml version="1.0" standalone="yes"?>
 <NewDataSet>
   <S903_Sprache>
+    <S903_ID>U940</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Fehlzeiten Import</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:17:20.353+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_User</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Benutzer</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:16:33.16+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Anlage</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Anlage</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:16:19.28+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Status</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Status</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:16:07.863+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Tag</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Tageswert (1 oder 0,5)</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:15:44.117+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_ZA</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Zeitart</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:15:13.453+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Bez</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Bezeichnung</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:14:59.137+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_TagBis</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Bis</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:14:44.713+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_TagVon</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Von</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:14:32.223+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Fehl3</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Fehlgrund 3</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:14:18.893+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Fehl2</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Fehlgrund 2</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:14:07.227+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Fehl1</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Fehlgrund 1</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:13:28.11+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_PersNr</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Personalnr.</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:13:05.153+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_PerioId</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Periode</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:12:45.807+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_Art</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Art Fehlzeit</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:12:32.137+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_LfdNr</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Lfd. Nr.</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:12:15.987+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U940_ImpTime</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Importzeit</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2023-04-17T15:11:55.353+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
     <S903_ID>T925_NrExtern</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>externe ZA (import Fehlz.)</S903_Text>
@@ -323,13 +442,6 @@
     <S903_Aenderung>2022-09-22T15:38:48+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_User</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Benutzer</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2022-09-22T15:38:48+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>X998_FirmaNr</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Firma</S903_Text>
@@ -349,6 +461,20 @@
     <S903_Text>Neuanlage</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2022-09-22T15:38:48+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_User</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Benutzer</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2022-09-22T15:38:48+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>UK55KOMF</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Kommissionierung Prüfung</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
     <S903_ID>U810</S903_ID>
@@ -428,6 +554,20 @@
     <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
+    <S903_ID>U910_Anlage</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Neuanlage</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U910_User</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Benutzer</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
     <S903_ID>U905_Anlage</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Neuanlage</S903_Text>
@@ -456,30 +596,9 @@
     <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>U910_Anlage</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Neuanlage</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U910_User</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Benutzer</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>UA55NAF</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Nachschub Prüfung</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UK55KOMF</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Kommissionierung Prüfung</S903_Text>
     <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2022-09-22T15:38:47+02:00</S903_Aenderung>
   </S903_Sprache>
@@ -3907,6 +4026,20 @@
     <S903_Aenderung>2021-08-23T16:33:17.47+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
+    <S903_ID>TM61_KnzBasis</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Basiskennzahl</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2021-08-23T16:33:17.47+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>TM61_KnzZiel</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Ziel-Kennzahl</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2021-08-23T16:33:17.47+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
     <S903_ID>TTSM_DG1K001_TA53GKM_ZEvdB</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>LK u. GK Platz verdichtet (Brutto)</S903_Text>
@@ -3943,27 +4076,6 @@
     <K_ID>U05M_Nr</K_ID>
     <S903_TextTyp1>TABLE</S903_TextTyp1>
     <K_Text>Arbeitsplatz</K_Text>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>TM61_KnzBasis</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Basiskennzahl</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2021-08-23T16:33:17.47+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>TM61_KnzZiel</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Ziel-Kennzahl</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2021-08-23T16:33:17.47+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UP55PAK</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Import Packerei</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2021-08-23T16:32:45.87+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
     <S903_ID>UK55Fehl</S903_ID>
@@ -4047,6 +4159,13 @@
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Stammkostenstelle</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2021-08-23T16:32:45.87+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>UP55PAK</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Import Packerei</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2021-08-23T16:32:45.87+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
@@ -4148,6 +4267,13 @@
     <S903_Aenderung>2020-12-14T17:05:55.717+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
+    <S903_ID>UA55WE</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Import Wareneingang</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2020-12-14T17:05:55.717+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
     <S903_ID>UB06_GueltigAb</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Gültig Ab</S903_Text>
@@ -4180,13 +4306,6 @@
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Vorgabezeit Faktor</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2020-12-14T17:05:55.717+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UA55WE</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Import Wareneingang</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2020-12-14T17:05:55.717+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
@@ -4708,16 +4827,16 @@
     <S903_Aenderung>2020-12-14T17:05:55.717+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_Log</S903_ID>
+    <S903_ID>X998_LastActEvo</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Terminal Log</S903_Text>
+    <S903_Text>Aktualisierung Salden</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2020-12-14T17:05:55.717+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_LastActEvo</S903_ID>
+    <S903_ID>X998_Log</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Aktualisierung Salden</S903_Text>
+    <S903_Text>Terminal Log</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2020-12-14T17:05:55.717+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -4855,20 +4974,6 @@
     <S903_Aenderung>2019-11-05T11:47:47.11+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_GKEndCheck</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>lfd. GK mit Korrekturmaske beend.</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2019-11-05T11:47:47.11+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_RunSingle</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Einmaliger Start</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2019-11-05T11:47:47.11+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>X998_FarbeGK</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Farbe Buttons GK</S903_Text>
@@ -4883,7 +4988,28 @@
     <S903_Aenderung>2019-11-05T11:47:47.11+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
+    <S903_ID>X998_GKEndCheck</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>lfd. GK mit Korrekturmaske beend.</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2019-11-05T11:47:47.11+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_RunSingle</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Einmaliger Start</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2019-11-05T11:47:47.11+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
     <S903_ID>VA10_Ist_Menge</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Istmenge</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2019-08-20T12:02:14.797+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA11_Ist_Menge</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Istmenge</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
@@ -4893,13 +5019,6 @@
     <S903_ID>VA11_Platz_Ist</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Platz Ist</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2019-08-20T12:02:14.797+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>VA11_Ist_Menge</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Istmenge</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2019-08-20T12:02:14.797+02:00</S903_Aenderung>
   </S903_Sprache>
@@ -6393,13 +6512,6 @@
     <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>UA11_PersNr</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Personalnr.</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>U952_PersNr</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Personalnr.</S903_Text>
@@ -6408,6 +6520,13 @@
   </S903_Sprache>
   <S903_Sprache>
     <S903_ID>U914_PersNr</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Personalnr.</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>UA11_PersNr</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Personalnr.</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
@@ -6792,9 +6911,9 @@
     <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_Bez</S903_ID>
+    <S903_ID>X998_Platz</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Bezeichnung</S903_Text>
+    <S903_Text>Arbeitsplatz</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -6802,13 +6921,6 @@
     <S903_ID>X998_RouteMsg</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Keine Meldung bei umrouten</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_Platz</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Arbeitsplatz</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -6851,6 +6963,13 @@
     <S903_ID>X999_ReadChar</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Folgezeichen lesen</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_Bez</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Bezeichnung</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2018-11-08T08:20:18.41+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -7149,13 +7268,6 @@
     <S903_Aenderung>2018-07-03T11:08:35.91+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_ShowTag</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Anzeige Tag</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2018-07-03T11:08:35.91+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>X998_InfoBDEFull</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Info - Alle Auftragsbuchungen</S903_Text>
@@ -7163,16 +7275,16 @@
     <S903_Aenderung>2018-07-03T11:08:35.91+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_Beep</S903_ID>
+    <S903_ID>X998_InfoPZEFull</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Quittierungston bei Scan</S903_Text>
+    <S903_Text>Info - Alle Buchungsdaten</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2018-07-03T11:08:35.91+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_InfoPZEFull</S903_ID>
+    <S903_ID>X998_ShowTag</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Info - Alle Buchungsdaten</S903_Text>
+    <S903_Text>Anzeige Tag</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2018-07-03T11:08:35.91+02:00</S903_Aenderung>
   </S903_Sprache>
@@ -7188,6 +7300,13 @@
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Zeichnungen</S903_Text>
     <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2018-07-03T11:08:35.91+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_Beep</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Quittierungston bei Scan</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2018-07-03T11:08:35.91+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
@@ -15054,13 +15173,6 @@
     <S903_Aenderung>2013-08-13T21:46:00+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>UA51_Log</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Änderungsprotokoll</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-08-13T21:46:00+02:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>U952_Stunden</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Stunden Zeitarbeiter (n. genutzt)</S903_Text>
@@ -15068,16 +15180,16 @@
     <S903_Aenderung>2013-08-13T21:46:00+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>UA60_FABuchung</S903_ID>
+    <S903_ID>UA51_Log</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>EFG einer Buchung</S903_Text>
+    <S903_Text>Änderungsprotokoll</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-08-13T21:46:00+02:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA01_FAInfo</S903_ID>
+    <S903_ID>UA60_FABuchung</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Auftragsinformation</S903_Text>
+    <S903_Text>EFG einer Buchung</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-08-13T21:46:00+02:00</S903_Aenderung>
   </S903_Sprache>
@@ -15344,6 +15456,13 @@
     <S903_ID>T986_UrlaubJahr</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>n. verwendet</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-08-13T21:46:00+02:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA01_FAInfo</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Auftragsinformation</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-08-13T21:46:00+02:00</S903_Aenderung>
   </S903_Sprache>
@@ -26994,300 +27113,6 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>UA51_ID</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Ref. Menge</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UA51_LfdNr</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Lfd. Nr.</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UA51_MengeIstAus</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Menge Aus</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UA51_MengeIstGut</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Menge Gut</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UA51_ArtikelBez</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Artikel Bez</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UA51_ArtikelNr</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Artikel Nr</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UA51_AusGrund</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Ausschußgrund</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U952_TimeG</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Geht</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U952_TimeK</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Kommt</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Lohndaten</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_AnwAng</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>NormalStdAngestellte</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_AnwGew</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>NormalstdGewerbl</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_AnwTage</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>gearbeiteteTage</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_FT</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Feiertage</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Glz</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Monatssaldo</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_GlzSaldo</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Saldo</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_GlzVerrStd</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Glz. verrechnet</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Krank</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Krank</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_KrankTage</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Krankentage</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_KuG</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>KurzStd</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U905_Ende</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Ende</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U905_PlatzIst</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Arbeitsplatz</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U905_Schicht</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Schicht</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U910_Aktiv</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Aktiv</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U905_Anfang</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Anfang</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Name</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Name</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U952_Status</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Status</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U910_Vorname</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Vorname</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U910_ZAFANR</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Zeitarbeitsfirma</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U910_Name</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Name</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U910_Nr</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Personalnr.</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Schicht25P</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Schichtzulage25P</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Schicht50P</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Schichtzulage50P</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Schicht5P</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Schichtzulage5P</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Sollzeit</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Soll_Zeit</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_UlGen</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>genommenerUrlaub</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_UlSaldo</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Resturlaub</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_Vorname</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Vorname</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U914_ZAStd</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Zeitausgleich</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U952_BuArt</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Buchungsart</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U952_Datum</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Datum</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>U952_KW</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>KW</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>UC</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>zu verarbeiten</S903_Text>
@@ -27323,101 +27148,52 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>UL_Offen</S903_ID>
+    <S903_ID>UA51_MengeIstAus</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>offen UL.</S903_Text>
+    <S903_Text>Menge Aus</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA01_Fertig</S903_ID>
+    <S903_ID>UA51_MengeIstGut</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Gefertigte Menge</S903_Text>
+    <S903_Text>Menge Gut</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA01_Gesamt</S903_ID>
+    <S903_ID>UA51_ID</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Gesamte Menge</S903_Text>
+    <S903_Text>Ref. Menge</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA01_Offen</S903_ID>
+    <S903_ID>UA51_LfdNr</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Offene Menge</S903_Text>
+    <S903_Text>Lfd. Nr.</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA01_PosNr</S903_ID>
+    <S903_ID>UA51_ArtikelBez</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Positions-Nr.</S903_Text>
+    <S903_Text>Artikel Bez</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA01_PrtTimeStamp</S903_ID>
+    <S903_ID>UA51_ArtikelNr</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Druck Datum / Zeit:</S903_Text>
+    <S903_Text>Artikel Nr</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA05FAINFO</S903_ID>
+    <S903_ID>UA51_AusGrund</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>FA Auskunft</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>UR</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Fehler in Berechnung</S903_Text>
-    <S903_TextTyp>SYSTEM</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>URL_Art</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Urlaub Arten</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>Url_Kat</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Urlaub Kategorien</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>V966_BEZ</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Art</S903_Text>
+    <S903_Text>Ausschußgrund</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>V967_BEZ</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Kategorie</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>VA</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>verarbeitet</S903_Text>
-    <S903_TextTyp>SYSTEM</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>VA01_FA01</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Auftragsauskunft</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
@@ -27732,6 +27508,251 @@
     <S903_ID>V951_TAGWECHSEL</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Tageswechsel</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U952_TimeG</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Geht</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U952_TimeK</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Kommt</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U952_Status</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Status</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U952_BuArt</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Buchungsart</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U952_Datum</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Datum</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U952_KW</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>KW</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Lohndaten</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_AnwAng</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>NormalStdAngestellte</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_AnwGew</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>NormalstdGewerbl</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_AnwTage</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>gearbeiteteTage</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_FT</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Feiertage</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Glz</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Monatssaldo</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_GlzSaldo</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Saldo</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_GlzVerrStd</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Glz. verrechnet</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Krank</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Krank</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_KrankTage</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Krankentage</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_KuG</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>KurzStd</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U905_Ende</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Ende</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U905_PlatzIst</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Arbeitsplatz</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U905_Schicht</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Schicht</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U910_Aktiv</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Aktiv</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U905_Anfang</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Anfang</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Name</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Name</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U910_Vorname</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Vorname</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U910_ZAFANR</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Zeitarbeitsfirma</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U910_Name</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Name</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U910_Nr</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Personalnr.</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Schicht25P</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Schichtzulage25P</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Schicht50P</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Schichtzulage50P</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Schicht5P</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Schichtzulage5P</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Sollzeit</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Soll_Zeit</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_UlGen</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>genommenerUrlaub</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_UlSaldo</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Resturlaub</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_Vorname</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Vorname</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>U914_ZAStd</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Zeitausgleich</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -36335,30 +36356,9 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_Printer</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Drucker</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>X998_PAUSE</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Präfix Pausenbuchung</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_GRPPLATZ</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Arbeitsplatzgrp.</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_INFO</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Präfix Info</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -36391,44 +36391,107 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_TIMESCR16</S903_ID>
+    <S903_ID>X998_KGDirekt</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Dauer bis Schließen (16)</S903_Text>
+    <S903_Text>K/G Buchungsart</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_TIMESCR17</S903_ID>
+    <S903_ID>X998_KGGeht</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Dauer bis Schließen (17)</S903_Text>
+    <S903_Text>Präfix Geht</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_TimeScreen2</S903_ID>
+    <S903_ID>X998_KGKommt</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Dauer bis Schließen der Buchungsadministration</S903_Text>
+    <S903_Text>Präfix Kommt</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_TimeSync</S903_ID>
+    <S903_ID>X998_BookExt</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Zeit mit Server synchronisieren</S903_Text>
+    <S903_Text>Dauer einer Doppelbuchung (sec.)</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_UpdConfig</S903_ID>
+    <S903_ID>X998_BookInp</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Intervall Konfiguration Upd. (sec.)</S903_Text>
+    <S903_Text>Dauer bis Eingabe gelöscht (sec.)</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_UpdStamm</S903_ID>
+    <S903_ID>X998_BOOKPNRDIST</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Intervall Stammdaten Upd. (sec.)</S903_Text>
+    <S903_Text>min. Pause zur ff. K/G-Buchung</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_BookTime</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Dauer Anzeige Buchungstext</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_ConfigTerm</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Terminal Konfigurieren</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_F1BTN1</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Funktionsbutton 1</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_Fa</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Präfix Fertigungsauftrag buchen</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_FAEnde</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Verlassen der FA-Buchung</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_GRPPLATZ</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Arbeitsplatzgrp.</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_INFO</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Präfix Info</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_GKAuf</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Präfix GK</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_FATAB</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Tabelle zur FA-Schnellbuchung</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -36461,6 +36524,20 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
+    <S903_ID>X998_SIZEABLE</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Anwendung vergrößerbar</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_SoftNum</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Nummernblockanzeige</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
     <S903_ID>X998_SHOWCLOCK</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Uhr</S903_Text>
@@ -36471,13 +36548,6 @@
     <S903_ID>X998_SHOWINFO</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Dauer der Infoanzeige</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_Sammelbuchung</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Sammelbuchung</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -36496,51 +36566,16 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>ZMDETAIL</S903_ID>
+    <S903_ID>X998_Printer</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Zeitmodell Detail</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>ZMKOPF</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Zeitmodelle</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>ZMPERS</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Zeitmodell Personenbezogen</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>ZZZ_Newbe</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Speichern und Schließen</S903_Text>
-    <S903_TextTyp>MENUE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_SIZEABLE</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Anwendung vergrößerbar</S903_Text>
+    <S903_Text>Drucker</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_SoftNum</S903_ID>
+    <S903_ID>X998_Sammelbuchung</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Nummernblockanzeige</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_WriteLog</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Buchung Protokollieren</S903_Text>
+    <S903_Text>Sammelbuchung</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -36643,27 +36678,6 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA11_ArtikelNr</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Artikelnummer</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>VA11_Durchschnitt</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Durchschnitt</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>VA11_FAAnzahl</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Anzahl FA</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
     <S903_ID>VA11_Platz_Soll</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Platz Soll</S903_Text>
@@ -36727,122 +36741,101 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA11_MaxDurchschnitt</S903_ID>
+    <S903_ID>VA01_Fertig</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>maximaler Durchschnitt</S903_Text>
+    <S903_Text>Gefertigte Menge</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VA11_MinDurchschnitt</S903_ID>
+    <S903_ID>VA01_Gesamt</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Minimaler Durchschnitt</S903_Text>
+    <S903_Text>Gesamte Menge</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VerwUrlaub</S903_ID>
+    <S903_ID>VA01_Offen</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Urlaub Parameter</S903_Text>
+    <S903_Text>Offene Menge</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA01_PosNr</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Positions-Nr.</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA01_PrtTimeStamp</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Druck Datum / Zeit:</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA05FAINFO</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>FA Auskunft</S903_Text>
     <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VT951_G</S903_ID>
+    <S903_ID>V966_BEZ</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Geht</S903_Text>
+    <S903_Text>Art</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>VT951_K</S903_ID>
+    <S903_ID>V967_BEZ</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Kommt</S903_Text>
+    <S903_Text>Kategorie</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_AddModus</S903_ID>
+    <S903_ID>VA</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Art Add FA</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>WRITEGRID</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Konfiguration speichern</S903_Text>
+    <S903_Text>verarbeitet</S903_Text>
     <S903_TextTyp>SYSTEM</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>WEIHN0</S903_ID>
+    <S903_ID>VA01_FA01</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Heiligabend</S903_Text>
-    <S903_TextTyp>FORM</S903_TextTyp>
+    <S903_Text>Auftragsauskunft</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>WEIHN1</S903_ID>
+    <S903_ID>UL_Offen</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>1. Weihnachtstag</S903_Text>
-    <S903_TextTyp>FORM</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>WEIHN2</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>2. Weihnachtstag</S903_Text>
-    <S903_TextTyp>FORM</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_Fa</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Präfix Fertigungsauftrag buchen</S903_Text>
+    <S903_Text>offen UL.</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_FAEnde</S903_ID>
+    <S903_ID>UR</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Verlassen der FA-Buchung</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Text>Fehler in Berechnung</S903_Text>
+    <S903_TextTyp>SYSTEM</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_KGDirekt</S903_ID>
+    <S903_ID>URL_Art</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>K/G Buchungsart</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Text>Urlaub Arten</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_KGGeht</S903_ID>
+    <S903_ID>Url_Kat</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Präfix Geht</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_KGKommt</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Präfix Kommt</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_FATAB</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Tabelle zur FA-Schnellbuchung</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_GKAuf</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Präfix GK</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Text>Urlaub Kategorien</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
@@ -36853,44 +36846,9 @@
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
   <S903_Sprache>
-    <S903_ID>X998_BookExt</S903_ID>
+    <S903_ID>X998_AddModus</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Dauer einer Doppelbuchung (sec.)</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_BookInp</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Dauer bis Eingabe gelöscht (sec.)</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_BOOKPNRDIST</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>min. Pause zur ff. K/G-Buchung</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_BookTime</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Dauer Anzeige Buchungstext</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_ConfigTerm</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Terminal Konfigurieren</S903_Text>
-    <S903_TextTyp>TABLE</S903_TextTyp>
-    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
-  </S903_Sprache>
-  <S903_Sprache>
-    <S903_ID>X998_F1BTN1</S903_ID>
-    <S903_Sprachkn>DEU</S903_Sprachkn>
-    <S903_Text>Funktionsbutton 1</S903_Text>
+    <S903_Text>Art Add FA</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
@@ -36926,6 +36884,167 @@
     <S903_ID>X998_F1BTN6</S903_ID>
     <S903_Sprachkn>DEU</S903_Sprachkn>
     <S903_Text>Funktionsbutton 6</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VerwUrlaub</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Urlaub Parameter</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VT951_G</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Geht</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VT951_K</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Kommt</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA11_ArtikelNr</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Artikelnummer</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA11_Durchschnitt</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Durchschnitt</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA11_FAAnzahl</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Anzahl FA</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>WRITEGRID</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Konfiguration speichern</S903_Text>
+    <S903_TextTyp>SYSTEM</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA11_MaxDurchschnitt</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>maximaler Durchschnitt</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>VA11_MinDurchschnitt</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Minimaler Durchschnitt</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>WEIHN0</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Heiligabend</S903_Text>
+    <S903_TextTyp>FORM</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>WEIHN1</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>1. Weihnachtstag</S903_Text>
+    <S903_TextTyp>FORM</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>WEIHN2</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>2. Weihnachtstag</S903_Text>
+    <S903_TextTyp>FORM</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_TIMESCR16</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Dauer bis Schließen (16)</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_TIMESCR17</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Dauer bis Schließen (17)</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_TimeScreen2</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Dauer bis Schließen der Buchungsadministration</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_TimeSync</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Zeit mit Server synchronisieren</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_UpdConfig</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Intervall Konfiguration Upd. (sec.)</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_UpdStamm</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Intervall Stammdaten Upd. (sec.)</S903_Text>
+    <S903_TextTyp>TABLE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>ZMDETAIL</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Zeitmodell Detail</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>ZMKOPF</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Zeitmodelle</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>ZMPERS</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Zeitmodell Personenbezogen</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>ZZZ_Newbe</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Speichern und Schließen</S903_Text>
+    <S903_TextTyp>MENUE</S903_TextTyp>
+    <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
+  </S903_Sprache>
+  <S903_Sprache>
+    <S903_ID>X998_WriteLog</S903_ID>
+    <S903_Sprachkn>DEU</S903_Sprachkn>
+    <S903_Text>Buchung Protokollieren</S903_Text>
     <S903_TextTyp>TABLE</S903_TextTyp>
     <S903_Aenderung>2013-01-03T16:35:00+01:00</S903_Aenderung>
   </S903_Sprache>
