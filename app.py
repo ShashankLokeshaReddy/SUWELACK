@@ -285,44 +285,29 @@ def home():
         "identification": if any button except submit was pressed.
         "home": if value from inputbar is a valid Kartennummer and correct Satzart is "G" (Gehen) or if an error occured
     """
-    #user = User(username="test", password="test")
-    #login_user(User.query.filter_by(username="test").first())
-    #dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr.dll"
-    #dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
-    #type = dll_ref.GetType('kt002_persnr.kt002')
-    #instance = System.Activator.CreateInstance(type)
-    #dll_instances[user.username] = instance
-    #instance.Init()
-    #instance.InitTermConfig()
-    #root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
-    #SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
-    #GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
-    #BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
-    #FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
-    #X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
-    user = User(username="test", password="test")
-    print(user,"user")
-    login_user(User.query.filter_by(username="test").first())
-    dll_path = "C:\\PKS_Apache_Version\\suwelack\\dll\\bin\\kt002_PersNr-test.dll"
-    clr.AddReference(dll_path)
-    dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
-    type = dll_ref.GetType('kt002_persnr.kt002')
-    instance = System.Activator.CreateInstance(type)
-    dll_instances[user.username] = instance
-    print("cccbn,", dll_instances, user.username)
-    instance.Init()
-    instance.InitTermConfig()
-    time.sleep(1)
-    root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
-    SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
-    GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
-    BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
-    FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
-    X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
-
 
     # inst_current_user = dll_instances[current_user.username]
     if request.method == 'POST':
+        user = User(username="test", password="test")
+        print(user,"user")
+        login_user(User.query.filter_by(username="test").first())
+        dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-test.dll"
+        clr.AddReference(dll_path)
+        dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
+        type = dll_ref.GetType('kt002_persnr.kt002')
+        instance = System.Activator.CreateInstance(type)
+        dll_instances[user.username] = instance
+        print("cccbn,", dll_instances, user.username)
+        instance.Init()
+        instance.InitTermConfig()
+        # time.sleep(1)
+        root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
+        SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
+        GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
+        BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
+        FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
+        X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
+        
         inputBarValue = request.form["inputbar"]
         username = None
         try:
