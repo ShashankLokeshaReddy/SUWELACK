@@ -327,11 +327,20 @@ def home():
                 # something was put into the inputbar and enter was pressed
                 nr = inputBarValue
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                if msg == "MSG0147C":
-                    # MSG0147C == "Kartennumer scannen!" for FA or GK
+                if not ret:
+                    # something went wrong or Auftragsbuchung
+                    if msg == "MSG0147C":  # Kartennummer scannen
+                        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                        write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                        return redirect(url_for("identification", page="_auftragsbuchung"))
+                    elif msg == "MSG0085":
+                        flash("Keine Berechtigung zur Buchung!")
+                    elif msg == "MSG0162":
+                        flash("Kartennummer ist inaktiv!")
+                    else:
+                        flash("Unerwarter Fehler!")
                     dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                    write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
-                    return redirect(url_for("identification", page="_auftragsbuchung"))
+                    return redirect(url_for("home", username=username))
                 else:
                     if username is None:
                         # handle the case where username is not valid
@@ -873,20 +882,19 @@ def anmelden(userid, sa):
         flash(arbeitsplatzName)
         write_log("%s at %s %s" % (username, selectedArbeitplatz, arbeitsplatzName))
 
-        result = dll_instances[current_user.username].PNR_Buch(sa, '', selectedArbeitplatz, '', '', '', 0)
-        xret, ASA, AKst, APlatz, xtagid, xkstk = result
+        try:
+            result = dll_instances[current_user.username].PNR_Buch(sa, '', selectedArbeitplatz, '', '', '', 0)
+            xret, ASA, AKst, APlatz, xtagid, xkstk = result
+            if len(xret) == 0:
+                write_log(f"PNR_Buch3: xtagid:{xtagid}, ASA:{ASA}. AKst:{AKst}, APlatz:{APlatz}")
+                dll_instances[current_user.username].PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
+        except System.NullReferenceException:
+            flash("Unerwarter Fehler!")
+                
+        write_log(f"PNR_Buch4Clear: userid:{userid}, sa:{sa}")
+        result = dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
-        if len(xret) == 0:
-            write_log(f"PNR_Buch3: xtagid:{xtagid}, ASA:{ASA}. AKst:{AKst}, APlatz:{APlatz}")
-            dll_instances[current_user.username].PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
-            write_log(f"PNR_Buch4Clear: userid:{userid}, sa:{sa}")
-            result = dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
-        
-        logging.debug("successful")
-        return redirect(url_for(
-            'home',
-            username=username,
-        ))
+        return redirect(url_for('home', username=username))
 
     return render_template(
         "anmelden.html",
