@@ -74,22 +74,23 @@
 
             //declaring a list of all months in  a year
             const monthList = [
-              "January",
-              "February",
-              "March",
+              "Januar",
+              "Februar",
+              "März",
               "April",
-              "May",
-              "June",
-              "July",
+              "Mai",
+              "Juni",
+              "Juli",
               "August",
               "September",
-              "October",
+              "Oktober",
               "November",
-              "December"
+              "Dezember"
             ];
 
             //get current date and time
-            const date = monthList[month] + " " + day + ", " + year;
+            //const date = monthList[month] + " " + day + ", " + year;
+            const date = day + ". " + monthList[month] + " " + year;
             const time = hour + ":" + minute + ":" + second + " Uhr";
 
             //combine current date and time
