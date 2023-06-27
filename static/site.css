@@ -102,7 +102,7 @@ body, html {
 }
 
 .form-control,.form-control:focus, input, select{
-    width: 31.25rem;
+    width: 44rem;
     height: 2.8125rem;
     box-sizing: inherit;
     display: flex;
@@ -140,12 +140,12 @@ body, html {
 .row {
     display: block;
 }
-.col-md-8 {
+.col-8 {
     margin: 0.5rem 0rem 0.125rem 0.9375rem;
 }
-.col-md-4 {
+.col-4 {
     padding-left: 0rem !important;
-    margin-left: 0rem !important;
+    margin-left: 0.25rem !important;
     margin-top: 0.5rem;
 }
 
@@ -389,7 +389,7 @@ table tbody tr {
     word-wrap: break-word;
 }
 .datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus, #dauer {
-    width: 12.5rem !important;
+    width: 22.8125rem !important;
     height: 2.8125rem !important;
     flex-direction: unset !important;
 }
@@ -547,4 +547,38 @@ hr.solid {
 .statustableflex {
     margin-left: 3.125rem;
   }
-  
+
+.fluid-matrix {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.fluid-cell {
+    flex-basis: 50%;
+    box-sizing: border-box;
+    margin-bottom: 0.625rem;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group label {
+    flex-basis: 25%;
+    margin-left: 1.875rem;
+    margin-right: 1.875rem;
+}
+
+.input-group > *:not(label) {
+    flex-grow: 1;
+    margin-left: 1.875rem;
+    margin-right: 1.875rem;
+}
+
+@media screen and (max-width: 48rem) {
+    .fluid-cell {
+        flex-basis: 100%;
+    }
+}

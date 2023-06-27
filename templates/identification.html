@@ -12,17 +12,14 @@
     </div>
 
     <div class="pad">
-
         <div class="d-flex flex-column identification">
             <!-- Identification "page" is the value that we are getting form the last clicked button on the home screen. -->
-
             <a class="navbar-brand" href="#"><img src="../static/images/Icons_Kartenscan.svg" width="300" height="200" alt=""></a>
             <p>{{  _('Bitte bestätigen Sie mit ihrem Coin oder ihrer Personalnummer')}}</p>
-
         </div>
         <div class="card">
             <!-- Keypad -->
-            <div class="col-md-8" id="keypad">
+            <div class="col-8" id="keypad">
                 <div class="row">
                     <button type="button" id="clear" class="btn btn-secondary">⌫</button>
                     <button type="button" value="/" class="btn btn-secondary">/</button>  
@@ -48,14 +45,16 @@
                     <button type="button" value="." class="btn btn-secondary">.</button>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 <button type="button" value="-" class="btn btn-secondary">-</button>
                 <button type="button" value="+" class="btn btn-light">+</button>
                 <button type="submit" value="submit" id="submit" class="btn btn-light">↵</button>
             </div> 
         </div>
     </div>
+
     </form>
+    
   </div>
 
  <script>

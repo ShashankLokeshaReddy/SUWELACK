@@ -33,63 +33,54 @@
 	</div>
 </div>
 
-<div class="flex-row">
-	<div class="d-flex flex-column inputtextcolumn">
-		<p>{{ _('Arbeitsplatz:') }} </p>
-		<p>{{ _('Gemeinkosten:') }} </p>
-		<p>{{ _('Kurztext:') }} </p>
-	</div>
-
-	<div class="d-flex flex-column">              
-		<div style="display: inline">
-			<div class="dropdown inputbutton3">
-				<select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
-					{% for item in auftraglst[0] %}
-						<option value="{{item.1}}">{{item.1}}</option>
-					{% endfor %}
-				</select>		
-			</div>
-			<div class="boxes" , id="a_ptz">
-			</div>
-		</div>
-
-		<div style="display: inline">
-			<div class="dropdown inputbutton2">
-				<select name="gemeinkosten" id="Gemeinkosten" class="form-control">
-				</select>		
-			</div>
-			<div class="boxes" , id="p_n">
-			</div>
-		</div>           
-		
-		<div style="display: inline">
-			<div class="dropdown inputbutton2">
-				<input type="text" name="kurztext" id="GKA" class="form-control">
-			</div>
-			<div class="boxes" , id="f_n">
-			</div>
-		</div>
-	</div>
-
-	<div class="d-flex flex-column inputtextcolumn">
-		<p>{{ _('Dauer:') }} </p>
-		<p>{{ _('Datum:') }} </p>
-	</div>
-	<div class="d-flex flex-column">
-		<div style="display: inline">
-			<select name="dauer" id="dauer" class="DAU form-control">
-				{% for items in range(0,dauer|length) %}
-					<option value="{{dauer[items]}}">{{dauer[items]}}</option>
-				{% endfor %}
-			</select>
-		</div>
-		<div style="display: inline">
-			<input type="date" name="datum" id="datum" value="{{ date }}" class="form-control datetime">
-		</div>
-	</div>
+<div class="fluid-matrix">
+    <div class="fluid-cell">
+        <div class="input-group">
+            <label for="arbeitsplatz">{{ _('Arbeitsplatz:') }}</label>
+            <div class="dropdown inputbutton3">
+                <select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
+                    {% for item in auftraglst[0] %}
+                        <option value="{{item.1}}">{{item.1}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="boxes" , id="a_ptz"></div>
+        </div>
+        <div class="input-group">
+            <label for="gemeinkosten">{{ _('Gemeinkosten:') }}</label>
+            <div class="dropdown inputbutton2">
+                <select name="gemeinkosten" id="Gemeinkosten" class="form-control"></select>
+            </div>
+            <div class="boxes" , id="p_n"></div>
+        </div>
+        <div class="input-group">
+            <label for="kurztext">{{ _('Kurztext:') }}</label>
+            <div class="dropdown inputbutton2">
+                <input type="text" name="kurztext" id="GKA" class="form-control">
+            </div>
+            <div class="boxes" , id="f_n"></div>
+        </div>
+    </div>
+    <div class="fluid-cell">
+        <div class="input-group">
+            <label for="dauer">{{ _('Dauer:') }}</label>
+            <div class="dropdown inputbutton2">
+                <select name="dauer" id="dauer" class="DAU form-control">
+                    {% for items in range(0,dauer|length) %}
+                        <option value="{{dauer[items]}}">{{dauer[items]}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="datum">{{ _('Datum:') }}</label>
+            <div class="dropdown inputbutton2">
+                <input type="date" name="datum" id="datum" value="{{ date }}" class="form-control datetime">
+            </div>
+        </div>
+    </div>
 </div>
-
-
+  
 <div class="flex-container">
 	<div class="flex-row flex-left">
 		<button type="submit" name="submit" value="ändern" id="Ändern" class="btn btn-secondary  btn-lg submit2">{{ _('Ändern') }}</button>
