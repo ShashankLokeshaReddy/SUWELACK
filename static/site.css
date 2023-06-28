@@ -313,15 +313,15 @@ body, html {
     flex-direction: column;
  }
  .inputbutton{
-     width: 20.625rem !important;
+     width: 22.8125rem !important;
      height: 3.75rem !important;
  }
 
- .kurztext{
+ /* .kurztext{
     margin-top : 0.5rem;
-    width: 20.625rem !important;
+    width: 22.8125rem !important;
     height: 9.375rem !important;
- }
+ } */
  .inputtextcolumn{
     row-gap: 1.375rem;
     align-items: end;
@@ -388,7 +388,7 @@ table tbody tr {
     border-top: 0rem solid #dee2e6;
     word-wrap: break-word;
 }
-.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus, #dauer {
+.datetime, .datetime:active:focus, .datetime:active, .datetime:visited, .datetime:focus, #dauer, #datum, #Arbeitsplatznummer, #Pnummer, #FAnummer, #Gruppe, .kurztext {
     width: 22.8125rem !important;
     height: 2.8125rem !important;
     flex-direction: unset !important;
@@ -456,16 +456,16 @@ hr.solid {
     margin-left : 0.625rem;
   }
 
-  .inputbutton2{
+.inputbutton2{
     margin-top : 1.25rem;
     display: inline-block;
-    width: 20.625rem !important;
+    width: 22.8125rem !important;
     height: 2.8125rem !important;
 }
 .inputbutton3{
     margin-top : 0.3125rem;
     display: inline-block;
-    width: 20.625rem !important;
+    width: 22.8125rem !important;
     height: 2.8125rem !important;
 }
 .oneline {
@@ -505,7 +505,7 @@ hr.solid {
 .flex-nested-row {
     display: flex;
     flex: 1 1 auto;
-    margin: 0.3125rem;
+    margin: 0.625rem 1.875rem 1.25rem 1.875rem;
 }
 
 .flex-nested-column {
@@ -532,7 +532,7 @@ hr.solid {
     justify-content: left;
 }
 
-#Ändern {
+/* #Ändern {
     width: 12.5rem !important;
     height: 2.8125rem !important;
     flex-direction: unset !important;
@@ -542,7 +542,7 @@ hr.solid {
     width: 12.5rem !important;
     height: 2.8125rem !important;
     flex-direction: unset !important;
-}
+} */
 
 .statustableflex {
     margin-left: 3.125rem;
@@ -555,7 +555,7 @@ hr.solid {
 }
 
 .fluid-cell {
-    flex-basis: 50%;
+    flex-basis: 33%;
     box-sizing: border-box;
     margin-bottom: 0.625rem;
 }
@@ -566,9 +566,11 @@ hr.solid {
 }
 
 .input-group label {
-    flex-basis: 25%;
-    margin-left: 1.875rem;
-    margin-right: 1.875rem;
+    flex-shrink: 0;
+    width: 20%; /* Adjust the width according to your needs */
+    text-align: right;
+    padding-right: 0.625rem; /* Adjust the padding as needed */
+    padding-left: 0.625rem;
 }
 
 .input-group > *:not(label) {

@@ -23,85 +23,84 @@
 
     <h3>{{ _('Arbeitsplatzbuchung') }}</h3>
 
-    <div class="flex-row">
-        <div class="d-flex flex-column inputtextcolumn">
-
-            <p>{{ _('Buchungstag:') }} </p>
-            <p>{{ _('Arbeitsplatz ist') }} </p>
-            <p>{{ _('Personal Nr.') }} </p>
-            <p>{{ _('FA Nr.') }} </p>
-        </div>
-
-        <div class="d-flex flex-column">              
-            <div>
-                <input name="datetime" type="date" class="form-control datetime" value="{{ date }}">
-            </div>
-            <div style="display: inline">
-                <div class="dropdown inputbutton3">
-                    <select name="arbeitsplatz" id="Arbeitsplatznummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
+    <div class="fluid-matrix">
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="arbeitsplatz">{{ _('Arbeitsplatz ist:') }}</label>
+                <div class="dropdown inputbutton2">
+                    <select name="arbeitsplatz" id="Arbeitsplatznummer" method="GET" action="/">
                         {% for index, row in arbeitplatz_dfs[0].iterrows(): %}
                         <option value="{{row['T905_Nr']}}">{{row['T905_Nr']}} {{row['T905_Bez']}}</option>
                         <hr />
                         {% endfor %}
-                      </select>
+                    </select>
                 </div>
-                <div class="boxes" , id="a_ptz">
-                </div>
+                <div class="boxes" , id="a_ptz"></div>
             </div>
-
-            <div style="display: inline">
+        </div>
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="personalnummer">{{ _('Personal Nr.:') }}</label>
                 <div class="dropdown inputbutton2">
-                    <select name="personalnummer" id="Pnummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
+                    <select name="personalnummer" id="Pnummer" method="GET" action="/">
                         {% for index, row in arbeitplatz_dfs[1].iterrows(): %}
                         <option value="{{row['T910_Nr']}}">{{row['T910_Nr']}} {{row['T910_Name']}}</option>
                         <hr />
                         {% endfor %}
-                      </select>
+                    </select>
                 </div>
-                <div class="boxes" , id="p_n">
-                </div>
-            </div>           
-            
-            <div style="display: inline">
+                <div class="boxes" , id="p_n"></div>
+            </div>
+        </div>
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="datetime">{{ _('Buchungstag:') }}</label>
                 <div class="dropdown inputbutton2">
-                    <select name="fanummer" id="FAnummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
+                    <input name="datetime" type="date" class="form-control datetime" value="{{ date }}">
+                </div>
+            </div>
+        </div>
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="fanummer">{{ _('FA Nr.:') }}</label>
+                <div class="dropdown inputbutton2">
+                    <select name="fanummer" id="FAnummer" method="GET" action="/">
                         {% for index, row in arbeitplatz_dfs[2].iterrows(): %}
                         <option value="{{row['TA06_FA_Nr']}}">{{row['TA06_FA_Nr']}} {{row['TA05_ArtikelBez']}}</option>
                         <hr />
                         {% endfor %}
-                      </select>
+                    </select>
                 </div>
-                <div class="boxes" , id="f_n">
+                <div class="boxes" , id="f_n"></div>
+            </div>
+        </div>
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="dauer">{{ _('Dauer:') }}</label>
+                <div class="dropdown inputbutton2">
+                    <select name="dauer" id="dauer" class="DAU form-control">
+                        {% for items in range(0,dauer|length) %}
+                            <option value="{{dauer[items]}}">{{dauer[items]}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
         </div>
-
-        <div class="d-flex flex-column inputtextcolumn">
-            <p>{{ _('Dauer') }} </p>
-            <p>{{ _('Kurztext') }} </p>
-        </div>
-        <div class="d-flex flex-column">
-            <div style="display: inline">
-                <select name="dauer" id="dauer" class="DAU form-control" value="30">
-                    {% for items in range(0,dauer|length) %}
-                        <option value="{{dauer[items]}}">{{dauer[items]}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div style="display: inline">
-                <input name = "kurztext" type="text" class="form-control kurztext">
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="kurztext">{{ _('Kurztext:') }}</label>
+                <div class="dropdown inputbutton2">
+                    <input name = "kurztext" type="text" class="form-control kurztext">
+                </div>
             </div>
         </div>
     </div>
 
     <div class="d-flex justify-content-between bestätigen2">
-
-        <button type="button" onclick="window.location.href='{{" /"}}'" class="btn btn-primary btn-lg abrechh">{{
-            _('Abbrechen') }}</button>
-        <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Bestätigen')
-            }}</button>
-
+        <button type="button" onclick="window.location.href='{{" /"}}'" class="btn btn-primary btn-lg abrechh">{{  _('Abbrechen') }}</button>
+        <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Bestätigen') }}</button>
     </div>
+
 </div>
 </form>
 

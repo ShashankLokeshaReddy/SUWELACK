@@ -21,78 +21,73 @@
 <form action='#' method="POST">
 <div class="containerr statustable">
     <h3>{{ _('Gruppenbuchung') }}</h3>
-    <div class="flex-row">
 
-        <div class="d-flex flex-column inputtextcolumn">
-            <p>{{ _('Buchungstag') }}: </p>
-            <p>{{ _('FA Nr.') }} </p>
-            {% if terminal != False %}
-                <p>{{ _('Gruppe.') }} </p>
-            {% endif %}
-        </div>
-
-        <div class="d-flex flex-column">
-            <div>
-                <input type="date" name = "datetime" class="form-control dropdown-toggle datetime" value="{{ date }}">
-            </div>
-
-            <div style="display: inline">
+    <div class="fluid-matrix">
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="fanummer">{{ _('FA Nr.') }}</label>
                 <div class="dropdown inputbutton2">
-                    <select name="fanummer" id="FAnummer" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
+                    <select name="fanummer" id="FAnummer" method="GET" action="/">
                         {% for index, row in frNr.iterrows(): %}
                         <option value="{{row['TA05_FA_Nr']}}">{{row['TA05_FA_Nr']}} {{row['TA05_ArtikelBez']}}</option>
                         <hr />
                         {% endfor %}
-                      </select>
+                    </select>
                 </div>
-                <div class="boxes" , id="gruppe_frNr">
+                <div class="boxes" , id="gruppe_frNr"></div>
+            </div>
+        </div>
+        {% if terminal != False %}
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="gruppe">{{ _('Gruppe.') }}</label>
+                <div class="dropdown inputbutton2">
+                    <select name="gruppe" id="Gruppe" method="GET" action="/">
+                        {% for index, row in gruppe.iterrows(): %}
+                        <option value="{{row['T903_NR']}}">{{row['T903_NR']}} {{row['T903_Bez']}}</option>
+                        <hr />
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="boxes" , id="gruppe"></div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="datetime">{{ _('Buchungstag:') }}</label>
+                <div class="dropdown inputbutton2">
+                    <input type="date" name = "datetime" class="form-control dropdown-toggle datetime" value="{{ date }}">
                 </div>
             </div>
-
-            {% if terminal != False %}
-                <div style="display: inline">
-                    <div class="dropdown inputbutton2">
-                        <select name="gruppe" id="Gruppe" class="btn-secondary dropdown-toggle inputbutton drop no-italics" method="GET" action="/">
-                            {% for index, row in gruppe.iterrows(): %}
-                            <option value="{{row['T903_NR']}}">{{row['T903_NR']}} {{row['T903_Bez']}}</option>
-                            <hr />
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="boxes" , id="gruppe">
-                    </div>
+        </div>
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="dauer">{{ _('Dauer:') }}</label>
+                <div class="dropdown inputbutton2">
+                    <select name="dauer" id="dauer" class="DAU form-control" value="30">
+                        {% for items in range(0,dauer|length) %}
+                            <option value="{{dauer[items]}}">{{dauer[items]}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-            {% endif %}
-
-
-        </div>
-        <div class="d-flex flex-column inputtextcolumn">
-
-            <p>{{ _('Dauer') }}: </p>
-            <p>{{ _('Kurztext') }} </p>
-        </div>
-
-        <div class="d-flex flex-column">
-            <div style="display: inline">
-                <select name="dauer" id="dauer" class="DAU form-control" value="30">
-                    {% for items in range(0,dauer|length) %}
-                        <option value="{{dauer[items]}}">{{dauer[items]}}</option>
-                    {% endfor %}
-                </select>
             </div>
-            <div style="display: inline">
-                <input type="text" name = "kurztext" class="form-control kurztext">
+        </div>
+        <div class="fluid-cell">
+            <div class="input-group">
+                <label for="kurztext">{{ _('Kurztext') }}</label>
+                <div class="dropdown inputbutton2">
+                    <input name = "kurztext" type="text" class="form-control kurztext">
+                </div>
             </div>
         </div>
     </div>
 
     <div class="d-flex justify-content-between bestätigen2">
-
-        <button type="button" onclick="window.location.href='{{" /"}}'" class="btn btn-primary btn-lg abrechh">{{
-            _('Abbrechen') }}</button>
-        <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Bestätigen')
-            }}</button>
+        <button type="button" onclick="window.location.href='{{" /"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+        <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Bestätigen') }}</button>
     </div>
+
 </div>
 </form>
 <script>

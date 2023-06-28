@@ -37,7 +37,7 @@
     <div class="fluid-cell">
         <div class="input-group">
             <label for="arbeitsplatz">{{ _('Arbeitsplatz:') }}</label>
-            <div class="dropdown inputbutton3">
+            <div class="dropdown inputbutton2">
                 <select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
                     {% for item in auftraglst[0] %}
                         <option value="{{item.1}}">{{item.1}}</option>
@@ -46,6 +46,8 @@
             </div>
             <div class="boxes" , id="a_ptz"></div>
         </div>
+	</div>
+	<div class="fluid-cell">
         <div class="input-group">
             <label for="gemeinkosten">{{ _('Gemeinkosten:') }}</label>
             <div class="dropdown inputbutton2">
@@ -53,12 +55,13 @@
             </div>
             <div class="boxes" , id="p_n"></div>
         </div>
+	</div>
+	<div class="fluid-cell">
         <div class="input-group">
-            <label for="kurztext">{{ _('Kurztext:') }}</label>
+            <label for="datum">{{ _('Datum:') }}</label>
             <div class="dropdown inputbutton2">
-                <input type="text" name="kurztext" id="GKA" class="form-control">
+                <input type="date" name="datum" id="datum" value="{{ date }}" class="form-control datetime">
             </div>
-            <div class="boxes" , id="f_n"></div>
         </div>
     </div>
     <div class="fluid-cell">
@@ -72,23 +75,23 @@
                 </select>
             </div>
         </div>
+	</div>
+	<div class="fluid-cell">
         <div class="input-group">
-            <label for="datum">{{ _('Datum:') }}</label>
+            <label for="kurztext">{{ _('Kurztext:') }}</label>
             <div class="dropdown inputbutton2">
-                <input type="date" name="datum" id="datum" value="{{ date }}" class="form-control datetime">
+                <input type="text" name="kurztext" id="GKA" class="form-control">
             </div>
+            <div class="boxes" , id="f_n"></div>
         </div>
     </div>
 </div>
   
-<div class="flex-container">
-	<div class="flex-row flex-left">
-		<button type="submit" name="submit" value="ändern" id="Ändern" class="btn btn-secondary  btn-lg submit2">{{ _('Ändern') }}</button>
-	</div>
-	<div class="flex-row flex-right">
-		<button type="submit" name="submit" value="erstellen" id="Erstellen" class="btn btn-secondary  btn-lg submit2">{{ _('Erstellen') }}</button>
-	</div>
+<div class="d-flex justify-content-between bestätigen2">
+	<button type="submit" name="submit" value="ändern" id="Ändern" class="btn btn-secondary  btn-lg submit2">{{ _('Ändern') }}</button>
+	<button type="submit" name="submit" value="erstellen" id="Erstellen" class="btn btn-secondary  btn-lg submit2">{{ _('Erstellen') }}</button>
 </div>
+
 
 <input type="text" class="textclass" name="anfangTS" id="anfangTS" value="{{ anfangTS }}" style="visibility: hidden"></input>
 <input type="text" name ='old_beleg_nr' id ='old_beleg_nr' style="visibility: hidden"> </input>
