@@ -5,46 +5,67 @@
 
 <h3>{{ _('Bericht drucken') }}</h3>
 
-<div class="d-flex flex-column bericht">
-
-  <div class="d-flex flex-row btn-group btn-group-toggle" data-toggle="buttons">
-      <p class="textclass">{{ _('Reports') }}:</p>
-      <label class="btn btn-secondary radiobuttonsself">
-          <input type="radio" name="reportstype">{{ _('Kennzahlen Gruppe') }}
-          </label>
-      <label class="btn btn-secondary radiobuttonsself">
-          <input type="radio" name="reportstype">{{ _('Zeitnachweise') }}
-          </label>
-  </div>
-
-  <div class="d-flex flex-row">
-
-      <p class="textclass">Arbeitsplatzgruppe:      </p>
-      <div class="dropdown">
-      <button type="button"  data-toggle="dropdown" class="btn btn-primary dropdown-toggle radiobuttonsself">Lehrwerksatatt   </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {% for items in range(0,arbeitsplatzgruppe|length) %}
-    <a class="dropdown-item" href="#" >{{arbeitsplatzgruppe[items]}}</a>
-    {% endfor %}
-
-  </div>
-
-      </div>
-  </div>
-  <div class="d-flex flex-row btn-group btn-group-toggle" data-toggle="buttons">
-      <p class="textclass">{{ _('Zeitraum') }}:      </p>
-      <label class="btn btn-secondary radiobuttonsself">
-      <input type="radio" name="reportstype">{{ _('Aktueller Monat') }}
-          </label>
-      <label class="btn btn-secondary radiobuttonsself">
-          <input type="radio" name="reportstype">{{ _('Vormonat') }}
-          </label>
-      <label class="btn btn-secondary radiobuttonsself">
-          <input type="radio" name="reportstype"> {{ _('Tag') }}
-          </label>
-  </div>
-
+<div class="fluid-matrix">
+    <div class="fluid-cell">
+        <label for="reportstype">{{ _('Reports:') }}</label>
+        <div class="input-group">
+        <div class="toggle-group">
+            <label class="btn btn-secondary toggle-button">
+            <input type="radio" name="reportstype">
+            <span class="toggle-label">{{ _('Kennzahlen Gruppe') }}</span>
+            </label>
+            <label class="btn btn-secondary toggle-button">
+            <input type="radio" name="reportstype">
+            <span class="toggle-label">{{ _('Zeitnachweise') }}</span>
+            </label>
+        </div>
+        <div class="boxes" , id="r_n"></div>
+        </div>
+    </div>
+    <div class="fluid-cell">
+        <label for="arbeitsplatz">{{ _('Arbeitsplatzgruppe:') }}</label>
+        <div class="input-group">
+            <div class="dropdown inputbutton2">
+                <select name="arbeitsplatz" id="Arbeitsplatznummer" method="GET" action="/">
+                    {% for items in range(0,arbeitsplatzgruppe|length) %}
+                    <option value="{{arbeitsplatzgruppe[items]}}">{{arbeitsplatzgruppe[items]}}</option>
+                    <hr />
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- <div class="dropdown">
+                <button type="button"  data-toggle="dropdown" class="btn btn-secondary dropdown-toggle radiobuttonsself">Lehrwerksatatt   </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for items in range(0,arbeitsplatzgruppe|length) %}
+                    <a class="dropdown-item" href="#" >{{arbeitsplatzgruppe[items]}}</a>
+                    {% endfor %}
+                </div>
+            </div> -->
+            <div class="boxes" , id="a_n"></div>
+        </div>
+    </div>
+    <div class="fluid-cell">
+        <label for="reportstype2">{{ _('Zeitraum:') }}</label>
+        <div class="input-group">
+        <div class="toggle-group">
+            <label class="btn btn-secondary toggle-button">
+                <input type="radio" name="reportstype2">
+                <span class="toggle-label">{{ _('Aktueller Monat') }}</span>
+            </label>
+            <label class="btn btn-secondary toggle-button">
+                <input type="radio" name="reportstype2">
+                <span class="toggle-label">{{ _('Vormonat') }}</span>
+            </label>
+            <label class="btn btn-secondary toggle-button">
+                <input type="radio" name="reportstype2">
+                <span class="toggle-label">{{ _('Tag') }}</span>
+            </label>
+        </div>
+        <div class="boxes" , id="r2_n"></div>
+        </div>
+    </div>  
 </div>
+      
 <div class="d-flex justify-content-between bestätigen2">
         <!-- Bestatigen and Abbrechen Buttons -->
     <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
@@ -82,7 +103,7 @@
    });
 
 });
-    </script>
-    </div>
+</script>
+</div>
 
 {% endblock %}

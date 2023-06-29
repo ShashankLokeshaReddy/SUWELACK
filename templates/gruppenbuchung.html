@@ -25,7 +25,7 @@
     <div class="fluid-matrix">
         <div class="fluid-cell">
             <div class="input-group">
-                <label for="fanummer">{{ _('FA Nr.') }}</label>
+                <label for="fanummer">{{ _('FA Nr.:') }}</label>
                 <div class="dropdown inputbutton2">
                     <select name="fanummer" id="FAnummer" method="GET" action="/">
                         {% for index, row in frNr.iterrows(): %}
@@ -40,7 +40,7 @@
         {% if terminal != False %}
         <div class="fluid-cell">
             <div class="input-group">
-                <label for="gruppe">{{ _('Gruppe.') }}</label>
+                <label for="gruppe">{{ _('Gruppe.:') }}</label>
                 <div class="dropdown inputbutton2">
                     <select name="gruppe" id="Gruppe" method="GET" action="/">
                         {% for index, row in gruppe.iterrows(): %}
@@ -49,7 +49,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="boxes" , id="gruppe"></div>
+                <div class="boxes" , id="gruppe_n"></div>
             </div>
         </div>
         {% endif %}
@@ -59,26 +59,29 @@
                 <div class="dropdown inputbutton2">
                     <input type="date" name = "datetime" class="form-control dropdown-toggle datetime" value="{{ date }}">
                 </div>
+                <div class="boxes" , id="datum_n"></div>
             </div>
         </div>
         <div class="fluid-cell">
             <div class="input-group">
                 <label for="dauer">{{ _('Dauer:') }}</label>
                 <div class="dropdown inputbutton2">
-                    <select name="dauer" id="dauer" class="DAU form-control" value="30">
+                    <select name="dauer" id="dauer" class="DAU form-control">
                         {% for items in range(0,dauer|length) %}
                             <option value="{{dauer[items]}}">{{dauer[items]}}</option>
                         {% endfor %}
                     </select>
                 </div>
+                <div class="boxes" , id="dauer_n"></div>
             </div>
         </div>
         <div class="fluid-cell">
             <div class="input-group">
-                <label for="kurztext">{{ _('Kurztext') }}</label>
+                <label for="kurztext">{{ _('Kurztext:') }}</label>
                 <div class="dropdown inputbutton2">
                     <input name = "kurztext" type="text" class="form-control kurztext">
                 </div>
+                <div class="boxes" , id="kurztext_n"></div>
             </div>
         </div>
     </div>

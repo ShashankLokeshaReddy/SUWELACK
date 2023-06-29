@@ -56,8 +56,9 @@
             <div class="input-group">
                 <label for="datetime">{{ _('Buchungstag:') }}</label>
                 <div class="dropdown inputbutton2">
-                    <input name="datetime" type="date" class="form-control datetime" value="{{ date }}">
+                    <input name="datetime" type="date" class="form-control dropdown-toggle datetime" value="{{ date }}">
                 </div>
+                <div class="boxes" , id="datum_n"></div>
             </div>
         </div>
         <div class="fluid-cell">
@@ -84,6 +85,7 @@
                         {% endfor %}
                     </select>
                 </div>
+                <div class="boxes" , id="dauer_n"></div>
             </div>
         </div>
         <div class="fluid-cell">
@@ -92,6 +94,7 @@
                 <div class="dropdown inputbutton2">
                     <input name = "kurztext" type="text" class="form-control kurztext">
                 </div>
+                <div class="boxes" , id="kurztext_n"></div>
             </div>
         </div>
     </div>
