@@ -120,44 +120,66 @@ window.addEventListener("load", () => {
   <div class="fertigungauftragcontainer">
     <!-- <form action='#' method="POST"> -->
       <div class="d-flex flex-row fertigungauftragrow">
-        <div class="d-flex flex-column">
-          <div class="d-flex flex-row fertigungauftragrow">
-            <div class="d-flex flex-column">
-              <label for="gesamt" class="label">{{ _('Gesamt') }}</label>
-              <label for="mengegut" class="label">{{ _('Menge Gut') }}</label>
-              <label for="mengeaus" class="label">{{ _('Menge Aus') }}</label>
+        <div class="fluid-matrix">
+          <div class="fluid-cell">
+              <div class="input-group">
+                  <label for="gesamt">{{ _('Gesamt') }}</label>
+                  <div class="dropdown inputbutton2">
+                    <input type="text" name="menge_soll" id="gesamt" value="{{menge_soll}}" class="form-control fertigungauftrag" readonly>
+                  </div>
+                  <div class="boxes" , id="ms_n"></div>
+              </div>
+          </div>
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="menge_gut">{{ _('Menge Gut') }}</label>
+                <div class="dropdown inputbutton2">
+                  <input type="text" name="menge_gut" id="mengegut" value="0.0" class="form-control fertigungauftrag">
+                </div>
+                <div class="boxes" , id="mg_n"></div>
             </div>
-            <div class="d-flex flex-column">
-              <input type="text" name="menge_soll" id="gesamt" value="{{menge_soll}}" class="form-control fertigungauftrag" readonly>
-              <input type="text" name="menge_gut" id="mengegut" value="0.0" class="form-control fertigungauftrag">
-              <input type="text" name="menge_aus" id="mengeaus" value="0.0" class="form-control fertigungauftrag">
+          </div>
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="menge_aus">{{ _('Menge Aus') }}</label>
+                <div class="dropdown inputbutton2">
+                  <input type="text" name="menge_aus" id="mengeaus" value="0.0" class="form-control fertigungauftrag">
+                </div>
+                <div class="boxes" , id="ma_n"></div>
             </div>
-            <div class="d-flex flex-column">
-              <button type="button" id="clear1" class="btn btn-secondary">⌫</button>
-              <button type="button" id="clear2" class="btn btn-secondary">⌫</button>
-              <button type="button" id="clear3" class="btn btn-secondary">⌫</button>
+          </div>
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="ruestzeit">{{ _('Grundrüstzeit') }}</label>
+                <div class="dropdown inputbutton2">
+                  <input type="text" name="ruestzeit" id="grundrustzeit" value="0.0" class="form-control fertigungauftrag">
+                </div>
+                <div class="boxes" , id="ruestzeit_n"></div>
             </div>
-            <div class="d-flex flex-column">
-              <label for="grundrustzeit" class="label">{{ _('Grundrüstzeit') }}</label>
-              <label for="charge" class="label">{{ _('Charge') }}</label>
-              <label for="lagerplatz" class="label">{{ _('Lagerplatz') }}</label>
+          </div>
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="charge">{{ _('Charge') }}</label>
+                <div class="dropdown inputbutton2">
+                  <input type="text" name="charge" id="charge" class="form-control fertigungauftrag">
+                </div>
+                <div class="boxes" , id="charge_n"></div>
             </div>
-            <div class="d-flex flex-column">
-              <input type="text" name="ruestzeit" id="grundrustzeit" value="0.0" class="form-control fertigungauftrag">
-              <input type="text" name="charge" id="charge" class="form-control fertigungauftrag">
-              <input type="text" name="lagerplatz" id="lagerplatz" class="form-control fertigungauftrag">
-            </div>
-            <div class="d-flex flex-column">
-              <button type="button" id="clear4" class="btn btn-secondary">⌫</button>
-              <button type="button" id="clear5" class="btn btn-secondary">⌫</button>
-              <button type="button" id="clear6" class="btn btn-secondary">⌫</button>
+          </div>
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="lagerplatz">{{ _('Lagerplatz') }}</label>
+                <div class="dropdown inputbutton2">
+                  <input type="text" name="lagerplatz" id="lagerplatz" class="form-control fertigungauftrag">
+                </div>
+                <div class="boxes" , id="lagerplatz_n"></div>
             </div>
           </div>
         </div>
         <div class="d-flex flex-column">
           <div class="card">
             <!-- Keypad -->
-            <div class="col-md-8" id="keypad">
+            <div class="col-8" id="keypad">
               <div class="row">
                 <button type="button" id="clear" class="btn btn-secondary">⌫</button>
                 <button type="button" value="/" class="btn btn-secondary">/</button>
@@ -183,7 +205,7 @@ window.addEventListener("load", () => {
                 <button type="button" value="." class="btn btn-secondary">.</button>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
               <button type="button" value="-" class="btn btn-secondary">-</button>
               <button type="button" value="+" class="btn btn-light">+</button>
               <button type="button" value="submit" class="btn btn-light">↵</button>
@@ -191,75 +213,52 @@ window.addEventListener("load", () => {
           </div>
         </div>
       </div>
-      <div class="d-flex flex-row fertigungauftragrow">
-        <div class="d-flex justify-content-between bestätigen3">
-          <!-- <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button> -->
-          <button type="submit" name="submit" value="submit_teil" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
-          <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Endrückmeldung') }}</button>
-        </div>
+      <div class="d-flex justify-content-between bestätigen2">
+        <!-- <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button> -->
+        <button type="submit" name="submit" value="submit_teil" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
+        <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Endrückmeldung') }}</button>
       </div>
     <!-- </form> -->
   </div>
 </div>
 <script>
-    // const clear1 = document.querySelector('#clear1');
-    // clear1.addEventListener('click', () => {
-    //   var input = document.querySelector('#gesamt');
-    //   input.value = input.value.slice(0, -1);
-    //   })
-    const clear2 = document.querySelector('#clear2');
-    clear2.addEventListener('click', () => {
-      var input = document.querySelector('#mengegut');
-      input.value = input.value.slice(0, -1);
-      })
-    const clear3 = document.querySelector('#clear3');
-    clear3.addEventListener('click', () => {
-      var input = document.querySelector('#mengeaus');
-      input.value = input.value.slice(0, -1);
-      })
-    const clear4 = document.querySelector('#clear4');
-    clear4.addEventListener('click', () => {
-      var input = document.querySelector('#grundrustzeit');
-      input.value = input.value.slice(0, -1);
-      })
-    const clear5 = document.querySelector('#clear5');
-    clear5.addEventListener('click', () => {
-      var input = document.querySelector('#charge');
-      input.value = input.value.slice(0, -1);
-      })
-    const clear6 = document.querySelector('#clear6');
-    clear6.addEventListener('click', () => {
-      var input = document.querySelector('#lagerplatz');
-      input.value = input.value.slice(0, -1);
-      })
-  window.onload = function() {
-    var inputFields = document.querySelectorAll('input'); // select all input fields
-    for (var i = 0; i < inputFields.length; i++) {
-      inputFields[i].addEventListener('focus', function() {
-        var currentInput = this; // get the reference to the currently focused input field
-        var keypad = document.getElementById('keypad'),
-          buttons = keypad.getElementsByTagName('button');
-        submit_btn = document.getElementById('enter_btn')
-        for (var j = 0; j < buttons.length; j++) {
-          buttons[j].onclick = function() {
-            currentInput.value = currentInput.value + this.innerHTML;
-            return false;
-          };
+window.onload = function() {
+  var inputFields = document.querySelectorAll('input'); // select all input fields
+  var currentInput; // store the reference to the currently focused input field
+  var keypad = document.getElementById('keypad');
+  var buttons = keypad.getElementsByTagName('button');
+  var submit_btn = document.getElementById('enter_btn');
+
+  for (var i = 0; i < inputFields.length; i++) {
+    inputFields[i].addEventListener('focus', function() {
+      currentInput = this; // update the reference to the currently focused input field
+    });
+
+    for (var j = 0; j < buttons.length; j++) {
+      buttons[j].onclick = function() {
+        if (currentInput.id !== 'gesamt') {
+          currentInput.value = currentInput.value + this.innerHTML;
+          return false;
         }
-        // const button = document.querySelector('#clear');
-        // button.addEventListener('click', () => {
-        //   currentInput.value = currentInput.value.slice(0, -2);
-        // })
-        currentInput.addEventListener('keypress', function(event) {
-          if (event.keyCode === 13 || event.which === 13) {
-            event.preventDefault();
-            submit_btn.click();
-          }
-        });
-      });
+      };
     }
 
+    inputFields[i].addEventListener('keypress', function(event) {
+      if (event.keyCode === 13 || event.which === 13) {
+        event.preventDefault();
+        submit_btn.click();
+      }
+    });
   }
+
+  const button = document.querySelector('#clear');
+  button.addEventListener('click', () => {
+    if (currentInput.id !== 'gesamt') {
+      currentInput.value = currentInput.value.slice(0, -2);
+    }
+  });
+};
+
 </script> {% endblock %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
