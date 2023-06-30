@@ -108,37 +108,54 @@ window.addEventListener("load", () => {
   }
 });
 </script>
-{% block content%} <div class="statustable">
+{% block content%} 
+<div class="statustable">
   <h3>{{ _('Zählerstandsrückmeldung') }}</h3>
-  <div class="fertigungauftragcontainer">
+  <!-- <div class="fertigungauftragcontainer"> -->
     <!-- <form action='#' method="POST"> -->
       <div class="d-flex flex-row fertigungauftragrow">
-        <div class="d-flex flex-column">
-          <div class="d-flex flex-row fertigungauftragrow">
-            <div class="d-flex flex-column">
-              <label for="old_total" class="label">{{ _('Aktueller Stand') }}</label>
-              <label for="new_total" class="label">{{ _('Neuer Stand') }}</label>
-              <!-- <label for="diff" class="label">{{ _('Differenz') }}</label> -->
-            </div>
-            <div class="d-flex flex-column">
-              <input type="text" name="old_total" id="old_total" value="{{old_total}}" class="form-control fertigungauftrag" readonly>
-              <input type="text" name="new_total" id="new_total" value="0" class="form-control fertigungauftrag">
-              <!-- <input type="text" name="diff" id="diff" value="0" class="form-control fertigungauftrag"> -->
-            </div>
-            <div class="d-flex flex-column">
-              <label for="datum" class="label">{{ _('Datum') }}</label>
-              <label for="uhrzeit" class="label">{{ _('Uhrzeit') }}</label>
-            </div>
-            <div class="d-flex flex-column">
-              <input type="date" name="datum" id="datum" value={{ date }} class="form-uhrzeit"></input>
-              <select name="uhrzeit" id="uhrzeit" class="form-uhrzeit"> {% for items in range(0,uhrzeit|length) %} <option value="{{uhrzeit[items]}}">{{uhrzeit[items]}}</option> {% endfor %} </select>
-            </div>
+        <div class="fluid-matrix">
+          <div class="fluid-cell">
+              <div class="input-group">
+                  <label for="old_total">{{ _('Aktueller Stand') }}</label>
+                  <div class="dropdown inputbutton2">
+                    <input type="text" name="old_total" id="old_total" value="{{old_total}}" class="form-control fertigungauftrag" readonly>
+                  </div>
+                  <div class="boxes" , id="ot_n"></div>
+              </div>
           </div>
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="datum">{{ _('Datum') }}</label>
+                <div class="dropdown inputbutton2">
+                  <input type="date" name="datum" id="datum" value={{ date }} class="form-control dropdown-toggle datetime"></input>
+                </div>
+                <div class="boxes" , id="datum_n"></div>
+            </div>
+          </div>          
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="new_total">{{ _('Neuer Stand') }}</label>
+                <div class="dropdown inputbutton2">
+                  <input type="text" name="new_total" id="new_total" value="0" class="form-control fertigungauftrag">
+                </div>
+                <div class="boxes" , id="nt_n"></div>
+            </div>
+          </div> 
+          <div class="fluid-cell">
+            <div class="input-group">
+                <label for="uhrzeit">{{ _('Uhrzeit') }}</label>
+                <div class="dropdown inputbutton2">
+                  <select name="uhrzeit" id="uhrzeit" class="form-uhrzeit"> {% for items in range(0,uhrzeit|length) %} <option value="{{uhrzeit[items]}}">{{uhrzeit[items]}}</option> {% endfor %} </select>
+                </div>
+                <div class="boxes" , id="uz_n"></div>
+            </div>
+          </div> 
         </div>
         <div class="d-flex flex-column">
           <div class="card">
             <!-- Keypad -->
-            <div class="col-md-8" id="keypad">
+            <div class="col-8" id="keypad">
               <div class="row">
                 <button type="button" id="clear" class="btn btn-secondary">⌫</button>
                 <button type="button" value="/" class="btn btn-secondary">/</button>
@@ -164,7 +181,7 @@ window.addEventListener("load", () => {
                 <button type="button" value="." class="btn btn-secondary">.</button>
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
               <button type="button" value="-" class="btn btn-secondary">-</button>
               <button type="button" value="+" class="btn btn-light">+</button>
               <button type="button" value="submit" class="btn btn-light">↵</button>
@@ -172,12 +189,12 @@ window.addEventListener("load", () => {
           </div>
         </div>
       </div>
-      <div class="flex-container">
-        <div class="flex-row flex-right">
-          <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Rückmelden') }}</button>
-        </div>
-      </div>
     <!-- </form> -->
+  <!-- </div> -->
+  <div class="flex-container">
+    <div class="flex-row flex-right">
+      <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Rückmelden') }}</button>
+    </div>
   </div>
 </div>
 <script>
@@ -191,14 +208,18 @@ window.addEventListener("load", () => {
         submit_btn = document.getElementById('enter_btn')
         for (var j = 0; j < buttons.length; j++) {
           buttons[j].onclick = function() {
-            currentInput.value = currentInput.value + this.innerHTML;
-            return false;
+            if (currentInput.id !== 'old_total') {
+              currentInput.value = currentInput.value + this.innerHTML;
+              return false;
+            }
           };
         }
         const button = document.querySelector('#clear');
         button.addEventListener('click', () => {
-	  var input = document.querySelector('#new_total');
-          input.value = input.value.slice(0, -2);
+          if (currentInput.id !== 'old_total') {
+            var input = document.querySelector('#new_total');
+            input.value = input.value.slice(0, -2);
+          }
         })
         currentInput.addEventListener('keypress', function(event) {
           if (event.keyCode === 13 || event.which === 13) {

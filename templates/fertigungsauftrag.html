@@ -33,46 +33,37 @@
 	</div>
 </div>
 
-<div class="flex-row">
-	<div class="d-flex flex-column inputtextcolumn">
-		<p>{{ _('Arbeitplatz:') }} </p>
-	</div>
-
-	<div class="d-flex flex-column">              
-		<div style="display: inline">
-			<div class="dropdown inputbutton3">
+<div class="fluid-matrix">
+	<div class="fluid-cell">
+		<div class="input-group">
+			<label for="arbeitsplatz">{{ _('Arbeitplatz:') }}</label>
+			<div class="dropdown inputbutton2">
 				<select name="arbeitsplatz" id="arbeitsplatz" class="ARBT form-control">
 					{% for items in range(0,auftraglst|length) %}
 					<option value="{{auftraglst[items][1]}}">{{auftraglst[items][1]}}</option>
 					{% endfor %}
 				</select>			
 			</div>
-			<div class="boxes" , id="a_ptz">
-			</div>
-		</div>       
+			<div class="boxes" , id="a_ptz"></div>
+		</div>
 	</div>
-
-	<div class="d-flex flex-column inputtextcolumn">
-		<p>{{ _('Auftrag:') }} </p>
-	</div>
-
-	<div class="d-flex flex-column">              
-		<div style="display: inline">
+	<div class="fluid-cell">
+		<div class="input-group">
+			<label for="auftrag">{{ _('Auftrag:') }}</label>
 			<div class="dropdown inputbutton2">
 				<select name="auftrag" id="auftrag" class="form-control">
 				</select>	
 			</div>
-			<div class="boxes" , id="p_n">
+			<div class="boxes" , id="p_n"></div>
+		</div>
+	</div>
+	<div class="fluid-cell">
+		<div class="input-group">
+			<label for="datum">{{ _('Datum:') }}</label>
+			<div class="dropdown inputbutton2">
+				<input type="date" name="datum" id="datum" value={{ date }} class="form-control dropdown-toggle datetime"></input>
 			</div>
-		</div>           
-	</div>
-
-	<div class="d-flex flex-column inputtextcolumn">
-		<p>{{ _('Datum:') }} </p>
-	</div>
-	<div class="d-flex flex-column">
-		<div style="display: inline">
-			<input type="date" name="datum" id="datum" value={{ date }} class="form-control datetime"></input>
+			<div class="boxes" , id="datum_n"></div>
 		</div>
 	</div>
 </div>
