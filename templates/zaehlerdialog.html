@@ -198,16 +198,6 @@ window.addEventListener("load", () => {
   </div>
 </div>
 <script>
-    // const clear1 = document.querySelector('#clear1');
-    // clear1.addEventListener('click', () => {
-    //   var input = document.querySelector('#old_total');
-    //   input.value = input.value.slice(0, -1);
-    //   })
-    // const clear2 = document.querySelector('#clear2');
-    // clear2.addEventListener('click', () => {
-    //   var input = document.querySelector('#new_total');
-    //   input.value = input.value.slice(0, -1);
-    //   })
   window.onload = function() {
     var inputFields = document.querySelectorAll('input'); // select all input fields
     for (var i = 0; i < inputFields.length; i++) {
@@ -218,14 +208,18 @@ window.addEventListener("load", () => {
         submit_btn = document.getElementById('enter_btn')
         for (var j = 0; j < buttons.length; j++) {
           buttons[j].onclick = function() {
-            currentInput.value = currentInput.value + this.innerHTML;
-            return false;
+            if (currentInput.id !== 'old_total') {
+              currentInput.value = currentInput.value + this.innerHTML;
+              return false;
+            }
           };
         }
         const button = document.querySelector('#clear');
         button.addEventListener('click', () => {
-          var input = document.querySelector('#new_total');
-          input.value = input.value.slice(0, -2);
+          if (currentInput.id !== 'old_total') {
+            var input = document.querySelector('#new_total');
+            input.value = input.value.slice(0, -2);
+          }
         })
         currentInput.addEventListener('keypress', function(event) {
           if (event.keyCode === 13 || event.which === 13) {
