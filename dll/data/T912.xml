@@ -2,6 +2,141 @@
 <NewDataSet>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1290</T912_Nr>
+    <T912_PersNr>4057</T912_PersNr>
+    <T912_Bez>Haji Zahdah, Obaidullah</T912_Bez>
+    <T912_Aenderung>2023-04-17T10:49:07.483+02:00</T912_Aenderung>
+    <T912_Anlage>2017-05-04T07:37:33+02:00</T912_Anlage>
+    <T912_User>nhambuerger</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1611</T912_Nr>
+    <T912_PersNr>1301</T912_PersNr>
+    <T912_Bez>Hiseni, Mergim</T912_Bez>
+    <T912_Aenderung>2023-04-05T06:29:43.893+02:00</T912_Aenderung>
+    <T912_Anlage>2023-04-05T06:29:43.893+02:00</T912_Anlage>
+    <T912_User>nhambuerger</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1614</T912_Nr>
+    <T912_PersNr>1289</T912_PersNr>
+    <T912_Bez>Pfeiffer, Dominik</T912_Bez>
+    <T912_Aenderung>2023-03-01T14:10:46.62+01:00</T912_Aenderung>
+    <T912_Anlage>2023-03-01T14:10:46.62+01:00</T912_Anlage>
+    <T912_User>tschneider</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1621</T912_Nr>
+    <T912_PersNr>1300</T912_PersNr>
+    <T912_Bez>Terlutter, Rene</T912_Bez>
+    <T912_Aenderung>2023-03-01T12:43:47.443+01:00</T912_Aenderung>
+    <T912_Anlage>2023-03-01T12:43:47.443+01:00</T912_Anlage>
+    <T912_User>akurz</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1387</T912_Nr>
+    <T912_PersNr>4058</T912_PersNr>
+    <T912_Bez>Köhler, Nico</T912_Bez>
+    <T912_Aenderung>2023-03-01T12:33:54.65+01:00</T912_Aenderung>
+    <T912_Anlage>2019-07-11T10:28:10+02:00</T912_Anlage>
+    <T912_User>akurz</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1620</T912_Nr>
+    <T912_PersNr>1299</T912_PersNr>
+    <T912_Bez>Bäumchen, Oliver</T912_Bez>
+    <T912_Aenderung>2023-03-01T06:52:49.467+01:00</T912_Aenderung>
+    <T912_Anlage>2023-03-01T06:52:49.467+01:00</T912_Anlage>
+    <T912_User>tschneider</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1640</T912_Nr>
+    <T912_PersNr>4022</T912_PersNr>
+    <T912_Bez>Klöß, Michel </T912_Bez>
+    <T912_Aenderung>2023-02-13T08:14:23.563+01:00</T912_Aenderung>
+    <T912_Anlage>2023-02-13T08:14:03+01:00</T912_Anlage>
+    <T912_User>nhambuerger</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1605</T912_Nr>
+    <T912_PersNr>1287</T912_PersNr>
+    <T912_Bez>Delic, Dejan</T912_Bez>
+    <T912_Aenderung>2023-01-17T12:54:25.52+01:00</T912_Aenderung>
+    <T912_Anlage>2023-01-17T12:54:25.52+01:00</T912_Anlage>
+    <T912_User>tschneider</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1369</T912_Nr>
+    <T912_PersNr>4060</T912_PersNr>
+    <T912_Bez>Schmidt, Patrick</T912_Bez>
+    <T912_Aenderung>2023-01-13T14:28:55.797+01:00</T912_Aenderung>
+    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
+    <T912_User>akurz</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1254</T912_Nr>
+    <T912_PersNr>4056</T912_PersNr>
+    <T912_Bez>Oueslati, Mounir</T912_Bez>
+    <T912_Aenderung>2023-01-13T14:07:53.45+01:00</T912_Aenderung>
+    <T912_Anlage>2020-12-09T18:00:30+01:00</T912_Anlage>
+    <T912_User>akurz</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1619</T912_Nr>
+    <T912_PersNr>1288</T912_PersNr>
+    <T912_Bez>Kretschmer, Heinz</T912_Bez>
+    <T912_Aenderung>2023-01-04T06:24:25.88+01:00</T912_Aenderung>
+    <T912_Anlage>2023-01-04T06:24:25.88+01:00</T912_Anlage>
+    <T912_User>tschneider</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1301</T912_Nr>
+    <T912_PersNr>5001</T912_PersNr>
+    <T912_Bez>Müller, Alexander</T912_Bez>
+    <T912_Aenderung>2022-12-21T13:54:08.133+01:00</T912_Aenderung>
+    <T912_Anlage>2019-12-04T11:49:54+01:00</T912_Anlage>
+    <T912_User>akurz</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1344</T912_Nr>
+    <T912_PersNr>4064</T912_PersNr>
+    <T912_Bez>Heinz-Dieter-Konuchow</T912_Bez>
+    <T912_Aenderung>2022-12-21T13:21:41.4+01:00</T912_Aenderung>
+    <T912_Anlage>2017-10-20T14:19:48+02:00</T912_Anlage>
+    <T912_User>akurz</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1634</T912_Nr>
+    <T912_PersNr>4025</T912_PersNr>
+    <T912_Bez>Müller,Guido</T912_Bez>
+    <T912_Aenderung>2022-12-20T10:40:14.32+01:00</T912_Aenderung>
+    <T912_Anlage>2022-06-21T11:22:59+02:00</T912_Anlage>
+    <T912_User>KKPasson</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1509</T912_Nr>
+    <T912_PersNr>4025</T912_PersNr>
+    <T912_Bez>Schneider, Felix </T912_Bez>
+    <T912_Aenderung>2022-12-14T08:40:04.123+01:00</T912_Aenderung>
+    <T912_Anlage>2021-11-18T14:08:15+01:00</T912_Anlage>
+    <T912_User>KKPasson</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1649</T912_Nr>
     <T912_PersNr>4005</T912_PersNr>
     <T912_Bez>Schäfer, Vladimir</T912_Bez>
@@ -151,15 +286,6 @@
     <T912_Bez>Enke, Ronny</T912_Bez>
     <T912_Aenderung>2022-10-19T11:37:31.32+02:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>KKPasson</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1509</T912_Nr>
-    <T912_PersNr>4011</T912_PersNr>
-    <T912_Bez>Donovan Shawn Niedermeier</T912_Bez>
-    <T912_Aenderung>2022-10-18T07:17:36.417+02:00</T912_Aenderung>
-    <T912_Anlage>2021-11-18T14:08:15+01:00</T912_Anlage>
     <T912_User>KKPasson</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -461,15 +587,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1634</T912_Nr>
-    <T912_PersNr>4022</T912_PersNr>
-    <T912_Bez>Hamke, Nic Maurice</T912_Bez>
-    <T912_Aenderung>2022-06-21T11:22:59.237+02:00</T912_Aenderung>
-    <T912_Anlage>2022-06-21T11:22:59.237+02:00</T912_Anlage>
-    <T912_User>KKPasson</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1642</T912_Nr>
     <T912_PersNr>4006</T912_PersNr>
     <T912_Bez>Wedel, Viktor</T912_Bez>
@@ -664,15 +781,6 @@
     <T912_Bez>Wilms, Benjamin</T912_Bez>
     <T912_Aenderung>2022-04-13T13:30:34.417+02:00</T912_Aenderung>
     <T912_Anlage>2022-04-13T13:30:34.417+02:00</T912_Anlage>
-    <T912_User>KKPasson</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1633</T912_Nr>
-    <T912_PersNr>4010</T912_PersNr>
-    <T912_Bez>Hiseni, Mergim</T912_Bez>
-    <T912_Aenderung>2022-04-12T10:50:50.28+02:00</T912_Aenderung>
-    <T912_Anlage>2022-04-12T10:50:50.28+02:00</T912_Anlage>
     <T912_User>KKPasson</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -980,15 +1088,6 @@
     <T912_Aenderung>2022-01-03T14:33:03.5+01:00</T912_Aenderung>
     <T912_Anlage>2022-01-03T14:33:03.5+01:00</T912_Anlage>
     <T912_User>KKPasson</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1186</T912_Nr>
-    <T912_PersNr>4060</T912_PersNr>
-    <T912_Bez>Krause, Kevin</T912_Bez>
-    <T912_Aenderung>2021-12-15T07:34:36.833+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>tschneider</T912_User>
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
@@ -1325,15 +1424,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1346</T912_Nr>
-    <T912_PersNr>4058</T912_PersNr>
-    <T912_Bez>Ramadan, Houkat</T912_Bez>
-    <T912_Aenderung>2021-06-09T08:04:04.047+02:00</T912_Aenderung>
-    <T912_Anlage>2021-06-09T08:04:04.047+02:00</T912_Anlage>
-    <T912_User>tschneider</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1085</T912_Nr>
     <T912_PersNr>4055</T912_PersNr>
     <T912_Bez>Wiebe, Wladimir</T912_Bez>
@@ -1568,30 +1658,12 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1271</T912_Nr>
-    <T912_PersNr>4064</T912_PersNr>
-    <T912_Bez>Nasarow, Alex</T912_Bez>
-    <T912_Aenderung>2020-12-14T10:31:52.163+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:23+01:00</T912_Anlage>
-    <T912_User>tschneider</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1431</T912_Nr>
     <T912_PersNr>1096</T912_PersNr>
     <T912_Bez>Hennig,Gerhard</T912_Bez>
     <T912_Aenderung>2020-12-10T08:40:34.303+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>lstellbrink</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1254</T912_Nr>
-    <T912_PersNr>4066</T912_PersNr>
-    <T912_Bez>Balasingam, Pragash</T912_Bez>
-    <T912_Aenderung>2020-12-09T18:00:30.673+01:00</T912_Aenderung>
-    <T912_Anlage>2020-12-09T18:00:30.673+01:00</T912_Anlage>
-    <T912_User>tschneider</T912_User>
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
@@ -1654,15 +1726,6 @@
     <T912_Bez>Schröder, Thomas</T912_Bez>
     <T912_Aenderung>2020-11-02T11:23:58.94+01:00</T912_Aenderung>
     <T912_Anlage>2020-11-02T11:23:58.94+01:00</T912_Anlage>
-    <T912_User>tschneider</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1290</T912_Nr>
-    <T912_PersNr>4065</T912_PersNr>
-    <T912_Bez>Suleyman, Juan</T912_Bez>
-    <T912_Aenderung>2020-10-20T14:23:13.87+02:00</T912_Aenderung>
-    <T912_Anlage>2017-05-04T07:37:33+02:00</T912_Anlage>
     <T912_User>tschneider</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -1829,15 +1892,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1307</T912_Nr>
-    <T912_PersNr>4062</T912_PersNr>
-    <T912_Bez>Putz, Alexander</T912_Bez>
-    <T912_Aenderung>2020-06-25T07:31:06.69+02:00</T912_Aenderung>
-    <T912_Anlage>2019-03-11T08:19:11+01:00</T912_Anlage>
-    <T912_User>tschneider</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1217</T912_Nr>
     <T912_PersNr>4013</T912_PersNr>
     <T912_Bez>Christian, Boy</T912_Bez>
@@ -1901,6 +1955,15 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1422</T912_Nr>
+    <T912_PersNr>1190</T912_PersNr>
+    <T912_Bez>Bacaksoy,Emre</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:03+01:00</T912_Aenderung>
+    <T912_Anlage>2019-10-01T06:26:41+02:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1412</T912_Nr>
     <T912_PersNr>1194</T912_PersNr>
     <T912_Bez>Birol,Deli</T912_Bez>
@@ -1910,11 +1973,11 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1422</T912_Nr>
-    <T912_PersNr>1190</T912_PersNr>
-    <T912_Bez>Bacaksoy,Emre</T912_Bez>
+    <T912_Nr>1389</T912_Nr>
+    <T912_PersNr>1180</T912_PersNr>
+    <T912_Bez>Gritzan,Uwe</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:03+01:00</T912_Aenderung>
-    <T912_Anlage>2019-10-01T06:26:41+02:00</T912_Anlage>
+    <T912_Anlage>2019-03-28T14:51:36+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -1955,15 +2018,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1389</T912_Nr>
-    <T912_PersNr>1180</T912_PersNr>
-    <T912_Bez>Gritzan,Uwe</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:03+01:00</T912_Aenderung>
-    <T912_Anlage>2019-03-28T14:51:36+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1385</T912_Nr>
     <T912_PersNr>1179</T912_PersNr>
     <T912_Bez>Flis,Dominik</T912_Bez>
@@ -1982,11 +2036,11 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1387</T912_Nr>
-    <T912_PersNr>1184</T912_PersNr>
-    <T912_Bez>Schubert,Kevin</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:03+01:00</T912_Aenderung>
-    <T912_Anlage>2019-07-11T10:28:10+02:00</T912_Anlage>
+    <T912_Nr>1368</T912_Nr>
+    <T912_PersNr>1166</T912_PersNr>
+    <T912_Bez>Melcher,Georg</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2018-07-12T15:41:36+02:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -2045,60 +2099,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1360</T912_Nr>
-    <T912_PersNr>946</T912_PersNr>
-    <T912_Bez>Hassfeld,Henning</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-04-29T10:43:07+02:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1361</T912_Nr>
-    <T912_PersNr>1171</T912_PersNr>
-    <T912_Bez>Krüger,Andreas</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-02-07T15:23:59+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1363</T912_Nr>
-    <T912_PersNr>1167</T912_PersNr>
-    <T912_Bez>Shala,Sami</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2018-07-12T15:41:36+02:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1364</T912_Nr>
-    <T912_PersNr>1174</T912_PersNr>
-    <T912_Bez>Schieblich,Andreas</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-02-21T07:07:55.34+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1366</T912_Nr>
-    <T912_PersNr>1168</T912_PersNr>
-    <T912_Bez>Lewen,Andrei</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2018-08-06T07:31:21+02:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1368</T912_Nr>
-    <T912_PersNr>1166</T912_PersNr>
-    <T912_Bez>Melcher,Georg</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2018-07-12T15:41:36+02:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1247</T912_Nr>
     <T912_PersNr>1107</T912_PersNr>
     <T912_Bez>Specchio,Michel</T912_Bez>
@@ -2108,9 +2108,9 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1245</T912_Nr>
-    <T912_PersNr>1091</T912_PersNr>
-    <T912_Bez>Buhl,Martin</T912_Bez>
+    <T912_Nr>1255</T912_Nr>
+    <T912_PersNr>1120</T912_PersNr>
+    <T912_Bez>Grudszus,Thomas</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
@@ -2129,15 +2129,6 @@
     <T912_Nr>1252</T912_Nr>
     <T912_PersNr>1113</T912_PersNr>
     <T912_Bez>Pasi,Andreas</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1255</T912_Nr>
-    <T912_PersNr>1120</T912_PersNr>
-    <T912_Bez>Grudszus,Thomas</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
@@ -2207,15 +2198,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1236</T912_Nr>
-    <T912_PersNr>1094</T912_PersNr>
-    <T912_Bez>Sparenborg,Erich</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1240</T912_Nr>
     <T912_PersNr>1086</T912_PersNr>
     <T912_Bez>Müller,Alexander</T912_Bez>
@@ -2252,11 +2234,38 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1308</T912_Nr>
-    <T912_PersNr>879</T912_PersNr>
-    <T912_Bez>Bacaksoy,Ali</T912_Bez>
+    <T912_Nr>1236</T912_Nr>
+    <T912_PersNr>1094</T912_PersNr>
+    <T912_Bez>Sparenborg,Erich</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:21+01:00</T912_Anlage>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1245</T912_Nr>
+    <T912_PersNr>1091</T912_PersNr>
+    <T912_Bez>Buhl,Martin</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1314</T912_Nr>
+    <T912_PersNr>1156</T912_PersNr>
+    <T912_Bez>Oxenfart,Julian</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2019-02-07T15:23:56+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1318</T912_Nr>
+    <T912_PersNr>1125</T912_PersNr>
+    <T912_Bez>Müller,Philip</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2019-02-07T15:23:57+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -2270,29 +2279,20 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1292</T912_Nr>
-    <T912_PersNr>1135</T912_PersNr>
-    <T912_Bez>Nikiforov,Ivan</T912_Bez>
+    <T912_Nr>1308</T912_Nr>
+    <T912_PersNr>879</T912_PersNr>
+    <T912_Bez>Bacaksoy,Ali</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:23+01:00</T912_Anlage>
+    <T912_Anlage>2017-03-23T12:30:21+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1289</T912_Nr>
-    <T912_PersNr>1130</T912_PersNr>
-    <T912_Bez>Er,Ertan</T912_Bez>
+    <T912_Nr>1279</T912_Nr>
+    <T912_PersNr>1133</T912_PersNr>
+    <T912_Bez>Busse,Philip</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-02-07T15:23:56+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1301</T912_Nr>
-    <T912_PersNr>4052</T912_PersNr>
-    <T912_Bez>Feist,Viktor</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-12-04T11:49:54+01:00</T912_Anlage>
+    <T912_Anlage>2019-03-26T08:21:44+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -2315,15 +2315,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1279</T912_Nr>
-    <T912_PersNr>1133</T912_PersNr>
-    <T912_Bez>Busse,Philip</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-03-26T08:21:44+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1285</T912_Nr>
     <T912_PersNr>1136</T912_PersNr>
     <T912_Bez>Kinas,Hermann</T912_Bez>
@@ -2342,20 +2333,20 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1314</T912_Nr>
-    <T912_PersNr>1156</T912_PersNr>
-    <T912_Bez>Oxenfart,Julian</T912_Bez>
+    <T912_Nr>1292</T912_Nr>
+    <T912_PersNr>1135</T912_PersNr>
+    <T912_Bez>Nikiforov,Ivan</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-02-07T15:23:56+01:00</T912_Anlage>
+    <T912_Anlage>2017-03-23T12:30:23+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1318</T912_Nr>
-    <T912_PersNr>1125</T912_PersNr>
-    <T912_Bez>Müller,Philip</T912_Bez>
+    <T912_Nr>1289</T912_Nr>
+    <T912_PersNr>1130</T912_PersNr>
+    <T912_Bez>Er,Ertan</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2019-02-07T15:23:57+01:00</T912_Anlage>
+    <T912_Anlage>2019-02-07T15:23:56+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -2432,15 +2423,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1344</T912_Nr>
-    <T912_PersNr>1141</T912_PersNr>
-    <T912_Bez>Wedel,Alexander</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
-    <T912_Anlage>2017-10-20T14:19:48.253+02:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1352</T912_Nr>
     <T912_PersNr>1170</T912_PersNr>
     <T912_Bez>Stachorra,André</T912_Bez>
@@ -2459,20 +2441,47 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1219</T912_Nr>
-    <T912_PersNr>1101</T912_PersNr>
-    <T912_Bez>Neumann,Johan</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_Nr>1360</T912_Nr>
+    <T912_PersNr>946</T912_PersNr>
+    <T912_Bez>Hassfeld,Henning</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2019-04-29T10:43:07+02:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1222</T912_Nr>
-    <T912_PersNr>1109</T912_PersNr>
-    <T912_Bez>Kriesten,Dieter</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_Nr>1361</T912_Nr>
+    <T912_PersNr>1171</T912_PersNr>
+    <T912_Bez>Krüger,Andreas</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2019-02-07T15:23:59+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1363</T912_Nr>
+    <T912_PersNr>1167</T912_PersNr>
+    <T912_Bez>Shala,Sami</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2018-07-12T15:41:36+02:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1364</T912_Nr>
+    <T912_PersNr>1174</T912_PersNr>
+    <T912_Bez>Schieblich,Andreas</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2019-02-21T07:07:55.34+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1366</T912_Nr>
+    <T912_PersNr>1168</T912_PersNr>
+    <T912_Bez>Lewen,Andrei</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:02+01:00</T912_Aenderung>
+    <T912_Anlage>2018-08-06T07:31:21+02:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -2480,60 +2489,6 @@
     <T912_Nr>1199</T912_Nr>
     <T912_PersNr>689</T912_PersNr>
     <T912_Bez>Wider,Andreas</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:21+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1202</T912_Nr>
-    <T912_PersNr>1090</T912_PersNr>
-    <T912_Bez>Pawlus,Michael</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1204</T912_Nr>
-    <T912_PersNr>1089</T912_PersNr>
-    <T912_Bez>Giesbrecht,Leonhard</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1210</T912_Nr>
-    <T912_PersNr>1098</T912_PersNr>
-    <T912_Bez>Rebin,Viktor</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1212</T912_Nr>
-    <T912_PersNr>1100</T912_PersNr>
-    <T912_Bez>Janzen,Viktor</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1192</T912_Nr>
-    <T912_PersNr>1092</T912_PersNr>
-    <T912_Bez>Kaya,Metin</T912_Bez>
-    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1193</T912_Nr>
-    <T912_PersNr>1057</T912_PersNr>
-    <T912_Bez>Wolf,Alexander</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:21+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
@@ -2558,20 +2513,20 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1184</T912_Nr>
-    <T912_PersNr>2228</T912_PersNr>
-    <T912_Bez>Pörtner,Jens</T912_Bez>
+    <T912_Nr>1192</T912_Nr>
+    <T912_PersNr>1092</T912_PersNr>
+    <T912_Bez>Kaya,Metin</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1185</T912_Nr>
-    <T912_PersNr>2154</T912_PersNr>
-    <T912_Bez>Wedell,Heinrich</T912_Bez>
+    <T912_Nr>1193</T912_Nr>
+    <T912_PersNr>1057</T912_PersNr>
+    <T912_Bez>Wolf,Alexander</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_Anlage>2017-03-23T12:30:21+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -2599,6 +2554,78 @@
     <T912_Bez>Causevic,Zlatan</T912_Bez>
     <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:21+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1184</T912_Nr>
+    <T912_PersNr>2228</T912_PersNr>
+    <T912_Bez>Pörtner,Jens</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1185</T912_Nr>
+    <T912_PersNr>2154</T912_PersNr>
+    <T912_Bez>Wedell,Heinrich</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1219</T912_Nr>
+    <T912_PersNr>1101</T912_PersNr>
+    <T912_Bez>Neumann,Johan</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1222</T912_Nr>
+    <T912_PersNr>1109</T912_PersNr>
+    <T912_Bez>Kriesten,Dieter</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1212</T912_Nr>
+    <T912_PersNr>1100</T912_PersNr>
+    <T912_Bez>Janzen,Viktor</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1204</T912_Nr>
+    <T912_PersNr>1089</T912_PersNr>
+    <T912_Bez>Giesbrecht,Leonhard</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1202</T912_Nr>
+    <T912_PersNr>1090</T912_PersNr>
+    <T912_Bez>Pawlus,Michael</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1210</T912_Nr>
+    <T912_PersNr>1098</T912_PersNr>
+    <T912_Bez>Rebin,Viktor</T912_Bez>
+    <T912_Aenderung>2020-01-30T08:00:01+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -3521,15 +3548,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1369</T912_Nr>
-    <T912_PersNr>4003</T912_PersNr>
-    <T912_Bez>Scheiermann,Alexander</T912_Bez>
-    <T912_Aenderung>2020-01-07T08:01:18+01:00</T912_Aenderung>
-    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1350</T912_Nr>
     <T912_PersNr>1080</T912_PersNr>
     <T912_Bez>Trautmann,Daniel</T912_Bez>
@@ -3566,20 +3584,20 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1338</T912_Nr>
-    <T912_PersNr>1153</T912_PersNr>
-    <T912_Bez>Wasjukow,Alexander</T912_Bez>
-    <T912_Aenderung>2019-09-10T07:26:33+02:00</T912_Aenderung>
-    <T912_Anlage>2019-02-07T15:23:58+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1367</T912_Nr>
     <T912_PersNr>1134</T912_PersNr>
     <T912_Bez>Mantler,Jakob</T912_Bez>
     <T912_Aenderung>2019-09-10T07:26:33+02:00</T912_Aenderung>
     <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1338</T912_Nr>
+    <T912_PersNr>1153</T912_PersNr>
+    <T912_Bez>Wasjukow,Alexander</T912_Bez>
+    <T912_Aenderung>2019-09-10T07:26:33+02:00</T912_Aenderung>
+    <T912_Anlage>2019-02-07T15:23:58+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -3701,6 +3719,24 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1362</T912_Nr>
+    <T912_PersNr>2346</T912_PersNr>
+    <T912_Bez>Passon,Kim Korline</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:35+01:00</T912_Aenderung>
+    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1365</T912_Nr>
+    <T912_PersNr>1165</T912_PersNr>
+    <T912_Bez>Grün,Niklas</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:35+01:00</T912_Aenderung>
+    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1351</T912_Nr>
     <T912_PersNr>2347</T912_PersNr>
     <T912_Bez>Thimm,Anna-Tabea</T912_Bez>
@@ -3773,24 +3809,6 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1365</T912_Nr>
-    <T912_PersNr>1165</T912_PersNr>
-    <T912_Bez>Grün,Niklas</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:35+01:00</T912_Aenderung>
-    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1362</T912_Nr>
-    <T912_PersNr>2346</T912_PersNr>
-    <T912_Bez>Passon,Kim Korline</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:35+01:00</T912_Aenderung>
-    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1392</T912_Nr>
     <T912_PersNr>2358</T912_PersNr>
     <T912_Bez>Fuhrmann,Guido</T912_Bez>
@@ -3804,6 +3822,15 @@
     <T912_PersNr>2297</T912_PersNr>
     <T912_Bez>Arendt,Marion</T912_Bez>
     <T912_Aenderung>2019-03-27T07:31:35+01:00</T912_Aenderung>
+    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1337</T912_Nr>
+    <T912_PersNr>2343</T912_PersNr>
+    <T912_Bez>Fischer,Hendrik</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:34+01:00</T912_Aenderung>
     <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
@@ -3823,15 +3850,6 @@
     <T912_Bez>Ellerbrock,Axel</T912_Bez>
     <T912_Aenderung>2019-03-27T07:31:34+01:00</T912_Aenderung>
     <T912_Anlage>2019-03-26T08:21:44+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1337</T912_Nr>
-    <T912_PersNr>2343</T912_PersNr>
-    <T912_Bez>Fischer,Hendrik</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:34+01:00</T912_Aenderung>
-    <T912_Anlage>2019-03-26T08:21:45+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
   </T912_PersCard>
   <T912_PersCard>
@@ -3971,6 +3989,51 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1200</T912_Nr>
+    <T912_PersNr>2317</T912_PersNr>
+    <T912_Bez>Pörtner,Melissa</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1191</T912_Nr>
+    <T912_PersNr>2306</T912_PersNr>
+    <T912_Bez>Jeckel,Christina</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1203</T912_Nr>
+    <T912_PersNr>2309</T912_PersNr>
+    <T912_Bez>Hartlieb,Eduard</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1205</T912_Nr>
+    <T912_PersNr>2311</T912_PersNr>
+    <T912_Bez>Hus,Marc André</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
+    <T912_Nr>1206</T912_Nr>
+    <T912_PersNr>2315</T912_PersNr>
+    <T912_Bez>Evermann,Svenja Christin</T912_Bez>
+    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
+    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
+    <T912_User>ADM</T912_User>
+  </T912_PersCard>
+  <T912_PersCard>
+    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1213</T912_Nr>
     <T912_PersNr>2316</T912_PersNr>
     <T912_Bez>Stellbrink,Lara</T912_Bez>
@@ -3998,54 +4061,9 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1191</T912_Nr>
-    <T912_PersNr>2306</T912_PersNr>
-    <T912_Bez>Jeckel,Christina</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
     <T912_Nr>1218</T912_Nr>
     <T912_PersNr>2299</T912_PersNr>
     <T912_Bez>Wickemeyer,Bettina</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1205</T912_Nr>
-    <T912_PersNr>2311</T912_PersNr>
-    <T912_Bez>Hus,Marc André</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1206</T912_Nr>
-    <T912_PersNr>2315</T912_PersNr>
-    <T912_Bez>Evermann,Svenja Christin</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1203</T912_Nr>
-    <T912_PersNr>2309</T912_PersNr>
-    <T912_Bez>Hartlieb,Eduard</T912_Bez>
-    <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
-    <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
-    <T912_User>ADM</T912_User>
-  </T912_PersCard>
-  <T912_PersCard>
-    <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1200</T912_Nr>
-    <T912_PersNr>2317</T912_PersNr>
-    <T912_Bez>Pörtner,Melissa</T912_Bez>
     <T912_Aenderung>2019-03-27T07:31:33+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
@@ -4466,9 +4484,9 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1250</T912_Nr>
-    <T912_PersNr>1112</T912_PersNr>
-    <T912_Bez>Dunning,Sascha</T912_Bez>
+    <T912_Nr>1263</T912_Nr>
+    <T912_PersNr>1116</T912_PersNr>
+    <T912_Bez>Feka,Mergim</T912_Bez>
     <T912_Aenderung>2017-03-23T12:30:22+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>
@@ -4484,9 +4502,9 @@
   </T912_PersCard>
   <T912_PersCard>
     <T912_FirmaNR>TE</T912_FirmaNR>
-    <T912_Nr>1263</T912_Nr>
-    <T912_PersNr>1116</T912_PersNr>
-    <T912_Bez>Feka,Mergim</T912_Bez>
+    <T912_Nr>1250</T912_Nr>
+    <T912_PersNr>1112</T912_PersNr>
+    <T912_Bez>Dunning,Sascha</T912_Bez>
     <T912_Aenderung>2017-03-23T12:30:22+01:00</T912_Aenderung>
     <T912_Anlage>2017-03-23T12:30:22+01:00</T912_Anlage>
     <T912_User>ADM</T912_User>

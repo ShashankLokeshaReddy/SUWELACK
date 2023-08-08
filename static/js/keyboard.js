@@ -125,7 +125,7 @@ const Keyboard = {
       switch (key) {
         case "backspace":
           keyElement.classList.add("keyboard__key--wide");
-          keyElement.innerHTML = createIconHTML("backspace");
+          keyElement.innerHTML = "⌫";
 
           keyElement.addEventListener("click", () => {
             this.properties.value = this.properties.value.substring(
@@ -142,7 +142,7 @@ const Keyboard = {
             "keyboard__key--wide",
             "keyboard__key--activatable"
           );
-          keyElement.innerHTML = createIconHTML("keyboard_capslock");
+          keyElement.innerHTML = "⇪";
 
           keyElement.addEventListener("click", () => {
             this._toggleCapsLock();
@@ -156,7 +156,7 @@ const Keyboard = {
 
         case "enter":
           keyElement.classList.add("keyboard__key--wide");
-          keyElement.innerHTML = createIconHTML("keyboard_return");
+          keyElement.innerHTML = "↵";
 
           keyElement.addEventListener("click", () => {
             this.properties.value += "\n";
@@ -167,7 +167,7 @@ const Keyboard = {
 
         case "space":
           keyElement.classList.add("keyboard__key--extra-wide");
-          keyElement.innerHTML = createIconHTML("space_bar");
+          keyElement.innerHTML = " ";
 
           keyElement.addEventListener("click", () => {
             this.properties.value += " ";
@@ -181,7 +181,7 @@ const Keyboard = {
             "keyboard__key--wide",
             "keyboard__key--dark"
           );
-          keyElement.innerHTML = createIconHTML("check_circle");
+          keyElement.innerHTML = "✔";
 
           keyElement.addEventListener("click", () => {
             this.close();
