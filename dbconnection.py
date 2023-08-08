@@ -2,11 +2,16 @@ from sqlalchemy import create_engine, text
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import exc
+import configparser
 
-user = 'ksadmin'
-password = 'ksadmin'
-host = 'rotpunkt23.rotpunkt.de'
-DB = 'ksrotpunkt'
+ksmain = configparser.ConfigParser(strict=False)
+ksmain.read_string('[DEFAULT]\n' + open("dll/lib/ksmain.ini").read())
+user = ksmain["DEFAULT"]["DBUser"]
+password = ksmain["DEFAULT"]["DBPW"]
+dbserver = ksmain["DEFAULT"]["DBServer"]
+dbdatasource = ksmain["DEFAULT"]["DBDataSource"]
+host = f"{dbserver}\{dbdatasource}"
+DB = ksmain["DEFAULT"]["DBName"]
 driver = 'SQL Server'
 DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)

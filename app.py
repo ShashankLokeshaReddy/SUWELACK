@@ -1,8 +1,10 @@
 import os
 import sys
 import xml.etree.ElementTree as ET
+import getpass
+import socket
 
-from flask import Flask
+from flask import Flask, session
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -20,6 +22,7 @@ import time
 import shutil
 
 import dbconnection
+from dll_api import *
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -28,7 +31,6 @@ from flask_babel import Babel, format_datetime, gettext
 import clr
 import System
 import pandas as pd
-import ctypes
 from ctypes import *
 import numpy as np
 import pandas as pd
@@ -38,13 +40,15 @@ verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
 root  = {}
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
 DFORMAT = "%d.%m.%Y"
-ROOT_DIR = "C:\\PKS_Apache_Version\\suwelack\\"  # directory which directly contains app.py
+ROOT_DIR = os.path.abspath(os.path.dirname(__file__)) + "\\"  # directory which directly contains app.py
+PYTHON_PATH = os.path.abspath(os.path.dirname(sys.executable) + "\\python")
 APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
 SHOWMSGGEHT = {} # X998_ShowMsgGeht
 GKENDCHECK = {} # X998_GKEndCheck
 BTAETIGKEIT = {} # X998_TAETIGKEIT
 FirmaNr = {}
 X998_GrpPlatz = {}
+DLL_PATHS = {}
 SCANTYPE = True  # root.findall('X998_SCANNER')[0].text # X998_SCANNER TS,CS,TP
 SCANON = True  # Scansimulation an
 KEYCODECOMPENDE = ""  # Endzeichen Scanwert
@@ -112,6 +116,25 @@ def delete_dll_copy(user):
     else:
         write_log(user.dll_path_data + " DLL-Datei wurde nicht gelöscht")
         
+# Function to register user
+def register_user(username, password, verbose=False):
+    if db.session.query(User).filter_by(username=username).count() < 1:
+        hashed_password = generate_password_hash(password, method='sha256')
+        new_user = User(username=username, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        dll_path_data, dll_path = create_dll_copy(new_user.username)
+        new_user.dll_path = dll_path
+        new_user.dll_path_data = dll_path_data
+        db.session.commit()
+        if verbose:
+            flash('Sie haben sich erfolgreich registriert!')
+        return True
+    else:
+        if verbose:
+            flash('Benutzer existiert bereits!')
+        return False
+        
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -145,7 +168,7 @@ class LoginForm(FlaskForm):
                 # instance.Init(user.username)
                 instance.Init()
                 instance.InitTermConfig()
-                time.sleep(1)
+                # time.sleep(1)
                 root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
                 SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
                 GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
@@ -179,18 +202,7 @@ def index():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        if db.session.query(User).filter_by(username=form.username.data).count() < 1:
-            hashed_password = generate_password_hash(form.password.data, method='sha256')
-            new_user = User(username=form.username.data, password=hashed_password)
-            db.session.add(new_user)
-            db.session.commit()
-            dll_path_data, dll_path = create_dll_copy(new_user.username)
-            new_user.dll_path = dll_path
-            new_user.dll_path_data = dll_path_data
-            db.session.commit()
-            flash('Sie haben sich erfolgreich registriert!')
-        else:
-            flash('Benutzer existiert bereits!')
+        register_user(form.username.data, form.password.data, verbose=True)
         return redirect(url_for('login'))
     return render_template('register.html', form=form, buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
 
@@ -231,17 +243,26 @@ def edit_user(user_id):
         flash('Benutzer nicht gefunden')
         return redirect(url_for('dashboard'))
 
-@app.route('/delete_user/<int:user_id>')
-@login_required
-def delete_user(user_id):
-    user = User.query.get(user_id)
-    if user:
+def delete_user(user):
+    try:
         db.session.delete(user)
         db.session.commit()
         delete_dll_copy(user)
-        flash('Benutzer erfolgreich gelöscht!')
+        return True
+    except:
+        return False
+
+@app.route('/delete_user/<int:user_id>')
+@login_required
+def delete_user_route(user_id):
+    user = User.query.get(user_id)
+    if user:
+        if delete_user(user):
+            flash('Benutzer erfolgreich gelöscht.')
+        else:
+            flash('Benutzer konnte nicht gelöscht werden!')
     else:
-        flash('Benutzer nicht gefunden')
+        flash('Benutzer nicht gefunden!')
     return redirect(url_for('dashboard'))
 
 @app.route('/logout')
@@ -288,19 +309,20 @@ def home():
 
     # inst_current_user = dll_instances[current_user.username]
     if request.method == 'POST':
-        user = User(username="test", password="test")
-        print(user,"user")
-        login_user(User.query.filter_by(username="test").first())
-        dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-test.dll"
-        clr.AddReference(dll_path)
-        dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
-        type = dll_ref.GetType('kt002_persnr.kt002')
-        instance = System.Activator.CreateInstance(type)
-        dll_instances[user.username] = instance
+        hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
+        user = User(username=hostname, password=hostname)
+        print(user.username)
+        print(user, "user")
+        register_user(hostname, hostname)
+        login_user(User.query.filter_by(username=hostname).first())
+        dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{hostname}.dll"
+        print(dll_path)
+        user.dll_path = dll_path
+        
+        process = start_dll_process(PYTHON_PATH, dll_path, hostname)
+        dll_instances[user.username] = process
         print("cccbn,", dll_instances, user.username)
-        instance.Init()
-        instance.InitTermConfig()
-        # time.sleep(1)
+        
         root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
         SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
         GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
@@ -352,6 +374,17 @@ def home():
                         return actbuchung(nr=nr, username=username, sa=sa)
 
     elif request.method == "GET":
+        if "first_request" in session:
+            session["request_count"] += 1
+        else:
+            session["request_count"] = 1
+        session["first_request"] = True
+  
+        if session["request_count"] >= 3:
+            # returned from booking to home, terminate subprocess and delete process in db
+            dll_instances[current_user.username].terminate()
+            delete_user(current_user)
+        
         username = request.args.get('username')
         return render_template(
             "home.html",
@@ -723,7 +756,6 @@ def fertigungsauftragerfassen(userid):
             datum = request.form["datum"]
             arbeitsplatz = request.form["arbeitsplatz"]
             beleg_nr = request.form["auftrag"]
-            # beleg_nr = "FA00300150" # TODO: bug here -> works only for this value
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
             dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             if bufunktion == 3:
@@ -946,6 +978,10 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
             flash(f"Der Zählerstand muss als ganze Zahl angegeben werden!")
             return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
         
+        if old_total < new_total:
+            flash(f"Neuer Zählerstand muss größer als alter Zählerstand sein!")
+            return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
+            
         date_string = parser.parse(request.form["datum"])
         xMengeGut = new_total - int(old_total) # Difference = new_total - old_total
         xMengeAus = 0
@@ -1230,7 +1266,7 @@ def endta51cancelt905(apersnr):
 
     # Prüfen ob Fertigungsaufträge und GK-Aufträge laufen
     result = dll_instances[current_user.username].EndTA51FACheck(xfa, xgk)
-    xfa, xgk = result
+    xret, xfa, xgk = result
 
     if xret is None:
         xret = ''
@@ -1273,14 +1309,16 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
     
     #Prüfen, ob WB gemacht werden muß
     #nur dann, wenn Arbeitsplatz gelesen worden ist!
-    if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T905) is True:
+    dr_T905 = communicate(dll_instances[current_user.username], "get", "dr_T905")
+    if communicate(dll_instances[current_user.username], "CheckObject", dr_T905) is True:
         write_log("dr_T905 vorhanden")
         #Vor Buchung, prüfen, ob Kst der Person mit der Kst des zu buchenden Arbeitsplatz stimmt! Wenn nicht Wechsebuchung erzeugen!
         #Wechselbuchung triggert auf T955!!
-        dll_instances[current_user.username].BuFAWB(ATA29Nr)
+        communicate(dll_instances[current_user.username], "BuFAWB", ATA29Nr)
 
     # Auftrag finden
-    if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True:
+    dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
+    if communicate(dll_instances[current_user.username], "CheckObject", dr_TA06) is True:
         write_log('bufa CO drta06 exist')
     else:
         # FANr wird gescannt und über T905ArbGRNr oder T909 und Platz Soll wird Beleg gefunden
@@ -1347,7 +1385,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
                 xret, xPlatz = result
                 write_log(f"BuchTA56_0: xret:{xret}, xPlatz:{xPlatz}")
                 if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA56) == True:
-                    old_total = dll_instances[current_user.username].gtv("TA56_Wert") #letzte Zählerstand
+                    old_total = dll_instances[current_user.username].gtv("TA56_Wert") # letzter Zählerstand
                 return redirect(url_for("fabuchta56_dialog", userid=userid, old_total=old_total, belegnr=belegnr, platz=xPlatz))
             else:
                 usernamepd = dbconnection.getPersonaldetails(userid)
@@ -1376,14 +1414,14 @@ def start_booking(nr):
     buaction = 7
     bufunktion = 0
     # print('parameters',type(nr), type(activefkt), type(SCANTYPE), type(SHOWHOST), type(SCANON), type(KEYCODECOMPENDE))
-    result = dll_instances[current_user.username].ShowNumber(nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "")
+    result = communicate(dll_instances[current_user.username], "ShowNumber", nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "")
     ret, checkfa, sa = result
     write_log(f"ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}")
-    result = dll_instances[current_user.username].Pruef_PNr(checkfa, nr, sa, bufunktion)
+    result = communicate(dll_instances[current_user.username], "Pruef_PNr", checkfa, nr, sa, bufunktion)
     ret, sa, bufunktion = result
     write_log(f"PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
         
-    result = dll_instances[current_user.username].Pruef_PNrFkt(nr, bufunktion, SCANTYPE, sa, buaction, APPMSCREEN2, SERIAL, activefkt, "",
+    result = communicate(dll_instances[current_user.username], "Pruef_PNrFkt", nr, bufunktion, SCANTYPE, sa, buaction, APPMSCREEN2, SERIAL, activefkt, "",
                                 "", "")
     ret, sa, buaction, activefkt, msg, msgfkt, msgdlg = result
     write_log(f"Pruef_PNrFkt ret: {ret}, sa: {sa}, buaction: {buaction}, activefkt: {activefkt}, msg: {msg}")
@@ -1557,20 +1595,22 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
     xkstk=0
     xfaruecknr=''
     xmenge=0
-    result = dll_instances[current_user.username].CheckKommt(sa, kst, salast, kstlast, tslast, xT905Last, xTA29Last)
+    result = communicate(dll_instances[current_user.username], "CheckKommt", sa, kst, salast, kstlast, tslast, xT905Last, xTA29Last)
     xret, ASALast, AKstLast, ATSLast, xT905Last, xTA29Last = result
     write_log(f"CheckKommt ret: {xret}, ASALast: {ASALast}, AKstLast: {AKstLast}, ATSLast: {ATSLast}, xT905Last: {xT905Last}, xTA29Last: {xTA29Last}")
 
     if len(xret) > 0:  # Fehler
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True or dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA05) is True:
+        dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
+        dr_TA05 = communicate(dll_instances[current_user.username], "get", "dr_TA05")
+        if communicate(dll_instances[current_user.username], "CheckObject", dr_TA06) is True or communicate(dll_instances[current_user.username], "CheckObject", dr_TA05) is True:
             flash("Fehler: Keine Auftragsbuchung ohne Kommt!")
             write_log("Keine Auftragsbuchung ohne Kommt!")
-            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for("home", username=username))
         if (xret=="MSG0065" and sa=="A") or (xret=="MSG0065" and sa=="G"):  # MSG0065 is ok if current Buchung is K
             flash("Fehler: Keine \"Kommt\"-Buchung vorhanden!")
             write_log(f"Keine \"Kommt\"-Buchung vorhanden!, nr:{nr}, sa:{sa}")
-            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for("home", username=username))
 
     xpersnr = dll_instances[current_user.username].T910NrGet()
@@ -1586,14 +1626,21 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
         # flash of error already called in endta51cancelt905
         return redirect(url_for("home", username=username))
 
-    if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T905) is True:
-        t905nr = dll_instances[current_user.username].gtv("T905_Nr")
+    dr_T905 = communicate(dll_instances[current_user.username], "get", "dr_T905")
+    dr_T905_checkobj = communicate(dll_instances[current_user.username], "CheckObject", dr_T905)
+    if dr_T905_checkobj is True:
+        t905nr = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
 
-    if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True or dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA05) is True:
+    dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
+    dr_TA05 = communicate(dll_instances[current_user.username], "get", "dr_TA05")
+    dr_TA06_true = communicate(dll_instances[current_user.username], "CheckObject", dr_TA06)
+    if dr_TA06_true is True or communicate(dll_instances[current_user.username], "CheckObject", dr_TA05) is True:
         write_log("TA06 or TA05 True")
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True:
+        if dr_TA06_true is True:
             write_log("TA06 True")
-            if dll_instances[current_user.username].gtv("T951_Arbist") != dll_instances[current_user.username].gtv("TA06_Platz_Soll"):
+            T951_Arbist = communicate(dll_instances[current_user.username], "gtv", "T951_Arbist")
+            TA06_Platz_Soll = communicate(dll_instances[current_user.username], "gtv", "TA06_Platz_Soll")
+            if T951_Arbist != TA06_Platz_Soll:
                 write_log("Abweichender Platz")
                 # Abweichender Arbeitsplatz! Umbuchen?
                 if T905ALLOWROUTE is True:
@@ -1612,12 +1659,16 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
                     return redirect(url_for("home", username=username))
 
         if len(xret) == 0:
-            if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T905) is False:
-                if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T951) is True:
-                    dll_instances[current_user.username].T905Read(dll_instances[current_user.username].gtv("T951_Arbist"))
+            if dr_T905_checkobj is False:
+                dr_T951 = communicate(dll_instances[current_user.username], "get", "dr_T951")
+                if communicate(dll_instances[current_user.username], "CheckObject", dr_T951) is True:
+                    T951_Arbist = communicate(dll_instances[current_user.username], "gtv", "T951_Arbist")
+                    communicate(dll_instances[current_user.username], "T905Read", T951_Arbist)
 
-            dll_instances[current_user.username].T905_NrSelected = dll_instances[current_user.username].gtv("T905_Nr")
-            return bufa(ANr=dll_instances[current_user.username].gtv("TA06_BelegNr"), ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS, platz=arbeitsplatz, aBem=aBem, userid=nr, endroute=endroute)
+            T905_Nr = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
+            communicate(dll_instances[current_user.username], "T905_NrSelected", T905_Nr)
+            TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
+            return bufa(ANr=TA06_BelegNr, ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS, platz=arbeitsplatz, aBem=aBem, userid=nr, endroute=endroute)
 
     if len(xret) == 0:
         if len(xret) == 0:
@@ -1628,22 +1679,22 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
                     sa=sa
                 ))
             elif sa == "G":
-                result = dll_instances[current_user.username].PNR_Buch(sa, kst, t905nr, '', '', '', 0)
+                result = communicate(dll_instances[current_user.username], "PNR_Buch", sa, kst, t905nr, '', '', '', 0)
                 xret, ASA, AKst, APlatz, xtagid, xkstk = result
                 if GKENDCHECK[current_user.username] is True:  # Param aus X998 prüfen laufende Aufträge
-                    xret = dll_instances[current_user.username].PNR_Buch2Geht()
+                    xret = communicate(dll_instances[current_user.username], "PNR_Buch2Geht")
                 flash("User wurde abgemeldet.")
             elif sa == 'A':
-                result = dll_instances[current_user.username].PNR_Buch(sa, kst, t905nr, '', '', '', 0)
+                result = communicate(dll_instances[current_user.username], "PNR_Buch", sa, kst, t905nr, '', '', '', 0)
                 xret, ASA, AKst, APlatz, xtagid, xkstk = result
                 flash(arbeitsplatz)
                 write_log(f"Booked Arbeitsplatz: {arbeitsplatz}")
 
             if len(xret) == 0:
                 write_log(f"PNR_Buch3: xtagid:{xtagid}, sa:{sa}, AKst:{AKst}, APlatz:{APlatz}")
-                dll_instances[current_user.username].PNR_Buch3(xtagid, sa, AKst, APlatz, '', '', 0)
+                communicate(dll_instances[current_user.username], "PNR_Buch3", xtagid, sa, AKst, APlatz, '', '', 0)
             write_log(f"PNR_Buch4Clear: nr:{nr}, sa:{sa}")
-            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         return redirect(url_for("home", username=username))
 
