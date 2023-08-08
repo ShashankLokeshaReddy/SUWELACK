@@ -5,7 +5,7 @@ from sqlalchemy import exc
 
 user = 'ksadmin'
 password = 'ksadmin'
-host = 'rotpunkt23.rotpunkt.de'
+host = 'HOC-W10-212\SQL19'
 DB = 'ksrotpunkt'
 driver = 'SQL Server'
 DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'

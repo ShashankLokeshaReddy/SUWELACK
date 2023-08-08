@@ -38,7 +38,7 @@ verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
 root  = {}
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
 DFORMAT = "%d.%m.%Y"
-ROOT_DIR = "C:\\PKS_Apache_Version\\suwelack\\"  # directory which directly contains app.py
+ROOT_DIR = "C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\"  # directory which directly contains app.py
 APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
 SHOWMSGGEHT = {} # X998_ShowMsgGeht
 GKENDCHECK = {} # X998_GKEndCheck
@@ -1230,7 +1230,7 @@ def endta51cancelt905(apersnr):
 
     # Prüfen ob Fertigungsaufträge und GK-Aufträge laufen
     result = dll_instances[current_user.username].EndTA51FACheck(xfa, xgk)
-    xfa, xgk = result
+    xret, xfa, xgk = result
 
     if xret is None:
         xret = ''
