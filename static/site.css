@@ -630,4 +630,64 @@ hr.solid {
   .toggle-button:hover {
     background-color: #e0e0e0;
   }
-  
+
+.clock {
+    background: white;
+    height: 10rem; /* Converted from 320px */
+    width: 10rem; /* Converted from 320px */
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 135%;
+    left: 50%;
+    box-sizing: content-box;
+    border-radius: 50%;
+    border: 0.1rem solid black; /* Converted from 15px */
+    box-shadow: 0.46875rem 0.46875rem 1.09375rem rgba(0, 0, 0, 0.2),
+    inset 0 0 0.9375rem rgba(0, 0, 0, 0.4); /* Converted from 15px and 30px */
+}
+.clock::before {
+    content: "";
+    position: absolute;
+    top: -0.3rem; /* Adjust the value to match the inner border width */
+    left: -0.3rem; /* Adjust the value to match the inner border width */
+    width: calc(100% + 0.6rem); /* Adjust the value to match the inner border width */
+    height: calc(100% + 0.6rem); /* Adjust the value to match the inner border width */
+    border: 0.1rem solid black; /* Adjust the value to match the inner border width */
+    border-radius: 50%;
+}
+.clock-img {
+    position: relative;
+    transform: scale(0.22); /* Adjust the scale factor as needed */
+    transform-origin: top left;
+    top: -0.05rem; /* Adjust the value as needed */
+    left: -0.0rem; /* Adjust the value as needed */
+}
+
+.hand {
+    position: absolute;
+    background-color: black;
+    margin: auto;
+    left: 0;
+    right: 0;
+    border-radius: 0.15625rem; /* Converted from 5px */
+    transform-origin: bottom;
+}
+
+.hour {
+    height: 1.875rem; /* Converted from 60px */
+    width: 0.3125rem; /* Converted from 10px */
+    top: 3.125rem; /* Converted from 100px */
+}
+
+.minute {
+    height: 2.5rem; /* Converted from 80px */
+    width: 0.15625rem; /* Converted from 5px */
+    top: 2.5rem; /* Converted from 80px */
+}
+
+.seconds {
+    height: 2.8125rem; /* Converted from 90px */
+    width: 0.09375rem; /* Converted from 3px */
+    top: 2.1875rem; /* Converted from 70px */
+    background-color: orange;
+}
