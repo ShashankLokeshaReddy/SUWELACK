@@ -691,3 +691,35 @@ hr.solid {
     top: 2.1875rem; /* Converted from 70px */
     background-color: orange;
 }
+
+/* Add the transparent horizontal bar */
+.transparent-bar {
+    height: 20rem;
+    background-color: white;
+    width: 100%;
+}
+
+/* Style the page wrapper */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Style the main content area */
+.main-content {
+    flex: 1;
+    overflow-y: hidden; /* Hide the scrollbar by default */
+}
+
+/* Style the body content */
+.body-content {
+    overflow-y: auto; /* Show scrollbar only when content overflows */
+    max-height: calc(100vh - 10rem); /* Adjust for footer height */
+    padding: 1rem;
+}
+
+/* Style the footer */
+.footer {
+    padding: 0rem;
+}

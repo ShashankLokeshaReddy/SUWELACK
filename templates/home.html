@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
-{% block navbar %}
-
+{% block content %}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for msg in messages %}
@@ -14,9 +13,6 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-{% endblock %}
-
-{% block content%}
 
 <div class="container">
 
