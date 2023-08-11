@@ -45,7 +45,7 @@
         </main>
 
         <footer class="footer">
-            <nav class="navbar fixed-bottom navbar-light bg-light" style="z-index: 1;">
+            <nav class="navbar fixed-bottom navbar-light bg-light">
                 <a class="navbar-brand" href="{{ url_for('home', username=username) }}">
                     <img src="/static/images/Icons_Kartenscan.svg" width="64" height="64" alt="">
                     {{ _('Home') }}
@@ -114,6 +114,7 @@
                 setTimeout(clock, 1000);
             }
         });
+    
     </script>
 
     <script src="{{ url_for('static', filename='js/cdnjs.cloudflare.com_ajax_libs_popper.js_1.14.7_umd_popper.min.js') }}" type="text/javascript"></script>

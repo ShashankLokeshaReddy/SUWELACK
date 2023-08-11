@@ -88,7 +88,7 @@ body, html {
     justify-items:flex-start;
 }
 
-.card{
+.card {
     float: right;
     height: 20rem;
     width: 17.5rem;
@@ -99,6 +99,26 @@ body, html {
     border: none;
     box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
     background-color: #F4F4F4;
+}
+
+.clock-card {
+    float: right;
+    height: 12rem;
+    width: 17.5rem;
+    margin: 0.125rem 0.125rem 0.125rem 1.875rem; /* Adjusted margin-top to move it up */
+    display: flex;                       
+    flex-wrap: wrap;                     
+    justify-items: right !important;
+    border: none;
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
+    background-color: #F4F4F4;
+}
+
+.card-flex-container {
+    display: flex;
+    flex-direction: column; /* Display cards vertically */
+    align-items: flex-end; /* Align cards to the right side */
+    margin: 1.6875rem 0.125rem 0.125rem 1.875rem;
 }
 
 .form-control,.form-control:focus, input, select{
@@ -631,20 +651,16 @@ hr.solid {
     background-color: #e0e0e0;
   }
 
-.clock {
-    background: white;
-    height: 10rem; /* Converted from 320px */
-    width: 10rem; /* Converted from 320px */
-    position: absolute;
+  .clock {
+    /* background: white; */
+    height: 10rem;
+    width: 10rem;
+    position: relative; /* Changed to relative positioning */
     transform: translate(-50%, -50%);
-    top: 135%;
+    top: 50%;
     left: 50%;
-    box-sizing: content-box;
-    border-radius: 50%;
-    border: 0.1rem solid black; /* Converted from 15px */
-    box-shadow: 0.46875rem 0.46875rem 1.09375rem rgba(0, 0, 0, 0.2),
-    inset 0 0 0.9375rem rgba(0, 0, 0, 0.4); /* Converted from 15px and 30px */
-}
+    /* Rest of the clock styles */
+  }
 .clock::before {
     content: "";
     position: absolute;
@@ -660,7 +676,7 @@ hr.solid {
     transform: scale(0.22); /* Adjust the scale factor as needed */
     transform-origin: top left;
     top: -0.05rem; /* Adjust the value as needed */
-    left: -0.0rem; /* Adjust the value as needed */
+    left: -0.05rem; /* Adjust the value as needed */
 }
 
 .hand {
@@ -692,13 +708,6 @@ hr.solid {
     background-color: orange;
 }
 
-/* Add the transparent horizontal bar */
-.transparent-bar {
-    height: 20rem;
-    background-color: white;
-    width: 100%;
-}
-
 /* Style the page wrapper */
 .page-wrapper {
     display: flex;
@@ -709,17 +718,23 @@ hr.solid {
 /* Style the main content area */
 .main-content {
     flex: 1;
-    overflow-y: hidden; /* Hide the scrollbar by default */
+    overflow-y: auto; /* Show scrollbar only when content overflows */
+    max-height: calc(100vh - 10rem); /* Adjust for footer height */
 }
 
 /* Style the body content */
 .body-content {
-    overflow-y: auto; /* Show scrollbar only when content overflows */
-    max-height: calc(100vh - 10rem); /* Adjust for footer height */
     padding: 1rem;
 }
 
 /* Style the footer */
 .footer {
     padding: 0rem;
+}
+
+/* CSS for the tables */
+.table-container {
+    height: 40vh; /* 50% of viewport height */
+    overflow-y: auto;
+    margin-bottom: 1rem; /* Add a little space between the tables */
 }

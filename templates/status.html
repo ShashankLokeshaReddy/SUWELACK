@@ -2,14 +2,13 @@
 {% block title %}{{ _('Status') }}{% endblock %}
 
 {% block content%}
- <div class="statustableflex">
+<div class="statustableflex">
     <h3>{{ _('Status') }}</h3>
-    <div class="table1">
-      {{tableItems[0] | safe}}
+    <div class="table-container table1">
+        {{tableItems[0] | safe}}
     </div>
-    <div class="table2">
-      {{tableItems[1] | safe}}
+    <div class="table-container table2">
+        {{tableItems[1] | safe}}
     </div>
- </div>
- <div class="transparent-bar"></div>
+</div>
 {% endblock %}

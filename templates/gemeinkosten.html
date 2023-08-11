@@ -65,12 +65,6 @@
                 <button type="button" value="+" class="btn btn-light">+</button>
                 <button type="submit" value="submit" id="submit" class="btn btn-light">↵</button>
             </div>
-            <div class="clock">
-                <div class="hour hand" id="hour"></div>
-                <div class="minute hand" id="minute"></div>
-                <div class="seconds hand" id="seconds"></div>
-                <img class="clock-img" src="../static/images/clock.png" alt="clock">
-            </div>
         </div>
     </div>
     </form>
@@ -89,35 +83,6 @@
             };
         }
     };
- 
-    // Analog Clock Drawing Logic
-    let hour = document.getElementById("hour");
-    let minute = document.getElementById("minute");
-    let seconds = document.getElementById("seconds");
-
-    function setClock() {
-        let date_now = new Date();
-
-        let hr = date_now.getHours();
-        let min = date_now.getMinutes();
-        let sec = date_now.getSeconds();
-
-        let calc_hr = (hr * 30) + (min / 2);
-        let calc_min = (min * 6) + (sec / 10);
-        let calc_sec = sec * 6;
-
-        hour.style.transform = `rotate(${calc_hr}deg)`;
-        minute.style.transform = `rotate(${calc_min}deg)`;
-        seconds.style.transform = `rotate(${calc_sec}deg)`;
-    }
-
-    // Call setClock initially to set the hands' positions
-    setClock();
-
-    // Update clock every second
-    let set_clock = setInterval(() => {
-        setClock();
-    }, 1000);
     
  </script>
 
