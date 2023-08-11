@@ -5,10 +5,41 @@
 <div class="statustableflex">
     <h3>{{ _('Status') }}</h3>
     <div class="table-container table1">
-        {{tableItems[0] | safe}}
+        {{ tableItems[0] | safe }}
     </div>
     <div class="table-container table2">
-        {{tableItems[1] | safe}}
+        {{ tableItems[1] | safe }}
     </div>
 </div>
+<script>
+    // Highlight rows based on "Aktion" value for Table 1
+    var table1Rows = document.querySelectorAll('.table-container.table1 tbody tr');
+    table1Rows.forEach(function(row) {
+        var aktionCell = row.querySelector('td:first-child');
+        var aktion = aktionCell.innerText.trim();
+        
+        if (aktion === 'Gekommen') {
+            row.style.backgroundColor = '#12b8cc';
+        } else if (aktion === 'Gegangen') {
+            row.style.backgroundColor = 'lightgreen';
+        } else if (aktion === 'Wechselbuchung') {
+            row.style.backgroundColor = '#AEC6CF';
+        }
+    });
+    
+    // Highlight rows based on "Auftragsstatus" value for Table 2
+    var table2Rows = document.querySelectorAll('.table-container.table2 tbody tr');
+    table2Rows.forEach(function(row) {
+        var auftragsstatusCell = row.querySelector('td:nth-child(8)');
+        var auftragsstatus = auftragsstatusCell.innerText.trim();
+        
+        if (auftragsstatus === '30' || auftragsstatus === '31') {
+            row.style.backgroundColor = 'green';
+        } else if (auftragsstatus === '20' || auftragsstatus === '21' || auftragsstatus === '25') {
+            row.style.backgroundColor = 'yellow';
+        } else if (auftragsstatus === '10' || auftragsstatus === '11') {
+            row.style.backgroundColor = 'grey';
+        }
+    });
+</script>
 {% endblock %}
