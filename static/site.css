@@ -121,7 +121,7 @@ body, html {
     margin: 1.6875rem 0.125rem 0.125rem 1.875rem;
 }
 
-.form-control,.form-control:focus, input, select{
+.form-control, input, select{
     width: 44rem;
     height: 2.8125rem;
     box-sizing: inherit;
@@ -133,6 +133,10 @@ body, html {
     border: none;
     outline: none;
     background-color: #F4F4F4;
+}
+
+.form-control:focus, input:focus, select:focus, .form-uhrzeit:focus {
+    border-color: #ffbf0a !important; /* Change to your preferred color */
 }
 
 /* .form-uhrzeit{
