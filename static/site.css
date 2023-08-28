@@ -723,7 +723,7 @@ hr.solid {
 .main-content {
     flex: 1;
     overflow-y: auto; /* Show scrollbar only when content overflows */
-    max-height: calc(100vh - 10rem); /* Adjust for footer height */
+    max-height: 85vh; /* Adjust for footer height */
 }
 
 /* Style the body content */
