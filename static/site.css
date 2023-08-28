@@ -1,4 +1,3 @@
-
 body, html {
     margin: 0;
     padding: 0;
@@ -6,7 +5,7 @@ body, html {
     width: 100%;
     font-family: 'SF Pro', sans-serif;
     color: #232323;
-  }
+}
 
 .btn-primary, .btn-primary:hover  {
     background-color:#F4F4F4 ;
@@ -18,15 +17,12 @@ body, html {
     font-style: oblique;
     font-size: 1.25rem;
     width: 23.125rem;
-
 }
-
 .btn-primary:active:focus, .btn-primary:active,.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:visited, .btn-primary:focus{
     background-color: #ffbf0a !important;
     outline: none;
     box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
     color: #f1f1f1 !important;
-
 }
 .btn-secondary, .btn-secondary:hover{
     background-color:#F4F4F4 !important;
@@ -35,7 +31,6 @@ body, html {
     margin: 0.0625rem 0.125rem 0.125rem 0.125rem;
     color: #232323;
     font-style: oblique;
-
     font-size: 1.25rem;
     height: 3.4375rem;
     width: 3.4375rem;
@@ -62,7 +57,6 @@ body, html {
     width: 7.28125rem;
 }
 .btnZ:active:focus, .btnZ:visited, .btnZ:focus{
-
     outline: none !important;
     border: none !important;
     box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
@@ -88,7 +82,7 @@ body, html {
     justify-items:flex-start;
 }
 
-.card{
+.card {
     float: right;
     height: 20rem;
     width: 17.5rem;
@@ -101,7 +95,27 @@ body, html {
     background-color: #F4F4F4;
 }
 
-.form-control,.form-control:focus, input, select{
+.clock-card {
+    float: right;
+    height: 12rem;
+    width: 17.5rem;
+    margin: 0.125rem 0.125rem 0.125rem 1.875rem; /* Adjusted margin-top to move it up */
+    display: flex;                       
+    flex-wrap: wrap;                     
+    justify-items: right !important;
+    border: none;
+    box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
+    background-color: #F4F4F4;
+}
+
+.card-flex-container {
+    display: flex;
+    flex-direction: column; /* Display cards vertically */
+    align-items: flex-end; /* Align cards to the right side */
+    margin: 1.6875rem 0.125rem 0.125rem 1.875rem;
+}
+
+.form-control, input, select{
     width: 44rem;
     height: 2.8125rem;
     box-sizing: inherit;
@@ -113,6 +127,10 @@ body, html {
     border: none;
     outline: none;
     background-color: #F4F4F4;
+}
+
+.form-control:focus, input:focus, select:focus, .form-uhrzeit:focus {
+    outline: 0.2rem solid #ffbf0a;
 }
 
 /* .form-uhrzeit{
@@ -630,4 +648,91 @@ hr.solid {
   .toggle-button:hover {
     background-color: #e0e0e0;
   }
-  
+
+  .clock {
+    /* background: white; */
+    height: 10rem;
+    width: 10rem;
+    position: relative; /* Changed to relative positioning */
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    /* Rest of the clock styles */
+  }
+.clock::before {
+    content: "";
+    position: absolute;
+    top: -0.3rem; /* Adjust the value to match the inner border width */
+    left: -0.3rem; /* Adjust the value to match the inner border width */
+    width: calc(100% + 0.6rem); /* Adjust the value to match the inner border width */
+    height: calc(100% + 0.6rem); /* Adjust the value to match the inner border width */
+    border: 0.1rem solid black; /* Adjust the value to match the inner border width */
+    border-radius: 50%;
+}
+.clock-img {
+    position: relative;
+    transform: scale(0.22); /* Adjust the scale factor as needed */
+    transform-origin: top left;
+    top: -0.05rem; /* Adjust the value as needed */
+    left: -0.05rem; /* Adjust the value as needed */
+}
+
+.hand {
+    position: absolute;
+    background-color: black;
+    margin: auto;
+    left: 0;
+    right: 0;
+    border-radius: 0.15625rem; /* Converted from 5px */
+    transform-origin: bottom;
+}
+
+.hour {
+    height: 1.875rem; /* Converted from 60px */
+    width: 0.3125rem; /* Converted from 10px */
+    top: 3.125rem; /* Converted from 100px */
+}
+
+.minute {
+    height: 2.5rem; /* Converted from 80px */
+    width: 0.15625rem; /* Converted from 5px */
+    top: 2.5rem; /* Converted from 80px */
+}
+
+.seconds {
+    height: 2.8125rem; /* Converted from 90px */
+    width: 0.09375rem; /* Converted from 3px */
+    top: 2.1875rem; /* Converted from 70px */
+    background-color: orange;
+}
+
+/* Style the page wrapper */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Style the main content area */
+.main-content {
+    flex: 1;
+    overflow-y: auto; /* Show scrollbar only when content overflows */
+    max-height: 85vh; /* Adjust for footer height */
+}
+
+/* Style the body content */
+.body-content {
+    padding: 1rem;
+}
+
+/* Style the footer */
+.footer {
+    padding: 0rem;
+}
+
+/* CSS for the tables */
+.table-container {
+    height: 40vh; /* 50% of viewport height */
+    overflow-y: auto;
+    margin-bottom: 1rem; /* Add a little space between the tables */
+}

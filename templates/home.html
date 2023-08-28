@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block title %} Home {% endblock %}
-{% block navbar %}
-
+{% block content %}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for msg in messages %}
@@ -14,16 +13,13 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-{% endblock %}
-
-{% block content%}
 
 <div class="container">
 
 <form action="#" method="post">
 
     <div class="textInput">
-        <input type="text" name="inputbar"  id="screen" class="form-control use-focus" onblur="this.focus()" autofocus>
+        <input type="text" name="inputbar"  id="screen" class="form-control use-focus">
     </div>
 
     <div class="pad">
@@ -33,39 +29,49 @@
             <button type="submit" name=selectedButton value="{{buttonValues[1][items]}}" class="btn btn-primary btn-lg">{{_(buttonValues[0][items])}}</button>
             {% endfor %}
         </div>
-        <div class="card">
-            <!-- Keypad -->
-            <div class="col-8" id="keypad">
-                <div class="row">
-                    <button type="button" id="clear" class="btn btn-secondary">⌫</button>
-                    <button type="button" value="/" class="btn btn-secondary">/</button>  
-                    <button type="button" value="*" class="btn btn-secondary">*</button>
+        <div class="card-flex-container">
+            <div class="card">
+                <!-- Keypad -->
+                <div class="col-8" id="keypad">
+                    <div class="row">
+                        <button type="button" id="clear" class="btn btn-secondary">⌫</button>
+                        <button type="button" value="/" class="btn btn-secondary">/</button>  
+                        <button type="button" value="*" class="btn btn-secondary">*</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" value="7" class="btn btn-secondary">7</button>
+                        <button type="button" value="8" class="btn btn-secondary">8</button>
+                        <button type="button" value="9" class="btn btn-secondary">9</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" value="4" class="btn btn-secondary">4</button>
+                        <button type="button" value="5" class="btn btn-secondary">5</button>
+                        <button type="button" value="6" class="btn btn-secondary">6</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" value="1" class="btn btn-secondary">1</button>
+                        <button type="button" value="2" class="btn btn-secondary">2</button>
+                        <button type="button" value="3" class="btn btn-secondary">3</button>    
+                    </div>
+                    <div class="row">
+                        <button type="button" value="0" class="btnZ">0</button>
+                        <button type="button" value="." class="btn btn-secondary">.</button>
+                    </div>
                 </div>
-                <div class="row">
-                    <button type="button" value="7" class="btn btn-secondary">7</button>
-                    <button type="button" value="8" class="btn btn-secondary">8</button>
-                    <button type="button" value="9" class="btn btn-secondary">9</button>
-                </div>
-                <div class="row">
-                    <button type="button" value="4" class="btn btn-secondary">4</button>
-                    <button type="button" value="5" class="btn btn-secondary">5</button>
-                    <button type="button" value="6" class="btn btn-secondary">6</button>
-                </div>
-                <div class="row">
-                    <button type="button" value="1" class="btn btn-secondary">1</button>
-                    <button type="button" value="2" class="btn btn-secondary">2</button>
-                    <button type="button" value="3" class="btn btn-secondary">3</button>    
-                </div>
-                <div class="row">
-                    <button type="button" value="0" class="btnZ">0</button>
-                    <button type="button" value="." class="btn btn-secondary">.</button>
+                <div class="col-4">
+                    <button type="button" value="-" class="btn btn-secondary">-</button>
+                    <button type="button" value="+" class="btn btn-light">+</button>
+                    <button type="submit" id="enter_btn"  name="anmelden_submit" class="btn btn-light">↵</button>
+                </div> 
+            </div>
+            <div class="clock-card">
+                <div class="clock">
+                    <div class="hour hand" id="hour"></div>
+                    <div class="minute hand" id="minute"></div>
+                    <div class="seconds hand" id="seconds"></div>
+                    <img class="clock-img" src="static/images/clock.png" alt="clock">
                 </div>
             </div>
-            <div class="col-4">
-                <button type="button" value="-" class="btn btn-secondary">-</button>
-                <button type="button" value="+" class="btn btn-light">+</button>
-                <button type="submit" id="enter_btn"  name="anmelden_submit" class="btn btn-light">↵</button>
-            </div> 
         </div>
     </div>
 
@@ -108,6 +114,34 @@
 
       }
 
+    let hour = document.getElementById("hour");
+    let minute = document.getElementById("minute");
+    let seconds = document.getElementById("seconds");
+
+    function setClock() {
+        let date_now = new Date();
+
+        let hr = date_now.getHours();
+        let min = date_now.getMinutes();
+        let sec = date_now.getSeconds();
+
+        let calc_hr = (hr * 30) + (min / 2);
+        let calc_min = (min * 6) + (sec / 10);
+        let calc_sec = sec * 6;
+
+        hour.style.transform = `rotate(${calc_hr}deg)`;
+        minute.style.transform = `rotate(${calc_min}deg)`;
+        seconds.style.transform = `rotate(${calc_sec}deg)`;
+    }
+
+    // Call setClock initially to set the hands' positions
+    setClock();
+
+    // Update clock every second
+    let set_clock = setInterval(() => {
+        setClock();
+    }, 1000);
+
 </script>
-  
+
 {% endblock %}

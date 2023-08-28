@@ -948,6 +948,10 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         
         date_string = parser.parse(request.form["datum"])
         xMengeGut = new_total - int(old_total) # Difference = new_total - old_total
+        if xMengeGut < 0:
+            flash(f"Der Neue Stand sollte größer sein als der Aktuellere Stand!")
+            return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
+        
         xMengeAus = 0
         hour = int(request.form["uhrzeit"])
         xTS = date_string.strftime(f"%d.%m.%Y {hour}:00:00")  #Stringtransporter Datum 
@@ -1730,9 +1734,9 @@ def get_list(listname, userid=None):
 
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen"],
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen"]]
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
@@ -1744,9 +1748,9 @@ def get_list(listname, userid=None):
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen"],
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen"]]
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
 # if __name__ == '__main__':
     
