@@ -99,9 +99,11 @@ dll_instances = {}
 def create_dll_copy(username):
     src_path_data = ROOT_DIR+"dll\\data\\X998.xml"
     dest_path_data = ROOT_DIR+f"dll\\data\\X998-{username}.xml"
+    print(f"copy from {src_path_data} to {dest_path_data}")
     shutil.copyfile(src_path_data, dest_path_data)
     src_path = ROOT_DIR+"dll\\bin\\kt002_PersNr.dll"
     dest_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{username}.dll"
+    print(f"copy from {src_path} to {dest_path}")
     shutil.copyfile(src_path, dest_path)
     return dest_path_data, dest_path
 
@@ -118,6 +120,9 @@ def delete_dll_copy(user):
         
 # Function to register user
 def register_user(username, password, verbose=False):
+    print("in register_user")
+    print(db.session.query(User))
+    print(db.session.query(User).filter_by(username=username).count())
     if db.session.query(User).filter_by(username=username).count() < 1:
         hashed_password = generate_password_hash(password, method='sha256')
         new_user = User(username=username, password=hashed_password)
@@ -313,11 +318,16 @@ def home():
         user = User(username=hostname, password=hostname)
         print(user.username)
         print(user, "user")
-        register_user(hostname, hostname)
-        login_user(User.query.filter_by(username=hostname).first())
+        newly_registred = register_user(hostname, hostname)
+        user = User.query.filter_by(username=hostname).first()
+        login_user(user)
         dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{hostname}.dll"
         print(dll_path)
-        user.dll_path = dll_path
+        if not newly_registred:
+            dll_path_data, dll_path = create_dll_copy(hostname)
+            user.dll_path = dll_path
+            user.dll_path_data = dll_path_data
+            db.session.commit()
         
         process = start_dll_process(PYTHON_PATH, dll_path, hostname)
         dll_instances[user.username] = process
@@ -380,10 +390,10 @@ def home():
             session["request_count"] = 1
         session["first_request"] = True
   
-        if session["request_count"] >= 3:
-            # returned from booking to home, terminate subprocess and delete process in db
-            dll_instances[current_user.username].terminate()
-            delete_user(current_user)
+        # if session["request_count"] >= 3:
+        #     # returned from booking to home, terminate subprocess and delete process in db
+        #     dll_instances[current_user.username].terminate()
+        #     delete_user(current_user)
         
         username = request.args.get('username')
         return render_template(
@@ -1414,9 +1424,11 @@ def start_booking(nr):
     buaction = 7
     bufunktion = 0
     # print('parameters',type(nr), type(activefkt), type(SCANTYPE), type(SHOWHOST), type(SCANON), type(KEYCODECOMPENDE))
+    print("ShowNumber...")
     result = communicate(dll_instances[current_user.username], "ShowNumber", nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "")
     ret, checkfa, sa = result
     write_log(f"ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}")
+    print("Pruef_PNr...")
     result = communicate(dll_instances[current_user.username], "Pruef_PNr", checkfa, nr, sa, bufunktion)
     ret, sa, bufunktion = result
     write_log(f"PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
