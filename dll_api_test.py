@@ -113,7 +113,7 @@ def encode(msg):
         return f"+++++\n"
     else:
         dtypes = [type(x).__name__ for x in msg]
-        return f"{'_____'.join(map(str, msg))}+++++{'_____'.join(dtypes)}\n"
+        return f"{'_____'.join(map(str, msg))}+++++{'_____'.join(dtypes)}"
 
 def start_dll_process(python_path, dll_path, hostname):
     subprocess_path = os.path.abspath(os.path.dirname(__file__)) + "\\dll_subprocess_test.py"

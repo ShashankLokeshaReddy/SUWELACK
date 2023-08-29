@@ -54,7 +54,7 @@ def encode(msg):
         return f"+++++\n"
     else:
         dtypes = [type(x).__name__ for x in msg]
-        return f"{'_____'.join(map(str, msg))}+++++{'_____'.join(dtypes)}\n"
+        return f"{'_____'.join(map(str, msg))}+++++{'_____'.join(dtypes)}"
 
 def returns(res):
     msg = f"_+++++{encode(res)}"
