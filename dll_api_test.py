@@ -3,6 +3,7 @@ import sys
 import clr
 import System
 import time
+import socket
 
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
 DFORMAT = "%d.%m.%Y"
@@ -98,9 +99,9 @@ def convert_dtype(args, dtypes):
             out.append(eval(dtype)(arg))
     return out
 
-def decode(line):
-    print(line)
-    command, args, dtypes = line.strip().split("+++++")
+def decode(msg):
+    # print(msg)
+    command, args, dtypes = msg.decode().strip().split("+++++")
     if len(args) == 0:  # no return
         return None, None, None
     args = args.split("_____")
@@ -110,18 +111,21 @@ def decode(line):
 
 def encode(msg):
     if msg is None:
-        return f"+++++\n"
+        return f"++++++++++"
     else:
         dtypes = [type(x).__name__ for x in msg]
         return f"{'_____'.join(map(str, msg))}+++++{'_____'.join(dtypes)}"
 
-def start_dll_process(python_path, dll_path, hostname):
+def start_dll_process(python_path, dll_path, hostname, socket_host, socket_port):
     subprocess_path = os.path.abspath(os.path.dirname(__file__)) + "\\dll_subprocess_test.py"
-    process = subprocess.Popen([python_path, subprocess_path, dll_path, hostname], stdin=subprocess.PIPE,
-                               stdout=subprocess.PIPE, universal_newlines=False)
-    return process
+    process = subprocess.Popen([python_path, subprocess_path, dll_path, hostname, socket_host, str(socket_port)])
+    time.sleep(0.1)
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    client.connect((socket_host, socket_port))
+    return client
 
-def communicate(process, command, *args):
+def communicate(client, command, *args):
     # print(type(command))
     # print(type(args))
     # print([command]+list(args))
@@ -130,73 +134,70 @@ def communicate(process, command, *args):
             raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
     
     data = f"{command}+++++{encode(args)}\n"
-    print(f"wrote {data}")
-    process.stdin.write(data.encode())
-    # process.stdin.write(data)
-    process.stdin.flush()
+    # print(f"writing {data}")
+    client.sendall(data.encode())
     
     # time.sleep(5)
     
-    # stdout = process.stdout
-    # print(f"stdoud: {stdout}")
-    # line_read = stdout.readline()
-    # print(f"line_read: {line_read}")
-    # decoded = line_read.decode()
-    # print(f"decoded: {decoded}")
-    decoded = process.stdout.readline().decode()
-    print(f"received {decoded}")
-    command, args, dtypes = decode(decoded)
+    received = client.recv(1024)
+    if received:
+        command, args, dtypes = decode(received)
     
-    if args is None:
-        print("returning None")
-        return None
-    elif len(args) > 1:
-        print(f"returning {args}")
-        return args
-    elif len(args) == 1:
-        print(f"returning {args[0]}")
-        return args[0]
-    else:
-        print("returning None")
-        return None
+        if args is None:
+            return None
+        elif len(args) > 1:
+            return args
+        elif len(args) == 1:
+            # print(f"returning {args[0]}")
+            return args[0]
+        else:
+            # print("returning None")
+            return None
 
+for i in range(100):
+    try:
+        start = time.time()
+        dll_path = f"C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr-test.dll"
+        python_path = "C:\\Users\\MSSQL\\PycharmProjects\\DLLTest\\venv\\Scripts\\python"
+        host = "localhost"
+        port = 12345
+        client = start_dll_process(python_path, dll_path, "test", host, port)
 
-# for i in range(100):
-start = time.time()
-dll_path = f"C:\\Users\\MSSQL\\PycharmProjects\\suwelack\\dll\\bin\\kt002_PersNr-test.dll"
-dll_process = start_dll_process('C:\\Users\\MSSQL\\PycharmProjects\\DLLTest\\venv\\Scripts\\python', dll_path, "test")
+        # print("------------------------------------")
 
-print("------------------------------------")
-args = ["1024",activefkt,SCANTYPE,SHOWHOST,SCANON,KEYCODECOMPENDE,checkfa,sa]
-result1 = communicate(dll_process, "ShowNumber", *args)
-print(result1)
+        # print("ShowNumber")
+        args = ["1024",activefkt,SCANTYPE,SHOWHOST,SCANON,KEYCODECOMPENDE,checkfa,sa]
+        result1 = communicate(client, "ShowNumber", *args)
+        # print(result1)
 
-print("------------------------------------")
+        # print("------------------------------------")
 
-args = ["1024",activefkt,SCANTYPE,SHOWHOST,SCANON,KEYCODECOMPENDE,checkfa,sa]
-result2 = communicate(dll_process, "ShowNumber", *args)
-print(result2)
+        # print("ShowNumber")
+        args = ["1024",activefkt,SCANTYPE,SHOWHOST,SCANON,KEYCODECOMPENDE,checkfa,sa]
+        result2 = communicate(client, "ShowNumber", *args)
+        # print(result2)
 
-print("------------------------------------")
+        # print("------------------------------------")
 
-args = [False, "1024", "G", bufunktion]
-result3 = communicate(dll_process, "Pruef_PNr", *args)
-print(result3)
+        # print("Pruef_PNr")
+        args = [False, "1024", "G", bufunktion]
+        result3 = communicate(client, "Pruef_PNr", *args)
+        # print(result3)
 
-print("------------------------------------")
-args = ["dr_TA05"]
-result3 = communicate(dll_process, "get", *args)
-print(result3)
+        # print("------------------------------------")
+        # print("dr_TA05")
+        args = ["dr_TA05"]
+        result3 = communicate(client, "get", *args)
+        # print(result3)
 
-print(f"poll: {dll_process.poll()}")
-communicate(dll_process, "shutdown")
-dll_process.wait()
-dll_process.terminate()
-dll_process.stdin.close()
-dll_process.stdout.close()
-# dll_process.wait()
-end = time.time()
-# print(f"iteration: {i}, time: {end-start}")
-print("------------------------------------")
-print(f"poll: {dll_process.poll()}")
-    # break
+        # print("------------------------------------")
+        args = []
+        result4 = communicate(client, "shutdown", *args)
+        # print(result4)
+
+        duration = time.time() - start
+        print(f"\ntook {round(duration, 3)} seconds")
+
+    finally:
+        client.shutdown(1)
+        client.close()
