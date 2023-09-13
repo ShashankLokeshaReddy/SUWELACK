@@ -1743,8 +1743,8 @@ def get_list(listname, userid=None):
         return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
     
     if listname == "zaehlerItems":
-        zaehler_info = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
-        return [zaehler_info["TA05_ArtikelBez"], zaehler_info["TA06_BelegNr"]]
+        private_data, global_data = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
+        return [private_data["TA05_ArtikelBez"], private_data["TA06_BelegNr"], global_data["TA05_ArtikelBez"], global_data["TA06_BelegNr"]]
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
