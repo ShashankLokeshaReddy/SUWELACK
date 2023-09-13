@@ -736,3 +736,8 @@ hr.solid {
     overflow-y: auto;
     margin-bottom: 1rem; /* Add a little space between the tables */
 }
+
+/* Style for the first div (top half of the screen) */
+.top-half {
+    height: 30vh; /* 50% of the viewport height */
+}

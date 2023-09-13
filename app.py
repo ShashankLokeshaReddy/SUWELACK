@@ -32,6 +32,8 @@ import ctypes
 from ctypes import *
 import numpy as np
 import pandas as pd
+# from concurrent.futures import ThreadPoolExecutor
+import concurrent.futures
 
 # CONSTANTS
 verwaltungsterminal = True   # variable to show Gruppen field in the UI or not
@@ -295,61 +297,68 @@ def home():
         clr.AddReference(dll_path)
         dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
         type = dll_ref.GetType('kt002_persnr.kt002')
-        instance = System.Activator.CreateInstance(type)
-        dll_instances[user.username] = instance
-        print("cccbn,", dll_instances, user.username)
-        instance.Init()
-        instance.InitTermConfig()
-        # time.sleep(1)
-        root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
-        SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
-        GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
-        BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
-        FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
-        X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
-        
-        inputBarValue = request.form["inputbar"]
-        username = None
-        try:
-            usernamepd = dbconnection.getPersonaldetails(inputBarValue)
-            username = usernamepd['formatted_name']
+        num_threads = 10000
+        with concurrent.futures.ThreadPoolExecutor(max_workers=num_threads) as executor:
+            # Submit tasks to the executor (creating instances).
+            instances = list(executor.map(lambda _: System.Activator.CreateInstance(type), range(num_threads)))
 
-        finally:
-            if "selectedButton" in request.form:
-                selectedButton = request.form["selectedButton"]
+            # Store instances in your dll_instances dictionary.
+            for i, instance in enumerate(instances):
+                instance = System.Activator.CreateInstance(type)
+                dll_instances[user.username] = instance
+                print("cccbn,", dll_instances, user.username)
+                instance.Init()
+                instance.InitTermConfig()
+                # time.sleep(1)
+                root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
+                SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
+                GKENDCHECK[user.username]  = bool(int(root[user.username].findall('X998_GKEndCheck')[0].text))  # X998_GKEndCheck
+                BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
+                FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
+                X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
+                
+                inputBarValue = request.form["inputbar"]
+                username = None
+                try:
+                    usernamepd = dbconnection.getPersonaldetails(inputBarValue)
+                    username = usernamepd['formatted_name']
 
-                if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
-                    return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
-                else:
-                    return redirect(url_for("identification", page=selectedButton))
+                finally:
+                    if "selectedButton" in request.form:
+                        selectedButton = request.form["selectedButton"]
 
-            elif "anmelden_submit" in request.form:
-                # something was put into the inputbar and enter was pressed
-                nr = inputBarValue
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                if not ret:
-                    # something went wrong or Auftragsbuchung
-                    if msg == "MSG0147C":  # Kartennummer scannen
-                        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                        write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
-                        return redirect(url_for("identification", page="_auftragsbuchung"))
-                    elif msg == "MSG0085":
-                        flash("Keine Berechtigung zur Buchung!")
-                    elif msg == "MSG0162":
-                        flash("Kartennummer ist inaktiv!")
-                    else:
-                        flash("Unerwarter Fehler!")
-                    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                    return redirect(url_for("home", username=username))
-                else:
-                    if username is None:
-                        # handle the case where username is not valid
-                        flash("Kartennummer ungültig!")
-                        write_log(f"invalid card number: {nr}")
-                        return redirect(url_for("home", username=""))
-                    else:
-                        # K/G Buchung
-                        return actbuchung(nr=nr, username=username, sa=sa)
+                        if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
+                            return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
+                        else:
+                            return redirect(url_for("identification", page=selectedButton))
+
+                    elif "anmelden_submit" in request.form:
+                        # something was put into the inputbar and enter was pressed
+                        nr = inputBarValue
+                        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
+                        if not ret:
+                            # something went wrong or Auftragsbuchung
+                            if msg == "MSG0147C":  # Kartennummer scannen
+                                dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                                write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                                return redirect(url_for("identification", page="_auftragsbuchung"))
+                            elif msg == "MSG0085":
+                                flash("Keine Berechtigung zur Buchung!")
+                            elif msg == "MSG0162":
+                                flash("Kartennummer ist inaktiv!")
+                            else:
+                                flash("Unerwarter Fehler!")
+                            dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                            return redirect(url_for("home", username=username))
+                        else:
+                            if username is None:
+                                # handle the case where username is not valid
+                                flash("Kartennummer ungültig!")
+                                write_log(f"invalid card number: {nr}")
+                                return redirect(url_for("home", username=""))
+                            else:
+                                # K/G Buchung
+                                return actbuchung(nr=nr, username=username, sa=sa)
 
     elif request.method == "GET":
         username = request.args.get('username')
@@ -1743,8 +1752,11 @@ def get_list(listname, userid=None):
         return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
     
     if listname == "zaehlerItems":
-        zaehler_info = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
-        return [zaehler_info["TA05_ArtikelBez"], zaehler_info["TA06_BelegNr"]]
+        private_data, global_data = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
+        print(private_data)
+        print("-----")
+        print(global_data)
+        return [private_data["TA05_ArtikelBez"], private_data["TA06_BelegNr"], global_data["TA05_ArtikelBez"], global_data["TA06_BelegNr"]]
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
