@@ -58,6 +58,8 @@ SCANCARDNO = True
 T905ALLOWROUTE = True
 ROUTEDIALOG = True
 SHOW_BUTTON_IDS = False  # If true, show Arbeitsplatz and GK IDs after their name for debugging
+SOCKETHOST = "localhost"  # host for DLL communication sockets
+
 
 sys.path.append("dll/bin")
 clr.AddReference("System.Collections")
@@ -274,6 +276,7 @@ def delete_user_route(user_id):
 @login_required
 def logout():
     # Delete the dll_instance for the logged out user
+    print(f"dll_instances_logout: {dll_instances}, {current_user.username}")
     del dll_instances[current_user.username]
     logout_user()
     return redirect(url_for('index'))
@@ -289,6 +292,14 @@ def write_log(msg):
     with open(fpath, "a+") as fout:
         # fout.write(f"\n{datetime_formatted} {username} -- {msg}")
         fout.write(f"\n{datetime_formatted} -- {msg}")
+        
+def get_free_port():
+    """Opens new socket and returns open port assigned by OS."""
+    sock = socket.socket()
+    sock.bind(('', 0))
+    free_port = sock.getsockname()[1]
+    sock.close()
+    return free_port
 
 # @babel.localeselector
 # def get_locale():
@@ -314,24 +325,29 @@ def home():
 
     # inst_current_user = dll_instances[current_user.username]
     if request.method == 'POST':
+        if current_user.is_authenticated:
+            user = current_user
+            logout_user()  # log out user, will get logged in again when beginning booking
+            delete_user(user)  # also delete user, will newly register when booking to get resh XML copy
+        
         hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
         user = User(username=hostname, password=hostname)
-        print(user.username)
-        print(user, "user")
         newly_registred = register_user(hostname, hostname)
         user = User.query.filter_by(username=hostname).first()
         login_user(user)
         dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{hostname}.dll"
-        print(dll_path)
         if not newly_registred:
             dll_path_data, dll_path = create_dll_copy(hostname)
             user.dll_path = dll_path
             user.dll_path_data = dll_path_data
             db.session.commit()
         
-        process = start_dll_process(PYTHON_PATH, dll_path, hostname)
+        try:
+            process = start_dll_process(PYTHON_PATH, dll_path, hostname, SOCKETHOST, get_free_port())
+        except TimeoutError:
+            write_log("DLL Subprozess konnte nicht gestartet werden.")
+            return redirect(url_for("home", username=username))
         dll_instances[user.username] = process
-        print("cccbn,", dll_instances, user.username)
         
         root[user.username] = ET.parse(f"../../dll/data/X998-{user.username}.xml").getroot()[0]  # parse X998.xml file for config
         SHOWMSGGEHT[user.username]  = bool(int(root[user.username].findall('X998_ShowMsgGeht')[0].text))  # X998_ShowMsgGeht
@@ -362,7 +378,7 @@ def home():
                 if not ret:
                     # something went wrong or Auftragsbuchung
                     if msg == "MSG0147C":  # Kartennummer scannen
-                        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                        communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                         write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
                         return redirect(url_for("identification", page="_auftragsbuchung"))
                     elif msg == "MSG0085":
@@ -371,7 +387,7 @@ def home():
                         flash("Kartennummer ist inaktiv!")
                     else:
                         flash("Unerwarter Fehler!")
-                    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                    communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                     return redirect(url_for("home", username=username))
                 else:
                     if username is None:
@@ -389,11 +405,18 @@ def home():
         else:
             session["request_count"] = 1
         session["first_request"] = True
-  
-        # if session["request_count"] >= 3:
-        #     # returned from booking to home, terminate subprocess and delete process in db
-        #     dll_instances[current_user.username].terminate()
-        #     delete_user(current_user)
+        
+        if current_user.is_authenticated:  # ignore first request when user is not logged in yet
+                if current_user.username in dll_instances:
+                    try:
+                        # terminate running dll subprocess when returning to home
+                        communicate(dll_instances[current_user.username], "shutdown")
+                        dll_instances[current_user.username].shutdown(1)
+                        dll_instances[current_user.username].close()
+                        del dll_instances[current_user.username]
+                    except ConnectionAbortedError:
+                        write_log("Could not shut down socket, already shut down?")
+                        del dll_instances[current_user.username]  # still delete reference and make new one
         
         username = request.args.get('username')
         return render_template(
@@ -439,7 +462,7 @@ def arbeitsplatzwechsel(userid):
             selectedArbeitsplatz, arbeitsplatzName = selectedArbeitsplatz.split(",")
             nr = userid
             write_log(f"Arbeitsplatzwechsel: nr:{nr}, selectedArbeitsplatz:{selectedArbeitsplatz}, arbeitsplatzName:{arbeitsplatzName}")
-            dll_instances[current_user.username].T905Read(selectedArbeitsplatz)
+            communicate(dll_instances[current_user.username], "T905Read", selectedArbeitsplatz)
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
             return actbuchung(nr=nr, username=username, sa=sa, arbeitsplatz=arbeitsplatzName)
 
@@ -482,7 +505,7 @@ def gemeinkosten_buttons(userid):
         write_log(f"Gememeinkosten: selected_gk:{selectedGemeinkosten}, gk_name:{gk_name}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_gk)  # start with GK nr
-        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_gk, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+        communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, selected_gk, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
         write_log(f"Buch4Clear: nr:{selected_gk}, sa:{sa}, buaction:{buaction}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
@@ -522,7 +545,7 @@ def zaehlerstand_buttons(userid):
         write_log(f"Zählerstand: selected_zs:{selected_zs}, zs_name:{zs_name}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(selected_zs)  # start with GK nr
-        dll_instances[current_user.username].PNR_Buch4Clear(1, selected_zs, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+        communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, selected_zs, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
         write_log(f"Buch4Clear: nr:{selected_zs}, sa:{sa}, buaction:{buaction}")
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)  # start again with userid
@@ -558,9 +581,9 @@ def arbeitsplatzbuchung(userid):
         if Belegnr == "error":
             flash("GK Auftrag für diesen Platz nicht definiert!")
             return redirect(url_for("arbeitsplatzbuchung", userid=userid))
-        ret = dll_instances[current_user.username].TA06Read(Belegnr)  # prese the BelegNr in the DLL
+        ret = communicate(dll_instances[current_user.username], "TA06Read", Belegnr)  # prese the BelegNr in the DLL
         if ret == False:
-            dll_instances[current_user.username].TA06ReadPlatz(Belegnr, Platz) 
+            communicate(dll_instances[current_user.username], "TA06ReadPlatz", Belegnr, Platz) 
         write_log(f"gk_erstellen: userid:{userid}, dauer:{dauer}, date:{TagId}")
         ret = gk_erstellen(userid, dauer, TagId)  # find time window
         if isinstance(ret, str):
@@ -569,7 +592,7 @@ def arbeitsplatzbuchung(userid):
         if not isinstance(ret, str):
             anfang_ts, ende_ts = ret
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr) 
-            dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
             return actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
         return redirect(url_for("home", userid=userid, username=username))
@@ -644,7 +667,7 @@ def identification(page):
         if page == "gemeinkostenbeenden":
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
             ta06gkend(userid=userid)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for("home", userid=userid, username=username))
         
         return redirect(url_for(page, userid=userid))
@@ -707,9 +730,9 @@ def gruppenbuchung(userid):
             if Belegnr == "error":
                 flash("GK Auftrag für diesen Platz nicht definiert!")
                 continue
-            ret = dll_instances[current_user.username].TA06Read(Belegnr)  # preset the BelegNr in the DLL
+            ret = communicate(dll_instances[current_user.username], "TA06Read", Belegnr)  # preset the BelegNr in the DLL
             if ret == False: 
-                dll_instances[current_user.username].TA06ReadPlatz(Belegnr, Platz)
+                communicate(dll_instances[current_user.username], "TA06ReadPlatz", Belegnr, Platz)
             write_log(f"gk_erstellen: userid:{userid}, dauer:{dauer}, date:{TagId}")
             ret = gk_erstellen(userid, dauer, TagId) # find time window
             if isinstance(ret, str):
@@ -717,7 +740,7 @@ def gruppenbuchung(userid):
             if not isinstance(ret, str):
                 anfang_ts, ende_ts = ret
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(Belegnr)  # GK ändern booking, this is the new GK BelegNr
-                dll_instances[current_user.username].PNR_Buch4Clear(1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, Belegnr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(str(userid))
                 actbuchung(nr=userid, username=username, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts)
                 time.sleep(0.25)  # make sure database has time to catch up
@@ -767,13 +790,13 @@ def fertigungsauftragerfassen(userid):
             arbeitsplatz = request.form["arbeitsplatz"]
             beleg_nr = request.form["auftrag"]
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
             if bufunktion == 3:
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
             else:
                 flash("Buchung fehlgeschlagen")
-                dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+                communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
                 return redirect(url_for('home',username=username,))
     else:
         return render_template(
@@ -859,7 +882,7 @@ def gemeinkostenandern(userid):
                 write_log(f"anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
                 
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 actbuchung(nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext)
                 return redirect(url_for("gemeinkostenandern", userid=userid))
@@ -876,7 +899,7 @@ def gemeinkostenandern(userid):
                 write_log(f"anfang_ts: {anfang_ts}, ende_ts: {ende_ts}")
                 
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(beleg_nr)
-                dll_instances[current_user.username].PNR_Buch4Clear(1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, beleg_nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 actbuchung(nr=userid, sa=sa, AAnfangTS=anfang_ts, AEndeTS=ende_ts, arbeitsplatz=pltz_id_bk, aBem=kurztext) 
                 return redirect(url_for("gemeinkostenandern", userid=userid))
@@ -925,28 +948,29 @@ def anmelden(userid, sa):
         write_log("%s at %s %s" % (username, selectedArbeitplatz, arbeitsplatzName))
 
         try:
-            result = dll_instances[current_user.username].PNR_Buch(sa, '', selectedArbeitplatz, '', '', '', 0)
+            result = communicate(dll_instances[current_user.username], "PNR_Buch", sa, '', selectedArbeitplatz, '', '', '', 0)
             xret, ASA, AKst, APlatz, xtagid, xkstk = result
             if len(xret) == 0:
                 write_log(f"PNR_Buch3: xtagid:{xtagid}, ASA:{ASA}. AKst:{AKst}, APlatz:{APlatz}")
-                dll_instances[current_user.username].PNR_Buch3(xtagid, ASA, AKst, APlatz, '', '', 0)
+                communicate(dll_instances[current_user.username], "PNR_Buch3", xtagid, ASA, AKst, APlatz, '', '', 0)
         except System.NullReferenceException:
             flash("Unerwarter Fehler!")
                 
         write_log(f"PNR_Buch4Clear: userid:{userid}, sa:{sa}")
-        result = dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+        result = communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         return redirect(url_for('home', username=username))
 
-    return render_template(
-        "anmelden.html",
-        date=datetime.now(),
-        user=userid,
-        username=username,
-        buttonText=get_list("arbeitsplatz"),
-        show_button_ids=SHOW_BUTTON_IDS,
-        sidebarItems=get_list("sidebarItems")
-    )
+    elif request.method == "GET":
+        return render_template(
+            "anmelden.html",
+            date=datetime.now(),
+            user=userid,
+            username=username,
+            buttonText=get_list("arbeitsplatz"),
+            show_button_ids=SHOW_BUTTON_IDS,
+            sidebarItems=get_list("sidebarItems")
+        )
 
 @app.route("/fabuchta56_dialog/<userid>/<old_total>/<platz>/<belegnr>", methods=["POST", "GET"])
 @login_required
@@ -974,13 +998,15 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         
         if request.form["submit"] == "submit_cancel":
             write_log(f"fabuchta56_dialog: canceling")
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for('home', username=username))
 
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_T910) == True:
-            xPersNr = int(dll_instances[current_user.username].gtv("T910_Nr"))
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) == True:
-            xTE = dll_instances[current_user.username].gtv("TA06_TE")
+        dr_T910 = communicate(dll_instances[current_user.username], "get", "dr_T910")
+        if dr_T910 is None:
+            xPersNr = int(communicate(dll_instances[current_user.username], "gtv", "T910_Nr"))
+        dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
+        if dr_TA06 is None:
+            xTE = communicate(dll_instances[current_user.username], "gtv", "TA06_TE")
         
         try:
             new_total = int(request.form["new_total"])
@@ -988,9 +1014,9 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
             flash(f"Der Zählerstand muss als ganze Zahl angegeben werden!")
             return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
         
-        if old_total < new_total:
+        if int(old_total) > new_total:
             flash(f"Neuer Zählerstand muss größer als alter Zählerstand sein!")
-            return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
+            return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=int(old_total), platz=platz, belegnr=belegnr))
             
         date_string = parser.parse(request.form["datum"])
         xMengeGut = new_total - int(old_total) # Difference = new_total - old_total
@@ -1000,9 +1026,9 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         
         if xbuchen == True:
             write_log(f"BuchTA56_3: {xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA}")
-            dll_instances[current_user.username].BuchTA56_3(xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
+            communicate(dll_instances[current_user.username], "BuchTA56_3", xFAStatus, xTS, platz, xPersNr, xMengeGut, xMengeAus, xTE, xtrman,
                                                             xta11nr, xcharge, new_total, xVal2, xVal3, xVal4, xVal5, xScanFA)
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         flash("Zählerstand erfolgreich zurückgemeldet.")
         return redirect(url_for('zaehlerstand_buttons', userid=userid))
@@ -1041,7 +1067,7 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
             xFAStatus = '20'  # Teilrückmeldung
         elif request.form["submit"] == "submit_cancel":
             write_log(f"fabuchta55_dialog: canceling")
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for('home', username=username))
             
         try:
@@ -1089,26 +1115,28 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
 
         if xbuchen:
             # Auftrag in DB schreiben
-            xPersNr = int(str(dll_instances[current_user.username].gtv("T910_Nr")))
+            xPersNr = int(str(communicate(dll_instances[current_user.username], "gtv", "T910_Nr")))
             # print(xPersNr)
             # print(System.Decimal.ToInt32(xPersNr))
             # print(int(str(xPersNr)))
-            xTE = dll_instances[current_user.username].gtv("TA06_TE")
-            write_log(f"BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
-            dll_instances[current_user.username].BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE,
+            xTE = communicate(dll_instances[current_user.username], "gtv", "TA06_TE")
+            T905_NrSelected = communicate(dll_instances[current_user.username], "get", "T905_NrSelected")
+            write_log(f"BuchTa55_3: {xFAStatus, xFATS, xFAEndeTS, T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE, float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
+            communicate(dll_instances[current_user.username], "BuchTA55_3", xFAStatus, xFATS, xFAEndeTS, T905_NrSelected, xPersNr, float(menge_gut), float(menge_aus), xTE,
                              float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
 
             # Störung setzen
             if tl51use:
-                write_log(f"BuchTA55_3_TL: {xFAEndeTS, dll_instances[current_user.username].T905_NrSelected}")
-                dll_instances[current_user.username].BuchTA55_3_TL(xFAEndeTS, dll_instances[current_user.username].T905_NrSelected)
+                T905_NrSelected = communicate(dll_instances[current_user.username], "get", "T905_NrSelected")
+                write_log(f"BuchTA55_3_TL: {xFAEndeTS, T905_NrSelected}")
+                communicate(dll_instances[current_user.username], "BuchTA55_3_TL", xFAEndeTS, T905_NrSelected)
 
             # directly add mengendialog for an Auftrag that is now starting, currently not implemented
             # if xInputMengeNew == 1:
                 # add another Mengendialog, maybe just reroute with skip?
                 # raise NotImplementedError
 
-            dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
 
         flash("FA erfolgreich gebucht.")
         logging.info("successful")
@@ -1193,14 +1221,22 @@ def fabuchta51_dialog(userid):
         
         xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
         xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-        dll_instances[current_user.username].BuchTA51_3(xTSEnd, dll_instances[current_user.username].gtv("T910_Nr"), dll_instances[current_user.username].gtv("TA06_FA_Nr"), dll_instances[current_user.username].gtv("TA06_BelegNr"),
-                         xStatusMenge, dll_instances[current_user.username].gtv("T910_Entlohnung"), dll_instances[current_user.username].gtv("T905_Nr"),
-                         dll_instances[current_user.username].gtv("TA06_TE"), dll_instances[current_user.username].gtv("TA06_TR"), 0, float(menge_gut), float(menge_aus),
-                         float(ruestzeit), lagerplatz, charge,
-                         xVal1, xVal2, xVal3, xVal4, xVal5, dll_instances[current_user.username].gtv("TA06_FA_Art"), xTS)
+        T910_Nr = communicate(dll_instances[current_user.username], "gtv", "T910_Nr")
+        TA06_FA_Nr = communicate(dll_instances[current_user.username], "gtv", "TA06_FA_Nr")
+        TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
+        T910_Entlohnung = communicate(dll_instances[current_user.username], "gtv", "T910_Entlohnung")
+        T905_Nr = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
+        TA06_TE = communicate(dll_instances[current_user.username], "gtv", "TA06_TE")
+        TA06_TR = communicate(dll_instances[current_user.username], "gtv", "TA06_TR")
+        TA06_FA_Art = communicate(dll_instances[current_user.username], "gtv", "TA06_FA_Art")
+        communicate(dll_instances[current_user.username], "BuchTA51_3", xTSEnd, T910_Nr, TA06_FA_Nr, TA06_BelegNr,
+                         xStatusMenge, T910_Entlohnung, T905_Nr, TA06_TE, TA06_TR, 0, float(menge_gut), float(menge_aus),
+                         float(ruestzeit), lagerplatz, charge, xVal1, xVal2, xVal3, xVal4, xVal5, TA06_FA_Art, xTS)
 
-        xret = "FA Buchen;MSG0166" + ";" + dll_instances[current_user.username].gtv("TA06_BelegNr") + ";" + dll_instances[current_user.username].gtv("TA06_AgBez")
-        dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+        TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
+        TA06_AgBez = communicate(dll_instances[current_user.username], "gtv", "TA06_AgBez")
+        xret = "FA Buchen;MSG0166" + ";" + TA06_BelegNr + ";" + TA06_AgBez
+        communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
         return redirect(url_for(home, username=username))
 
     return render_template(
@@ -1219,7 +1255,7 @@ def endta51cancelt905(apersnr):
     xgk = ''
     final_ret = ''
 
-    xmsg = dll_instances[current_user.username].EndTA51GKCheck()
+    xmsg = communicate(dll_instances[current_user.username], "EndTA51GKCheck")
     logging.info('result EndTA51GKCheck: ' + xmsg)
 
     if len(xmsg) > 0:
@@ -1231,7 +1267,7 @@ def endta51cancelt905(apersnr):
             if model_yes:
                 userid = dbconnection.getUserID(apersnr)
                 ret = dbconnection.doGKBeenden(userid, FirmaNr[current_user.username])
-                result = dll_instances[current_user.username].EndTA51GKSave()
+                result = communicate(dll_instances[current_user.username], "EndTA51GKSave")
                 if ret==True:
                     final_ret = "GK"
                 else:
@@ -1248,7 +1284,7 @@ def endta51cancelt905(apersnr):
             write_log(f'endta51cancelt905: vorangegangen GK beenden')
             userid = dbconnection.getUserID(apersnr)
             ret = dbconnection.doGKBeenden(userid, FirmaNr[current_user.username])
-            result = dll_instances[current_user.username].EndTA51GKSave()
+            result = communicate(dll_instances[current_user.username], "EndTA51GKSave")
             if ret==True:
                 final_ret = "GK"
             else:
@@ -1275,7 +1311,7 @@ def endta51cancelt905(apersnr):
         xbcancel=1 #nix zu beenden
 
     # Prüfen ob Fertigungsaufträge und GK-Aufträge laufen
-    result = dll_instances[current_user.username].EndTA51FACheck(xfa, xgk)
+    result = communicate(dll_instances[current_user.username], "EndTA51FACheck", xfa, xgk)
     xret, xfa, xgk = result
 
     if xret is None:
@@ -1285,12 +1321,12 @@ def endta51cancelt905(apersnr):
     # FA sind zu beenden
     if len(xfa) > 0:
         write_log('Info mit Eingabeaufforderung S903_ID=MSG0132 "Sollen alle laufenden Aufträge ohne Mengeneingabe beendet werden? ok/no"')
-        result = dll_instances[current_user.username].EndTA51Save()
+        result = communicate(dll_instances[current_user.username], "EndTA51Save")
         final_ret = "FA"
 
     # GK sind zu beenden
     if len(xgk) > 0:
-        result = dll_instances[current_user.username].EndTA51GKSave()
+        result = communicate(dll_instances[current_user.username], "EndTA51GKSave")
         final_ret = "GK"
 
     return final_ret
@@ -1320,7 +1356,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
     #Prüfen, ob WB gemacht werden muß
     #nur dann, wenn Arbeitsplatz gelesen worden ist!
     dr_T905 = communicate(dll_instances[current_user.username], "get", "dr_T905")
-    if communicate(dll_instances[current_user.username], "CheckObject", dr_T905) is True:
+    if dr_T905 is not None:
         write_log("dr_T905 vorhanden")
         #Vor Buchung, prüfen, ob Kst der Person mit der Kst des zu buchenden Arbeitsplatz stimmt! Wenn nicht Wechsebuchung erzeugen!
         #Wechselbuchung triggert auf T955!!
@@ -1328,15 +1364,16 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
     # Auftrag finden
     dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
-    if communicate(dll_instances[current_user.username], "CheckObject", dr_TA06) is True:
+    if dr_TA06 is not None:
         write_log('bufa CO drta06 exist')
     else:
         # FANr wird gescannt und über T905ArbGRNr oder T909 und Platz Soll wird Beleg gefunden
         # Buchung auf FA_Nr
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA05) is True:
-            xt905nr = dll_instances[current_user.username].gtv("T905_Nr")
-            xfanr = dll_instances[current_user.username].gtv("TA05_FA_Nr")
-            result = dll_instances[current_user.username].TA06ReadArbGrNr(xfanr, xt905nr)
+        dr_TA05 = communicate(dll_instances[current_user.username], "get", "dr_TA05")
+        if dr_TA05 is not None:
+            xt905nr = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
+            xfanr = communicate(dll_instances[current_user.username], "gtv", "TA05_FA_Nr")
+            result = communicate(dll_instances[current_user.username], "TA06ReadArbGrNr", xfanr, xt905nr)
             write_log('TA06Read ' + result)
             if result == 1:
                 xScanFA = 1
@@ -1345,15 +1382,15 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
     if len(xFehler) == 0:
         # Prüfen, ob FA bebucht werden darf
-        print(dll_instances[current_user.username].gtv("dr_TA06"))
-        result = dll_instances[current_user.username].BuFANr0Status(xbBuchZiel)
+        dr_TA06 = communicate(dll_instances[current_user.username], "gtv", "dr_TA06")
+        result = communicate(dll_instances[current_user.username], "BuFANr0Status", xbBuchZiel)
         xret, xbBuchZiel = result
         write_log('Bufanrstatus ' + xret + ', Buchziel ' + str(xbBuchZiel))
 
         if len(xFehler) == 0:
             if xbBuchZiel == 1:
 
-                result = dll_instances[current_user.username].BuchTA55_0(xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS,
+                result = communicate(dll_instances[current_user.username], "BuchTA55_0", xInputMenge, xInputMengeNew, xFARueckEnd, xScanFA, xFAStatus, xFATS, xFAEndeTS,
                                           xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe)
                 xret, xInputMenge, xInputMengeNew, xScanFA, xFAStatus, xFATS, xFAEndeTS, xFAMeGut, xFAMeGes, xFANewScanFA, xFANewStatus, xFANewMeGes, xFANewMe = result
                 write_log(f"BuchTA55_0: {result}")
@@ -1363,7 +1400,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
                     write_log(f"Buchung fehlgeschlagen!")
                     usernamepd = dbconnection.getPersonaldetails(userid)
                     username = usernamepd['formatted_name']
-                    dll_instances[current_user.username].PNR_Buch4Clear(1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+                    communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
                     return redirect(url_for("home", username=username))
 
                 if xInputMenge == 1:
@@ -1376,7 +1413,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
                     # don't show Mengendialog
                     write_log("Kein Mengendialog")
                     xFehler = fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA)
-                    dll_instances[current_user.username].PNR_Buch4Clear(1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+                    communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
                     flash("Fertigungsauftrag gebucht.")
                     usernamepd = dbconnection.getPersonaldetails(userid)
                     username = usernamepd['formatted_name']
@@ -1387,15 +1424,17 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
                     xPlatz = ""
                 else:
                     xPlatz = platz
-                if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) == True:
-                    belegnr = dll_instances[current_user.username].gtv("TA06_BelegNr")
+                dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
+                if dr_TA06 is not None:
+                    belegnr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
                 write_log(f"Buchziel 2: Belegnr:{belegnr}")
                 # letzten Zählerstand holen und Platz wird aus Soll_Platz des FA geholt (jeder Zähler ist einem anderen Platz zugeordnet, Person bucht für andere)
-                result = dll_instances[current_user.username].BuchTA56_0(xPlatz)
+                result = communicate(dll_instances[current_user.username], "BuchTA56_0", xPlatz)
                 xret, xPlatz = result
                 write_log(f"BuchTA56_0: xret:{xret}, xPlatz:{xPlatz}")
-                if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA56) == True:
-                    old_total = dll_instances[current_user.username].gtv("TA56_Wert") # letzter Zählerstand
+                dr_TA56 = communicate(dll_instances[current_user.username], "get", "dr_TA56")
+                if dr_TA56 is not None:
+                    old_total = int(communicate(dll_instances[current_user.username], "gtv", "TA56_Wert")) # letzter Zählerstand
                 return redirect(url_for("fabuchta56_dialog", userid=userid, old_total=old_total, belegnr=belegnr, platz=xPlatz))
             else:
                 usernamepd = dbconnection.getPersonaldetails(userid)
@@ -1405,7 +1444,9 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
         usernamepd = dbconnection.getPersonaldetails(userid)
         username = usernamepd['formatted_name']
         xFehler = ("Kein Auftrag!", ata22dauer)
-        if dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA06) is True and dll_instances[current_user.username].CheckObject(dll_instances[current_user.username].dr_TA05) is False:
+        dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
+        dr_TA05 = communicate(dll_instances[current_user.username], "get", "dr_TA05")
+        if dr_TA06 is not None and dr_TA05 is None:
             xFehler = ("Keine Kopfdaten vorhanden!", ata22dauer)
             write_log(f"Keine Kopfdaten vorhanden!, ata22dauer:{ata22dauer}")
             flash("Keine Kopfdaten vorhanden!")
@@ -1423,16 +1464,13 @@ def start_booking(nr):
     activefkt = ""
     buaction = 7
     bufunktion = 0
-    # print('parameters',type(nr), type(activefkt), type(SCANTYPE), type(SHOWHOST), type(SCANON), type(KEYCODECOMPENDE))
-    print("ShowNumber...")
     result = communicate(dll_instances[current_user.username], "ShowNumber", nr, activefkt, SCANTYPE, SHOWHOST, SCANON, KEYCODECOMPENDE, False, "")
     ret, checkfa, sa = result
     write_log(f"ShowNumber ret: {ret}, checkfa: {checkfa}, sa: {sa}")
-    print("Pruef_PNr...")
     result = communicate(dll_instances[current_user.username], "Pruef_PNr", checkfa, nr, sa, bufunktion)
     ret, sa, bufunktion = result
     write_log(f"PruefPNr ret: {ret}, sa: {sa}, bufunktion: {bufunktion}")
-        
+    
     result = communicate(dll_instances[current_user.username], "Pruef_PNrFkt", nr, bufunktion, SCANTYPE, sa, buaction, APPMSCREEN2, SERIAL, activefkt, "",
                                 "", "")
     ret, sa, buaction, activefkt, msg, msgfkt, msgdlg = result
@@ -1454,18 +1492,22 @@ def fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     xVal5=0.0
     tl51use=False
 		
-    #Auftrag in DB schreiben
-    #xClDetails noch zu lösen
-    xPersNr = dll_instances[current_user.username].gtv("T910_Nr")
-    xTE = dll_instances[current_user.username].gtv("TA06_TE")
+    # Auftrag in DB schreiben
+    # xClDetails noch zu lösen
+    xPersNr = communicate(dll_instances[current_user.username], "gtv", "T910_Nr")
+    xTE = communicate(dll_instances[current_user.username], "gtv", "TA06_TE")
     xScanFA = int(xScanFA)  # make sure dtype is correct
-    write_log(f"BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
-    dll_instances[current_user.username].BuchTA55_3(xFAStatus, xFATS, xFAEndeTS, dll_instances[current_user.username].T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA)
+    T905_NrSelected = communicate(dll_instances[current_user.username], "get", "T905_NrSelected")
+    write_log(f"BuchTA55_3 input: {xFAStatus, xFATS, xFAEndeTS, T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1, xVal2, xVal3, xVal4, xVal5, xScanFA}")
+    communicate(dll_instances[current_user.username], "BuchTA55_3", xFAStatus, xFATS, xFAEndeTS,
+                T905_NrSelected, xPersNr, xFAMeGut, xMengeAus, xTE, xtrman, xta11nr, xcharge, xVal1,
+                xVal2, xVal3, xVal4, xVal5, xScanFA)
 
     #Störung setzen
     #MDEGK_Ruest FA-Nr für Rüsten muß in Global Param definiert sein
     if tl51use == True:
-        dll_instances[current_user.username].BuchTA55_3_TL(xFAEndeTS, dll_instances[current_user.username].T905_NrSelected)
+        T905_NrSelected = communicate(dll_instances[current_user.username], "get", "T905_NrSelected")
+        communicate(dll_instances[current_user.username], "BuchTA55_3_TL", xFAEndeTS, T905_NrSelected)
     
     # Below does not happen for now
     # if xInputMengeNew == 1:
@@ -1510,12 +1552,12 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     xVal5 = 0.0
     xbCancel = False
 
-    xTA22Dauer = dll_instances[current_user.username].gtv("TA22_Dauer")  # aus TA06 gelesen
+    xTA22Dauer = int(communicate(dll_instances[current_user.username], "gtv", "TA22_Dauer"))  # aus TA06 gelesen
     if ata22dauer.isnumeric():
         xTA22Dauer = int(ata22dauer)  # if given, take assume this
 
     write_log(f"PRE BuchTA51_0 xTA22Dauer: {xTA22Dauer}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
-    result = dll_instances[current_user.username].BuchTA51_0(xTA22Dauer, xTS, xStatusMenge)
+    result = communicate(dll_instances[current_user.username], "BuchTA51_0", xTA22Dauer, xTS, xStatusMenge)
     xret, xTS, xStatusMenge = result
     xAnfangTS = datetime.strptime(xTS, DTFORMAT)
     write_log(f"BuchTA51_0 xret: {xret}, xTS: {xTS}, xStatusMenge: {xStatusMenge}")
@@ -1525,7 +1567,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     write_log("xTS:" + xTS + " Datum:" + xAnfangTS.strftime(DTFORMAT))
     if len(xret) > 0:
         flash("Laufende Aufträge beendet.")
-        dll_instances[current_user.username].PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+        communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
         write_log(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
         return redirect(url_for(
             'home',
@@ -1541,20 +1583,34 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     #         xret = "MSG0133"
  
     if xbCancel is False:
-        xta22typ = dll_instances[current_user.username].gtv("TA22_Typ")
+        xta22typ = communicate(dll_instances[current_user.username], "gtv", "TA22_Typ")
         write_log("xta22typ:" + xta22typ)
-        if dll_instances[current_user.username].gtv("TA22_Typ") == "7":
-            xDialog=True
+        if xta22typ == "7":
+            xDialog = True
             if xDialog == True:
                 xTSEnd = xEndeTS.strftime("%d.%m.%Y %H:%M:%S")
                 xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S") 
                 if platz == None:
-                    platz = dll_instances[current_user.username].gtv("T905_Nr")
-                dll_instances[current_user.username].BuchTA51_3( xTSEnd, int(str(dll_instances[current_user.username].gtv("T910_Nr"))), dll_instances[current_user.username].gtv("TA06_FA_Nr"), dll_instances[current_user.username].gtv("TA06_BelegNr"), xStatusMenge, dll_instances[current_user.username].gtv("T910_Entlohnung")
-                ,platz, dll_instances[current_user.username].gtv("TA06_TE"), dll_instances[current_user.username].gtv("TA06_TR"), 0, xMengeGut, xMengeAus, xTRMan, xTA11Nr, xCharge, xVal1, xVal2, xVal3, xVal4, xVal5, dll_instances[current_user.username].gtv("TA06_FA_Art"), xTS)
+                    platz = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
+                
+                T910_Nr = communicate(dll_instances[current_user.username], "gtv", "T910_Nr")
+                TA06_FA_Nr = communicate(dll_instances[current_user.username], "gtv", "TA06_FA_Nr")
+                TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
+                T910_Entlohnung = communicate(dll_instances[current_user.username], "gtv", "T910_Entlohnung")
+                TA06_TE = communicate(dll_instances[current_user.username], "gtv", "TA06_TE")
+                TA06_TR = communicate(dll_instances[current_user.username], "gtv", "TA06_TR")
+                TA06_FA_Art = communicate(dll_instances[current_user.username], "gtv", "TA06_FA_Art")
+                xMengeGut = 0
+                xMengeAus = 0
+                communicate(dll_instances[current_user.username], "BuchTA51_3", xTSEnd, int(str(T910_Nr)), TA06_FA_Nr, TA06_BelegNr, xStatusMenge,
+                                                                T910_Entlohnung, platz, TA06_TE, TA06_TR, 0, xMengeGut, xMengeAus,
+                                                                xTRMan, xTA11Nr, xCharge, xVal1, xVal2, xVal3, xVal4, xVal5,
+                                                                TA06_FA_Art, xTS)
                 
                 #msg0166=Auftrag "_Msg1" wurde gebucht!
-                xret = "FA Buchen;MSG0166" + ";" + dll_instances[current_user.username].gtv("TA06_BelegNr") + ";" + dll_instances[current_user.username].gtv("TA06_AgBez")
+                TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
+                TA06_AgBez = communicate(dll_instances[current_user.username], "gtv", "TA06_AgBez")
+                xret = "FA Buchen;MSG0166" + ";" + TA06_BelegNr + ";" + TA06_AgBez
             else:
                 # 'EvtMsgDisplay("FA Buchen", "MSG0133", "", "")
                 #MSG0133=Vorgang wurde abgebrochen
@@ -1565,41 +1621,50 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
         else:
             # vorangegangenen Auftrag unterbrechen
             xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
-            t901_nr_print = int(str(dll_instances[current_user.username].gtv("T910_Nr")))
+            T910_Nr = communicate(dll_instances[current_user.username], "gtv", "T910_Nr")
+            t901_nr_print = int(str(T910_Nr))
             write_log(f"PRE BuchTa51_4_Cancel xTS: {xTS}, T910_Nr: {t901_nr_print}")
-            dll_instances[current_user.username].BuchTA51_4_Cancel(xTS, int(str(dll_instances[current_user.username].gtv("T910_Nr"))))
+            communicate(dll_instances[current_user.username], "BuchTA51_4_Cancel", xTS, int(str(T910_Nr)))
 
-            if dll_instances[current_user.username].gtv("TA22_Dauer") != 1:
+            TA22_Dauer = int(communicate(dll_instances[current_user.username], "gtv", "TA22_Dauer"))
+            if TA22_Dauer != 1:
                 if aAnfangTS is None and aEndeTS is None:
                     # if not booking with Dauer, add a second for safety (?)
                     xAnfangTS = xAnfangTS + timedelta(seconds = 1) #xAnfangTS.AddSeconds(1)
                 xTS = xAnfangTS.strftime("%d.%m.%Y %H:%M:%S")
                 
                 xcl = Generic.Dictionary[String,Object]() #leere liste
-                xdmegut = dll_instances[current_user.username].gtv("TA06_Soll_Me")
+                xdmegut = communicate(dll_instances[current_user.username], "gtv", "TA06_Soll_Me")
                 xsmegut = str(xdmegut)
                 xmegut = float(xsmegut.replace(",","."))
                 if platz == None:
-                    platz = dll_instances[current_user.username].gtv("T905_Nr")
+                    platz = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
                 
-                print(dll_instances[current_user.username].gtv("T910_Nr"))
-                print(int(str(dll_instances[current_user.username].gtv("T910_Nr"))))
-                xret = dll_instances[current_user.username].BuchTA51_3(xTSEnd, int(str(dll_instances[current_user.username].gtv("T910_Nr"))), dll_instances[current_user.username].gtv("TA06_FA_Nr"),
-                                        dll_instances[current_user.username].gtv("TA06_BelegNr"), xStatusMenge, dll_instances[current_user.username].gtv("T910_Entlohnung"),
-                                        platz, dll_instances[current_user.username].gtv("TA06_TE"), dll_instances[current_user.username].gtv("TA06_TR"), 0.0,
-                                        xmegut, float(0.0), xTRMan, xTA11Nr, xCharge,
-                                        xVal1, xVal2, xVal3, xVal4, xVal5, dll_instances[current_user.username].gtv("TA06_FA_Art"), xTS)
+                T910_Nr = communicate(dll_instances[current_user.username], "gtv", "T910_Nr")
+                TA06_FA_Nr = communicate(dll_instances[current_user.username], "gtv", "TA06_FA_Nr")
+                TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
+                T910_Entlohnung = communicate(dll_instances[current_user.username], "gtv", "T910_Entlohnung")
+                TA06_TE = communicate(dll_instances[current_user.username], "gtv", "TA06_TE")
+                TA06_TR = communicate(dll_instances[current_user.username], "gtv", "TA06_TR")
+                TA06_FA_Art = communicate(dll_instances[current_user.username], "gtv", "TA06_FA_Art")
+                xret = communicate(dll_instances[current_user.username], "BuchTA51_3", xTSEnd, int(str(T910_Nr)), TA06_FA_Nr,
+                                                                       TA06_BelegNr, xStatusMenge, T910_Entlohnung,
+                                                                       platz, TA06_TE, TA06_TR, 0.0, xmegut,
+                                                                       float(0.0), xTRMan, xTA11Nr, xCharge, xVal1,
+                                                                       xVal2, xVal3, xVal4, xVal5, TA06_FA_Art, xTS)
                 write_log(f"2nd BuchTA51_3: {xret}")
-                
-            xret = "FA Buchen;MSG0166" + ";" + dll_instances[current_user.username].dr_TA06.get_Item("TA06_BelegNr") + ";" + dll_instances[current_user.username].dr_TA06.get_Item(
-                "TA06_AgBez")
-    dll_instances[current_user.username].PNR_Buch4Clear(1, nr, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
+            
+            TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
+            TA06_AgBez = communicate(dll_instances[current_user.username], "gtv", "TA06_AgBez")
+            xret = "FA Buchen;MSG0166" + ";" + TA06_BelegNr + ";" + TA06_AgBez
+    communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, '', '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
     write_log(f"Buch4Clear: nr:{nr}, sa:{''}, buaction:{1}")
     flash("Gemeinkosten erfolgreich gebucht.")
     return redirect(url_for("home", username=username))
 
 
-def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="", arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None, endroute="home"):
+def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="",
+               arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None, endroute="home"):
     """K/G/A booking according to sa for user with given card nr and username."""
     xT905Last = ""
     xTA29Last = ""
@@ -1614,7 +1679,7 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
     if len(xret) > 0:  # Fehler
         dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
         dr_TA05 = communicate(dll_instances[current_user.username], "get", "dr_TA05")
-        if communicate(dll_instances[current_user.username], "CheckObject", dr_TA06) is True or communicate(dll_instances[current_user.username], "CheckObject", dr_TA05) is True:
+        if dr_TA06 is not None or dr_TA05 is not None:
             flash("Fehler: Keine Auftragsbuchung ohne Kommt!")
             write_log("Keine Auftragsbuchung ohne Kommt!")
             communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
@@ -1625,7 +1690,7 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
             communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
             return redirect(url_for("home", username=username))
 
-    xpersnr = dll_instances[current_user.username].T910NrGet()
+    xpersnr = communicate(dll_instances[current_user.username], "T910NrGet")
     xret = ""
 
     cancel_xret = endta51cancelt905(xpersnr)
@@ -1639,16 +1704,14 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
         return redirect(url_for("home", username=username))
 
     dr_T905 = communicate(dll_instances[current_user.username], "get", "dr_T905")
-    dr_T905_checkobj = communicate(dll_instances[current_user.username], "CheckObject", dr_T905)
-    if dr_T905_checkobj is True:
+    if dr_T905 is not None:
         t905nr = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
 
     dr_TA06 = communicate(dll_instances[current_user.username], "get", "dr_TA06")
     dr_TA05 = communicate(dll_instances[current_user.username], "get", "dr_TA05")
-    dr_TA06_true = communicate(dll_instances[current_user.username], "CheckObject", dr_TA06)
-    if dr_TA06_true is True or communicate(dll_instances[current_user.username], "CheckObject", dr_TA05) is True:
+    if dr_TA06 is not None or dr_TA05 is not None:
         write_log("TA06 or TA05 True")
-        if dr_TA06_true is True:
+        if dr_TA06 is not None:
             write_log("TA06 True")
             T951_Arbist = communicate(dll_instances[current_user.username], "gtv", "T951_Arbist")
             TA06_Platz_Soll = communicate(dll_instances[current_user.username], "gtv", "TA06_Platz_Soll")
@@ -1671,14 +1734,14 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
                     return redirect(url_for("home", username=username))
 
         if len(xret) == 0:
-            if dr_T905_checkobj is False:
+            if dr_T905 is None:
                 dr_T951 = communicate(dll_instances[current_user.username], "get", "dr_T951")
-                if communicate(dll_instances[current_user.username], "CheckObject", dr_T951) is True:
+                if dr_T951 is not None:
                     T951_Arbist = communicate(dll_instances[current_user.username], "gtv", "T951_Arbist")
                     communicate(dll_instances[current_user.username], "T905Read", T951_Arbist)
 
             T905_Nr = communicate(dll_instances[current_user.username], "gtv", "T905_Nr")
-            communicate(dll_instances[current_user.username], "T905_NrSelected", T905_Nr)
+            communicate(dll_instances[current_user.username], "set", "T905_NrSelected", T905_Nr)
             TA06_BelegNr = communicate(dll_instances[current_user.username], "gtv", "TA06_BelegNr")
             return bufa(ANr=TA06_BelegNr, ata22dauer=ata22dauer, aAnfangTS=AAnfangTS, aEndeTS=AEndeTS, platz=arbeitsplatz, aBem=aBem, userid=nr, endroute=endroute)
 
@@ -1713,7 +1776,7 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
 
 def ta06gkend(userid,AScreen2=None):
 	
-	xMsg = dll_instances[current_user.username].EndTA51GKCheck()
+	xMsg = communicate(dll_instances[current_user.username], "EndTA51GKCheck")
 	if len(xMsg) == 0:
 		flash("Keine GK zu Beenden!") # Es gibt keine Gemeinkostenaufträge zu beenden!  || nothing to terminate
 	else:
@@ -1740,7 +1803,7 @@ def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 	else:
 		# dauer == 0 meaning no new booking, just delete old
 		write_log("nur gelöscht")
-		# result = dll_instances[current_user.username].PNR_Buch4Clear(1, scanvalue, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
+		# result = communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, scanvalue, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
 		return "Nur gelöscht"
 
 
@@ -1793,9 +1856,9 @@ def get_list(listname, userid=None):
 
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen"],
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen"]]
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
@@ -1807,9 +1870,9 @@ def get_list(listname, userid=None):
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen"],
+                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen"]]
+                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
 # if __name__ == '__main__':
     
