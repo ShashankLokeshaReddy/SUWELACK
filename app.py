@@ -135,7 +135,7 @@ def retry_db_calls(max_retries, timeout):
 
             # If all retries fail, raise the exception to the top-level exception handling
             # raise Exception("Database call failed after multiple retries")
-            flash("Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert")
+            flash("Es konnte keine Verbindung zur Datenbank aufgebaut werden!")
             return redirect(url_for('home'))
         
         return wrapper
@@ -180,9 +180,6 @@ def delete_dll_copy(user):
         
 # Function to register user
 def register_user(username, password, verbose=False):
-    print("in register_user")
-    print(db.session.query(User))
-    print(db.session.query(User).filter_by(username=username).count())
     if db.session.query(User).filter_by(username=username).count() < 1:
         hashed_password = generate_password_hash(password, method='sha256')
         new_user = User(username=username, password=hashed_password)
@@ -224,7 +221,6 @@ class LoginForm(FlaskForm):
             dll_path = user.dll_path
             dll_path_data = user.dll_path_data
             if dll_path and os.path.exists(dll_path) and dll_path_data and os.path.exists(dll_path_data):
-                print("Adding reference " + dll_path)
                 clr.AddReference(dll_path)
                 dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
                 type = dll_ref.GetType('kt002_persnr.kt002')
@@ -280,7 +276,7 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 login_user(user)
                 return redirect(url_for('dashboard'))
-        flash('ungültiger Benutzername oder Passwort')
+        flash('Ungültiger Benutzername oder Passwort!')
     return render_template('login.html', form=form, buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
 
 @app.route('/dashboard')
@@ -305,7 +301,7 @@ def edit_user(user_id):
             form.username.data = user.username
             return render_template('register.html', form=form, buttonValues=get_list("homeButtons"), sidebarItems=get_list("sidebarItems"))
     else:
-        flash('Benutzer nicht gefunden')
+        flash('Benutzer nicht gefunden!')
         return redirect(url_for('dashboard'))
 
 def delete_user(user):
@@ -334,7 +330,6 @@ def delete_user_route(user_id):
 @login_required
 def logout():
     # Delete the dll_instance for the logged out user
-    print(f"dll_instances_logout: {dll_instances}, {current_user.username}")
     del dll_instances[current_user.username]
     logout_user()
     return redirect(url_for('index'))
@@ -859,7 +854,7 @@ def fertigungsauftragerfassen(userid):
                 ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
                 return actbuchung(nr=userid, sa=sa, endroute="fertigungsauftragerfassen")
             else:
-                flash("Buchung fehlgeschlagen")
+                flash("Buchung fehlgeschlagen!")
                 communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, userid, sa, '', 1, GKENDCHECK[current_user.username], '', '', '', '', '')
                 return redirect(url_for('home',username=username,))
     else:
@@ -1086,7 +1081,7 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         date_string = parser.parse(request.form["datum"])
         xMengeGut = new_total - int(old_total) # Difference = new_total - old_total
         if xMengeGut < 0:
-            flash(f"Der Neue Stand sollte größer sein als der Aktuellere Stand!")
+            flash(f"Neuer Zählerstand muss größer als alter Zählerstand sein!")
             return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
         
         xMengeAus = 0
