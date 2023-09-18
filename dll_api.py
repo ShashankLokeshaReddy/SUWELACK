@@ -21,7 +21,6 @@ def convert_dtype(args, dtypes):
     return out
 
 def decode(msg):
-    # print(msg)
     command, args, dtypes = msg.decode().strip().split("+++++")
     if len(dtypes) == 0:  # no return
         return None, None, None
@@ -40,7 +39,7 @@ def encode(msg):
 def start_dll_process(python_path, dll_path, hostname, socket_host, socket_port):
     subprocess_path = os.path.abspath(os.path.dirname(__file__)) + "\\dll_subprocess.py"
     process = subprocess.Popen([python_path, subprocess_path, dll_path, hostname, socket_host, str(socket_port)])
-    # time.sleep(0.2)
+
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     start_time = time.time()
@@ -55,9 +54,6 @@ def start_dll_process(python_path, dll_path, hostname, socket_host, socket_port)
     return client
 
 def communicate(client, command, *args):
-    # print(type(command))
-    # print(type(args))
-    # print([command]+list(args))
     for string in [command]+list(args):
         if "+++++" in str(string) or "_____" in str(string):
             raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
@@ -65,8 +61,6 @@ def communicate(client, command, *args):
     data = f"{command}+++++{encode(args)}\n"
     print(f"writing {data}")
     client.sendall(data.encode())
-    
-    # time.sleep(5)
     
     received = client.recv(1024)
     if received:
