@@ -31,7 +31,7 @@ def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
 def getPlazlistGKA(userid, date, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
     Platzlist = pd.read_sql_query(text(
-        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
+        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_BD1 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
         and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez"""),
         connection)
@@ -40,7 +40,7 @@ def getPlazlistGKA(userid, date, FirmaNr):
 def getPlazlistFAE(userid, FirmaNr, date):
     persnr = getPersonaldetails(userid)['T910_Nr']
     Platzlist = pd.read_sql_query(text(
-        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
+        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_BD1 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
         and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez"""),
         connection)
@@ -185,7 +185,7 @@ def getGroupMembers(GruppeNr, TagId, FirmaNr):
     # e.g. TagId = "2023-01-11T00:00:00"
     # e.g. GruppeNr = "03"
     members = pd.read_sql_query(text(
-        f"""Select T905_Nr, T951_PersNr, T905_BuArt from T951_Buchungsdaten
+        f"""Select T905_Nr, T951_PersNr, T905_BuArt from T951_BD1
             inner join T905_ArbMasch on T951_FirmaNr='{FirmaNr}' and T905_FirmaNr = T951_FirmaNr
             and T905_Nr = T951_ArbIst and T951_Satzart in ('K', 'A')
             and T951_TagId = '{TagId}' and T905_BuArt in ('3', '1')
