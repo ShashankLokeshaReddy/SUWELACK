@@ -240,6 +240,8 @@ def getZaehler(userid, FirmaNr):
     persnr = getPersonaldetails(userid)["T910_Nr"]
     last_booking = getLastbooking(userid)
     platz = last_booking.loc[0, "T951_ArbIst"]
-    gk_data = pd.read_sql_query(text(
+    private_data = pd.read_sql_query(text(
         f"""SELECT * FROM ksmaster.dbo.kstf_TA06_GKFAGrp('{FirmaNr}', '{platz}', '50', 1)"""), connection)
-    return gk_data
+    global_data = pd.read_sql_query(text(
+        f"""SELECT * FROM ksmaster.dbo.kstf_TA06_GKFAGrp('{FirmaNr}', '{platz}', '50', 2)"""), connection)
+    return private_data, global_data  # private Zähler in upper row, global in lower row

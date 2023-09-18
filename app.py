@@ -70,6 +70,9 @@ from System.Collections import Hashtable
 from System import String
 from System import Object
 from System import Type
+import functools
+import sqlalchemy.exc
+import time
 
 app = Flask(__name__, template_folder="templates")
 app.debug = True
@@ -83,6 +86,61 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+def retry_db_calls(max_retries, timeout):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            retries = 0
+
+            while retries < max_retries:
+                try:
+                    result = func(*args, **kwargs)
+                    return result
+                
+                except sqlalchemy.exc.DatabaseError as e:
+                    # Handle DB errors
+                    print(f"DatabaseError: {str(e)}")
+                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
+                    retries += 1
+                    time.sleep(timeout)
+                                    
+                except sqlalchemy.exc.OperationalError as e:
+                    # Handle operational errors (e.g., lost connection)
+                    print(f"OperationalError: {str(e)}")
+                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
+                    retries += 1
+                    time.sleep(timeout)
+                    
+                except sqlalchemy.exc.InterfaceError as e:
+                    # Handle low-level connectivity issues
+                    print(f"InterfaceError: {str(e)}")
+                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
+                    retries += 1
+                    time.sleep(timeout)
+                    
+                except sqlalchemy.exc.DBAPIError as e:
+                    # Handle DB-API-related errors
+                    print(f"DBAPIError: {str(e)}")
+                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
+                    retries += 1
+                    time.sleep(timeout)
+                    
+                except sqlalchemy.exc.SQLAlchemyError as e:
+                    # Handle other SQLAlchemy-related errors
+                    print(f"SQLAlchemyError: {str(e)}")
+                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
+                    retries += 1
+                    time.sleep(timeout)
+
+            # If all retries fail, raise the exception to the top-level exception handling
+            # raise Exception("Database call failed after multiple retries")
+            flash("Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert")
+            return redirect(url_for('home'))
+        
+        return wrapper
+
+    return decorator
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -435,6 +493,7 @@ def home():
         )
 
 @app.route("/arbeitsplatzwechsel/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def arbeitsplatzwechsel(userid):
     """
@@ -477,6 +536,7 @@ def arbeitsplatzwechsel(userid):
 
 
 @app.route("/gemeinkosten_buttons/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def gemeinkosten_buttons(userid):
     """
@@ -522,6 +582,7 @@ def gemeinkosten_buttons(userid):
     
 
 @app.route("/zaehlerstand_buttons/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def zaehlerstand_buttons(userid):
     """
@@ -562,6 +623,7 @@ def zaehlerstand_buttons(userid):
     
     
 @app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def arbeitsplatzbuchung(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -606,6 +668,7 @@ def arbeitsplatzbuchung(userid):
     )
 
 @app.route("/gemeinkosten/", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 def gemeinkosten():
     """
     Route for choosing Gemeinkosten with a text input field.
@@ -634,8 +697,8 @@ def gemeinkosten():
         sidebarItems=get_list("sidebarItems")
     )
 
-
 @app.route("/identification/<page>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 def identification(page):
     """
     General pass through route for all routes which need the user id as input.
@@ -680,8 +743,8 @@ def identification(page):
             sidebarItems=get_list("sidebarItems")
         )
 
-
 @app.route("/status/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def status(userid):
     return render_template(
@@ -691,8 +754,8 @@ def status(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
-
 @app.route("/berichtdrucken/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def berichtdrucken(userid):
     return render_template(
@@ -702,8 +765,8 @@ def berichtdrucken(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
-
 @app.route("/gruppenbuchung/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def gruppenbuchung(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -757,6 +820,7 @@ def gruppenbuchung(userid):
     )
 
 @app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def fertigungsauftragerfassen(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -811,8 +875,8 @@ def fertigungsauftragerfassen(userid):
             sidebarItems=get_list("sidebarItems")
         )
 
-
 @app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def gemeinkostenandern(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -922,8 +986,8 @@ def gemeinkostenandern(userid):
             tablecontent=tablecontent
         )
 
-
 @app.route("/anmelden/<userid>/<sa>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def anmelden(userid, sa):
     """
@@ -973,6 +1037,7 @@ def anmelden(userid, sa):
         )
 
 @app.route("/fabuchta56_dialog/<userid>/<old_total>/<platz>/<belegnr>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def fabuchta56_dialog(userid, old_total, platz, belegnr):
     """
@@ -1020,6 +1085,10 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
             
         date_string = parser.parse(request.form["datum"])
         xMengeGut = new_total - int(old_total) # Difference = new_total - old_total
+        if xMengeGut < 0:
+            flash(f"Der Neue Stand sollte größer sein als der Aktuellere Stand!")
+            return redirect(url_for('fabuchta56_dialog', userid=userid, old_total=old_total, platz=platz, belegnr=belegnr))
+        
         xMengeAus = 0
         hour = int(request.form["uhrzeit"])
         xTS = date_string.strftime(f"%d.%m.%Y {hour}:00:00")  #Stringtransporter Datum 
@@ -1043,6 +1112,7 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
     )
 
 @app.route("/fabuchta55_dialog/<userid>/<menge_soll>/<xFAStatus>/<xFATS>/<xFAEndeTS>/<xScanFA>/<endroute>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, endroute):
     """
@@ -1153,8 +1223,8 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
         sidebarItems=get_list("sidebarItems")
     )
 
-
 @app.route("/fabuchta51_dialog/<userid>/", methods=["POST", "GET"])
+@retry_db_calls(max_retries=3, timeout=5)
 @login_required
 def fabuchta51_dialog(userid):
     """
@@ -1245,7 +1315,7 @@ def fabuchta51_dialog(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def endta51cancelt905(apersnr):
     """Terminates all running GK and FA for user with 'apersnr'."""
 
@@ -1331,7 +1401,7 @@ def endta51cancelt905(apersnr):
 
     return final_ret
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None, platz=None, aBem=None, userid=None, endroute="home", sa=""):
     """Checks whether current GK/FA active in DLL is ok to be booked and decides which fabuchta is appropriate."""
     xFehler = ''  
@@ -1457,7 +1527,7 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
     return xFehler
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def start_booking(nr):
     """Starts the booking process for given card nr."""
 
@@ -1478,7 +1548,7 @@ def start_booking(nr):
 
     return ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     xFAMeGut=0.0
     xMengeAus=0.0
@@ -1528,7 +1598,7 @@ def fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     
     return  "" #fabuchta55
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, aBem=None, platz=None):
     xStatusMenge = ""
     # if given, set begin and end according to parameter, else assume begin = end = now
@@ -1662,7 +1732,7 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     flash("Gemeinkosten erfolgreich gebucht.")
     return redirect(url_for("home", username=username))
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="",
                arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None, endroute="home"):
     """K/G/A booking according to sa for user with given card nr and username."""
@@ -1773,7 +1843,7 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
 
         return redirect(url_for("home", username=username))
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def ta06gkend(userid,AScreen2=None):
 	
 	xMsg = communicate(dll_instances[current_user.username], "EndTA51GKCheck")
@@ -1786,7 +1856,7 @@ def ta06gkend(userid,AScreen2=None):
 		else:
 			flash("GK konnten nicht beendet werden!")
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 	# Change existing Auftragsbuchung, TODO: somehow return error when no GK to delete is found
 	ret = dbconnection.doGKLoeschen(fa_old, userid, anfang_ts, FirmaNr[current_user.username])  # delete old booking with BelegNr=scanvalue and Anfang=Anfangts
@@ -1806,7 +1876,7 @@ def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 		# result = communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, scanvalue, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
 		return "Nur gelöscht"
 
-
+@retry_db_calls(max_retries=3, timeout=5)
 def gk_erstellen(userid, dauer, date):
 	# create Auftragsbuchung with Dauer
 	persnr = dbconnection.getPersonaldetails(userid)["T910_Nr"]
@@ -1865,8 +1935,8 @@ def get_list(listname, userid=None):
         return [gk_info["TA05_ArtikelBez"], gk_info["TA06_BelegNr"]]
     
     if listname == "zaehlerItems":
-        zaehler_info = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
-        return [zaehler_info["TA05_ArtikelBez"], zaehler_info["TA06_BelegNr"]]
+        private_data, global_data = dbconnection.getZaehler(userid, FirmaNr[current_user.username])
+        return [private_data["TA05_ArtikelBez"], private_data["TA06_BelegNr"], global_data["TA05_ArtikelBez"], global_data["TA06_BelegNr"]]
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",

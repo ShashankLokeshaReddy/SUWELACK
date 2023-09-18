@@ -1,23 +1,19 @@
 {% extends "base.html" %}
 {% block title %}{{ _(title) }}  {% endblock %}
 
-{% block navbar %}
-
+{% block content %}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for msg in messages %}
             <!-- Flash messages -->
             <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
-            <img  src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+            <img src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
             <p><strong>{{username}}</strong> - {{ date.strftime("%H:%M") }} Uhr - {{msg}}</p>
-            <img  src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+            <img src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
             </div>
         {% endfor %}
     {% endif %}
 {% endwith %}
-{% endblock %}
-
-{% block content%}
 
 <div class="d-flex flex-row">
     <h2>{{ _(title) }}</h2>
@@ -25,16 +21,31 @@
 
 <form action='#' method="POST">
 
-<div class="grp d-flex align-content-center flex-wrap justify-content-center">
-    <!-- Dynamic population of Buttons -->
-    {% for items in range(0,buttonText[0]|length) %}
-        {% if show_button_ids %}
-            <button type="submit" name="gemeinkostenbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}<span style="font-size: 0.625rem">,{{buttonText[1][items]}}</span></button>
-        {% else %}
-            <button type="submit" name="gemeinkostenbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
-        {% endif %}
-    {% endfor %}
-</div>
+    <div class="top-half">
+        <div class="grp d-flex align-content-center flex-wrap justify-content-center">
+            <!-- Dynamic population of Private Aufträge Buttons -->
+            {% for items in range(0, buttonText[0]|length) %}
+                {% if show_button_ids %}
+                    <button type="submit" name="gemeinkostenbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}<span style="font-size: 0.625rem">,{{buttonText[1][items]}}</span></button>
+                {% else %}
+                    <button type="submit" name="gemeinkostenbuttons" value='{{buttonText[1][items]}},{{buttonText[0][items]}}' class="btn btn-primary btn-ap">{{buttonText[0][items]}}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="bottom-half">
+        <div class="grp d-flex align-content-center flex-wrap justify-content-center">
+            <!-- Dynamic population of Global Aufträge Buttons -->
+            {% for items in range(0, buttonText[2]|length) %}
+                {% if show_button_ids %}
+                    <button type="submit" name="gemeinkostenbuttons" value='{{buttonText[3][items]}},{{buttonText[2][items]}}' class="btn btn-primary btn-ap">{{buttonText[2][items]}}<span style="font-size: 0.625rem">,{{buttonText[3][items]}}</span></button>
+                {% else %}
+                    <button type="submit" name="gemeinkostenbuttons" value='{{buttonText[3][items]}},{{buttonText[2][items]}}' class="btn btn-primary btn-ap">{{buttonText[2][items]}}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 
 <script>
     //<!-- JS for the notification animation -->
