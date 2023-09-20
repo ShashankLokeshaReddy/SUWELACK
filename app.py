@@ -98,6 +98,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert"
                                     
                 except sqlalchemy.exc.OperationalError as e:
                     # Handle operational errors (e.g., lost connection)
@@ -105,6 +106,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert"
                     
                 except sqlalchemy.exc.InterfaceError as e:
                     # Handle low-level connectivity issues
@@ -112,6 +114,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert"
                     
                 except sqlalchemy.exc.DBAPIError as e:
                     # Handle DB-API-related errors
@@ -119,6 +122,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert"
                     
                 except sqlalchemy.exc.SQLAlchemyError as e:
                     # Handle other SQLAlchemy-related errors
@@ -126,10 +130,17 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert"
 
+                except ConnectionError:
+                    print(f"Retrying connection (attempt {retries + 1}/{max_retries})...")
+                    retries += 1
+                    time.sleep(timeout)
+                    flash_message = "Browserverbindung fehlgeschlagen. Es wurden mehrere Versuche unternommen. Aber immer noch fehlgeschlagen."
+                    
             # If all retries fail, raise the exception to the top-level exception handling
             # raise Exception("Database call failed after multiple retries")
-            flash("Datenbankaufruf fehlgeschlagen. Es wurden mehrere Wiederholungsversuche versucht. Aber trotzdem gescheitert")
+            flash(flash_message)
             return redirect(url_for('home'))
         
         return wrapper
