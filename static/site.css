@@ -671,7 +671,8 @@ hr.solid {
 }
 .clock-img {
     position: relative;
-    transform: scale(0.22); /* Adjust the scale factor as needed */
+    width: 10.1rem;
+    /* transform: scale(0.22); */
     transform-origin: top left;
     top: -0.05rem; /* Adjust the value as needed */
     left: -0.05rem; /* Adjust the value as needed */
@@ -740,4 +741,10 @@ hr.solid {
 /* Style for the first div (top half of the screen) */
 .top-half {
     height: 30vh; /* 50% of the viewport height */
+}
+
+.transparent-bar {
+    height: 10rem;
+    background-color: white;
+    width: 100%;
 }
