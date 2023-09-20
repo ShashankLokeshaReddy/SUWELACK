@@ -35,7 +35,7 @@ try:
         date_formatted = datetime.datetime.now().strftime("%Y_%m_%d")
         datetime_formatted = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S:%f")[:-3]
         # print(f"{datetime_formatted} {username} -- {msg}")
-        print(f"{datetime_formatted} -- {msg}")
+        # print(f"{datetime_formatted} -- {msg}")
         # fpath = ROOT_DIR+f"dll\\log\\{username}\\l_{date_formatted}\\AppLog_{date_formatted}.txt"
         fpath = ROOT_DIR+f"dll\\log\\l_{date_formatted}\\SubprocessLog_{date_formatted}.txt"
         os.makedirs(os.path.dirname(fpath), exist_ok=True)  # create dir if it does not exist

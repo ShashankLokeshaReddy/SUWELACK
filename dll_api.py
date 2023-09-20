@@ -59,7 +59,6 @@ def communicate(client, command, *args):
             raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
     
     data = f"{command}+++++{encode(args)}\n"
-    print(f"writing {data}")
     client.sendall(data.encode())
     
     received = client.recv(1024)
