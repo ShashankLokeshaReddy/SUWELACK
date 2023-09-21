@@ -139,8 +139,9 @@
                 </div>
               </div>                        
             </div>
+            <div class="transparent-bar"></div>
         </main>
-
+        
         <footer class="footer">
             <nav class="navbar fixed-bottom navbar-light bg-light">
                 <a class="navbar-brand" href="{{ url_for('home', username=username) }}">
@@ -178,39 +179,49 @@
 
     window.onload = function() {
       var inputFields = document.querySelectorAll('input'); // select all input fields
+      var currentInput; // store the reference to the currently focused input field
+      var keypad = document.getElementById('keypad');
+      var buttons = keypad.getElementsByTagName('button');
+      var submit_btn = document.getElementById('enter_btn');
+
+      // Function to set the default focus to id="new_total"
+      function setDefaultFocusToNewTotal() {
+        currentInput = document.getElementById('new_total');
+        currentInput.focus();
+      }
+
+      // Set the default focus initially
+      setDefaultFocusToNewTotal();
+
       for (var i = 0; i < inputFields.length; i++) {
         inputFields[i].addEventListener('focus', function() {
-          var currentInput = this; // get the reference to the currently focused input field
-          var keypad = document.getElementById('keypad'),
-            buttons = keypad.getElementsByTagName('button');
-          submit_btn = document.getElementById('enter_btn')
-          for (var j = 0; j < buttons.length; j++) {
-            buttons[j].onclick = function() {
-              if (currentInput.id !== 'old_total') {
-                currentInput.value = currentInput.value + this.innerHTML;
-                return false;
-              }
-            };
-          }
-          const button = document.querySelector('#clear');
-          button.addEventListener('click', () => {
-            if (currentInput.id !== 'old_total') {
-              var input = document.querySelector('#new_total');
-              input.value = input.value.slice(0, -2);
-            }
-          })
-          currentInput.addEventListener('keypress', function(event) {
-            if (event.keyCode === 13 || event.which === 13) {
-              event.preventDefault();
-              submit_btn.click();
-            }
-          });
+          currentInput = this; // update the reference to the currently focused input field
         });
-        currentInput.addEventListener('click', function() {
-          currentInput.focus();
+
+        for (var j = 0; j < buttons.length; j++) {
+          buttons[j].onclick = function() {
+            if (currentInput.id !== 'old_total') {
+              currentInput.value = currentInput.value + this.innerHTML;
+              return false;
+            }
+          };
+        }
+
+        inputFields[i].addEventListener('keypress', function(event) {
+          if (event.keyCode === 13 || event.which === 13) {
+            event.preventDefault();
+            submit_btn.click();
+          }
         });
       }
-    }
+
+      const button = document.querySelector('#clear');
+      button.addEventListener('click', () => {
+        if (currentInput.id !== 'old_total') {
+          currentInput.value = currentInput.value.slice(0, -2);
+        }
+      });
+    };
 
     window.addEventListener("load", () => {
             clock();
