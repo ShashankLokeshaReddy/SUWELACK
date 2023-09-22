@@ -171,7 +171,7 @@ def create_dll_copy(username):
     src_path_data = ROOT_DIR+"dll\\data\\X998.xml"
     dest_path_data = ROOT_DIR+f"dll\\data\\X998-{username}.xml"
     print(f"copy from {src_path_data} to {dest_path_data}")
-    shutil.copyfile(src_path_data, dest_path_data)
+    # shutil.copyfile(src_path_data, dest_path_data)
     src_path = ROOT_DIR+"dll\\bin\\kt002_PersNr.dll"
     dest_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{username}.dll"
     print(f"copy from {src_path} to {dest_path}")
@@ -395,6 +395,7 @@ def home():
             delete_user(user)  # also delete user, will newly register when booking to get resh XML copy
         
         hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
+        hostname = hostname.split(".")[0]
         user = User(username=hostname, password=hostname)
         newly_registred = register_user(hostname, hostname)
         user = User.query.filter_by(username=hostname).first()
@@ -478,6 +479,7 @@ def home():
                         dll_instances[current_user.username].shutdown(1)
                         dll_instances[current_user.username].close()
                         del dll_instances[current_user.username]
+                        time.sleep(0.1)  # give subprocess time to shut down
                     except ConnectionAbortedError:
                         write_log("Could not shut down socket, already shut down?")
                         del dll_instances[current_user.username]  # still delete reference and make new one
