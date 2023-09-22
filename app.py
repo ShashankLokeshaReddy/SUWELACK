@@ -41,7 +41,8 @@ root  = {}
 DTFORMAT = "%d.%m.%Y %H:%M:%S"
 DFORMAT = "%d.%m.%Y"
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__)) + "\\"  # directory which directly contains app.py
-PYTHON_PATH = os.path.abspath(os.path.dirname(sys.executable) + "\\python")
+# PYTHON_PATH = os.path.abspath(os.path.dirname(sys.executable) + "\\python")
+PYTHON_PATH = "C:/Users/MSSQL/PycharmProjects/DLLTest/venv/Scripts/python"
 APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
 SHOWMSGGEHT = {} # X998_ShowMsgGeht
 GKENDCHECK = {} # X998_GKEndCheck
@@ -396,6 +397,7 @@ def home():
         
         hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
         hostname = hostname.split(".")[0]
+        hostname = "pks866"  # dummy value for testing
         user = User(username=hostname, password=hostname)
         newly_registred = register_user(hostname, hostname)
         user = User.query.filter_by(username=hostname).first()
@@ -1934,9 +1936,11 @@ def get_list(listname, userid=None):
 
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
+                 # "Arbeitsplatzbuchung", "Gruppenbuchung",
+                 "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
+                 # "arbeitsplatzbuchung", "gruppenbuchung",
+                 "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
         gk_info = dbconnection.getGemeinkosten(userid, FirmaNr[current_user.username])
@@ -1948,9 +1952,11 @@ def get_list(listname, userid=None):
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
-                 "Arbeitsplatzbuchung", "Gruppenbuchung", "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
+                 # "Arbeitsplatzbuchung", "Gruppenbuchung",
+                 "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
-                 "arbeitsplatzbuchung", "gruppenbuchung", "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
+                 # "arbeitsplatzbuchung", "gruppenbuchung",
+                 "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
 # if __name__ == '__main__':
     
