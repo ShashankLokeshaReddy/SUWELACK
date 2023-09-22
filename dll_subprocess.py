@@ -13,24 +13,16 @@ socket_port = int(sys.argv[4])
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__)) + "\\"  # directory which directly contains dll_subprocess.py
 
+sys.path.append("dll/bin")
+clr.AddReference(dll_path)
+# os.chdir("dll/bin")
+dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
+dll_type = dll_ref.GetType('kt002_persnr.kt002')
+instance = System.Activator.CreateInstance(dll_type)
+instance.Init(hostname)
+instance.InitTermConfig()
+
 try:
-    server.setsockopt(socket.SOL_SOCKET, socket.SOCK_STREAM, 1)
-    server.bind((socket_host, socket_port))
-    
-    do_run = True
-    server.listen()
-    
-    conn, addr = server.accept()
-
-    sys.path.append("dll/bin")
-    clr.AddReference(dll_path)
-    # os.chdir("dll/bin")
-    dll_ref = System.Reflection.Assembly.LoadFile(dll_path)
-    dll_type = dll_ref.GetType('kt002_persnr.kt002')
-    instance = System.Activator.CreateInstance(dll_type)
-    instance.Init(hostname)
-    instance.InitTermConfig()
-
     def write_log(msg):
         date_formatted = datetime.datetime.now().strftime("%Y_%m_%d")
         datetime_formatted = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S:%f")[:-3]
@@ -79,6 +71,14 @@ try:
             dtypes = [type(x).__name__ for x in msg]
             return_params = f"{'_____'.join(map(str, msg))}+++++{'_____'.join(dtypes)}"
             return f"_+++++{return_params}".encode()
+    
+    server.setsockopt(socket.SOL_SOCKET, socket.SOCK_STREAM, 1)
+    server.bind((socket_host, socket_port))
+    
+    do_run = True
+    server.listen()
+    
+    conn, addr = server.accept()
     
     with conn:
         while do_run:
