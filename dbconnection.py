@@ -2,11 +2,16 @@ from sqlalchemy import create_engine, text
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import exc
+import configparser
 
-user = 'ksadmin'
-password = 'ksadmin'
-host = 'HOC-W10-212\SQL19'
-DB = 'ksrotpunkt'
+ksmain = configparser.ConfigParser(strict=False)
+ksmain.read_string('[DEFAULT]\n' + open("dll/lib/ksmain.ini").read())
+user = ksmain["DEFAULT"]["DBUser"]
+password = ksmain["DEFAULT"]["DBPW"]
+dbserver = ksmain["DEFAULT"]["DBServer"]
+dbdatasource = ksmain["DEFAULT"]["DBDataSource"]
+host = f"{dbserver}\{dbdatasource}"
+DB = ksmain["DEFAULT"]["DBName"]
 driver = 'SQL Server'
 DATABASE_CONNECTION = f'mssql://{user}:{password}@{host}/{DB}?driver={driver}'
 engine = create_engine(DATABASE_CONNECTION)
@@ -26,7 +31,7 @@ def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
 def getPlazlistGKA(userid, date, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
     Platzlist = pd.read_sql_query(text(
-        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
+        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_BD1 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
         and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez"""),
         connection)
@@ -35,7 +40,7 @@ def getPlazlistGKA(userid, date, FirmaNr):
 def getPlazlistFAE(userid, FirmaNr, date):
     persnr = getPersonaldetails(userid)['T910_Nr']
     Platzlist = pd.read_sql_query(text(
-        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_Buchungsdaten 
+        f"""Select T905_Nr, cast(T905_Nr + '________' as varchar(7)) + T905_bez as T905_Bez from T951_BD1 
         inner join T905_ArbMasch on T905_FirmaNr = T951_FirmaNr and T905_Nr = T951_Arbist and T951_Satzart in ('K','A')
         and T951_PersNr = {persnr} and T951_TagId = '{date}' where T951_FirmaNr ='{FirmaNr}' group by T905_Nr, T905_Bez"""),
         connection)
@@ -160,7 +165,7 @@ def getStatustableitems(userid, FirmaNr):
     upper_items_df["Arbeitplatz"] = upper_items.loc[:, "T951_ArbIst"]
     upper_items_df["Bezeichnung"] = upper_items.loc[:, "T905_Bez"]
     upper_items_df["Von"] = upper_items.loc[:, "T951_DatumTS"]
-    upper_items_df["Bis"] = upper_items.loc[:, "TSNxt"].astype(str).replace("NaT", " ").replace("None", " ")
+    upper_items_df["Bis"] = upper_items.loc[:, "TSNxt"].astype(str).replace("NaT", " ").replace("None", " ").replace("NaN", " ")
     upper_items_df["Dauer"] = upper_items.loc[:, "T951Dauer"]
 
     lower_items_df = pd.DataFrame(columns=['Auftrag', 'Arbeitplatz', 'Bezeichnung', 'Von', 'Bis', 'Dauer', 'Menge', 'Auftragsstatus', 'Pers.Nr'])
@@ -168,7 +173,7 @@ def getStatustableitems(userid, FirmaNr):
     lower_items_df["Arbeitplatz"] = lower_items.loc[:, "TA51_Platz_Ist"]
     lower_items_df["Bezeichnung"] = lower_items.loc[:, "TA06_AgBez"]
     lower_items_df["Von"] = lower_items.loc[:, "TA51_AnfangTS"]
-    lower_items_df["Bis"] = lower_items.loc[:, "TA51_EndeTS"].astype(str).replace("NaT", " ").replace("None", " ")
+    lower_items_df["Bis"] = lower_items.loc[:, "TA51_EndeTS"].astype(str).replace("NaT", " ").replace("None", " ").replace("NaN", " ")
     lower_items_df["Dauer"] = lower_items.loc[:, "TA51_DauerTS"]
     lower_items_df["Menge"] = lower_items.loc[:, "TA51_MengeIstGut"]
     lower_items_df["Auftragsstatus"] = lower_items.loc[:, "TA51_Auf_Stat"]
@@ -180,7 +185,7 @@ def getGroupMembers(GruppeNr, TagId, FirmaNr):
     # e.g. TagId = "2023-01-11T00:00:00"
     # e.g. GruppeNr = "03"
     members = pd.read_sql_query(text(
-        f"""Select T905_Nr, T951_PersNr, T905_BuArt from T951_Buchungsdaten
+        f"""Select T905_Nr, T951_PersNr, T905_BuArt from T951_BD1
             inner join T905_ArbMasch on T951_FirmaNr='{FirmaNr}' and T905_FirmaNr = T951_FirmaNr
             and T905_Nr = T951_ArbIst and T951_Satzart in ('K', 'A')
             and T951_TagId = '{TagId}' and T905_BuArt in ('3', '1')

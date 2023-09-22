@@ -20,11 +20,11 @@
         var aktion = aktionCell.innerText.trim();
         
         if (aktion === 'Gekommen') {
-            row.style.backgroundColor = '#12b8cc';
+            row.style.backgroundColor = '#40e0d1';
         } else if (aktion === 'Gegangen') {
-            row.style.backgroundColor = 'lightgreen';
+            row.style.backgroundColor = '#8fee91';
         } else if (aktion === 'Wechselbuchung') {
-            row.style.backgroundColor = '#AEC6CF';
+            row.style.backgroundColor = 'white';
         }
     });
     
@@ -35,7 +35,7 @@
         var auftragsstatus = auftragsstatusCell.innerText.trim();
         
         if (auftragsstatus === '30' || auftragsstatus === '31') {
-            row.style.backgroundColor = 'green';
+            row.style.backgroundColor = '#5a9557';
         } else if (auftragsstatus === '20' || auftragsstatus === '21' || auftragsstatus === '25') {
             row.style.backgroundColor = 'yellow';
         } else if (auftragsstatus === '10' || auftragsstatus === '11') {
