@@ -104,6 +104,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
                                     
                 except sqlalchemy.exc.OperationalError as e:
                     # Handle operational errors (e.g., lost connection)
@@ -111,6 +112,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
                     
                 except sqlalchemy.exc.InterfaceError as e:
                     # Handle low-level connectivity issues
@@ -118,6 +120,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
                     
                 except sqlalchemy.exc.DBAPIError as e:
                     # Handle DB-API-related errors
@@ -125,6 +128,7 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
                     
                 except sqlalchemy.exc.SQLAlchemyError as e:
                     # Handle other SQLAlchemy-related errors
@@ -132,10 +136,17 @@ def retry_db_calls(max_retries, timeout):
                     print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
+                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
 
+                except ConnectionError:
+                    print(f"Retrying connection (attempt {retries + 1}/{max_retries})...")
+                    retries += 1
+                    time.sleep(timeout)
+                    flash_message = "Es konnte keine Verbindung zum Server aufgebaut werden!"
+                    
             # If all retries fail, raise the exception to the top-level exception handling
             # raise Exception("Database call failed after multiple retries")
-            flash("Es konnte keine Verbindung zur Datenbank aufgebaut werden!")
+            flash(flash_message)
             return redirect(url_for('home'))
         
         return wrapper
