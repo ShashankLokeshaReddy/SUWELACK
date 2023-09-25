@@ -574,7 +574,9 @@ hr.solid {
 .fluid-matrix {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center; /* Center the text within the cells */
 }
 
 .fluid-cell {
@@ -585,16 +587,15 @@ hr.solid {
 
 .input-group {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .input-group label {
     flex-shrink: 0;
     width: 20%; /* Adjust the width according to your needs */
-    text-align: right;
-    padding-right: 0.625rem; /* Adjust the padding as needed */
-    padding-left: 0.625rem;
     white-space: nowrap;
 }
 
@@ -716,6 +717,7 @@ hr.solid {
 
 /* Style the main content area */
 .main-content {
+    width: 100%;
     flex: 1;
     overflow-y: auto; /* Show scrollbar only when content overflows */
     max-height: 85vh; /* Adjust for footer height */
