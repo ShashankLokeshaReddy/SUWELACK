@@ -18,6 +18,14 @@ engine = create_engine(DATABASE_CONNECTION)
 future_engine = create_engine(DATABASE_CONNECTION, future=True)
 connection = engine.connect()
 
+def reconnect():
+    global engine
+    global future_engine
+    global connection
+    
+    engine = create_engine(DATABASE_CONNECTION)
+    future_engine = create_engine(DATABASE_CONNECTION, future=True)
+    connection = engine.connect()
 
 def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
     arbeitplatzlist = pd.read_sql_query(text(
@@ -166,7 +174,7 @@ def getStatustableitems(userid, FirmaNr):
     upper_items_df["Bezeichnung"] = upper_items.loc[:, "T905_Bez"]
     upper_items_df["Von"] = upper_items.loc[:, "T951_DatumTS"]
     upper_items_df["Bis"] = upper_items.loc[:, "TSNxt"].astype(str).replace("NaT", " ").replace("None", " ").replace("NaN", " ")
-    upper_items_df["Dauer"] = upper_items.loc[:, "T951Dauer"]
+    upper_items_df["Dauer"] = upper_items.loc[:, "T951Dauer"].astype(str).replace("NaT", " ").replace("None", " ").replace("NaN", " ")
 
     lower_items_df = pd.DataFrame(columns=['Auftrag', 'Arbeitplatz', 'Bezeichnung', 'Von', 'Bis', 'Dauer', 'Menge', 'Auftragsstatus', 'Pers.Nr'])
     lower_items_df["Auftrag"] = lower_items.loc[:, "TA06_BelegNr"]      
@@ -174,7 +182,7 @@ def getStatustableitems(userid, FirmaNr):
     lower_items_df["Bezeichnung"] = lower_items.loc[:, "TA06_AgBez"]
     lower_items_df["Von"] = lower_items.loc[:, "TA51_AnfangTS"]
     lower_items_df["Bis"] = lower_items.loc[:, "TA51_EndeTS"].astype(str).replace("NaT", " ").replace("None", " ").replace("NaN", " ")
-    lower_items_df["Dauer"] = lower_items.loc[:, "TA51_DauerTS"]
+    lower_items_df["Dauer"] = lower_items.loc[:, "TA51_DauerTS"].astype(str).replace("NaT", " ").replace("None", " ").replace("NaN", " ")
     lower_items_df["Menge"] = lower_items.loc[:, "TA51_MengeIstGut"]
     lower_items_df["Auftragsstatus"] = lower_items.loc[:, "TA51_Auf_Stat"]
     lower_items_df["Pers.Nr"] = lower_items.loc[:, "TA51_PersNr"].astype(int)

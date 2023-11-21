@@ -62,7 +62,7 @@ try:
         return command, args, dtypes
 
     def encode(msg):
-        write_log(f"encoding msg: {msg}")
+        # write_log(f"encoding msg: {msg}")
         if msg is None:
             return f"++++++++++".encode()
         else:
@@ -81,45 +81,54 @@ try:
     conn, addr = server.accept()
     
     with conn:
-        while do_run:
-            data = conn.recv(1024)
-            if not data:
-                server.shutdown(1)
-                server.close()
-                break
-            else:
-                write_log(f"received: {str(data.decode())}")
-                command, args, dtypes = decode(data)
-                write_log(f"decoded: {command, args, dtypes}")
-                if command is None and args is None and dtypes is None:
-                    ret = None
-                if command == "get":  # data attribute
-                    ret = getattr(instance, *args)  # args has to be list with length 1
-                elif command == "set":  # data attribute
-                    ret = setattr(instance, *args)  # args has to be list with length 2 (name of attribute and value)
-                elif command == "shutdown":
-                    write_log("_got shutdown")
-                    break  # shutdown subprocess graciously
-                else:  # function
-                    ret = getattr(instance, command)(*args)
-                
-                write_log(f"ret: {ret}")
-                
-                if ret is not None and not (isinstance(ret, tuple) or isinstance(ret, list) or isinstance(ret, int) or isinstance(ret, str) or isinstance(ret, bool) or isinstance(ret, float)):
-                    try:
-                        ret = str(ret)  # e.g. System.Data.DataRow. In app.oy only checks for not None with these objects, can be any non None object
-                    except:
-                        ret = "Non Serializable Object"
-                if ret is not None:
-                    if isinstance(ret, str):
-                        if "+++++" in str(string) or "_____" in str(string):
-                            raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
-                    elif hasattr(ret, '__iter__'):  # check if multiple returns
-                        for string in ret:
+        try:
+            while do_run:
+                data = conn.recv(1024)
+                if not data:
+                    server.shutdown(1)
+                    server.close()
+                    break
+                else:
+                    # write_log(f"received: {str(data.decode())}")
+                    command, args, dtypes = decode(data)
+                    # write_log(f"decoded: {command, args, dtypes}")                  
+                    if command is None and args is None and dtypes is None:
+                        ret = None
+                    if command == "get":  # data attribute
+                        ret = getattr(instance, *args)  # args has to be list with length 1
+                    elif command == "set":  # data attribute
+                        ret = setattr(instance, *args)  # args has to be list with length 2 (name of attribute and value)
+                    elif command == "shutdown":
+                        conn.sendall(encode(None))
+                        write_log("wating for accept")
+                        conn, addr = server.accept()
+                        write_log("accepted")
+                        continue
+                    else:  # function
+                        ret = getattr(instance, command)(*args)
+                    
+                    # write_log(f"ret: {ret}")
+                    
+                    if ret is not None and not (isinstance(ret, tuple) or isinstance(ret, list) or isinstance(ret, int) or isinstance(ret, str) or isinstance(ret, bool) or isinstance(ret, float)):
+                        try:
+                            ret = str(ret)  # e.g. System.Data.DataRow. In app.oy only checks for not None with these objects, can be any non None object
+                        except:
+                            ret = "Non Serializable Object"
+                    if ret is not None:
+                        if isinstance(ret, str):
                             if "+++++" in str(string) or "_____" in str(string):
                                 raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
-                        
-                conn.sendall(encode(ret))
+                        elif hasattr(ret, '__iter__'):  # check if multiple returns
+                            for string in ret:
+                                if "+++++" in str(string) or "_____" in str(string):
+                                    raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
+                            
+                    conn.sendall(encode(ret))
+        except Exception as e:
+            write_log(f"encountered exception: {e}")
+            conn.sendall(encode("exception"))  # notify main process of exception
+            conn.shutdown(1)
+            conn.close()
 
 finally:
     server.close()

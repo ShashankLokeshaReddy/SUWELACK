@@ -60,6 +60,10 @@ T905ALLOWROUTE = True
 ROUTEDIALOG = True
 SHOW_BUTTON_IDS = False  # If true, show Arbeitsplatz and GK IDs after their name for debugging
 SOCKETHOST = "localhost"  # host for DLL communication sockets
+SOCKET_TIMEOUT = 5  # secs
+SOCKET_INTERVAL = 0.01  # secs, connect interval
+DB_TIMEOUT = 5  # secs
+DB_RETRIES = 3
 
 
 sys.path.append("dll/bin")
@@ -96,54 +100,33 @@ def retry_db_calls(max_retries, timeout):
 
             while retries < max_retries:
                 try:
+                    if retries > 0:
+                        # try reconnecting to db
+                        write_log("Trying to reconnect to database")
+                        dbconnection.reconnect()
+                        print("Reconnected")
+                        try:
+                            # terminate running dll subprocess to start new one
+                            communicate(dll_instances[current_user.username], "shutdown")
+                            dll_instances[current_user.username].shutdown(1)
+                            dll_instances[current_user.username].close()
+                            del dll_instances[current_user.username]
+                            time.sleep(0.1)  # give subprocess time to shut down
+                        except ConnectionAbortedError:
+                            write_log("Could not shut down socket, already shut down?")
+                            del dll_instances[current_user.username]  # still delete reference and make new one
+                            
                     result = func(*args, **kwargs)
+                    # print(f"result: {result}")
                     return result
                 
-                except sqlalchemy.exc.DatabaseError as e:
-                    # Handle DB errors
-                    print(f"DatabaseError: {str(e)}")
-                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
-                    retries += 1
-                    time.sleep(timeout)
-                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
-                                    
-                except sqlalchemy.exc.OperationalError as e:
-                    # Handle operational errors (e.g., lost connection)
-                    print(f"OperationalError: {str(e)}")
-                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
-                    retries += 1
-                    time.sleep(timeout)
-                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
-                    
-                except sqlalchemy.exc.InterfaceError as e:
-                    # Handle low-level connectivity issues
-                    print(f"InterfaceError: {str(e)}")
-                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
-                    retries += 1
-                    time.sleep(timeout)
-                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
-                    
-                except sqlalchemy.exc.DBAPIError as e:
-                    # Handle DB-API-related errors
-                    print(f"DBAPIError: {str(e)}")
-                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
-                    retries += 1
-                    time.sleep(timeout)
-                    flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
-                    
-                except sqlalchemy.exc.SQLAlchemyError as e:
+                except (sqlalchemy.exc.SQLAlchemyError, ConnectionError) as e:
                     # Handle other SQLAlchemy-related errors
-                    print(f"SQLAlchemyError: {str(e)}")
-                    print(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
+                    write_log(f"SQLAlchemyError: {str(e)}")
+                    write_log(f"Retrying database call (attempt {retries + 1}/{max_retries})...")
                     retries += 1
                     time.sleep(timeout)
                     flash_message = "Es konnte keine Verbindung zur Datenbank aufgebaut werden!"
-
-                except ConnectionError:
-                    print(f"Retrying connection (attempt {retries + 1}/{max_retries})...")
-                    retries += 1
-                    time.sleep(timeout)
-                    flash_message = "Es konnte keine Verbindung zum Server aufgebaut werden!"
                     
             # If all retries fail, raise the exception to the top-level exception handling
             # raise Exception("Database call failed after multiple retries")
@@ -166,16 +149,17 @@ with app.app_context():
 
 # create a dictionary to store the dll instances for each logged in user
 dll_instances = {}
+subprocess_ports = {}
 
 # Function to create a copy of the DLL for a given user
 def create_dll_copy(username):
     src_path_data = ROOT_DIR+"dll\\data\\X998.xml"
     dest_path_data = ROOT_DIR+f"dll\\data\\X998-{username}.xml"
-    print(f"copy from {src_path_data} to {dest_path_data}")
+    # write_log(f"copy from {src_path_data} to {dest_path_data}")
     # shutil.copyfile(src_path_data, dest_path_data)
     src_path = ROOT_DIR+"dll\\bin\\kt002_PersNr.dll"
     dest_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{username}.dll"
-    print(f"copy from {src_path} to {dest_path}")
+    write_log(f"copy from {src_path} to {dest_path}")
     shutil.copyfile(src_path, dest_path)
     return dest_path_data, dest_path
 
@@ -209,6 +193,34 @@ def register_user(username, password, verbose=False):
             flash('Benutzer existiert bereits!')
         return False
         
+# Function to create and login user with hostname
+def create_and_login(request):
+    hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
+    hostname = hostname.split(".")[0]
+    hostname = "pks866"  # dummy value for testing
+    user = User(username=hostname, password=hostname)
+    newly_registred = register_user(hostname, hostname)
+    user = User.query.filter_by(username=hostname).first()
+    login_user(user)
+    
+    return hostname, user, newly_registred
+
+def prepare_subprocess(hostname, user, newly_registred):
+    dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{hostname}.dll"
+    if not user.username in subprocess_ports:
+        subprocess_ports[user.username] = get_free_port()
+        start_subprocess = True
+        
+        if not newly_registred:
+            dll_path_data, dll_path = create_dll_copy(hostname)
+            user.dll_path = dll_path
+            user.dll_path_data = dll_path_data
+            db.session.commit()
+    else:
+        start_subprocess = False
+    
+    return dll_path, start_subprocess
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -264,7 +276,31 @@ def handle_exception(e):
         "description": e.description,
     })
     response.content_type = "application/json"
-    flash("Es gibt " + str(e.name) + " und der Fehlercode ist " + str(e.code))
+    flash(f"Fehler {str(e.code)}. Bitte versuchen Sie es erneut!")
+    
+    # restart subprocess server
+    del subprocess_ports[current_user.username]  # delete port to trigger restarting of subprocess server
+    hostname, user, newly_registred = create_and_login(request)
+    
+    start_time = time.time()
+    while time.time() - start_time < SOCKET_TIMEOUT:
+        try:
+            dll_path, start_subprocess = prepare_subprocess(hostname, user, newly_registred)
+            break  # if above successfull, break
+        except PermissionError as e:
+            if current_user.username in subprocess_ports:
+                del subprocess_ports[current_user.username]  # delete port to trigger restarting of subprocess server
+            time.sleep(SOCKET_INTERVAL)  # wait short interval before next try to not waste compute resources
+    else:
+        raise PermissionError(f"Unable to access DLL for {hostname}.")
+    try:
+        process = start_dll_process(PYTHON_PATH, dll_path, hostname, SOCKETHOST,
+                                    subprocess_ports[user.username], start_subprocess)
+    except TimeoutError:
+        write_log("DLL Subprozess konnte nicht gestartet werden!")
+        return redirect(url_for("home"))
+    dll_instances[user.username] = process
+    
     return redirect(url_for('home'))
 
 @app.route('/index')
@@ -371,6 +407,7 @@ def get_free_port():
 #     return 'de'
 
 @app.route("/", methods=["POST", "GET"])
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def home():
     """
     Base route for showing the home screen with all functionalities as buttons.
@@ -395,22 +432,12 @@ def home():
             logout_user()  # log out user, will get logged in again when beginning booking
             delete_user(user)  # also delete user, will newly register when booking to get resh XML copy
         
-        hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
-        hostname = hostname.split(".")[0]
-        hostname = "pks866"  # dummy value for testing
-        user = User(username=hostname, password=hostname)
-        newly_registred = register_user(hostname, hostname)
-        user = User.query.filter_by(username=hostname).first()
-        login_user(user)
-        dll_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{hostname}.dll"
-        if not newly_registred:
-            dll_path_data, dll_path = create_dll_copy(hostname)
-            user.dll_path = dll_path
-            user.dll_path_data = dll_path_data
-            db.session.commit()
+        hostname, user, newly_registred = create_and_login(request)
+        dll_path, start_subprocess = prepare_subprocess(hostname, user, newly_registred)
         
         try:
-            process = start_dll_process(PYTHON_PATH, dll_path, hostname, SOCKETHOST, get_free_port())
+            process = start_dll_process(PYTHON_PATH, dll_path, hostname, SOCKETHOST,
+                                        subprocess_ports[user.username], start_subprocess)
         except TimeoutError:
             write_log("DLL Subprozess konnte nicht gestartet werden.")
             return redirect(url_for("home", username=username))
@@ -422,58 +449,63 @@ def home():
         BTAETIGKEIT[user.username]  = bool(int(root[user.username].findall('X998_Taetigkeit')[0].text))  # X998_TAETIGKEIT
         FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
         X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
-        
-        inputBarValue = request.form["inputbar"]
-        username = None
-        try:
-            usernamepd = dbconnection.getPersonaldetails(inputBarValue)
-            username = usernamepd['formatted_name']
 
-        finally:
-            if "selectedButton" in request.form:
-                selectedButton = request.form["selectedButton"]
+        inputBarValue = request.form["inputbar"]    
+        if "selectedButton" in request.form:
+            selectedButton = request.form["selectedButton"]
 
-                if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
-                    return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
-                else:
-                    return redirect(url_for("identification", page=selectedButton))
+            if selectedButton == "arbeitsplatzwechsel" and len(inputBarValue) > 0:
+                return redirect(url_for("arbeitsplatzwechsel", userid=inputBarValue))
+            else:
+                return redirect(url_for("identification", page=selectedButton))
 
-            elif "anmelden_submit" in request.form:
-                # something was put into the inputbar and enter was pressed
-                nr = inputBarValue
-                ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-                if not ret:
-                    # something went wrong or Auftragsbuchung
-                    if msg == "MSG0147C":  # Kartennummer scannen
-                        communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                        write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
-                        return redirect(url_for("identification", page="_auftragsbuchung"))
-                    elif msg == "MSG0085":
-                        flash("Keine Berechtigung zur Buchung!")
-                    elif msg == "MSG0162":
-                        flash("Kartennummer ist inaktiv!")
-                    else:
-                        flash("Unerwarter Fehler!")
+        elif "anmelden_submit" in request.form:
+            try:
+                usernamepd = dbconnection.getPersonaldetails(inputBarValue)
+                username = usernamepd['formatted_name']
+            except IndexError as e:
+                if username is None:
+                    # handle the case where username is not valid
+                    flash("Kartennummer ungültig!")
+                    write_log(f"invalid card number: {nr}")
+                    return redirect(url_for("home", username=""))
+            # something was put into the inputbar and enter was pressed
+            nr = inputBarValue
+            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
+            if not ret:
+                # something went wrong or Auftragsbuchung
+                if msg == "MSG0147C":  # Kartennummer scannen
                     communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
-                    return redirect(url_for("home", username=username))
+                    write_log(f"Buch4Clear: nr:{nr}, sa:{sa}, buaction:{buaction}")
+                    return redirect(url_for("identification", page="_auftragsbuchung"))
+                elif msg == "MSG0085":
+                    flash("Keine Berechtigung zur Buchung!")
+                elif msg == "MSG0162":
+                    flash("Kartennummer ist inaktiv!")
                 else:
-                    if username is None:
-                        # handle the case where username is not valid
-                        flash("Kartennummer ungültig!")
-                        write_log(f"invalid card number: {nr}")
-                        return redirect(url_for("home", username=""))
-                    else:
-                        # K/G Buchung
-                        return actbuchung(nr=nr, username=username, sa=sa)
+                    flash("Unerwarter Fehler!")
+                communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
+                return redirect(url_for("home", username=username))
+            else:
+                # K/G Buchung
+                return actbuchung(nr=nr, username=username, sa=sa)
 
     elif request.method == "GET":
-        if "first_request" in session:
-            session["request_count"] += 1
-        else:
-            session["request_count"] = 1
-        session["first_request"] = True
+                
+        if not "first_request" in session:  # on first GET request of each session
+            session["first_request"] = True
+            # start dll in subprocess once on first connection
+            hostname, user, newly_registred = create_and_login(request)
+            dll_path, start_subprocess = prepare_subprocess(hostname, user, newly_registred)
+            try:
+                process = start_dll_process(PYTHON_PATH, dll_path, hostname, SOCKETHOST,
+                                            subprocess_ports[user.username], start_subprocess)
+            except TimeoutError:
+                write_log("DLL Subprozess konnte nicht gestartet werden.")
+                return redirect(url_for("home", username=username))
+            dll_instances[user.username] = process
         
-        if current_user.is_authenticated:  # ignore first request when user is not logged in yet
+        if current_user.is_authenticated:
                 if current_user.username in dll_instances:
                     try:
                         # terminate running dll subprocess when returning to home
@@ -503,7 +535,7 @@ def home():
         )
 
 @app.route("/arbeitsplatzwechsel/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def arbeitsplatzwechsel(userid):
     """
@@ -521,32 +553,31 @@ def arbeitsplatzwechsel(userid):
             and Mengendialog is needed.
     """
 
-    try:
-        usernamepd = dbconnection.getPersonaldetails(userid)
-        username = usernamepd['formatted_name']
-    finally:
-        if request.method == 'POST':
-            selectedArbeitsplatz = request.form["arbeitplatzbuttons"]
-            # Retrieve the value of selected button
-            selectedArbeitsplatz, arbeitsplatzName = selectedArbeitsplatz.split(",")
-            nr = userid
-            write_log(f"Arbeitsplatzwechsel: nr:{nr}, selectedArbeitsplatz:{selectedArbeitsplatz}, arbeitsplatzName:{arbeitsplatzName}")
-            communicate(dll_instances[current_user.username], "T905Read", selectedArbeitsplatz)
-            ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
-            return actbuchung(nr=nr, username=username, sa=sa, arbeitsplatz=arbeitsplatzName)
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
 
-        return render_template(
-            "arbeitsplatzwechsel.html",
-            user=userid,
-            date=datetime.now(),
-            buttonText=get_list("arbeitsplatz"),
-            show_button_ids=SHOW_BUTTON_IDS,
-            sidebarItems=get_list("sidebarItems")
-        )
+    if request.method == 'POST':
+        selectedArbeitsplatz = request.form["arbeitplatzbuttons"]
+        # Retrieve the value of selected button
+        selectedArbeitsplatz, arbeitsplatzName = selectedArbeitsplatz.split(",")
+        nr = userid
+        write_log(f"Arbeitsplatzwechsel: nr:{nr}, selectedArbeitsplatz:{selectedArbeitsplatz}, arbeitsplatzName:{arbeitsplatzName}")
+        communicate(dll_instances[current_user.username], "T905Read", selectedArbeitsplatz)
+        ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
+        return actbuchung(nr=nr, username=username, sa=sa, arbeitsplatz=arbeitsplatzName)
+
+    return render_template(
+        "arbeitsplatzwechsel.html",
+        user=userid,
+        date=datetime.now(),
+        buttonText=get_list("arbeitsplatz"),
+        show_button_ids=SHOW_BUTTON_IDS,
+        sidebarItems=get_list("sidebarItems")
+    )
 
 
 @app.route("/gemeinkosten_buttons/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def gemeinkosten_buttons(userid):
     """
@@ -592,7 +623,7 @@ def gemeinkosten_buttons(userid):
     
 
 @app.route("/zaehlerstand_buttons/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def zaehlerstand_buttons(userid):
     """
@@ -603,7 +634,8 @@ def zaehlerstand_buttons(userid):
         userid: Kartennummer that was input into the inputbar on the identification screen.
 
     Routes to:
-        TODO
+        fabuchta56_dialog: shows dialogue to input new Zählerstand.
+        home: if any error occured.
     """
 
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -633,7 +665,7 @@ def zaehlerstand_buttons(userid):
     
     
 @app.route("/arbeitsplatzbuchung/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def arbeitsplatzbuchung(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -677,8 +709,9 @@ def arbeitsplatzbuchung(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
+
 @app.route("/gemeinkosten/", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def gemeinkosten():
     """
     Route for choosing Gemeinkosten with a text input field.
@@ -692,10 +725,16 @@ def gemeinkosten():
 
     if request.method == 'POST':
         # Retrieve the value of inputted Gemeinkostenauftrag.
-        nr = request.form["inputfield"]
-        logging.debug(nr)
-        usernamepd = dbconnection.getPersonaldetails(nr)
-        username = usernamepd['formatted_name']
+        try:
+            userid = request.form["inputfield"]
+            usernamepd = dbconnection.getPersonaldetails(userid)
+            username = usernamepd['formatted_name']
+        except IndexError as e:
+            if username is None:
+                # handle the case where username is not valid
+                flash("Kartennummer ungültig!")
+                write_log(f"invalid card number: {userid}")
+                return redirect(url_for("home", username=""))
 
         ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(nr)
         return actbuchung(nr=nr, username=username, sa=sa)
@@ -707,8 +746,9 @@ def gemeinkosten():
         sidebarItems=get_list("sidebarItems")
     )
 
+
 @app.route("/identification/<page>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def identification(page):
     """
     General pass through route for all routes which need the user id as input.
@@ -729,9 +769,12 @@ def identification(page):
             userid = request.form["inputfield"]
             usernamepd = dbconnection.getPersonaldetails(userid)
             username = usernamepd['formatted_name']
-        except:
-            flash("Kartennummer ungültig!", category="error")
-            return redirect(url_for("home", username=""))
+        except IndexError as e:
+            if username is None:
+                # handle the case where username is not valid
+                flash("Kartennummer ungültig!")
+                write_log(f"invalid card number: {userid}")
+                return redirect(url_for("home", username=""))
 
         if page == "_auftragsbuchung":
             ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg = start_booking(userid)
@@ -753,8 +796,9 @@ def identification(page):
             sidebarItems=get_list("sidebarItems")
         )
 
+
 @app.route("/status/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def status(userid):
     return render_template(
@@ -764,8 +808,9 @@ def status(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
+
 @app.route("/berichtdrucken/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def berichtdrucken(userid):
     return render_template(
@@ -775,8 +820,9 @@ def berichtdrucken(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
+
 @app.route("/gruppenbuchung/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def gruppenbuchung(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -829,8 +875,9 @@ def gruppenbuchung(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
+
 @app.route("/fertigungsauftragerfassen/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def fertigungsauftragerfassen(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -885,8 +932,9 @@ def fertigungsauftragerfassen(userid):
             sidebarItems=get_list("sidebarItems")
         )
 
+
 @app.route("/gemeinkostenandern/<userid>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def gemeinkostenandern(userid):
     usernamepd = dbconnection.getPersonaldetails(userid)
@@ -996,8 +1044,9 @@ def gemeinkostenandern(userid):
             tablecontent=tablecontent
         )
 
+
 @app.route("/anmelden/<userid>/<sa>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def anmelden(userid, sa):
     """
@@ -1046,8 +1095,9 @@ def anmelden(userid, sa):
             sidebarItems=get_list("sidebarItems")
         )
 
+
 @app.route("/fabuchta56_dialog/<userid>/<old_total>/<platz>/<belegnr>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def fabuchta56_dialog(userid, old_total, platz, belegnr):
     """
@@ -1121,8 +1171,9 @@ def fabuchta56_dialog(userid, old_total, platz, belegnr):
         sidebarItems=get_list("sidebarItems")
     )
 
+
 @app.route("/fabuchta55_dialog/<userid>/<menge_soll>/<xFAStatus>/<xFATS>/<xFAEndeTS>/<xScanFA>/<endroute>", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, endroute):
     """
@@ -1233,8 +1284,9 @@ def fabuchta55_dialog(userid, menge_soll, xFAStatus, xFATS, xFAEndeTS, xScanFA, 
         sidebarItems=get_list("sidebarItems")
     )
 
+
 @app.route("/fabuchta51_dialog/<userid>/", methods=["POST", "GET"])
-@retry_db_calls(max_retries=3, timeout=5)
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
 def fabuchta51_dialog(userid):
     """
@@ -1325,7 +1377,8 @@ def fabuchta51_dialog(userid):
         sidebarItems=get_list("sidebarItems")
     )
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def endta51cancelt905(apersnr):
     """Terminates all running GK and FA for user with 'apersnr'."""
 
@@ -1411,7 +1464,8 @@ def endta51cancelt905(apersnr):
 
     return final_ret
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEndeTS=None, platz=None, aBem=None, userid=None, endroute="home", sa=""):
     """Checks whether current GK/FA active in DLL is ok to be booked and decides which fabuchta is appropriate."""
     xFehler = ''  
@@ -1537,7 +1591,8 @@ def bufa(ANr="", ATA29Nr="", AFARueckend="", ata22dauer="", aAnfangTS=None, aEnd
 
     return xFehler
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def start_booking(nr):
     """Starts the booking process for given card nr."""
 
@@ -1558,7 +1613,8 @@ def start_booking(nr):
 
     return ret, sa, buaction, bufunktion, activefkt, msg, msgfkt, msgdlg
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     xFAMeGut=0.0
     xMengeAus=0.0
@@ -1608,7 +1664,8 @@ def fabuchta55(userid, xFAMeGes, xFAStatus, xFATS, xFAEndeTS, xScanFA):
     
     return  "" #fabuchta55
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, aBem=None, platz=None):
     xStatusMenge = ""
     # if given, set begin and end according to parameter, else assume begin = end = now
@@ -1742,7 +1799,8 @@ def fabuchta51(nr="", username="", ata22dauer="", aAnfangTS=None, aEndeTS=None, 
     flash("Gemeinkosten erfolgreich gebucht.")
     return redirect(url_for("home", username=username))
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", nr="", username="", sa="",
                arbeitsplatz=None, ata22dauer="", AAnfangTS=None, AEndeTS=None, aBem=None, endroute="home"):
     """K/G/A booking according to sa for user with given card nr and username."""
@@ -1853,7 +1911,8 @@ def actbuchung(kst="", t905nr="", salast="", kstlast="", tslast="", APlatz="", n
 
         return redirect(url_for("home", username=username))
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def ta06gkend(userid,AScreen2=None):
 	
 	xMsg = communicate(dll_instances[current_user.username], "EndTA51GKCheck")
@@ -1866,7 +1925,8 @@ def ta06gkend(userid,AScreen2=None):
 		else:
 			flash("GK konnten nicht beendet werden!")
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 	# Change existing Auftragsbuchung, TODO: somehow return error when no GK to delete is found
 	ret = dbconnection.doGKLoeschen(fa_old, userid, anfang_ts, FirmaNr[current_user.username])  # delete old booking with BelegNr=scanvalue and Anfang=Anfangts
@@ -1886,7 +1946,8 @@ def gk_ändern(fa_old, userid, anfang_ts, dauer, date):
 		# result = communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, scanvalue, sa, platz, buaction, gkendcheck, activefkt, msgfkt, msgbuch, msgzeit, msgpers)
 		return "Nur gelöscht"
 
-@retry_db_calls(max_retries=3, timeout=5)
+
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 def gk_erstellen(userid, dauer, date):
 	# create Auftragsbuchung with Dauer
 	persnr = dbconnection.getPersonaldetails(userid)["T910_Nr"]

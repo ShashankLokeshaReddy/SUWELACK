@@ -36,9 +36,10 @@ def encode(msg):
         dtypes = [type(x).__name__ for x in msg]
         return f"{'_____'.join(map(str, msg))}+++++{'_____'.join(dtypes)}"
 
-def start_dll_process(python_path, dll_path, hostname, socket_host, socket_port):
-    subprocess_path = os.path.abspath(os.path.dirname(__file__)) + "\\dll_subprocess.py"
-    process = subprocess.Popen([python_path, subprocess_path, dll_path, hostname, socket_host, str(socket_port)])
+def start_dll_process(python_path, dll_path, hostname, socket_host, socket_port, start_subprocess=False):
+    if start_subprocess:
+        subprocess_path = os.path.abspath(os.path.dirname(__file__)) + "\\dll_subprocess.py"
+        process = subprocess.Popen([python_path, subprocess_path, dll_path, hostname, socket_host, str(socket_port)])
 
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -72,6 +73,9 @@ def communicate(client, command, *args):
             return args
         elif isinstance(args, list) and len(args) == 1:
             # if return is just a single variable, return it without list wrapper
-            return args[0]
+            if args[0] == "exception":
+                return None
+            else:
+                return args[0]
         else:
             return None
