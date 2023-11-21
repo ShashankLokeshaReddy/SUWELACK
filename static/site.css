@@ -16,13 +16,17 @@ body, html {
     outline: none;
     font-style: oblique;
     font-size: 1.25rem;
-    width: 23.125rem;
+    width: 120%;
 }
 .btn-primary:active:focus, .btn-primary:active,.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:visited, .btn-primary:focus{
     background-color: #ffbf0a !important;
     outline: none;
     box-shadow: 0.0625rem 0.0625rem 1.25rem 0 rgba(205, 205, 205,1),0.125rem 0.125rem 0.625rem 0 rgba(205, 205, 205,1);
     color: #f1f1f1 !important;
+}
+.btn-primary:disabled, .btn-secondary:disabled, .btnZ:disabled, .btn-light:disabled {
+    background-color: #c0c0c0;
+    color: #666666;
 }
 .btn-secondary, .btn-secondary:hover{
     background-color:#F4F4F4 !important;
@@ -71,8 +75,8 @@ body, html {
     margin: 3.125rem 0.3125rem 0.3125rem 0.3125rem;
     flex-flow:column wrap;
     width: 100%;
-    
 }
+
 .flex-column{
     float: left;
     margin-right: 1.875rem;
@@ -726,6 +730,7 @@ hr.solid {
 /* Style the body content */
 .body-content {
     padding: 1rem;
+    text-align:center;
 }
 
 /* Style the footer */
@@ -750,3 +755,14 @@ hr.solid {
     background-color: white;
     width: 100%;
 }
+
+
+@media screen and (max-width: 960px) {
+    .card-flex-container {
+      display: none;
+    }
+    button {
+      padding: 10px; /* Kleinere Polsterung auf kleinen Bildschirmen */
+      width: calc(100% - 20px); /* Anpassung der Breite an neues Padding */
+    }
+  }

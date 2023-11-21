@@ -116,6 +116,13 @@
             }
         });
     
+        /* "Debounce" Multiple Clicks */
+        $('form:first :submit').click(function() {
+            setTimeout(function() {
+                $("form:first :input").prop("disabled", true);
+            }, 10); 
+    //            submitButtonValue = $(this).val(); // Store the value (or use .attr('name') or .attr('id'))
+        });
     </script>
 
     <script src="{{ url_for('static', filename='js/cdnjs.cloudflare.com_ajax_libs_popper.js_1.14.7_umd_popper.min.js') }}" type="text/javascript"></script>
