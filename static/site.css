@@ -45,7 +45,7 @@ body, html {
     margin: 0.125rem 0.125rem 0.125rem 0.125rem;
     color: #232323;
     font-size: 1.25rem;
-    height: 7.1875rem;
+    height: 7rem;
     width: 3.4375rem;
 }
 .btnZ{
@@ -282,14 +282,14 @@ body, html {
     margin: 0.625rem 0.3125rem 1.25rem 1.875rem;
     align-items:baseline;
 } */
-.bestätigen{
+.bestĆ¤tigen{
     margin: 5rem 1.25rem 1.25rem 1.25rem;
     padding-bottom: 5rem;
     align-self: flex-end;
     margin-top: auto !important;
     width: -webkit-fill-available;
 }
-.bestätigen2{
+.bestĆ¤tigen2{
     margin: 0.625rem 1.875rem 1.25rem 1.875rem;
     align-self: flex-end;
     margin-top: auto;
@@ -402,19 +402,20 @@ body, html {
     font-style: oblique;
  }
  table {
-    display: flex;
-    flex-flow: column;
+/*    display: flex;
+    flex-flow: column; */
     height: 80%;
-    width: 99%;
+    width: 100%;
+    word-break:normal;
 }
-table thead {
-    /* head takes the height it requires,
-    and it's not scaled when table is resized */
+/*table thead {
+    // head takes the height it requires,
+    // and it's not scaled when table is resized 
     flex: 0 0 auto;
     width: calc(99% - 0.9em);
 }
 table tbody {
-    /* body takes all the remaining available space */
+    // body takes all the remaining available space 
     flex: 1 1 auto;
     display: block;
     
@@ -425,7 +426,7 @@ table tbody tr {
     display: table;
     table-layout: fixed;
     width: 99%;
-}
+}*/
 .table td, .table th {
     
     vertical-align: baseline;
@@ -464,7 +465,7 @@ table tbody tr {
     justify-content: center;
 
 }
-.bestätigen3 {
+.bestĆ¤tigen3 {
     margin: 0rem 1.875rem 6.25rem 1.875rem;
     align-self: flex-end;
     margin-top: auto;
@@ -570,7 +571,7 @@ hr.solid {
     justify-content: left;
 }
 
-/* #Ändern {
+/* #Ć„ndern {
     width: 12.5rem !important;
     height: 2.8125rem !important;
     flex-direction: unset !important;
@@ -762,6 +763,24 @@ hr.solid {
     width: 100%;
 }
 
+.tbl_user_data {
+    width: 100%;
+    overflow-y: auto;
+    margin: 0 0 1em;
+}
+
+.tbl_user_data::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+}
+  
+.tbl_user_data::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 3px solid #fff;
+    background-color: rgba(0, 0, 0, .3);
+}
+
 
 @media screen and (max-width: 960px) {
     .card-flex-container {
@@ -771,4 +790,22 @@ hr.solid {
       padding: 10px; /* Kleinere Polsterung auf kleinen Bildschirmen */
       width: calc(100% - 20px); /* Anpassung der Breite an neues Padding */
     }
-  }
+    .navbar-brand {
+        padding-top:0px;
+        padding-bottom:0px;
+    }
+    .navbar {
+        padding-top:0px;
+        padding-bottom:0px;
+    }
+
+}
+
+.open-keyboard {
+    display: none;
+}
+@media screen and (min-width: 768px) {
+    .open-keyboard {
+        display: block;
+    }    
+}

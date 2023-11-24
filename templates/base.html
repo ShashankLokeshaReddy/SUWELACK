@@ -103,13 +103,17 @@
                 ];
 
                 // get current date and time
-                // const date = monthList[month] + " " + day + ", " + year;
-                const date = day + ". " + monthList[month] + " " + year;
-                const time = hour + ":" + minute + ":" + second + " Uhr";
-
-                // combine current date and time
-                const dateTime = date + " - " + time;
-
+                var dateTime = "";
+                if (window.innerWidth <= 650) { // Example breakpoint
+                    const date = day + ". " + monthList[month].substring(0,3) + " " + year % 100;
+                    const time = hour + ":" + minute;
+                    dateTime = date + " - " + time;
+                } else {
+                    const date = day + ". " + monthList[month] + " " + year;
+                    const time = hour + ":" + minute + ":" + second + " Uhr";
+                    dateTime = date + " - " + time;
+                }
+                
                 // print current date and time to the DOM
                 document.getElementById("date-time").innerHTML = dateTime;
                 setTimeout(clock, 1000);

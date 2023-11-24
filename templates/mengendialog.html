@@ -52,111 +52,107 @@
               {% endfor %} {% endif %} {% endwith %} {% endblock %}
               <div class="statustable">
                 <h3>Mengendialog</h3>
-                <div class="fertigungauftragcontainer">
+                <div class="fertigungauftragcontainer pad">
                   <!-- <form action='#' method="POST"> -->
-                    <div class="d-flex flex-row fertigungauftragrow">
-                      <div class="fluid-matrix">
-                        <div class="fluid-cell">
-                            <div class="input-group">
-                                <label for="gesamt">{{ _('Gesamt') }}</label>
-                                <div class="dropdown inputbutton2">
-                                  <input type="text" name="menge_soll" id="gesamt" value="{{menge_soll}}" class="form-control fertigungauftrag" readonly>
-                                </div>
-                                <div class="boxes" , id="ms_n"></div>
+                  <div class="fluid-matrix">
+                    <div class="fluid-cell">
+                        <div class="input-group">
+                            <label for="gesamt">{{ _('Gesamt') }}</label>
+                            <div class="dropdown inputbutton2">
+                              <input type="text" name="menge_soll" id="gesamt" value="{{menge_soll}}" class="form-control fertigungauftrag" readonly>
+                            </div>
+                            <div class="boxes" , id="ms_n"></div>
+                        </div>
+                    </div>
+                    <div class="fluid-cell">
+                      <div class="input-group">
+                          <label for="menge_gut">{{ _('Menge Gut') }}</label>
+                          <div class="dropdown inputbutton2">
+                            <input type="text" name="menge_gut" id="mengegut" value="0.0" class="form-control fertigungauftrag">
+                          </div>
+                          <div class="boxes" , id="mg_n"></div>
+                      </div>
+                    </div>
+                    <div class="fluid-cell">
+                      <div class="input-group">
+                          <label for="menge_aus">{{ _('Menge Aus') }}</label>
+                          <div class="dropdown inputbutton2">
+                            <input type="text" name="menge_aus" id="mengeaus" value="0.0" class="form-control fertigungauftrag">
+                          </div>
+                          <div class="boxes" , id="ma_n"></div>
+                      </div>
+                    </div>
+                    <div class="fluid-cell">
+                      <div class="input-group">
+                          <label for="ruestzeit">{{ _('Grundrüstzeit') }}</label>
+                          <div class="dropdown inputbutton2">
+                            <input type="text" name="ruestzeit" id="grundrustzeit" value="0.0" class="form-control fertigungauftrag">
+                          </div>
+                          <div class="boxes" , id="ruestzeit_n"></div>
+                      </div>
+                    </div>
+                    <div class="fluid-cell">
+                      <div class="input-group">
+                          <label for="charge">{{ _('Charge') }}</label>
+                          <div class="dropdown inputbutton2">
+                            <input type="text" name="charge" id="charge" class="form-control fertigungauftrag">
+                          </div>
+                          <div class="boxes" , id="charge_n"></div>
+                      </div>
+                    </div>
+                    <div class="fluid-cell">
+                      <div class="input-group">
+                          <label for="lagerplatz">{{ _('Lagerplatz') }}</label>
+                          <div class="dropdown inputbutton2">
+                            <input type="text" name="lagerplatz" id="lagerplatz" class="form-control fertigungauftrag">
+                          </div>
+                          <div class="boxes" , id="lagerplatz_n"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-flex-container">
+                    <div class="card">
+                        <!-- Keypad -->
+                        <div class="col-8" id="keypad">
+                            <div class="row">
+                                <button type="button" id="clear" class="btn btn-secondary">⌫</button>
+                                <button type="button" value="/" class="btn btn-secondary">/</button>  
+                                <button type="button" value="*" class="btn btn-secondary">*</button>
+                            </div>
+                            <div class="row">
+                                <button type="button" value="7" class="btn btn-secondary">7</button>
+                                <button type="button" value="8" class="btn btn-secondary">8</button>
+                                <button type="button" value="9" class="btn btn-secondary">9</button>
+                            </div>
+                            <div class="row">
+                                <button type="button" value="4" class="btn btn-secondary">4</button>
+                                <button type="button" value="5" class="btn btn-secondary">5</button>
+                                <button type="button" value="6" class="btn btn-secondary">6</button>
+                            </div>
+                            <div class="row">
+                                <button type="button" value="1" class="btn btn-secondary">1</button>
+                                <button type="button" value="2" class="btn btn-secondary">2</button>
+                                <button type="button" value="3" class="btn btn-secondary">3</button>    
+                            </div>
+                            <div class="row">
+                                <button type="button" value="0" class="btnZ">0</button>
+                                <button type="button" value="." class="btn btn-secondary">.</button>
                             </div>
                         </div>
-                        <div class="fluid-cell">
-                          <div class="input-group">
-                              <label for="menge_gut">{{ _('Menge Gut') }}</label>
-                              <div class="dropdown inputbutton2">
-                                <input type="text" name="menge_gut" id="mengegut" value="0.0" class="form-control fertigungauftrag">
-                              </div>
-                              <div class="boxes" , id="mg_n"></div>
-                          </div>
-                        </div>
-                        <div class="fluid-cell">
-                          <div class="input-group">
-                              <label for="menge_aus">{{ _('Menge Aus') }}</label>
-                              <div class="dropdown inputbutton2">
-                                <input type="text" name="menge_aus" id="mengeaus" value="0.0" class="form-control fertigungauftrag">
-                              </div>
-                              <div class="boxes" , id="ma_n"></div>
-                          </div>
-                        </div>
-                        <div class="fluid-cell">
-                          <div class="input-group">
-                              <label for="ruestzeit">{{ _('Grundrüstzeit') }}</label>
-                              <div class="dropdown inputbutton2">
-                                <input type="text" name="ruestzeit" id="grundrustzeit" value="0.0" class="form-control fertigungauftrag">
-                              </div>
-                              <div class="boxes" , id="ruestzeit_n"></div>
-                          </div>
-                        </div>
-                        <div class="fluid-cell">
-                          <div class="input-group">
-                              <label for="charge">{{ _('Charge') }}</label>
-                              <div class="dropdown inputbutton2">
-                                <input type="text" name="charge" id="charge" class="form-control fertigungauftrag">
-                              </div>
-                              <div class="boxes" , id="charge_n"></div>
-                          </div>
-                        </div>
-                        <div class="fluid-cell">
-                          <div class="input-group">
-                              <label for="lagerplatz">{{ _('Lagerplatz') }}</label>
-                              <div class="dropdown inputbutton2">
-                                <input type="text" name="lagerplatz" id="lagerplatz" class="form-control fertigungauftrag">
-                              </div>
-                              <div class="boxes" , id="lagerplatz_n"></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-column">
-                        <div class="card-flex-container">
-                          <div class="card">
-                              <!-- Keypad -->
-                              <div class="col-8" id="keypad">
-                                  <div class="row">
-                                      <button type="button" id="clear" class="btn btn-secondary">⌫</button>
-                                      <button type="button" value="/" class="btn btn-secondary">/</button>  
-                                      <button type="button" value="*" class="btn btn-secondary">*</button>
-                                  </div>
-                                  <div class="row">
-                                      <button type="button" value="7" class="btn btn-secondary">7</button>
-                                      <button type="button" value="8" class="btn btn-secondary">8</button>
-                                      <button type="button" value="9" class="btn btn-secondary">9</button>
-                                  </div>
-                                  <div class="row">
-                                      <button type="button" value="4" class="btn btn-secondary">4</button>
-                                      <button type="button" value="5" class="btn btn-secondary">5</button>
-                                      <button type="button" value="6" class="btn btn-secondary">6</button>
-                                  </div>
-                                  <div class="row">
-                                      <button type="button" value="1" class="btn btn-secondary">1</button>
-                                      <button type="button" value="2" class="btn btn-secondary">2</button>
-                                      <button type="button" value="3" class="btn btn-secondary">3</button>    
-                                  </div>
-                                  <div class="row">
-                                      <button type="button" value="0" class="btnZ">0</button>
-                                      <button type="button" value="." class="btn btn-secondary">.</button>
-                                  </div>
-                              </div>
-                              <div class="col-4">
-                                  <button type="button" value="-" class="btn btn-secondary">-</button>
-                                  <button type="button" value="+" class="btn btn-light">+</button>
-                                  <button type="submit" id="enter_btn"  name="anmelden_submit" class="btn btn-light">↵</button>
-                              </div> 
-                          </div>
-                      </div>
-                      </div>
+                        <div class="col-4">
+                            <button type="button" value="-" class="btn btn-secondary">-</button>
+                            <button type="button" value="+" class="btn btn-light">+</button>
+                            <button type="submit" id="enter_btn"  name="anmelden_submit" class="btn btn-light">↵</button>
+                        </div> 
                     </div>
-                    <div class="d-flex justify-content-between bestätigen2">
-                      <!-- <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button> -->
-                      <button type="submit" name="submit" value="submit_teil" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
-                      <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Endrückmeldung') }}</button>
-                    </div>
-                  <!-- </form> -->
+                  </div>
                 </div>
+                <div class="d-flex justify-content-between bestätigen2">
+                  <!-- <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button> -->
+                  <button type="submit" name="submit" value="submit_teil" class="btn btn-primary btn-lg submit2">{{ _('Teilrückmeldung') }}</button>
+                  <button type="submit" name="submit" value="submit_end" class="btn btn-primary btn-lg submit2">{{ _('Endrückmeldung') }}</button>
+                </div>
+                  <!-- </form> -->
               </div>
             </div>
             <div class="transparent-bar"></div>
@@ -243,12 +239,16 @@
                 ];
 
                 // get current date and time
-                // const date = monthList[month] + " " + day + ", " + year;
-                const date = day + ". " + monthList[month] + " " + year;
-                const time = hour + ":" + minute + ":" + second + " Uhr";
-
-                // combine current date and time
-                const dateTime = date + " - " + time;
+                var dateTime = "";
+                if (window.innerWidth <= 650) { // Example breakpoint
+                    const date = day + ". " + monthList[month].substring(0,3) + " " + year % 100;
+                    const time = hour + ":" + minute;
+                    dateTime = date + " - " + time;
+                } else {
+                    const date = day + ". " + monthList[month] + " " + year;
+                    const time = hour + ":" + minute + ":" + second + " Uhr";
+                    dateTime = date + " - " + time;
+                }
 
                 // print current date and time to the DOM
                 document.getElementById("date-time").innerHTML = dateTime;
