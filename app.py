@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import getpass
 import socket
 
-from flask import Flask, session
+from flask import Flask, session, send_from_directory
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -405,6 +405,11 @@ def get_free_port():
 # @babel.localeselector
 # def get_locale():
 #     return 'de'
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/images'),
+                               'suweterm_32.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route("/", methods=["POST", "GET"])
 @retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
