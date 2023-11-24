@@ -43,6 +43,7 @@ DFORMAT = "%d.%m.%Y"
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__)) + "\\"  # directory which directly contains app.py
 # PYTHON_PATH = os.path.abspath(os.path.dirname(sys.executable) + "\\python")
 PYTHON_PATH = "C:/Users/MSSQL/PycharmProjects/DLLTest/venv/Scripts/python"
+# PYTHON_PATH = "C:\\Python\\Python310\\python"
 APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
 SHOWMSGGEHT = {} # X998_ShowMsgGeht
 GKENDCHECK = {} # X998_GKEndCheck
@@ -64,6 +65,10 @@ SOCKET_TIMEOUT = 5  # secs
 SOCKET_INTERVAL = 0.01  # secs, connect interval
 DB_TIMEOUT = 5  # secs
 DB_RETRIES = 3
+
+dcX998User = dict() #liste benutzerabhängiger Config key =User Liste=X998-dict
+dcX998UserFkt =dict() #Liste der Funktionsknöppedef. key = User  Liste = Fktconfig
+#dcX998Fkt =dict() #Liste der Funktionsknöppe für 1 Terminal
 
 
 sys.path.append("dll/bin")
@@ -155,12 +160,29 @@ subprocess_ports = {}
 def create_dll_copy(username):
     src_path_data = ROOT_DIR+"dll\\data\\X998.xml"
     dest_path_data = ROOT_DIR+f"dll\\data\\X998-{username}.xml"
-    # write_log(f"copy from {src_path_data} to {dest_path_data}")
+    # 27.10.2023 DG Prüfen, ob vorhanden und ob Datei neuer ist
+    # bei copy wird das Änderungsdateum auf den Erstellungszeitpunkt gesetzt und nicht der Originaldatei beibehalten!
+    # Prüfen löschen dll bei delete_user - wird nicht gelöscht, da vorher auf Fehler läuft; ist gut so, das nicht gelöscht - wann werden die dlls dann mal bereinigt?
+    #10.11.2023 xtsrc = os.path.getmtime(src_path_data)
+    #10.11.2023 xtdst = os.path.getmtime(dest_path_data)
+    # print(f"copy from {src_path_data} to {dest_path_data}") - von dll erstell wird nicht mehr kopiert
     # shutil.copyfile(src_path_data, dest_path_data)
+    
+   
+
     src_path = ROOT_DIR+"dll\\bin\\kt002_PersNr.dll"
     dest_path = ROOT_DIR+f"dll\\bin\\kt002_PersNr-{username}.dll"
-    write_log(f"copy from {src_path} to {dest_path}")
-    shutil.copyfile(src_path, dest_path)
+    xtsrc = os.path.getmtime(src_path)
+    if os.path.exists(dest_path) == False:
+        shutil.copyfile(src_path, dest_path)
+        print(f"copy from {src_path} to {dest_path}")
+    else:
+        xtsrc = os.path.getmtime(src_path)
+        xtdst = os.path.getmtime(dest_path)
+        if xtdst < xtsrc:
+            shutil.copyfile(src_path, dest_path)
+            print(f"copy from {src_path} to {dest_path}")
+    os.utime (dest_path,(xtsrc,xtsrc))
     return dest_path_data, dest_path
 
 # Function to delete the DLL copy for a given user
@@ -173,6 +195,98 @@ def delete_dll_copy(user):
         os.remove(user.dll_path_data)
     else:
         write_log(user.dll_path_data + " DLL-Datei wurde nicht gelöscht")
+
+
+
+#einlesen der Konfig
+def Readx998Config(ausername):
+    xsrc =  ROOT_DIR+f"dll\\data\\X998-{ausername}.xml"
+    try:
+        xdcX998 = dcX998User[ausername]
+    except:
+        xdcX998=dict()
+    
+    if os.path.exists(xsrc) == True:
+        xtree = ET.parse(xsrc)
+        xcfg = xtree.find("X998_ConfigTerm") #den 1. finden   
+        for element in xcfg:
+            xdcX998[element.tag] = element.text
+        dcX998User[ausername]=xdcX998
+
+        
+        xlcX998Fkt =[]
+
+        result = GetFkt(xdcX998["X998_F1Btn1"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn2"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn3"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn4"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn5"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn6"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn7"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn8"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn9"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn10"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn11"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+        result = GetFkt(xdcX998["X998_F1Btn12"])
+        xret,xdcFkt = result
+        if xret == True:
+            xlcX998Fkt.append(xdcFkt)
+
+        dcX998UserFkt[ausername]=xlcX998Fkt
+        xlcX998Fkt =None
+
+
+
+def GetFkt(afkt):
+    xret = False
+    xFkt = dbconnection.getX998Fkt(afkt)
+    xdcFkt = dict() #erstellen und nicht benutzen - wann wird bereinigt?
+    if len(xFkt)> 0:
+        xtree = ET.fromstring(xFkt)
+        xcfg = xtree.find("root") #den 1. finden   
+        for element in xtree:
+            xdcFkt[element.tag] = element.text
+        xret = True
+        xs = xdcFkt["Text"]
+        xt = dbconnection.getS903("DEU","FORM",xs,"")
+        xdcFkt["Text"] = xt
+    return xret,xdcFkt
+        
+
+
         
 # Function to register user
 def register_user(username, password, verbose=False):
@@ -197,7 +311,7 @@ def register_user(username, password, verbose=False):
 def create_and_login(request):
     hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
     hostname = hostname.split(".")[0]
-    hostname = "pks866"  # dummy value for testing
+    #hostname = "pks866"  # dummy value for testing
     user = User(username=hostname, password=hostname)
     newly_registred = register_user(hostname, hostname)
     user = User.query.filter_by(username=hostname).first()
@@ -455,7 +569,8 @@ def home():
         FirmaNr[user.username]  = root[user.username].findall('X998_FirmaNr')[0].text  # X998_GKEndCheck
         X998_GrpPlatz[user.username]  = root[user.username].findall('X998_GrpPlatz')[0].text  # X998_TAETIGKEIT
 
-        inputBarValue = request.form["inputbar"]    
+        inputBarValue = request.form["inputbar"]
+        username = None #21.11.2023 DG 
         if "selectedButton" in request.form:
             selectedButton = request.form["selectedButton"]
 
@@ -466,6 +581,7 @@ def home():
 
         elif "anmelden_submit" in request.form:
             try:
+                nr = inputBarValue #21.11.2023 DG
                 usernamepd = dbconnection.getPersonaldetails(inputBarValue)
                 username = usernamepd['formatted_name']
             except IndexError as e:
@@ -485,6 +601,9 @@ def home():
                     return redirect(url_for("identification", page="_auftragsbuchung"))
                 elif msg == "MSG0085":
                     flash("Keine Berechtigung zur Buchung!")
+                #22.11.2023 DG
+                elif msg == "MSG0067C":
+                    flash("Keine gültige Kartennummer!")
                 elif msg == "MSG0162":
                     flash("Kartennummer ist inaktiv!")
                 else:
@@ -492,8 +611,15 @@ def home():
                 communicate(dll_instances[current_user.username], "PNR_Buch4Clear", 1, nr, sa, '', buaction, GKENDCHECK[current_user.username], '', '', '', '', '')
                 return redirect(url_for("home", username=username))
             else:
-                # K/G Buchung
-                return actbuchung(nr=nr, username=username, sa=sa)
+                #22.11.2023 DG
+                if username is None:
+                    # handle the case where username is not valid
+                    flash("Kartennummer ungültig!")
+                    write_log(f"invalid card number: {nr}")
+                    return redirect(url_for("home", username=""))
+                else:
+                    # K/G Buchung
+                    return actbuchung(nr=nr, username=username, sa=sa)
 
     elif request.method == "GET":
                 
@@ -1450,7 +1576,9 @@ def endta51cancelt905(apersnr):
 
     # Prüfen ob Fertigungsaufträge und GK-Aufträge laufen
     result = communicate(dll_instances[current_user.username], "EndTA51FACheck", xfa, xgk)
+    #21.11.2023
     xret, xfa, xgk = result
+    # xfa, xgk = result
 
     if xret is None:
         xret = ''
