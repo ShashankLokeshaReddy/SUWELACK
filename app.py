@@ -308,10 +308,11 @@ def register_user(username, password, verbose=False):
         return False
         
 # Function to create and login user with hostname
-def create_and_login(request):
-    hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
-    hostname = hostname.split(".")[0]
-    #hostname = "pks866"  # dummy value for testing
+def create_and_login(request, hostname):
+    if not hostname:
+        hostname = socket.gethostbyaddr(request.environ["REMOTE_ADDR"])[0]
+        hostname = hostname.split(".")[0]
+        #hostname = "pks866"  # dummy value for testing
     user = User(username=hostname, password=hostname)
     newly_registred = register_user(hostname, hostname)
     user = User.query.filter_by(username=hostname).first()
@@ -394,7 +395,7 @@ def handle_exception(e):
     
     # restart subprocess server
     del subprocess_ports[current_user.username]  # delete port to trigger restarting of subprocess server
-    hostname, user, newly_registred = create_and_login(request)
+    hostname, user, newly_registred = create_and_login(request, current_user.username)
     
     start_time = time.time()
     while time.time() - start_time < SOCKET_TIMEOUT:
@@ -526,8 +527,9 @@ def favicon():
                                'suweterm_32.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route("/", methods=["POST", "GET"])
+@app.route("/<hostname>", methods=["POST", "GET"])
 @retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
-def home():
+def home(hostname=None):
     """
     Base route for showing the home screen with all functionalities as buttons.
     Uses 'base.html'.
@@ -551,7 +553,7 @@ def home():
             logout_user()  # log out user, will get logged in again when beginning booking
             delete_user(user)  # also delete user, will newly register when booking to get resh XML copy
         
-        hostname, user, newly_registred = create_and_login(request)
+        hostname, user, newly_registred = create_and_login(request, hostname)
         dll_path, start_subprocess = prepare_subprocess(hostname, user, newly_registred)
         
         try:
@@ -626,7 +628,7 @@ def home():
         if not "first_request" in session:  # on first GET request of each session
             session["first_request"] = True
             # start dll in subprocess once on first connection
-            hostname, user, newly_registred = create_and_login(request)
+            hostname, user, newly_registred = create_and_login(request, hostname)
             dll_path, start_subprocess = prepare_subprocess(hostname, user, newly_registred)
             try:
                 process = start_dll_process(PYTHON_PATH, dll_path, hostname, SOCKETHOST,
