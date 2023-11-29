@@ -524,7 +524,7 @@ def get_free_port():
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static/images'),
-                               'suweterm_32.ico', mimetype='image/vnd.microsoft.icon')
+                               'pks_icon_small.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route("/", methods=["POST", "GET"])
 @app.route("/<hostname>", methods=["POST", "GET"])
