@@ -55,11 +55,22 @@ def start_dll_process(python_path, dll_path, hostname, socket_host, socket_port,
     return client
 
 def communicate(client, command, *args):
+    # if command == "Print":
+    #     for lst in args:
+    #         for string in list(lst):
+    #             if "+++++" in str(string) or "_____" in str(string):
+    #                 raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
+    #     field_names, values = args[:len(args)//2], args[len(args)//2:]
+    #     field_names_encoded = '_____'.join(map(str, field_names))
+    #     data = f"{command}+++++{field_names_encoded}+++++{encode(values)}\n"
+    #     print(f"sending to print: {data}")
+    
+    # else:
     for string in [command]+list(args):
         if "+++++" in str(string) or "_____" in str(string):
             raise ValueError("+++++ and _____ are used as seperators for custom encoding and may not be used in any DLL function name or argument.")
-    
     data = f"{command}+++++{encode(args)}\n"
+        
     client.sendall(data.encode())
     
     received = client.recv(1024)

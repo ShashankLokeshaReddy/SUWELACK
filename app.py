@@ -17,7 +17,8 @@ from flask import json
 from werkzeug.exceptions import HTTPException
 
 from datetime import datetime, timedelta
-from dateutil import parser
+from dateutil import parser, relativedelta
+from urllib.parse import quote, unquote
 import time
 import shutil
 
@@ -43,7 +44,7 @@ DFORMAT = "%d.%m.%Y"
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__)) + "\\"  # directory which directly contains app.py
 # PYTHON_PATH = os.path.abspath(os.path.dirname(sys.executable) + "\\python")
 PYTHON_PATH = "C:/Users/MSSQL/PycharmProjects/DLLTest/venv/Scripts/python"
-# PYTHON_PATH = "C:\\Python\\Python310\\python"
+BERICHTE_BASE_PATH = "C:\\temp\\"
 APPMSCREEN2 = True  # bool(int(root.findall('X998_StartScreen2')[0].text)) # X998_STARTSCREEN2
 SHOWMSGGEHT = {} # X998_ShowMsgGeht
 GKENDCHECK = {} # X998_GKEndCheck
@@ -62,7 +63,7 @@ ROUTEDIALOG = True
 SHOW_BUTTON_IDS = False  # If true, show Arbeitsplatz and GK IDs after their name for debugging
 SOCKETHOST = "localhost"  # host for DLL communication sockets
 SOCKET_TIMEOUT = 5  # secs
-SOCKET_INTERVAL = 0.01  # secs, connect interval
+SOCKET_INTERVAL = 1  # secs, connect interval
 DB_TIMEOUT = 5  # secs
 DB_RETRIES = 3
 
@@ -667,6 +668,7 @@ def home(hostname=None):
             sidebarItems=get_list("sidebarItems")
         )
 
+
 @app.route("/arbeitsplatzwechsel/<userid>", methods=["POST", "GET"])
 @retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
@@ -945,14 +947,85 @@ def status(userid):
 @app.route("/berichtdrucken/<userid>", methods=["POST", "GET"])
 @retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
 @login_required
-def berichtdrucken(userid):
-    return render_template(
-        "berichtdrucken.html",
-        arbeitsplatzgruppe=get_list("arbeitsplatzgruppe"),
-        date=datetime.now(),
-        sidebarItems=get_list("sidebarItems")
-    )
+def bericht_drucken(userid):
+    
+    usernamepd = dbconnection.getPersonaldetails(userid)
+    username = usernamepd['formatted_name']
+    
+    if request.method == 'POST':
+        selected_report = request.form.getlist('reportstype')
+        selected_zeitraum = request.form.getlist('zeitraum')
+        selected_arbeitsplatz = request.form.get('arbeitsplatz')
+        
+        # misinput handling
+        if len(selected_report) == 0:
+            flash("Bitte wählen Sie einen Reporttyp aus!")
+            return redirect(url_for("bericht_drucken", userid=userid))
+        elif len(selected_zeitraum) == 0:
+            flash("Bitte wählen Sie einen Zeitraum aus!")
+            return redirect(url_for("bericht_drucken", userid=userid))
+        else:
+            selected_report = selected_report[0]
+            selected_zeitraum = selected_zeitraum[0]
+        
+        prt_tag = "0"
+        selected_date = datetime.now()
+        if selected_zeitraum == "vormonat":
+            selected_date -= relativedelta.relativedelta(months=1)
+        elif selected_zeitraum == "tag":
+           selected_date = datetime.strptime(request.form.get('datum'), "%Y-%m-%d")
+           prt_tag = "1"
+        short_year = str(selected_date.year)[-2:]
+        date_formatted = selected_date.strftime("%d.%m.%Y")
+        pdf_name = selected_date.strftime(f"Bericht_{current_user.username}")
+        berichte_path = f"{BERICHTE_BASE_PATH}\\{selected_date.month}{short_year}"
+        
+        # build encoded string
+        field_names = ":::::".join(["PRTTabKn", "PRTTExpPath", "PRTTExpFile", "PRTPlatz", "PRTDatum", "PRTTag"])
+        values = list(map(str, [selected_report, f"{berichte_path}\\", pdf_name, selected_arbeitsplatz, date_formatted, prt_tag]))
+        dtypes = ":::::".join([type(x).__name__ for x in values])
+        values = ":::::".join(values)
+        combined = "#####".join([field_names, values, dtypes])
+        communicate(dll_instances[current_user.username], "Print", combined)
 
+        # for testing purposes
+        # berichte_path = "C:\\temp\\0622"
+        # pdf_name = "Testdruck.pdf"
+        
+        return redirect(url_for("bericht_anzeigen", userid=userid,
+                                directory=berichte_path, filename=pdf_name))
+    
+    elif request.method == "GET":
+        return render_template(
+            "berichtdrucken.html",
+            arbeitsplatzgruppe=get_list("arbeitsplatzgruppe"),
+            date=datetime.now(),
+            username=username,
+            sidebarItems=get_list("sidebarItems")
+        )
+
+
+@app.route('/load_pdf/<directory>/<filename>')
+def load_pdf(directory, filename):
+    return send_from_directory(directory, filename)
+
+
+@app.route("/berichtanzeigen/<userid>/<directory>/<filename>", methods=["POST", "GET"])
+@retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
+@login_required
+def bericht_anzeigen(userid, directory, filename):
+    if request.method == "POST":
+        return redirect(url_for("home", username=""))
+    
+    elif request.method == "GET":
+        pdf_route = f"/load_pdf/{quote(directory)}/{quote(filename)}"
+        return render_template(
+            "berichtanzeigen.html",
+            pdf_route=pdf_route,
+            date=datetime.now(),
+            sidebarItems=get_list("sidebarItems")
+        )
+    
 
 @app.route("/gruppenbuchung/<userid>", methods=["POST", "GET"])
 @retry_db_calls(max_retries=DB_RETRIES, timeout=DB_TIMEOUT)
@@ -2098,8 +2171,10 @@ def get_list(listname, userid=None):
     """Getter function for various lists needed for display in the app."""
 
     if listname == "arbeitsplatzgruppe":
-        # Implement database calls here.
-        return ["Frontendlager", "Verschiedenes (Bünde)", "Lehrwerkstatt", "AV (Bünde)"]
+        arbeitsplatzgruppe = dbconnection.getArbeitsplatzgruppe(FirmaNr[current_user.username],
+                                                                X998_GrpPlatz[current_user.username])
+        # print([arbeitsplatzgruppe['T903_Bez'], arbeitsplatzgruppe['T903_Nr']])
+        return arbeitsplatzgruppe
 
     if listname == "arbeitsplatz":
         arbeitsplatz_info = dbconnection.getArbeitplazlist(FirmaNr[current_user.username], X998_GrpPlatz[current_user.username])
@@ -2133,9 +2208,11 @@ def get_list(listname, userid=None):
     if listname == "homeButtons":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
                  # "Arbeitsplatzbuchung", "Gruppenbuchung",
+                 "Bericht drucken",
                  "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
                  # "arbeitsplatzbuchung", "gruppenbuchung",
+                 "bericht_drucken",
                  "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 
     if listname == "gemeinkostenItems":
@@ -2148,9 +2225,11 @@ def get_list(listname, userid=None):
 
     if listname == "sidebarItems":
         return [["Wechselbuchung", "Gemeinkosten", "Status", "Gemeinkosten Beenden",
+                 "Bericht drucken",
                  # "Arbeitsplatzbuchung", "Gruppenbuchung",
                  "Gemeinkosten ändern", "FA erfassen", "Zählerstandsrückmeldung"],
                 ["arbeitsplatzwechsel", "gemeinkosten_buttons", "status", "gemeinkostenbeenden",
+                 "bericht_drucken",
                  # "arbeitsplatzbuchung", "gruppenbuchung",
                  "gemeinkostenandern", "fertigungsauftragerfassen", "zaehlerstand_buttons"]]
 

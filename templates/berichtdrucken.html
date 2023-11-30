@@ -1,77 +1,119 @@
 {% extends "base.html" %}
 {% block title %} {{ _('Bericht drucken') }} {% endblock %}
 {% block content%}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <!-- Flash messages -->
+            <div class="d-flex flex-row alert alert-warning fade show justify-content-between topNotification" role="alert">
+            <img src="../static/images/Icons_Info.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" aria-label="Warning:">
+            <p><strong>{{username}}</strong> - {{ date.strftime("%H:%M") }} Uhr - {{msg}}</p>
+            <img src="../static/images/Icons_SchließenBlue.svg" width="50" height="50"  viewBox="0 0 100 100" role="img" class="close" data-dismiss="alert" aria-label="Close">
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 <div class="statustableflex">
 
 <h3>{{ _('Bericht drucken') }}</h3>
 
-<div class="fluid-matrix">
-    <div class="fluid-cell">
-        <label for="reportstype">{{ _('Reports:') }}</label>
-        <div class="input-group">
-        <div class="toggle-group">
-            <label class="btn btn-secondary toggle-button">
-            <input type="radio" name="reportstype">
-            <span class="toggle-label">{{ _('Kennzahlen Gruppe') }}</span>
-            </label>
-            <label class="btn btn-secondary toggle-button">
-            <input type="radio" name="reportstype">
-            <span class="toggle-label">{{ _('Zeitnachweise') }}</span>
-            </label>
-        </div>
-        <div class="boxes" , id="r_n"></div>
-        </div>
-    </div>
-    <div class="fluid-cell">
-        <label for="arbeitsplatz">{{ _('Arbeitsplatzgruppe:') }}</label>
-        <div class="input-group">
-            <div class="dropdown inputbutton2">
-                <select name="arbeitsplatz" id="Arbeitsplatznummer" method="GET" action="/">
-                    {% for items in range(0,arbeitsplatzgruppe|length) %}
-                    <option value="{{arbeitsplatzgruppe[items]}}">{{arbeitsplatzgruppe[items]}}</option>
-                    <hr />
-                    {% endfor %}
-                </select>
+<form action='#' method="post">
+    <div class="fluid-matrix">
+        <div class="fluid-cell">
+            <label for="reportstype">{{ _('Reports:') }}</label>
+            <div class="input-group">
+            <div class="toggle-group">
+                <label class="btn btn-secondary toggle-button">
+                    <input type="radio" name="reportstype" value="T951_T903Trm">
+                    <span class="toggle-label">{{ _('Kennzahlen Gruppe') }}</span>
+                </label>
+                <label class="btn btn-secondary toggle-button">
+                    <input type="radio" name="reportstype" value="K001_TA61KnRep">
+                    <span class="toggle-label">{{ _('Zeitnachweise') }}</span>
+                </label>
             </div>
-            <!-- <div class="dropdown">
-                <button type="button"  data-toggle="dropdown" class="btn btn-secondary dropdown-toggle radiobuttonsself">Lehrwerksatatt   </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for items in range(0,arbeitsplatzgruppe|length) %}
-                    <a class="dropdown-item" href="#" >{{arbeitsplatzgruppe[items]}}</a>
-                    {% endfor %}
+            <div class="boxes" , id="r_n"></div>
+            </div>
+        </div>
+        <div class="fluid-cell">
+            <label for="arbeitsplatz">{{ _('Arbeitsplatzgruppe:') }}</label>
+            <div class="input-group">
+                <div class="dropdown inputbutton2">
+                    <select name="arbeitsplatz" id="Arbeitsplatznummer" method="GET" action="/">
+                        {% for index, row in arbeitsplatzgruppe.iterrows(): %}
+                            <option value="{{row['T903_Nr']}}">{{row['T903_Bez']}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-            </div> -->
-            <div class="boxes" , id="a_n"></div>
+                <!-- <div class="dropdown">
+                    <button type="button"  data-toggle="dropdown" class="btn btn-secondary dropdown-toggle radiobuttonsself">Lehrwerksatatt   </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for items in range(0,arbeitsplatzgruppe|length) %}
+                        <a class="dropdown-item" href="#" >{{arbeitsplatzgruppe[items]}}</a>
+                        {% endfor %}
+                    </div>
+                </div> -->
+                <div class="boxes" , id="a_n"></div>
+            </div>
         </div>
+        <div class="fluid-cell">
+            <label for="zeitraum">{{ _('Zeitraum:') }}</label>
+            <div class="input-group">
+                <div class="toggle-group">
+                    <label class="btn btn-secondary toggle-button">
+                        <input type="radio" name="zeitraum" value="aktueller_monat">
+                        <span class="toggle-label">{{ _('Aktueller Monat') }}</span>
+                    </label>
+                    <label class="btn btn-secondary toggle-button">
+                        <input type="radio" name="zeitraum" value="vormonat">
+                        <span class="toggle-label">{{ _('Vormonat') }}</span>
+                    </label>
+                    <label class="btn btn-secondary toggle-button">
+                        <input type="radio" name="zeitraum" value="tag" id="tagRadio">
+                        <span class="toggle-label">{{ _('Tag') }}</span>
+                    </label>
+                </div>
+                <div class="dropdown inputbutton2" id="dateSelectorContainer" style="display: none;">
+                    <input type="date" name="datum" id="datum" value="{{ date }}" class="form-control dropdown-toggle datetime">
+                </div>
+                <div class="boxes" , id="p_n"></div>
+            </div>
+        </div>  
     </div>
-    <div class="fluid-cell">
-        <label for="reportstype2">{{ _('Zeitraum:') }}</label>
-        <div class="input-group">
-        <div class="toggle-group">
-            <label class="btn btn-secondary toggle-button">
-                <input type="radio" name="reportstype2">
-                <span class="toggle-label">{{ _('Aktueller Monat') }}</span>
-            </label>
-            <label class="btn btn-secondary toggle-button">
-                <input type="radio" name="reportstype2">
-                <span class="toggle-label">{{ _('Vormonat') }}</span>
-            </label>
-            <label class="btn btn-secondary toggle-button">
-                <input type="radio" name="reportstype2">
-                <span class="toggle-label">{{ _('Tag') }}</span>
-            </label>
-        </div>
-        <div class="boxes" , id="r2_n"></div>
-        </div>
-    </div>  
-</div>
-      
-<div class="d-flex justify-content-between bestätigen2">
-        <!-- Bestatigen and Abbrechen Buttons -->
-    <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
-    <button type="submit" id="submit" value="submit" onclick="javascript:printDLL()" class="btn btn-primary btn-lg submit2">{{ _('Einreichen') }}</button>
-</div>
+
+    <div class="d-flex justify-content-between bestätigen2">
+            <!-- Bestatigen and Abbrechen Buttons -->
+        <button type="button" onclick="window.location.href='{{"/"}}'" class="btn btn-primary btn-lg abrechh">{{ _('Abbrechen') }}</button>
+        <button type="submit" id="submit" value="submit" class="btn btn-primary btn-lg submit2">{{ _('Anzeigen') }}</button>
+    </div>
+</form>
 <script>
+    /* Notifcation Script */
+    window.setTimeout(function() {
+        $(".alert").slideUp("normal", function() { $(this).remove(); });
+    }, 6000);
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var radioButtons = document.querySelectorAll('input[name="zeitraum"]');
+        var dateSelectorContainer = document.getElementById('dateSelectorContainer');
+
+        // Function to update the visibility of the date selector
+        function updateDateSelectorVisibility() {
+            var selectedRadioButton = document.querySelector('input[name="zeitraum"]:checked');
+            dateSelectorContainer.style.display = (selectedRadioButton && selectedRadioButton.value === 'tag') ? 'block' : 'none';
+        }
+
+        // Initial update
+        updateDateSelectorVisibility();
+
+        // Add event listener for changes in the radio button state
+        radioButtons.forEach(function (radioButton) {
+            radioButton.addEventListener('change', updateDateSelectorVisibility);
+        });
+    });
+
     function printDLL()
     {
         var generator=window.open("Druckvorschau");
@@ -82,7 +124,7 @@
         </head>
         
             <center>
-                <object data="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20210101201653/PDF.pdf" 
+                <object data="{{pdf_path}}" 
                         width="100%" height="85%"> 
                 </object>
             </center>

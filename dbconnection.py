@@ -36,6 +36,17 @@ def getArbeitplazlist(FirmaNr, X998_GrpPlatz):
         connection)
     return arbeitplatzlist
 
+def getArbeitsplatzgruppe(FirmaNr, X998_GrpPlatz):
+    arbeitsplatzgruppenliste = pd.read_sql_query(text(
+        f"""select T903_Nr, T903_Bez from T905_ArbMasch
+        inner join T904_Kostenstellen on T904_FirmaNr = T905_FirmaNr and T904_Nr = T905_KstNr and T905_Inaktiv = 0
+        inner join T903_Gruppen on T903_FirmaNr = T904_FirmaNr and T903_Nr = T904_GruppeNr
+        inner join G905_TermPlatz on G905_Firmanr = T905_Firmanr and G905_Nr = '{X998_GrpPlatz}' and G905_Platz = T905_Nr
+        where T905_FirmaNr = '{FirmaNr}' and T903_GruPrae > 0
+        group by T903_Nr, T903_Bez"""),
+        connection)                                         
+    return arbeitsplatzgruppenliste
+
 def getPlazlistGKA(userid, date, FirmaNr):
     persnr = getPersonaldetails(userid)['T910_Nr']
     Platzlist = pd.read_sql_query(text(
